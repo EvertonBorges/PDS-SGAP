@@ -6,7 +6,6 @@
 package tela.meusProdutos;
 
 import java.util.List;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import modelo.Produto;
 import util.JPAUtil;
@@ -123,8 +122,18 @@ public class PesquisarProduto extends javax.swing.JFrame {
         );
 
         bCadastrar.setText("Cadastrar");
+        bCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCadastrarActionPerformed(evt);
+            }
+        });
 
         bCancelar.setText("Cancelar");
+        bCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -173,8 +182,18 @@ public class PesquisarProduto extends javax.swing.JFrame {
         carregarTabela();
     }//GEN-LAST:event_formWindowGainedFocus
 
+    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_bCancelarActionPerformed
+
+    private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
+        CadastrarProduto cadastrarProduto = new CadastrarProduto();
+        cadastrarProduto.setVisible(true);
+    }//GEN-LAST:event_bCadastrarActionPerformed
+
     private void carregarProdutos(){
-        Query query = JPAUtil.getManager().createNamedQuery("SELECT p FROM Produto p");
+        JPAUtil.getManager().getTransaction().begin();
+        Query query = JPAUtil.getManager().createQuery("SELECT p FROM Produto p");
         produtos = query.getResultList();
     }
     
