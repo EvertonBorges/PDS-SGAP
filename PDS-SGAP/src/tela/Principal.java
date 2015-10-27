@@ -5,31 +5,20 @@
  */
 package tela;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import modelo.Administrador;
-import modelo.Condomino;
-import tela.Aluguel.PesquisarAluguel;
-import tela.DevPag.PesquisarDevPag;
-import tela.meusProdutos.PesquisarProdutos;
+import tela.meusProdutos.CadastrarProduto;
+import tela.meusProdutos.PesquisarProduto;
 
 /**
  *
  * @author Borges
  */
 public class Principal extends javax.swing.JFrame {
-    private JMenu menuProduto;
-    private Condomino condomino = null;
-    private Administrador administrador = null;
     
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
-        carregarMenuProdutos();
     }
 
     /**
@@ -43,10 +32,10 @@ public class Principal extends javax.swing.JFrame {
 
         mbMenu = new javax.swing.JMenuBar();
         menuAcesso = new javax.swing.JMenu();
-        miLogin = new javax.swing.JMenuItem();
-        miLogoff = new javax.swing.JMenuItem();
-        jSeparator1 = new javax.swing.JPopupMenu.Separator();
         miSair = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        miCadastrarProduto = new javax.swing.JMenuItem();
+        miPesquisarProduto = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGAP - Sistema de Gerenciamento de Aluguel de Produtos");
@@ -60,19 +49,6 @@ public class Principal extends javax.swing.JFrame {
 
         menuAcesso.setText("Acesso");
 
-        miLogin.setText("Login");
-        miLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miLoginActionPerformed(evt);
-            }
-        });
-        menuAcesso.add(miLogin);
-
-        miLogoff.setText("Logoff");
-        miLogoff.setEnabled(false);
-        menuAcesso.add(miLogoff);
-        menuAcesso.add(jSeparator1);
-
         miSair.setText("Sair");
         miSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -82,6 +58,26 @@ public class Principal extends javax.swing.JFrame {
         menuAcesso.add(miSair);
 
         mbMenu.add(menuAcesso);
+
+        jMenu1.setText("Meus Produtos");
+
+        miCadastrarProduto.setText("Cadastrar");
+        miCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCadastrarProdutoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miCadastrarProduto);
+
+        miPesquisarProduto.setText("Pesquisar");
+        miPesquisarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miPesquisarProdutoActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miPesquisarProduto);
+
+        mbMenu.add(jMenu1);
 
         setJMenuBar(mbMenu);
 
@@ -100,62 +96,25 @@ public class Principal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void miLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miLoginActionPerformed
-        condomino = new Condomino();
-        Login login = new Login(condomino);
-        login.setVisible(true);
-    }//GEN-LAST:event_miLoginActionPerformed
-
     private void miSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSairActionPerformed
         System.exit(0);
     }//GEN-LAST:event_miSairActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        if(condomino == null && administrador == null) {
-            miLogin.setEnabled(true);
-            miLogoff.setEnabled(false);
-        } else {
-            miLogin.setEnabled(false);
-            miLogoff.setEnabled(true);
-        }
         
-        if(miLogin.isEnabled()){
-            mbMenu.remove(menuProduto);
-        } else {
-            mbMenu.add(menuProduto);
-        }
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void carregarMenuProdutos(){
-        menuProduto = new JMenu("Produtos");
-        
-        JMenuItem[] miProdutos = {new JMenuItem("Meus Produtos"), new JMenuItem("Aluguel"), new JMenuItem("Devoluções e Pagamentos")};
-        for(int i=0; i<miProdutos.length; i++){
-            menuProduto.add(miProdutos[i]);
-        }
-        
-        miProdutos[0].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PesquisarAluguel tela = new PesquisarAluguel();
-                tela.setVisible(true);
-            }
-        });
-        miProdutos[1].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PesquisarProdutos tela = new PesquisarProdutos();
-                tela.setVisible(true);
-            }
-        });
-        miProdutos[2].addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                PesquisarDevPag tela = new PesquisarDevPag();
-                tela.setVisible(true);
-            }
-        });
-    }
+    private void miCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarProdutoActionPerformed
+        CadastrarProduto cadastrarProduto = new CadastrarProduto();
+        cadastrarProduto.setVisible(true);
+    }//GEN-LAST:event_miCadastrarProdutoActionPerformed
+
+    private void miPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPesquisarProdutoActionPerformed
+        PesquisarProduto pesquisarProduto = new PesquisarProduto();
+        pesquisarProduto.setVisible(true);
+    }//GEN-LAST:event_miPesquisarProdutoActionPerformed
+
+    
     /**
      * @param args the command line arguments
      */
@@ -192,11 +151,11 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar mbMenu;
     private javax.swing.JMenu menuAcesso;
-    private javax.swing.JMenuItem miLogin;
-    private javax.swing.JMenuItem miLogoff;
+    private javax.swing.JMenuItem miCadastrarProduto;
+    private javax.swing.JMenuItem miPesquisarProduto;
     private javax.swing.JMenuItem miSair;
     // End of variables declaration//GEN-END:variables
 }
