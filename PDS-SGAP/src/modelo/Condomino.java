@@ -1,16 +1,19 @@
 package modelo;
 
 import java.util.Calendar;
-import java.util.List;
+import java.util.Collection;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
 public class Condomino {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long codigo;
     private String nome;
     private String cpf;
@@ -19,27 +22,29 @@ public class Condomino {
     
     @Temporal(TemporalType.DATE)
     private Calendar dataNascimento;
-    private Apartamento apartamentos;
     
+    @ManyToOne
+    private Apartamento apartamento;
+    @ManyToOne
     private EstadoCivil estadoCivil;
-    private List<String> telefones;
+    
+    @ElementCollection
+    private Collection<String> telefones;
     
 
     public Condomino() {
     }
 
-    public Condomino(String nome, String cpf, String login, String senha, Calendar dataNascimento, Apartamento apartamentos, EstadoCivil estadoCivil, List<String> telefones) {
+    public Condomino(String nome, String cpf, String login, String senha, Calendar dataNascimento, Apartamento apartamento, EstadoCivil estadoCivil, Collection<String> telefones) {
         this.nome = nome;
         this.cpf = cpf;
         this.login = login;
         this.senha = senha;
         this.dataNascimento = dataNascimento;
-        this.apartamentos = apartamentos;
+        this.apartamento = apartamento;
         this.estadoCivil = estadoCivil;
         this.telefones = telefones;
     }
-
-    
 
     public Long getCodigo() {
         return codigo;
@@ -93,19 +98,19 @@ public class Condomino {
         this.estadoCivil = estadoCivil;
     }
 
-    public List<String> getTelefones() {
+    public Collection<String> getTelefones() {
         return telefones;
     }
 
-    public void setTelefones(List<String> telefones) {
+    public void setTelefones(Collection<String> telefones) {
         this.telefones = telefones;
     }
 
-    public Apartamento getApartamentos() {
-        return apartamentos;
+    public Apartamento getApartamento() {
+        return apartamento;
     }
 
-    public void setApartamentos(Apartamento apartamentos) {
-        this.apartamentos = apartamentos;
+    public void setApartamento(Apartamento apartamento) {
+        this.apartamento = apartamento;
     }
 }

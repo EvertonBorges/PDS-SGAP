@@ -6,7 +6,8 @@ import javax.persistence.Id;
 
 @Entity
 public class Apartamento {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long codigo;
     private char bloco;
     private int andar;

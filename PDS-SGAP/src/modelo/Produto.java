@@ -1,7 +1,7 @@
 package modelo;
 
-import java.awt.Image;
-import java.util.List;
+import java.util.Collection;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,12 +15,14 @@ public class Produto {
     private String descricao;
     private int quantidade;
     
-    private List<Image> imagens;
+    @ElementCollection
+    private Collection<String> imagens;
 
     public Produto() {
+        
     }
 
-    public Produto(String nome, String descricao, int quantidade, List<Image> imagens) {
+    public Produto(String nome, String descricao, int quantidade, Collection<String> imagens) {
         this.nome = nome;
         this.descricao = descricao;
         this.quantidade = quantidade;
@@ -47,11 +49,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public List<Image> getImagens() {
+    public Collection<String> getImagens() {
         return imagens;
     }
 
-    public void setImagens(List<Image> imagens) {
+    public void setImagens(Collection<String> imagens) {
         this.imagens = imagens;
     }
 

@@ -6,6 +6,7 @@
 package tela.meusProdutos;
 
 import java.util.List;
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import modelo.Produto;
 import util.JPAUtil;
@@ -192,14 +193,15 @@ public class PesquisarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_bCadastrarActionPerformed
 
     private void carregarProdutos(){
-        JPAUtil.getManager().getTransaction().begin();
-        Query query = JPAUtil.getManager().createQuery("SELECT p FROM Produto p");
-        produtos = query.getResultList();
+        EntityManager manager = JPAUtil.getEntityManager();//JPAUtil.getEntityManager().getTransaction().begin();
+        manager.getTransaction().begin();
+        //Query query = manager.createQuery("SELECT p FROM Produto p");
+        //produtos = query.getResultList();
     }
     
     private void carregarTabela(){
-        TabelaProduto tabelaProduto = new TabelaProduto(produtos);
-        tbResultados.setModel(tabelaProduto);
+        //TabelaProduto tabelaProduto = new TabelaProduto(produtos);
+        //tbResultados.setModel(tabelaProduto);
     }
     
     /**

@@ -6,7 +6,8 @@ import javax.persistence.Id;
 
 @Entity
 public class Administrador {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long codigo;
     private String nome;
     private String login;

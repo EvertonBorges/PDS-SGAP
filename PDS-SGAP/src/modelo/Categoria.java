@@ -6,7 +6,8 @@ import javax.persistence.Id;
 
 @Entity
 public class Categoria {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long codigo;
     private String descricao;
 
