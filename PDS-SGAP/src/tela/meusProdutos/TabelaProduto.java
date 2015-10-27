@@ -15,7 +15,7 @@ import modelo.Produto;
  */
 public class TabelaProduto extends AbstractTableModel{
     private final List<Produto> produtos;
-    private String[] campos = {"Produto", "Quantidade"}; 
+    private final String[] campos = {"Produto", "Quantidade"}; 
 
     public TabelaProduto(List<Produto> produtos) {
         this.produtos = produtos;

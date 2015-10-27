@@ -19,24 +19,27 @@ public class Condomino {
     
     @Temporal(TemporalType.DATE)
     private Calendar dataNascimento;
+    private Apartamento apartamentos;
     
     private EstadoCivil estadoCivil;
     private List<String> telefones;
-    private List<Apartamento> apartamentos;
+    
 
     public Condomino() {
     }
 
-    public Condomino(String nome, Calendar dataNascimento, String cpf, String login, String senha, EstadoCivil estadoCivil, List<String> telefones, List<Apartamento> apartamentos) {
+    public Condomino(String nome, String cpf, String login, String senha, Calendar dataNascimento, Apartamento apartamentos, EstadoCivil estadoCivil, List<String> telefones) {
         this.nome = nome;
-        this.dataNascimento = dataNascimento;
         this.cpf = cpf;
         this.login = login;
         this.senha = senha;
+        this.dataNascimento = dataNascimento;
+        this.apartamentos = apartamentos;
         this.estadoCivil = estadoCivil;
         this.telefones = telefones;
-        this.apartamentos = apartamentos;
     }
+
+    
 
     public Long getCodigo() {
         return codigo;
@@ -98,11 +101,11 @@ public class Condomino {
         this.telefones = telefones;
     }
 
-    public List<Apartamento> getApartamentos() {
+    public Apartamento getApartamentos() {
         return apartamentos;
     }
 
-    public void setApartamentos(List<Apartamento> apartamentos) {
+    public void setApartamentos(Apartamento apartamentos) {
         this.apartamentos = apartamentos;
     }
 }
