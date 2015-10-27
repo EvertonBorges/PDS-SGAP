@@ -2,11 +2,13 @@ package modelo;
 
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -27,10 +29,11 @@ public class Condomino {
     private Apartamento apartamento;
     @ManyToOne
     private EstadoCivil estadoCivil;
+    @OneToMany (mappedBy = "condomino")
+    private List<Produto> produtos;
     
     @ElementCollection
     private Collection<String> telefones;
-    
 
     public Condomino() {
     }
@@ -112,5 +115,13 @@ public class Condomino {
 
     public void setApartamento(Apartamento apartamento) {
         this.apartamento = apartamento;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }

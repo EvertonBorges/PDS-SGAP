@@ -1,10 +1,13 @@
 package modelo;
 
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Produto {
@@ -17,7 +20,12 @@ public class Produto {
     
     @ElementCollection
     private Collection<String> imagens;
-
+    
+    @ManyToOne
+    private Condomino condomino;
+    @OneToMany (mappedBy = "categoria")
+    private List<Categoria> categorias;
+    
     public Produto() {
         
     }
@@ -63,5 +71,21 @@ public class Produto {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public Condomino getCondomino() {
+        return condomino;
+    }
+
+    public void setCondomino(Condomino condomino) {
+        this.condomino = condomino;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
     }
 }

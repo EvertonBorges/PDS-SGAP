@@ -8,6 +8,7 @@ package tela.meusProdutos;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import modelo.Condomino;
 import modelo.Produto;
 import util.JPAUtil;
 
@@ -17,9 +18,16 @@ import util.JPAUtil;
  */
 public class PesquisarProduto extends javax.swing.JFrame {
     private List<Produto> produtos;
+    private Condomino condomino;
     /**
      * Creates new form PesquisarProdutos
+     * @param condomino
      */
+    public PesquisarProduto(Condomino condomino) {
+        initComponents();
+        this.condomino = condomino;
+    }
+    
     public PesquisarProduto() {
         initComponents();
     }
@@ -155,7 +163,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(pnResultados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jSeparator1)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 10, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -193,15 +201,15 @@ public class PesquisarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_bCadastrarActionPerformed
 
     private void carregarProdutos(){
-        EntityManager manager = JPAUtil.getEntityManager();//JPAUtil.getEntityManager().getTransaction().begin();
-        manager.getTransaction().begin();
-        //Query query = manager.createQuery("SELECT p FROM Produto p");
-        //produtos = query.getResultList();
+        EntityManager manager = JPAUtil.getEntityManager();
+        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.condomino.codigo = :condominoCodigo");
+        query.setParameter("condominoCodigo", condomino.getCodigo());
+        produtos = query.getResultList();
     }
     
     private void carregarTabela(){
-        //TabelaProduto tabelaProduto = new TabelaProduto(produtos);
-        //tbResultados.setModel(tabelaProduto);
+        TabelaProduto tabelaProduto = new TabelaProduto(produtos);
+        tbResultados.setModel(tabelaProduto);
     }
     
     /**
