@@ -1,9 +1,10 @@
 package modelo;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Categoria {
@@ -12,8 +13,8 @@ public class Categoria {
     private Long codigo;
     private String descricao;
 
-    @ManyToOne
-    private Produto produto;
+    @ManyToMany
+    private List<Produto> produtos;
     
     public Categoria() {
     }
@@ -34,11 +35,11 @@ public class Categoria {
         this.descricao = descricao;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public List<Produto> getProdutos() {
+        return produtos;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 }

@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ public class Apartamento {
     private String numApartamento;
     
     @OneToMany (mappedBy = "apartamento")
-    private Condomino condomino;
+    private List<Condomino> condomino;
 
     public Apartamento() {
     }
@@ -54,11 +55,11 @@ public class Apartamento {
         this.numApartamento = numApartamento;
     }
 
-    public Condomino getCondomino() {
+    public List<Condomino> getCondomino() {
         return condomino;
     }
 
-    public void setCondomino(Condomino condomino) {
+    public void setCondomino(List<Condomino> condomino) {
         this.condomino = condomino;
     }
 }

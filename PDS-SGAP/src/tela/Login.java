@@ -5,19 +5,25 @@
  */
 package tela;
 
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.swing.JOptionPane;
+import modelo.Condomino;
+import util.JPAUtil;
+
 /**
  *
  * @author Everton Soares
  */
 public class Login extends javax.swing.JFrame {
-
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,22 +34,32 @@ public class Login extends javax.swing.JFrame {
     private void initComponents() {
 
         lLogin = new javax.swing.JLabel();
-        lSenha = new javax.swing.JLabel();
         tfLogin = new javax.swing.JTextField();
-        tfSenha = new javax.swing.JTextField();
+        lSenha = new javax.swing.JLabel();
+        tfSenha = new javax.swing.JPasswordField();
+        bSair = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("SGAP - Login");
 
         lLogin.setText("Login");
 
         lSenha.setText("Senha");
 
-        jButton1.setText("Logar");
+        bSair.setText("Sair");
+        bSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bSairActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Sair");
+        jButton1.setText("Logar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -52,54 +68,78 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lLogin)
+                        .addGap(0, 204, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lLogin)
+                            .addComponent(lSenha)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lSenha)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGap(10, 10, 10)
-                                                .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addGap(87, 87, 87))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)))
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(10, 10, 10)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                    .addComponent(tfSenha))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bSair, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(121, 121, 121))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lLogin)
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lSenha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lSenha)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void bSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSairActionPerformed
+        dispose();
+    }//GEN-LAST:event_bSairActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Condomino condomino = (Condomino) verificarLogin();
+        if(condomino != null){
+            Principal principal = new Principal(condomino);
+            principal.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Login ou senha incorreta", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private Condomino verificarLogin(){
+        Condomino condominoConsulta = null;
+        EntityManager manager = JPAUtil.getEntityManager();
+        manager.getTransaction().begin();
+        Query query = manager.createQuery("SELECT c FROM Condomino c");
+        List<Condomino> condominos = query.getResultList();
+        String senha = "";
+        for(char password: tfSenha.getPassword()){
+            senha = senha + "" + password;
+        }
+        for(Condomino condomino: condominos){
+            if (condomino.getLogin().equals(tfLogin.getText()) && condomino.getSenha().equals(senha)){
+                condominoConsulta = condomino;
+            }
+        }
+        return condominoConsulta;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -136,14 +176,11 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bLogar;
-    private javax.swing.JButton bLogar1;
+    private javax.swing.JButton bSair;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lLogin;
     private javax.swing.JLabel lSenha;
     private javax.swing.JTextField tfLogin;
-    private javax.swing.JTextField tfSenha;
+    private javax.swing.JPasswordField tfSenha;
     // End of variables declaration//GEN-END:variables
 }

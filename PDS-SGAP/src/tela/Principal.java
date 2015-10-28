@@ -5,6 +5,7 @@
  */
 package tela;
 
+import modelo.Condomino;
 import tela.meusProdutos.CadastrarProduto;
 import tela.meusProdutos.PesquisarProduto;
 
@@ -13,11 +14,13 @@ import tela.meusProdutos.PesquisarProduto;
  * @author Borges
  */
 public class Principal extends javax.swing.JFrame {
-    
+    private final Condomino condomino;
     /**
      * Creates new form Principal
+     * @param condomino
      */
-    public Principal() {
+    public Principal(Condomino condomino) {
+        this.condomino = condomino;
         initComponents();
     }
 
@@ -33,19 +36,14 @@ public class Principal extends javax.swing.JFrame {
         mbMenu = new javax.swing.JMenuBar();
         menuAcesso = new javax.swing.JMenu();
         miSair = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
+        menuProdutos = new javax.swing.JMenu();
         miCadastrarProduto = new javax.swing.JMenuItem();
         miPesquisarProduto = new javax.swing.JMenuItem();
+        menuAluguel = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("SGAP - Sistema de Gerenciamento de Aluguel de Produtos");
-        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
-            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
-                formWindowGainedFocus(evt);
-            }
-            public void windowLostFocus(java.awt.event.WindowEvent evt) {
-            }
-        });
 
         menuAcesso.setText("Acesso");
 
@@ -59,7 +57,7 @@ public class Principal extends javax.swing.JFrame {
 
         mbMenu.add(menuAcesso);
 
-        jMenu1.setText("Meus Produtos");
+        menuProdutos.setText("Meus Produtos");
 
         miCadastrarProduto.setText("Cadastrar");
         miCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -67,7 +65,7 @@ public class Principal extends javax.swing.JFrame {
                 miCadastrarProdutoActionPerformed(evt);
             }
         });
-        jMenu1.add(miCadastrarProduto);
+        menuProdutos.add(miCadastrarProduto);
 
         miPesquisarProduto.setText("Pesquisar");
         miPesquisarProduto.addActionListener(new java.awt.event.ActionListener() {
@@ -75,9 +73,16 @@ public class Principal extends javax.swing.JFrame {
                 miPesquisarProdutoActionPerformed(evt);
             }
         });
-        jMenu1.add(miPesquisarProduto);
+        menuProdutos.add(miPesquisarProduto);
 
-        mbMenu.add(jMenu1);
+        mbMenu.add(menuProdutos);
+
+        menuAluguel.setText("Aluguel");
+
+        jMenuItem1.setText("Pesquisar");
+        menuAluguel.add(jMenuItem1);
+
+        mbMenu.add(menuAluguel);
 
         setJMenuBar(mbMenu);
 
@@ -100,60 +105,22 @@ public class Principal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_miSairActionPerformed
 
-    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        
-    }//GEN-LAST:event_formWindowGainedFocus
-
     private void miCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarProdutoActionPerformed
-        CadastrarProduto cadastrarProduto = new CadastrarProduto();
+        CadastrarProduto cadastrarProduto = new CadastrarProduto(condomino);
         cadastrarProduto.setVisible(true);
     }//GEN-LAST:event_miCadastrarProdutoActionPerformed
 
     private void miPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPesquisarProdutoActionPerformed
-        PesquisarProduto pesquisarProduto = new PesquisarProduto();
+        PesquisarProduto pesquisarProduto = new PesquisarProduto(condomino);
         pesquisarProduto.setVisible(true);
     }//GEN-LAST:event_miPesquisarProdutoActionPerformed
 
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar mbMenu;
     private javax.swing.JMenu menuAcesso;
+    private javax.swing.JMenu menuAluguel;
+    private javax.swing.JMenu menuProdutos;
     private javax.swing.JMenuItem miCadastrarProduto;
     private javax.swing.JMenuItem miPesquisarProduto;
     private javax.swing.JMenuItem miSair;
