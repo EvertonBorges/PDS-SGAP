@@ -15,25 +15,30 @@ import javax.imageio.ImageIO;
  *
  * @author Everton Soares
  */
-public class painelIcons extends javax.swing.JPanel {
-    BufferedImage bfImage;
+public class PainelImagens extends javax.swing.JPanel {
+    private BufferedImage bfImage;
     /**
      * Creates new form painelIcons
-     */
-    public painelIcons() {
+     * @param path
+     */    
+    public PainelImagens(String path){
+        carregarImagemFundo(path);
         initComponents();
-        carregarImagemFundo();
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.getComponentGraphics(g);
-        g.drawImage(bfImage.getScaledInstance(60, 60, 0), 0, 0, null);
+        g.drawImage(bfImage.getScaledInstance(getWidth(), getHeight(), 0), 0, 0, null);
+    }
+
+    public BufferedImage getBfImage() {
+        return bfImage;
     }
     
-    private void carregarImagemFundo(){
+    private void carregarImagemFundo(String path){
         try {
-            bfImage = ImageIO.read(new File("C:\\Users\\Everton Soares\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\bicicleta.jpg"));
+            bfImage = ImageIO.read(new File(path));
         } catch (IOException ex) {
             System.out.println("Imagem inexistente");
         }
@@ -59,7 +64,6 @@ public class painelIcons extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

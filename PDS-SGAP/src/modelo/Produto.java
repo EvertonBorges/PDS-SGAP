@@ -6,9 +6,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Produto {
@@ -18,9 +18,12 @@ public class Produto {
     private String nome;
     private String descricao;
     private int quantidade;
+    private double diaria;
+    private int taxa;
     
+    @Lob
     @ElementCollection
-    private Collection<String> imagens;
+    private Collection<byte[]> imagens;
     
     @ManyToOne
     private Condomino condomino;
@@ -31,11 +34,15 @@ public class Produto {
         
     }
 
-    public Produto(String nome, String descricao, int quantidade, Collection<String> imagens) {
+    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa, Collection<byte[]> imagens, Condomino condomino, List<Categoria> categorias) {
         this.nome = nome;
         this.descricao = descricao;
         this.quantidade = quantidade;
+        this.diaria = diaria;
+        this.taxa = taxa;
         this.imagens = imagens;
+        this.condomino = condomino;
+        this.categorias = categorias;
     }
 
     public Long getCodigo() {
@@ -56,14 +63,6 @@ public class Produto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Collection<String> getImagens() {
-        return imagens;
-    }
-
-    public void setImagens(Collection<String> imagens) {
-        this.imagens = imagens;
     }
 
     public int getQuantidade() {
@@ -88,5 +87,29 @@ public class Produto {
 
     public void setCategorias(List<Categoria> categorias) {
         this.categorias = categorias;
+    }
+
+    public Collection<byte[]> getImagens() {
+        return imagens;
+    }
+
+    public void setImagens(Collection<byte[]> imagens) {
+        this.imagens = imagens;
+    }
+
+    public double getDiaria() {
+        return diaria;
+    }
+
+    public void setDiaria(double diaria) {
+        this.diaria = diaria;
+    }
+
+    public int getTaxa() {
+        return taxa;
+    }
+
+    public void setTaxa(int taxa) {
+        this.taxa = taxa;
     }
 }

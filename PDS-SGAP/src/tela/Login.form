@@ -44,7 +44,7 @@
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jButton1" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="bLogar" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="bSair" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -61,7 +61,7 @@
               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="tfLogin" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="bLogar" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lSenha" min="-2" max="-2" attributes="0"/>
@@ -82,6 +82,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="tfLogin">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfLoginKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lSenha">
       <Properties>
@@ -89,6 +92,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JPasswordField" name="tfSenha">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tfSenhaKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bSair">
       <Properties>
@@ -98,12 +104,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSairActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="bLogar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Logar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bLogarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

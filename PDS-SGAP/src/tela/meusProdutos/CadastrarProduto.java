@@ -5,15 +5,21 @@
  */
 package tela.meusProdutos;
 
-import java.awt.Image;
+import dao.ProdutoDAO;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.Condomino;
+import modelo.Produto;
 
 /**
  *
@@ -21,6 +27,7 @@ import modelo.Condomino;
  */
 public class CadastrarProduto extends javax.swing.JFrame {
     private final Condomino condomino;
+    private JPanel img;
     
     /**
      * Creates new form CadastrarProduto
@@ -29,7 +36,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
     public CadastrarProduto(Condomino condomino) {
         this.condomino = condomino;
         initComponents();
-        imagens();
     }
 
     /**
@@ -41,6 +47,9 @@ public class CadastrarProduto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuFlutuante = new javax.swing.JPopupMenu();
+        miAddImagem = new javax.swing.JMenuItem();
+        miRemoverImagem = new javax.swing.JMenuItem();
         lNome = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
         lQtde = new javax.swing.JLabel();
@@ -66,6 +75,22 @@ public class CadastrarProduto extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         taDescricao = new javax.swing.JTextArea();
 
+        miAddImagem.setText("Adicionar Imagem");
+        miAddImagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAddImagemActionPerformed(evt);
+            }
+        });
+        menuFlutuante.add(miAddImagem);
+
+        miRemoverImagem.setText("Remover Imagem");
+        miRemoverImagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miRemoverImagemActionPerformed(evt);
+            }
+        });
+        menuFlutuante.add(miRemoverImagem);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadatrar Produto");
         setResizable(false);
@@ -74,13 +99,23 @@ public class CadastrarProduto extends javax.swing.JFrame {
 
         lQtde.setText("Quantidade");
 
+        spQtde.setModel(new javax.swing.SpinnerNumberModel(1, 1, 30, 1));
+
         lDiaria.setText("Diária");
 
-        tfDiaria.setText("R$");
+        tfDiaria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfDiariaFocusLost(evt);
+            }
+        });
 
         lTaxa.setText("Taxa por atraso");
 
-        tfTaxa.setText("0%");
+        tfTaxa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfTaxaFocusLost(evt);
+            }
+        });
 
         painelCategorias.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Categorias", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -108,7 +143,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
             .addGroup(painelCategoriasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(bAddCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
                 .addComponent(bRemoveCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -120,13 +155,27 @@ public class CadastrarProduto extends javax.swing.JFrame {
         imgPrincipal.setLayout(new java.awt.BorderLayout());
 
         img1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        img1.setToolTipText("");
+        img1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                img1MouseReleased(evt);
+            }
+        });
         img1.setLayout(new java.awt.BorderLayout());
 
         img2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        img2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                img2MouseReleased(evt);
+            }
+        });
         img2.setLayout(new java.awt.BorderLayout());
 
         img3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        img3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                img3MouseReleased(evt);
+            }
+        });
         img3.setLayout(new java.awt.BorderLayout());
 
         javax.swing.GroupLayout painelImagensLayout = new javax.swing.GroupLayout(painelImagens);
@@ -138,19 +187,22 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelImagensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(img1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                    .addComponent(img2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(img3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(img2, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
+                    .addComponent(img3, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         painelImagensLayout.setVerticalGroup(
             painelImagensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(imgPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(painelImagensLayout.createSequentialGroup()
-                .addComponent(img1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(img2, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(img3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(painelImagensLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(imgPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(painelImagensLayout.createSequentialGroup()
+                        .addComponent(img1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(img2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(img3, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         bCadastrar.setText("Cadastrar");
@@ -230,9 +282,8 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lNome)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(painelImagens, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lQtde)
@@ -246,7 +297,8 @@ public class CadastrarProduto extends javax.swing.JFrame {
                             .addComponent(lTaxa)
                             .addComponent(tfTaxa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(painelCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -266,11 +318,124 @@ public class CadastrarProduto extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 
-    private void imagens(){
-        painelIcons icone = new painelIcons();
-        img1.add(icone);
+    private void img1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img1MouseReleased
+        img = img1;
+        realizarAcao(evt);
+    }//GEN-LAST:event_img1MouseReleased
+
+    private void img2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img2MouseReleased
+        img = img2;
+        realizarAcao(evt);
+    }//GEN-LAST:event_img2MouseReleased
+
+    private void img3MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img3MouseReleased
+        img = img3;
+        realizarAcao(evt);
+    }//GEN-LAST:event_img3MouseReleased
+
+    private void miAddImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAddImagemActionPerformed
+        addImagem();
+    }//GEN-LAST:event_miAddImagemActionPerformed
+
+    private void miRemoverImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRemoverImagemActionPerformed
+        removerImagem();
+    }//GEN-LAST:event_miRemoverImagemActionPerformed
+
+    private void tfDiariaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDiariaFocusLost
+        if (!tfDiaria.getText().startsWith("R$")) {
+            tfDiaria.setText("R$" + tfDiaria.getText());
+        }
+    }//GEN-LAST:event_tfDiariaFocusLost
+
+    private void tfTaxaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTaxaFocusLost
+        if (!tfTaxa.getText().endsWith("%")) {
+            tfTaxa.setText(tfTaxa.getText() + "%");
+        }
+    }//GEN-LAST:event_tfTaxaFocusLost
+
+    private void realizarAcao(MouseEvent evt) {
+        if (evt.getButton() == MouseEvent.BUTTON1) {
+            mudarCorPaineis();
+            if (evt.getClickCount() > 1){
+                addImagem();
+            }
+        } else if (evt.getButton() == MouseEvent.BUTTON3) {
+            mudarCorPaineis();
+            menuFlutuante.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
     }
     
+    private void mudarCorPaineis(){
+        imgPrincipal.removeAll();
+        imgPrincipal.repaint();
+        img1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        img3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        img2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        if (img.getComponents().length > 0) {
+            PainelImagens newImage = new PainelImagens(img.getName());
+            imgPrincipal.add(newImage);
+            imgPrincipal.revalidate();
+            img.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
+        }
+    }
+    
+    private void addImagem(){
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG, JPEG, GIF & PNG", "jpg", "gif", "jpeg", "png");
+        chooser.setFileFilter(filter);
+        int returnVal = chooser.showOpenDialog(this);
+        if(returnVal == JFileChooser.APPROVE_OPTION) {
+            PainelImagens newImagem = new PainelImagens(chooser.getSelectedFile().getPath());
+            img.setName(chooser.getSelectedFile().getPath());
+            if ( (newImagem.getBfImage().getWidth() + newImagem.getBfImage().getHeight()) > 1000) {
+                JOptionPane.showMessageDialog(null, "Imagem deve possuir resolução igual ou inferior a 500x500 pixels", "Imagem Grande", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                carregarImagem(newImagem);
+            }
+        }
+    }
+    
+    private void removerImagem(){
+        img.removeAll();
+        img.setName("");
+        mudarCorPaineis();
+        img.repaint();
+    }
+    
+    private void carregarImagem(PainelImagens newPainel){
+        removerImagem();
+        img.add(newPainel);
+        img.revalidate();
+    }
+    /*
+    private void cadastrarProduto(){
+        BufferedImage imagem = ((PainelImagens)img1.getComponent(0)).getBfImage();
+        ByteArrayOutputStream bytesImg = new ByteArrayOutputStream();
+        byte[] byteArray = null;
+        try {
+            ImageIO.write(imagem, "jpg", bytesImg);
+            bytesImg.flush();
+            byteArray = bytesImg.toByteArray();
+            bytesImg.close();
+        } catch (IOException ex) {
+            Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Produto produto = new Produto();
+        produto.setNome(tfNome.getText());
+        produto.setQuantidade(Integer.parseInt(spQtde.getValue().toString()));
+        produto.setDescricao(taDescricao.getText());
+        produto.setCondomino(condomino);
+        produto.setImagens(new ArrayList<>());
+        produto.getImagens().add(byteArray);
+        produto.setCategorias(new ArrayList<>());
+        produto.setDiaria(Double.parseDouble(tfDiaria.getText().substring(3)));
+        produto.setTaxa(Integer.parseInt(tfTaxa.getText().substring(0, tfTaxa.getText().length() - 1)));
+        
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtoDAO.addProduto(produto);
+    }
+    */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAddCategoria;
     private javax.swing.JButton bCadastrar;
@@ -288,6 +453,9 @@ public class CadastrarProduto extends javax.swing.JFrame {
     private javax.swing.JLabel lQtde;
     private javax.swing.JLabel lTaxa;
     private javax.swing.JList listCategorias;
+    private javax.swing.JPopupMenu menuFlutuante;
+    private javax.swing.JMenuItem miAddImagem;
+    private javax.swing.JMenuItem miRemoverImagem;
     private javax.swing.JPanel painelCategorias;
     private javax.swing.JPanel painelDescricao;
     private javax.swing.JPanel painelImagens;

@@ -7,6 +7,7 @@ package tela;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
 import modelo.Condomino;
@@ -38,14 +39,26 @@ public class Login extends javax.swing.JFrame {
         lSenha = new javax.swing.JLabel();
         tfSenha = new javax.swing.JPasswordField();
         bSair = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        bLogar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGAP - Login");
 
         lLogin.setText("Login");
 
+        tfLogin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfLoginKeyPressed(evt);
+            }
+        });
+
         lSenha.setText("Senha");
+
+        tfSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfSenhaKeyPressed(evt);
+            }
+        });
 
         bSair.setText("Sair");
         bSair.addActionListener(new java.awt.event.ActionListener() {
@@ -54,10 +67,10 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Logar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bLogar.setText("Logar");
+        bLogar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bLogarActionPerformed(evt);
             }
         });
 
@@ -81,7 +94,7 @@ public class Login extends javax.swing.JFrame {
                                     .addComponent(tfSenha))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bLogar, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(bSair, javax.swing.GroupLayout.Alignment.TRAILING))))
                 .addContainerGap())
         );
@@ -93,7 +106,7 @@ public class Login extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(bLogar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lSenha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -111,8 +124,24 @@ public class Login extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_bSairActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Condomino condomino = (Condomino) verificarLogin();
+    private void bLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLogarActionPerformed
+        botaoLogar();
+    }//GEN-LAST:event_bLogarActionPerformed
+
+    private void tfSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfSenhaKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            botaoLogar();
+        }
+    }//GEN-LAST:event_tfSenhaKeyPressed
+
+    private void tfLoginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfLoginKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            botaoLogar();
+        }
+    }//GEN-LAST:event_tfLoginKeyPressed
+
+    private void botaoLogar(){
+        Condomino condomino = verificarLogin();
         if(condomino != null){
             Principal principal = new Principal(condomino);
             principal.setVisible(true);
@@ -120,22 +149,23 @@ public class Login extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Login ou senha incorreta", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    }
+    
     private Condomino verificarLogin(){
-        Condomino condominoConsulta = null;
-        EntityManager manager = JPAUtil.getEntityManager();
-        manager.getTransaction().begin();
-        Query query = manager.createQuery("SELECT c FROM Condomino c");
-        List<Condomino> condominos = query.getResultList();
         String senha = "";
         for(char password: tfSenha.getPassword()){
             senha = senha + "" + password;
         }
-        for(Condomino condomino: condominos){
-            if (condomino.getLogin().equals(tfLogin.getText()) && condomino.getSenha().equals(senha)){
-                condominoConsulta = condomino;
-            }
+        EntityManager manager = JPAUtil.getEntityManager();
+        manager.getTransaction().begin();
+        Query query = manager.createQuery("SELECT c FROM Condomino c WHERE c.login = :login AND c.senha = :senha");
+        query.setParameter("login", tfLogin.getText());
+        query.setParameter("senha", senha);
+        Condomino condominoConsulta;
+        try{
+            condominoConsulta = (Condomino) query.getSingleResult();
+        } catch(NoResultException ex) {
+            condominoConsulta = null;
         }
         return condominoConsulta;
     }
@@ -176,8 +206,8 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bLogar;
     private javax.swing.JButton bSair;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lLogin;
     private javax.swing.JLabel lSenha;
     private javax.swing.JTextField tfLogin;

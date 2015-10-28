@@ -42,7 +42,7 @@ public class Principal extends javax.swing.JFrame {
         menuAluguel = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGAP - Sistema de Gerenciamento de Aluguel de Produtos");
 
         menuAcesso.setText("Acesso");
