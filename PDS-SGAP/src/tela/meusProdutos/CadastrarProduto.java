@@ -401,14 +401,13 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Imagem deve possuir resolução igual ou inferior a 500x500 pixels", "Imagem Grande", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 carregarImagem(newImagem);
-                img = null;
             }
         }
     }
     
     private void removerImagem(){
         img.removeAll();
-        img.setName("");
+        //img.setName("");
         mudarCorPaineis();
         img.repaint();
     }
