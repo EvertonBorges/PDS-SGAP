@@ -9,6 +9,7 @@ import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -121,10 +122,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(listCategorias);
 
-        bAddCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/add.png"))); // NOI18N
-
-        bRemoveCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/remove.png"))); // NOI18N
-
         javax.swing.GroupLayout painelCategoriasLayout = new javax.swing.GroupLayout(painelCategorias);
         painelCategorias.setLayout(painelCategoriasLayout);
         painelCategoriasLayout.setHorizontalGroup(
@@ -206,6 +203,11 @@ public class CadastrarProduto extends javax.swing.JFrame {
         );
 
         bCadastrar.setText("Cadastrar");
+        bCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bCadastrarActionPerformed(evt);
+            }
+        });
 
         bCancelar.setText("Cancelar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -353,6 +355,11 @@ public class CadastrarProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tfTaxaFocusLost
 
+    private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
+        cadastrarProduto();
+        dispose();
+    }//GEN-LAST:event_bCadastrarActionPerformed
+
     private void realizarAcao(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1) {
             mudarCorPaineis();
@@ -372,7 +379,8 @@ public class CadastrarProduto extends javax.swing.JFrame {
         img3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         img2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         if (img.getComponents().length > 0) {
-            PainelImagens newImage = new PainelImagens(img.getName());
+            PainelImagens newImage = new PainelImagens();
+            newImage.setBfImage(img.getName());
             imgPrincipal.add(newImage);
             imgPrincipal.revalidate();
             img.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
@@ -385,12 +393,15 @@ public class CadastrarProduto extends javax.swing.JFrame {
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-            PainelImagens newImagem = new PainelImagens(chooser.getSelectedFile().getPath());
+            PainelImagens newImagem = new PainelImagens();
             img.setName(chooser.getSelectedFile().getPath());
+            newImagem.setBfImage(img.getName());
             if ( (newImagem.getBfImage().getWidth() + newImagem.getBfImage().getHeight()) > 1000) {
+                img.setName("");
                 JOptionPane.showMessageDialog(null, "Imagem deve possuir resolução igual ou inferior a 500x500 pixels", "Imagem Grande", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 carregarImagem(newImagem);
+                img = null;
             }
         }
     }
@@ -407,12 +418,13 @@ public class CadastrarProduto extends javax.swing.JFrame {
         img.add(newPainel);
         img.revalidate();
     }
-    /*
+    
     private void cadastrarProduto(){
-        BufferedImage imagem = ((PainelImagens)img1.getComponent(0)).getBfImage();
+        BufferedImage imagem;
         ByteArrayOutputStream bytesImg = new ByteArrayOutputStream();
         byte[] byteArray = null;
         try {
+            imagem = ImageIO.read(new File(img1.getName()));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             byteArray = bytesImg.toByteArray();
@@ -426,16 +438,14 @@ public class CadastrarProduto extends javax.swing.JFrame {
         produto.setQuantidade(Integer.parseInt(spQtde.getValue().toString()));
         produto.setDescricao(taDescricao.getText());
         produto.setCondomino(condomino);
-        produto.setImagens(new ArrayList<>());
-        produto.getImagens().add(byteArray);
+        produto.setImagen(byteArray);
         produto.setCategorias(new ArrayList<>());
-        produto.setDiaria(Double.parseDouble(tfDiaria.getText().substring(3)));
+        produto.setDiaria(Double.parseDouble(tfDiaria.getText().substring(2)));
         produto.setTaxa(Integer.parseInt(tfTaxa.getText().substring(0, tfTaxa.getText().length() - 1)));
         
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produtoDAO.addProduto(produto);
     }
-    */
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAddCategoria;
     private javax.swing.JButton bCadastrar;

@@ -1,8 +1,6 @@
 package modelo;
 
-import java.util.Collection;
 import java.util.List;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -22,8 +20,7 @@ public class Produto {
     private int taxa;
     
     @Lob
-    @ElementCollection
-    private Collection<byte[]> imagens;
+    private byte[] imagen;
     
     @ManyToOne
     private Condomino condomino;
@@ -34,13 +31,13 @@ public class Produto {
         
     }
 
-    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa, Collection<byte[]> imagens, Condomino condomino, List<Categoria> categorias) {
+    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa, byte[] imagen, Condomino condomino, List<Categoria> categorias) {
         this.nome = nome;
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.diaria = diaria;
         this.taxa = taxa;
-        this.imagens = imagens;
+        this.imagen = imagen;
         this.condomino = condomino;
         this.categorias = categorias;
     }
@@ -89,14 +86,6 @@ public class Produto {
         this.categorias = categorias;
     }
 
-    public Collection<byte[]> getImagens() {
-        return imagens;
-    }
-
-    public void setImagens(Collection<byte[]> imagens) {
-        this.imagens = imagens;
-    }
-
     public double getDiaria() {
         return diaria;
     }
@@ -111,5 +100,13 @@ public class Produto {
 
     public void setTaxa(int taxa) {
         this.taxa = taxa;
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
 }

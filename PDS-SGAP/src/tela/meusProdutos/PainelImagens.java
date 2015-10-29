@@ -17,12 +17,8 @@ import javax.imageio.ImageIO;
  */
 public class PainelImagens extends javax.swing.JPanel {
     private BufferedImage bfImage;
-    /**
-     * Creates new form painelIcons
-     * @param path
-     */    
-    public PainelImagens(String path){
-        carregarImagemFundo(path);
+
+    public PainelImagens() {
         initComponents();
     }
 
@@ -36,7 +32,7 @@ public class PainelImagens extends javax.swing.JPanel {
         return bfImage;
     }
     
-    private void carregarImagemFundo(String path){
+    public void setBfImage(String path){
         try {
             bfImage = ImageIO.read(new File(path));
         } catch (IOException ex) {
