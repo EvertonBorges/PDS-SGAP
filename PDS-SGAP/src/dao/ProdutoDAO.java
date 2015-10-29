@@ -5,8 +5,12 @@
  */
 package dao;
 
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.swing.JOptionPane;
+import modelo.Condomino;
 import modelo.Produto;
 import util.JPAUtil;
 
@@ -26,5 +30,47 @@ public class ProdutoDAO {
         manager.getTransaction().commit();
         manager.close();
         JOptionPane.showMessageDialog(null, "Produto inserido com sucesso", "Produto Inserido", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public void alterProduto(Produto produto){
+        EntityManager manager = JPAUtil.getEntityManager();
+        manager.getTransaction().begin();
+        Produto produtoAlteracao = findProdutoById(produto, manager);
+        if (produtoAlteracao != null) {
+            
+        }
+    }
+    
+    public void removeProduto(Produto produto){
+        EntityManager manager = JPAUtil.getEntityManager();
+        manager.getTransaction().begin();
+        manager.remove(produto);
+        manager.getTransaction().commit();
+        manager.close();
+        JOptionPane.showMessageDialog(null, "Produto excluido com sucesso", "Produto Excluido", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public List<Produto> findProdutoByCondomino(Condomino condomino, EntityManager manager){
+        List<Produto> produtosRetorno;
+        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.condomino.codigo = :condominoCodigo");
+        query.setParameter("condominoCodigo", condomino.getCodigo());
+        try{
+            produtosRetorno = query.getResultList();
+        } catch (NoResultException ex) {
+            produtosRetorno = null;
+        }
+        return produtosRetorno;
+    }
+    
+    public Produto findProdutoById(Produto produto, EntityManager manager){
+        Produto produtoRetorno;
+        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.codigo = :codigo");
+        query.setParameter("codigo", produto.getCodigo());
+        try{
+            produtoRetorno = (Produto) query.getSingleResult();
+        } catch (NoResultException ex) {
+            produtoRetorno = null;
+        }
+        return produtoRetorno;
     }
 }
