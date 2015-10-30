@@ -5,6 +5,7 @@
  */
 package tela.meusProdutos;
 
+import dao.ImagemProdutoDAO;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.Condomino;
+import modelo.ImagemProduto;
 import modelo.Produto;
 
 /**
@@ -396,9 +398,9 @@ public class CadastrarProduto extends javax.swing.JFrame {
             PainelImagens newImagem = new PainelImagens();
             img.setName(chooser.getSelectedFile().getPath());
             newImagem.setBfImage(img.getName());
-            if ( (newImagem.getBfImage().getWidth() + newImagem.getBfImage().getHeight()) > 1000) {
+            if ( (newImagem.getBfImage().getWidth() + newImagem.getBfImage().getHeight()) > 2000) {
                 img.setName("");
-                JOptionPane.showMessageDialog(null, "Imagem deve possuir resolução igual ou inferior a 500x500 pixels", "Imagem Grande", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Imagem deve possuir resolução igual ou inferior a 1000x1000 pixels", "Imagem Grande", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 carregarImagem(newImagem);
             }
@@ -407,44 +409,72 @@ public class CadastrarProduto extends javax.swing.JFrame {
     
     private void removerImagem(){
         img.removeAll();
-        //img.setName("");
+        img.setName("");
         mudarCorPaineis();
         img.repaint();
     }
     
     private void carregarImagem(PainelImagens newPainel){
-        removerImagem();
+        img.removeAll();
+        img.repaint();
+        mudarCorPaineis();
         img.add(newPainel);
         img.revalidate();
     }
     
-    private void cadastrarProduto(){
+    private byte[] arrayImage(JPanel img){
         BufferedImage imagem;
         ByteArrayOutputStream bytesImg = new ByteArrayOutputStream();
         byte[] byteArray = null;
         try {
-            imagem = ImageIO.read(new File(img1.getName()));
-            ImageIO.write(imagem, "jpg", bytesImg);
-            bytesImg.flush();
-            byteArray = bytesImg.toByteArray();
-            bytesImg.close();
+            if (img.getName() != null){
+                if (!img.getName().equals("")) {
+                    System.out.println("Teste 1");
+                    imagem = ImageIO.read(new File(img.getName()));
+                    ImageIO.write(imagem, "jpg", bytesImg);
+                    bytesImg.flush();
+                    byteArray = bytesImg.toByteArray();
+                    bytesImg.close();
+                }
+            }
         } catch (IOException ex) {
-            Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro: " + ex.getMessage());
         }
+        return byteArray;
+    } 
+    
+    private void cadastrarProduto(){
+        byte[] byteArray1 = arrayImage(img1);
+        byte[] byteArray2 = arrayImage(img2);
+        byte[] byteArray3 = arrayImage(img3);
         
         Produto produto = new Produto();
         produto.setNome(tfNome.getText());
         produto.setQuantidade(Integer.parseInt(spQtde.getValue().toString()));
         produto.setDescricao(taDescricao.getText());
         produto.setCondomino(condomino);
-        produto.setImagen(byteArray);
+        produto.setImagens(new ArrayList<>());
         produto.setCategorias(new ArrayList<>());
         produto.setDiaria(Double.parseDouble(tfDiaria.getText().substring(2)));
         produto.setTaxa(Integer.parseInt(tfTaxa.getText().substring(0, tfTaxa.getText().length() - 1)));
         
+        persistindoImagens(byteArray1, produto);
+        persistindoImagens(byteArray2, produto);
+        persistindoImagens(byteArray3, produto);
+        
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produtoDAO.addProduto(produto);
     }
+    
+    private void persistindoImagens(byte[] byteArray,Produto produto){
+        if (byteArray != null){
+            ImagemProduto imagem = new ImagemProduto(byteArray, produto);
+            ImagemProdutoDAO imagemProdutoDAO = new ImagemProdutoDAO();
+            
+            imagemProdutoDAO.addImagemProduto(imagem);
+        }
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAddCategoria;
     private javax.swing.JButton bCadastrar;

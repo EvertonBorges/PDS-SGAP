@@ -4,9 +4,9 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Produto {
@@ -19,9 +19,8 @@ public class Produto {
     private double diaria;
     private int taxa;
     
-    @Lob
-    private byte[] imagen;
-    
+    @OneToMany (mappedBy = "produto")
+    private List<ImagemProduto> imagens;
     @ManyToOne
     private Condomino condomino;
     @ManyToMany (mappedBy = "produtos")
@@ -31,13 +30,13 @@ public class Produto {
         
     }
 
-    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa, byte[] imagen, Condomino condomino, List<Categoria> categorias) {
+    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa, List<ImagemProduto> imagens, Condomino condomino, List<Categoria> categorias) {
         this.nome = nome;
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.diaria = diaria;
         this.taxa = taxa;
-        this.imagen = imagen;
+        this.imagens = imagens;
         this.condomino = condomino;
         this.categorias = categorias;
     }
@@ -102,11 +101,11 @@ public class Produto {
         this.taxa = taxa;
     }
 
-    public byte[] getImagen() {
-        return imagen;
+    public List<ImagemProduto> getImagens() {
+        return imagens;
     }
 
-    public void setImagen(byte[] imagen) {
-        this.imagen = imagen;
+    public void setImagens(List<ImagemProduto> imagens) {
+        this.imagens = imagens;
     }
 }
