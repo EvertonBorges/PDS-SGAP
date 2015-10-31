@@ -5,8 +5,12 @@
  */
 package dao;
 
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import modelo.ImagemProduto;
+import modelo.Produto;
 import util.JPAUtil;
 
 /**
@@ -15,11 +19,20 @@ import util.JPAUtil;
  */
 public class ImagemProdutoDAO {
     
-    public void addImagemProduto(ImagemProduto imagem){
-        EntityManager manager = JPAUtil.getEntityManager();
-        manager.getTransaction().begin();
+    public void addImagemProduto(ImagemProduto imagem, EntityManager manager){
         manager.persist(imagem);
-        manager.getTransaction().commit();
-        manager.close();
+    }
+    
+    public List<ImagemProduto> listByProduto(Produto produto, EntityManager manager){
+        List<ImagemProduto> imagensProduto;
+        Query query = manager.createQuery("SELECT i FROM ImagemProduto i WHERE i.produto = :codigo");
+        query.setParameter("codigo", produto.getCodigo());
+        
+        try{
+            imagensProduto = query.getResultList();
+        } catch (NoResultException ex) {
+            imagensProduto = null;
+        }
+        return imagensProduto;
     }
 }

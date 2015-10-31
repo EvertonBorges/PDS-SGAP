@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -13,14 +14,16 @@ public class Categoria {
     private Long codigo;
     private String descricao;
 
-    @ManyToMany
+    @ManyToMany (mappedBy = "categorias")
     private List<Produto> produtos;
     
     public Categoria() {
+        produtos = new ArrayList<>();
     }
 
     public Categoria(String descricao) {
         this.descricao = descricao;
+        produtos = new ArrayList<>();
     }
 
     public Long getCodigo() {

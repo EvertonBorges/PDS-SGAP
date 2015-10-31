@@ -20,23 +20,23 @@ public class Produto {
     private int taxa;
     
     @OneToMany (mappedBy = "produto")
-    private List<ImagemProduto> imagens;
+    private List<ImagemProduto> imagensProduto;
     @ManyToOne
     private Condomino condomino;
-    @ManyToMany (mappedBy = "produtos")
+    @ManyToMany
     private List<Categoria> categorias;
     
     public Produto() {
         
     }
 
-    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa, List<ImagemProduto> imagens, Condomino condomino, List<Categoria> categorias) {
+    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa, List<ImagemProduto> imagensProduto, Condomino condomino, List<Categoria> categorias) {
         this.nome = nome;
         this.descricao = descricao;
         this.quantidade = quantidade;
         this.diaria = diaria;
         this.taxa = taxa;
-        this.imagens = imagens;
+        this.imagensProduto = imagensProduto;
         this.condomino = condomino;
         this.categorias = categorias;
     }
@@ -101,11 +101,11 @@ public class Produto {
         this.taxa = taxa;
     }
 
-    public List<ImagemProduto> getImagens() {
-        return imagens;
+    public List<ImagemProduto> getImagensProduto() {
+        return imagensProduto;
     }
 
-    public void setImagens(List<ImagemProduto> imagens) {
-        this.imagens = imagens;
+    public void setImagensProduto(List<ImagemProduto> imagensProduto) {
+        this.imagensProduto = imagensProduto;
     }
 }

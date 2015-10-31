@@ -8,6 +8,7 @@
     <class>modelo.Condomino</class>
     <class>modelo.EstadoCivil</class>
     <class>modelo.Produto</class>
+    <class>modelo.ImagemProduto</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/BD_PDS_SGAP?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

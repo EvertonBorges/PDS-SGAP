@@ -10,7 +10,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
+import modelo.Categoria;
 import modelo.Condomino;
+import modelo.ImagemProduto;
 import modelo.Produto;
 import util.JPAUtil;
 
@@ -23,10 +25,18 @@ public class ProdutoDAO {
     public ProdutoDAO() {
     }
     
-    public void addProduto(Produto produto){
+    public void addProduto(Produto produto, List<ImagemProduto> imagens, List<Categoria> categorias){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         manager.persist(produto);
+        for (ImagemProduto imagem: imagens){
+            ImagemProdutoDAO imagemProdutoDAO = new ImagemProdutoDAO();
+            imagemProdutoDAO.addImagemProduto(imagem, manager);
+        }
+        for (Categoria categoria: categorias){
+            CategoriaDAO categoriaDAO = new CategoriaDAO();
+            categoriaDAO.persistByProduto(produto, manager);
+        }
         manager.getTransaction().commit();
         manager.close();
         JOptionPane.showMessageDialog(null, "Produto inserido com sucesso", "Produto Inserido", JOptionPane.INFORMATION_MESSAGE);

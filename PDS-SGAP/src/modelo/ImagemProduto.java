@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -22,8 +22,7 @@ public class ImagemProduto {
     private Long codigo;
     @Lob
     private byte[] imagem;
-    
-    @OneToOne (mappedBy = "imagens")
+    @ManyToOne
     private Produto produto;
     
     public ImagemProduto() {

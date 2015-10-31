@@ -5,6 +5,7 @@
  */
 package tela.meusProdutos;
 
+import dao.CategoriaDAO;
 import dao.ImagemProdutoDAO;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
@@ -13,13 +14,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import modelo.Categoria;
 import modelo.Condomino;
 import modelo.ImagemProduto;
 import modelo.Produto;
@@ -30,6 +31,8 @@ import modelo.Produto;
  */
 public class CadastrarProduto extends javax.swing.JFrame {
     private final Condomino condomino;
+    private List<Categoria> categoriasSelecionadas = new ArrayList<>();
+    private List<Categoria> categorias;
     private JPanel img;
     
     /**
@@ -39,6 +42,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
     public CadastrarProduto(Condomino condomino) {
         this.condomino = condomino;
         initComponents();
+        carregarCategorias();
     }
 
     /**
@@ -65,7 +69,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         listCategorias = new javax.swing.JList();
         bAddCategoria = new javax.swing.JButton();
-        bRemoveCategoria = new javax.swing.JButton();
         painelImagens = new javax.swing.JPanel();
         imgPrincipal = new javax.swing.JPanel();
         img1 = new javax.swing.JPanel();
@@ -97,6 +100,13 @@ public class CadastrarProduto extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadatrar Produto");
         setResizable(false);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         lNome.setText("Nome");
 
@@ -124,6 +134,13 @@ public class CadastrarProduto extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(listCategorias);
 
+        bAddCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/refresh-icon.png"))); // NOI18N
+        bAddCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAddCategoriaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout painelCategoriasLayout = new javax.swing.GroupLayout(painelCategorias);
         painelCategorias.setLayout(painelCategoriasLayout);
         painelCategoriasLayout.setHorizontalGroup(
@@ -132,20 +149,16 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bRemoveCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bAddCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(bAddCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         painelCategoriasLayout.setVerticalGroup(
             painelCategoriasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 99, Short.MAX_VALUE)
             .addGroup(painelCategoriasLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(35, 35, 35)
                 .addComponent(bAddCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                .addComponent(bRemoveCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         painelImagens.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Imagens", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
@@ -362,6 +375,21 @@ public class CadastrarProduto extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_bCadastrarActionPerformed
 
+    private void bAddCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddCategoriaActionPerformed
+        AdicionarCategorias adicionarCategorias = new AdicionarCategorias(categoriasSelecionadas, categorias);
+        adicionarCategorias.setVisible(true);
+    }//GEN-LAST:event_bAddCategoriaActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        ListaCategorias modelo = new ListaCategorias(categoriasSelecionadas);
+        listCategorias.setModel(modelo);
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void carregarCategorias(){
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        categorias = categoriaDAO.allCategorias();
+    }
+    
     private void realizarAcao(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1) {
             mudarCorPaineis();
@@ -429,7 +457,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
         try {
             if (img.getName() != null){
                 if (!img.getName().equals("")) {
-                    System.out.println("Teste 1");
                     imagem = ImageIO.read(new File(img.getName()));
                     ImageIO.write(imagem, "jpg", bytesImg);
                     bytesImg.flush();
@@ -453,25 +480,31 @@ public class CadastrarProduto extends javax.swing.JFrame {
         produto.setQuantidade(Integer.parseInt(spQtde.getValue().toString()));
         produto.setDescricao(taDescricao.getText());
         produto.setCondomino(condomino);
-        produto.setImagens(new ArrayList<>());
-        produto.setCategorias(new ArrayList<>());
+        produto.setCategorias(categoriasSelecionadas);
         produto.setDiaria(Double.parseDouble(tfDiaria.getText().substring(2)));
         produto.setTaxa(Integer.parseInt(tfTaxa.getText().substring(0, tfTaxa.getText().length() - 1)));
         
-        persistindoImagens(byteArray1, produto);
-        persistindoImagens(byteArray2, produto);
-        persistindoImagens(byteArray3, produto);
+        List<ImagemProduto> imagens = new ArrayList<>();
         
+        if (byteArray1 != null){
+            persistindoImagens(byteArray1, produto, imagens);
+        }
+        if (byteArray2 != null){
+            persistindoImagens(byteArray2, produto, imagens);
+        }
+        if (byteArray3 != null){
+            persistindoImagens(byteArray3, produto, imagens);
+        }
+        
+        produto.setImagensProduto(imagens);
         ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtoDAO.addProduto(produto);
+        produtoDAO.addProduto(produto, imagens, categorias);
     }
     
-    private void persistindoImagens(byte[] byteArray,Produto produto){
+    private void persistindoImagens(byte[] byteArray, Produto produto, List<ImagemProduto> imagens){
         if (byteArray != null){
             ImagemProduto imagem = new ImagemProduto(byteArray, produto);
-            ImagemProdutoDAO imagemProdutoDAO = new ImagemProdutoDAO();
-            
-            imagemProdutoDAO.addImagemProduto(imagem);
+            imagens.add(imagem);
         }
     }
 
@@ -479,7 +512,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
     private javax.swing.JButton bAddCategoria;
     private javax.swing.JButton bCadastrar;
     private javax.swing.JButton bCancelar;
-    private javax.swing.JButton bRemoveCategoria;
     private javax.swing.JPanel img1;
     private javax.swing.JPanel img2;
     private javax.swing.JPanel img3;
