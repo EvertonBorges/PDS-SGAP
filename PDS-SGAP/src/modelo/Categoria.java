@@ -17,6 +17,7 @@ public class Categoria {
     @ManyToMany (mappedBy = "categorias")
     private List<Produto> produtos;
     
+    
     public Categoria() {
         produtos = new ArrayList<>();
     }
@@ -26,6 +27,7 @@ public class Categoria {
         produtos = new ArrayList<>();
     }
 
+    
     public Long getCodigo() {
         return codigo;
     }

@@ -1,9 +1,12 @@
 package modelo;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -18,19 +21,28 @@ public class Produto {
     private int quantidade;
     private double diaria;
     private int taxa;
-    
+    private boolean status;
+
     @OneToMany (mappedBy = "produto")
     private List<ImagemProduto> imagensProduto;
+    
     @ManyToOne
+    @JoinColumn (name= "condomino_codigo")
     private Condomino condomino;
-    @ManyToMany
+    
+    @ManyToMany(mappedBy = "produtos")
     private List<Categoria> categorias;
+        
+    @OneToMany (mappedBy= "produto")
+    private List <Comentario> comentarios;
     
     public Produto() {
-        
+        comentarios= new ArrayList<>();
+        categorias= new ArrayList<>();
+        imagensProduto= new ArrayList<>();
     }
 
-    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa, List<ImagemProduto> imagensProduto, Condomino condomino, List<Categoria> categorias) {
+    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa ,List<ImagemProduto> imagensProduto, Condomino condomino, List<Categoria> categorias, List<Comentario> comentarios ) {
         this.nome = nome;
         this.descricao = descricao;
         this.quantidade = quantidade;
@@ -39,7 +51,17 @@ public class Produto {
         this.imagensProduto = imagensProduto;
         this.condomino = condomino;
         this.categorias = categorias;
+        this.comentarios=comentarios;
     }
+
+    public List<Comentario> getComentarios() {
+        return comentarios;
+    }
+
+    public void setComentarios(List<Comentario> comentarios) {
+        this.comentarios = comentarios;
+    }
+    
 
     public Long getCodigo() {
         return codigo;
@@ -108,4 +130,13 @@ public class Produto {
     public void setImagensProduto(List<ImagemProduto> imagensProduto) {
         this.imagensProduto = imagensProduto;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    
 }

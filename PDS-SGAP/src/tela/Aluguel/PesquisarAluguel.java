@@ -5,17 +5,49 @@
  */
 package tela.Aluguel;
 
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.swing.JTable;
+import modelo.Produto;
+import tela.meusProdutos.TabelaProduto;
+import util.JPAUtil;
+import dao.ProdutoDAO;
+import java.awt.event.MouseAdapter;
+import javax.swing.DefaultListModel;
+import javax.swing.JCheckBox;
+import modelo.Categoria;
+import modelo.Comentario;
+
 /**
  *
- * @author Borges
- */
+* @author Ada
+*/
 public class PesquisarAluguel extends javax.swing.JFrame {
 
     /**
      * Creates new form PesquisarProduto
      */
+    
+    private List<Produto> produtos = new ArrayList<>();
+    private Categoria categoria= new Categoria();
+
+    private List<Categoria> categorias = new ArrayList<>();
+
+    private ProdutoDAO pDAO = new ProdutoDAO();
+    private Produto produto = new Produto();
+    private EntityManager manager = JPAUtil.getEntityManager();
+    private  DefaultListModel listaModel = new DefaultListModel();  
+
     public PesquisarAluguel() {
+        
         initComponents();
+        pesquisar();    
+        preencherTabela();
+        preencherCategoria(); 
     }
 
     /**
@@ -27,23 +59,294 @@ public class PesquisarAluguel extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbProduto = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jlCategoria = new javax.swing.JList();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton2 = new javax.swing.JButton();
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
+
+        tbProduto.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tbProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbProdutoMouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbProduto);
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Categorias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(255, 0, 0)));
+
+        jlCategoria.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jlCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jlCategoriaMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jlCategoria);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jLabel1.setText("Nome");
+
+        jButton2.setText("Pesquisar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(61, 61, 61))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(jButton2)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+        pesquisar();    
+        preencherTabela();
+        
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        telaConsultar();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void tbProdutoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutoMouseReleased
+        // TODO add your handling code 
+        
+        selecionarProduto(evt);
+        realizarAcao(evt);
+    }//GEN-LAST:event_tbProdutoMouseReleased
+
+    private void jlCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlCategoriaMouseClicked
+        // TODO add your handling code here:
+      //   preencherTabelaByCategoria();
+    }//GEN-LAST:event_jlCategoriaMouseClicked
+   
+    public void preencherTabelaByCategoria(Categoria cateoria){
+        
+        this.produtos= pDAO.findProdutoByCategoria(categoria, manager);
+        preencherTabela();
+    }
+    public void preencherCategoria(){
+        
+        
+       //this.produtos = pDAO.findProdutoByCategoria(jlCategoria.getSele, )
+       
+        String consulta="select c from Categoria c ";
+        TypedQuery<Categoria> query =manager.createQuery(consulta, Categoria.class);
+        this.categorias= query.getResultList();
+        
+        jlCategoria.setModel(new ListaCategorias(this.categorias)); 
+        
+        jlCategoria.addMouseListener( new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e){
+                
+                int index= jlCategoria.locationToIndex(e.getPoint());   
+                
+                if(jlCategoria.getModel().getElementAt(index).equals("TODOS")){
+                    pesquisar();
+                    preencherTabela();
+                }
+                else {
+                    categoria= (Categoria)jlCategoria.getModel().getElementAt(index);
+                    preencherTabelaByCategoria(categoria);
+                }
+            }
+            
+        });
+        
+
+    }
+           
+    private void selecionarProduto(MouseEvent evt) {
+
+        // selecionar a linha, pois, se for botão direito do mouse,não seleciona automaticamente.
+        int linha = tbProduto.rowAtPoint(evt.getPoint());
+
+        if (linha >= 0) { //se nao for fora 
+
+            tbProduto.setRowSelectionInterval(linha, linha); //marca linha
+
+            //linha = tabelaPessoa.getSelectedRow();
+
+            this.produto = produtos.get(linha);
+        }
+
+    }
+    private void realizarAcao(MouseEvent evt) {
+
+        if (evt.getButton() == MouseEvent.BUTTON1) { 
+
+            if (evt.getClickCount() > 1) { 
+                telaConsultar();
+            }
+
+        } else if (evt.getButton() == MouseEvent.BUTTON3) { //Botão Direito do Mouse
+
+           // popup.show(evt.getComponent(), evt.getX(), evt.getY());
+
+        }
+
+    }
+    public void telaConsultar(){
+   //     Produto p = new  Produto();
+        ConsultarProdutoTela telaConsultar= new ConsultarProdutoTela(produto);
+        telaConsultar.setVisible(true);
+    }
+    public void preencherLista(){
+        
+        
+    } 
+    private void preencherTabela() {
+        //pesquisar();
+      /*   tbProduto.getColumnModel().getColumn(1).setCellRenderer(new TabelaProdutosDisponiveisCustomizada());
+        tbProduto.getColumnModel().getColumn(2).setCellRenderer(new TabelaProdutosDisponiveisCustomizada());
+        tbProduto.getColumnModel().getColumn(3).setCellRenderer(new TabelaProdutosDisponiveisCustomizada());*/
+
+        tbProduto.setModel(new TabelaProdutosDisponiveis(this.produtos));
+     //   tbProduto.getColumnModel().getColumn(0).setCellRenderer(new TabelaProdutosDisponiveisCustomizada(this.produtos));
+
+     //   tbProduto.setAutoResizeMode();
+     //   tbProduto.setDefaultRenderer(Object.class, new TabelaProdutosDisponiveis(this.produtos));
+        tbProduto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
+        tbProduto.setRowHeight(30); 
+
+    }
+    
+    private void pesquisar() {
+        try {
+            this.produtos.clear();
+            System.out.println("pesquisar()");
+
+            /*preencherCidade();
+
+            CidadeDAO dao = new CidadeDAO();
+
+            this.cidades = dao.pesquisar(this.cidade);/*
+            
+            
+            */
+
+            //this.produtos.clear();
+
+
+           /* Query query=manager.createQuery
+            (" select p from Produto p ");// where p.status=1");
+             
+            System.out.println("Query()");
+
+            List<Produto> rs=query.getResultList();
+
+            for(Produto pro: rs ){
+                System.out.println("\nfor");
+                this.produtos.add(pro);
+                System.out.println(""+pro);
+            }*/
+            
+      /*      String consulta="select p from Produto p where status=1";
+            TypedQuery<Produto> query =manager.createQuery(consulta, Produto.class);
+            query.setMaxResults(10);*/
+            
+            
+            this.produtos = pDAO.findProdutoByStatus(true, manager);
+           
+            
+            
+        
+        } catch (Exception ex) {
+            System.out.println("Erro ao pesquisar:" + ex.getCause());
+        }
+    }
+    
+    private void preencherCidade() {
+      //  this.cidade.setNome(tfNome.getText());
+    }
     /**
      * @param args the command line arguments
      */
@@ -71,6 +374,20 @@ public class PesquisarAluguel extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -81,5 +398,14 @@ public class PesquisarAluguel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLayeredPane jLayeredPane1;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JList jlCategoria;
+    private javax.swing.JTable tbProduto;
     // End of variables declaration//GEN-END:variables
 }

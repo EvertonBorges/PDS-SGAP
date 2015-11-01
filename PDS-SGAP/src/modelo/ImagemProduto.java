@@ -22,6 +22,7 @@ public class ImagemProduto {
     private Long codigo;
     @Lob
     private byte[] imagem;
+    
     @ManyToOne
     private Produto produto;
     
