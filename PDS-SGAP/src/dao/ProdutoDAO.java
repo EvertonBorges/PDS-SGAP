@@ -5,10 +5,12 @@
  */
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
 import modelo.Categoria;
 import modelo.Condomino;
@@ -30,10 +32,8 @@ public class ProdutoDAO {
     }
     
     public void preencherLista(){
-        
-        
         this. produtos.clear();
-        EntityManager manager = JPAUtil.getManager();
+        EntityManager manager = JPAUtil.getEntityManager();
         Query query = manager.createQuery("SELECT p FROM Produto p ");
         try{
             this.produtos = query.getResultList();
@@ -109,7 +109,7 @@ public class ProdutoDAO {
     public List<Produto> findProdutoByCategoria(Categoria categoria, EntityManager manager){
         List<Produto> produtosRetorno;
         String consulta="select p from Produto p where categoria_codigo = :codigo";
-        TypedQuery<Produto> query =manager.createQuery(consulta, Produto.class);
+        TypedQuery<Produto> query = manager.createQuery(consulta, Produto.class);
         query.setParameter("codigo", categoria.getCodigo());
         
         try{
