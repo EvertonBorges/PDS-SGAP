@@ -39,6 +39,10 @@ public class PainelImagens extends javax.swing.JPanel {
             System.out.println("Imagem inexistente");
         }
     }
+    
+    public void setBfImage(BufferedImage bfImage){
+        this.bfImage = bfImage;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

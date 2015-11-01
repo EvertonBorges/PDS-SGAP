@@ -23,6 +23,14 @@ public class ImagemProdutoDAO {
         manager.persist(imagem);
     }
     
+    public void removeImagemProduto(ImagemProduto imagemProduto){
+        EntityManager manager = JPAUtil.getEntityManager();
+        manager.getTransaction().begin();
+        manager.remove(imagemProduto);
+        manager.getTransaction().commit();
+        manager.close();
+    }
+    
     public List<ImagemProduto> listByProduto(Produto produto, EntityManager manager){
         List<ImagemProduto> imagensProduto;
         Query query = manager.createQuery("SELECT i FROM ImagemProduto i WHERE i.produto = :codigo");

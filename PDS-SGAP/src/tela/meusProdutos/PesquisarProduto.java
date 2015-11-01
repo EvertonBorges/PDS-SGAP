@@ -5,12 +5,11 @@
  */
 package tela.meusProdutos;
 
+import dao.ProdutoDAO;
+import java.awt.event.MouseEvent;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import modelo.Condomino;
 import modelo.Produto;
-import util.JPAUtil;
 
 /**
  *
@@ -18,6 +17,7 @@ import util.JPAUtil;
  */
 public class PesquisarProduto extends javax.swing.JFrame {
     private List<Produto> produtos;
+    private Produto produto;
     private Condomino condomino;
     /**
      * Creates new form PesquisarProdutos
@@ -37,6 +37,10 @@ public class PesquisarProduto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuFlutuante = new javax.swing.JPopupMenu();
+        miDetalhes = new javax.swing.JMenuItem();
+        miAtualizar = new javax.swing.JMenuItem();
+        miExcluir = new javax.swing.JMenuItem();
         pnCamposPesquisa = new javax.swing.JPanel();
         lNome = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
@@ -47,6 +51,30 @@ public class PesquisarProduto extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         bCadastrar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
+
+        miDetalhes.setText("jMenuItem1");
+        miDetalhes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miDetalhesActionPerformed(evt);
+            }
+        });
+        menuFlutuante.add(miDetalhes);
+
+        miAtualizar.setText("jMenuItem1");
+        miAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAtualizarActionPerformed(evt);
+            }
+        });
+        menuFlutuante.add(miAtualizar);
+
+        miExcluir.setText("jMenuItem1");
+        miExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miExcluirActionPerformed(evt);
+            }
+        });
+        menuFlutuante.add(miExcluir);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pesquisar Categoria");
@@ -107,6 +135,11 @@ public class PesquisarProduto extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbResultados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbResultadosMouseReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbResultados);
 
         javax.swing.GroupLayout pnResultadosLayout = new javax.swing.GroupLayout(pnResultados);
@@ -183,7 +216,6 @@ public class PesquisarProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        carregarProdutos();
         carregarTabela();
     }//GEN-LAST:event_formWindowGainedFocus
 
@@ -196,15 +228,54 @@ public class PesquisarProduto extends javax.swing.JFrame {
         cadastrarProduto.setVisible(true);
     }//GEN-LAST:event_bCadastrarActionPerformed
 
+    private void tbResultadosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbResultadosMouseReleased
+        selecionarCliente(evt);
+        realizarAcao(evt);
+    }//GEN-LAST:event_tbResultadosMouseReleased
+
+    private void miDetalhesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDetalhesActionPerformed
+        verDetalhes();
+    }//GEN-LAST:event_miDetalhesActionPerformed
+
+    private void miAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAtualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miAtualizarActionPerformed
+
+    private void miExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExcluirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miExcluirActionPerformed
+    
+    private void selecionarCliente(MouseEvent evt) {
+        int linha = tbResultados.rowAtPoint(evt.getPoint());
+        if (linha >= 0) {
+            tbResultados.setRowSelectionInterval(linha, linha);
+            linha = tbResultados.getSelectedRow();
+            this.produto = condomino.getProdutos().get(linha);
+        }
+    }
+    
+    private void realizarAcao(MouseEvent evt) {
+        if (evt.getButton() == MouseEvent.BUTTON1) { // Botão Esquerdo do Mouse
+            if (evt.getClickCount() > 1) { // Se for mais de 2 cliques
+                verDetalhes();
+            }
+        } else if (evt.getButton() == MouseEvent.BUTTON3) { //Botão Direito do Mouse
+            menuFlutuante.show(evt.getComponent(), evt.getX(), evt.getY());
+        }
+    }
+    
+    private void verDetalhes(){
+        DetalhesProduto detalhesProduto = new DetalhesProduto(produto);
+        detalhesProduto.setVisible(true);
+    }
+    
     private void carregarProdutos(){
-        EntityManager manager = JPAUtil.getEntityManager();
-        manager.getTransaction().begin();
-        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.condomino.codigo = :condominoCodigo");
-        query.setParameter("condominoCodigo", condomino.getCodigo());
-        produtos = query.getResultList();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtos = produtoDAO.findProdutoByCondomino(condomino);
     }
     
     private void carregarTabela(){
+        carregarProdutos();
         TabelaProduto tabelaProduto = new TabelaProduto(produtos);
         tbResultados.setModel(tabelaProduto);
     }
@@ -216,6 +287,10 @@ public class PesquisarProduto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lNome;
+    private javax.swing.JPopupMenu menuFlutuante;
+    private javax.swing.JMenuItem miAtualizar;
+    private javax.swing.JMenuItem miDetalhes;
+    private javax.swing.JMenuItem miExcluir;
     private javax.swing.JPanel pnCamposPesquisa;
     private javax.swing.JPanel pnResultados;
     private javax.swing.JTable tbResultados;

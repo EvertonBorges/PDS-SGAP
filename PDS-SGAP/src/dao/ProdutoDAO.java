@@ -60,8 +60,9 @@ public class ProdutoDAO {
         JOptionPane.showMessageDialog(null, "Produto excluido com sucesso", "Produto Excluido", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public List<Produto> findProdutoByCondomino(Condomino condomino, EntityManager manager){
+    public List<Produto> findProdutoByCondomino(Condomino condomino){
         List<Produto> produtosRetorno;
+        EntityManager manager = JPAUtil.getEntityManager();
         Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.condomino.codigo = :condominoCodigo");
         query.setParameter("condominoCodigo", condomino.getCodigo());
         try{

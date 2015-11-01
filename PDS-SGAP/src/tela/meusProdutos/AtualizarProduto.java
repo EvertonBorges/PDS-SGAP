@@ -20,7 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.Categoria;
-import modelo.Condomino;
 import modelo.ImagemProduto;
 import modelo.Produto;
 
@@ -28,18 +27,19 @@ import modelo.Produto;
  *
  * @author Everton Soares
  */
-public class CadastrarProduto extends javax.swing.JFrame {
-    private final Condomino condomino;
-    private List<Categoria> categoriasSelecionadas = new ArrayList<>();
+public class AtualizarProduto extends javax.swing.JFrame {
+    private List<Categoria> categoriasSelecionadas;
     private List<Categoria> categorias;
     private JPanel img;
+    private Produto produto;
     
     /**
      * Creates new form CadastrarProduto
-     * @param condomino
+     * @param produto
      */
-    public CadastrarProduto(Condomino condomino) {
-        this.condomino = condomino;
+    public AtualizarProduto(Produto produto) {
+        this.produto = produto;
+        categoriasSelecionadas = produto.getCategorias();
         initComponents();
         carregarCategorias();
     }
@@ -97,7 +97,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
         menuFlutuante.add(miRemoverImagem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadatrar Produto");
+        setTitle("Atualizar Produto");
         setResizable(false);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
@@ -216,7 +216,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        bCadastrar.setText("Cadastrar");
+        bCadastrar.setText("Atualizar");
         bCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bCadastrarActionPerformed(evt);
@@ -380,13 +380,27 @@ public class CadastrarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_bAddCategoriaActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        ListaCategorias modelo = new ListaCategorias(categoriasSelecionadas);
-        listCategorias.setModel(modelo);
+        carregarCategorias();
+        carregarCampos();
+        carregarListCategorias();
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void carregarCategorias(){
         CategoriaDAO categoriaDAO = new CategoriaDAO();
         categorias = categoriaDAO.allCategorias();
+    }
+    
+    private void carregarCampos(){
+        tfNome.setText(produto.getNome());
+        spQtde.setValue(produto.getQuantidade());
+        tfTaxa.setText(produto.getTaxa() + "%");
+        tfDiaria.setText("R$" + produto.getDiaria());
+        taDescricao.setText(produto.getDescricao());
+    }
+    
+    private void carregarListCategorias(){
+        ListaCategorias modelo = new ListaCategorias(categoriasSelecionadas);
+        listCategorias.setModel(modelo);
     }
     
     private void realizarAcao(MouseEvent evt) {
@@ -474,11 +488,9 @@ public class CadastrarProduto extends javax.swing.JFrame {
         byte[] byteArray2 = arrayImage(img2);
         byte[] byteArray3 = arrayImage(img3);
         
-        Produto produto = new Produto();
         produto.setNome(tfNome.getText());
         produto.setQuantidade(Integer.parseInt(spQtde.getValue().toString()));
         produto.setDescricao(taDescricao.getText());
-        produto.setCondomino(condomino);
         produto.setCategorias(categoriasSelecionadas);
         produto.setDiaria(Double.parseDouble(tfDiaria.getText().substring(2)));
         produto.setTaxa(Integer.parseInt(tfTaxa.getText().substring(0, tfTaxa.getText().length() - 1)));
