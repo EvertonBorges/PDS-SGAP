@@ -52,7 +52,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
         bCadastrar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
 
-        miDetalhes.setText("jMenuItem1");
+        miDetalhes.setText("Ver Detalhes");
         miDetalhes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miDetalhesActionPerformed(evt);
@@ -60,7 +60,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
         });
         menuFlutuante.add(miDetalhes);
 
-        miAtualizar.setText("jMenuItem1");
+        miAtualizar.setText("Atualizar");
         miAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miAtualizarActionPerformed(evt);
@@ -68,7 +68,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
         });
         menuFlutuante.add(miAtualizar);
 
-        miExcluir.setText("jMenuItem1");
+        miExcluir.setText("Excluir");
         miExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miExcluirActionPerformed(evt);

@@ -30,7 +30,7 @@ public class Produto {
     @JoinColumn (name= "condomino_codigo")
     private Condomino condomino;
     
-    @ManyToMany(mappedBy = "produtos")
+    @ManyToMany
     private List<Categoria> categorias;
         
     @OneToMany (mappedBy= "produto")

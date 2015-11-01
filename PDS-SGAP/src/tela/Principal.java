@@ -5,6 +5,7 @@
  */
 package tela;
 
+import dao.CondominoDAO;
 import modelo.Condomino;
 import tela.meusProdutos.CadastrarProduto;
 import tela.meusProdutos.PesquisarProduto;
@@ -14,7 +15,7 @@ import tela.meusProdutos.PesquisarProduto;
  * @author Borges
  */
 public class Principal extends javax.swing.JFrame {
-    private final Condomino condomino;
+    private Condomino condomino;
     /**
      * Creates new form Principal
      * @param condomino
@@ -44,6 +45,13 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGAP - Sistema de Gerenciamento de Aluguel de Produtos");
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         menuAcesso.setText("Acesso");
 
@@ -114,6 +122,11 @@ public class Principal extends javax.swing.JFrame {
         PesquisarProduto pesquisarProduto = new PesquisarProduto(condomino);
         pesquisarProduto.setVisible(true);
     }//GEN-LAST:event_miPesquisarProdutoActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        CondominoDAO condominoDAO = new CondominoDAO();
+        condomino = condominoDAO.getCondominoById(condomino.getCodigo());
+    }//GEN-LAST:event_formWindowGainedFocus
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jMenuItem1;

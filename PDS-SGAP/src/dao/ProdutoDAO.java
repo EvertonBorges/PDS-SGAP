@@ -25,8 +25,7 @@ import util.JPAUtil;
 public class ProdutoDAO {
      
     private List<Produto> produtos =  new ArrayList<>();
-
-
+    
     public ProdutoDAO() {
         preencherLista();
     }
@@ -40,37 +39,46 @@ public class ProdutoDAO {
         } catch (NoResultException ex) {
             this.produtos = null;
             System.out.println("\nerro ao buscar produtos");
-        } 
-        
+        }
     }
+    
     public List<Produto> getProdutos() {
         return produtos;
     }
     
-    public void addProduto(Produto produto, List<ImagemProduto> imagens, List<Categoria> categorias){
+    public void addProduto(Produto produto){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         manager.persist(produto);
-        for (ImagemProduto imagem: imagens){
+        for (ImagemProduto imagem: produto.getImagensProduto()){
             ImagemProdutoDAO imagemProdutoDAO = new ImagemProdutoDAO();
             imagemProdutoDAO.addImagemProduto(imagem, manager);
-        }
-        for (Categoria categoria: categorias){
-            CategoriaDAO categoriaDAO = new CategoriaDAO();
-            categoriaDAO.persistByProduto(produto, manager);
         }
         manager.getTransaction().commit();
         manager.close();
         JOptionPane.showMessageDialog(null, "Produto inserido com sucesso", "Produto Inserido", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public void alterProduto(Produto produto){
+    public void alterProduto(Produto produto, List<ImagemProduto> imagensNovas){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
-        Produto produtoAlteracao = findProdutoById(produto, manager);
-        if (produtoAlteracao != null) {
-            
+        List<ImagemProduto> imagens = produto.getImagensProduto();
+        produto.setImagensProduto(null);
+        if (!imagens.isEmpty()){
+            for (ImagemProduto imagem: imagens) {
+                ImagemProdutoDAO imagemProdutoDAO = new ImagemProdutoDAO();
+                imagemProdutoDAO.removeImagemProduto(imagem, manager);
+            }
         }
+        if (!imagensNovas.isEmpty()) {
+            for (ImagemProduto imagem: imagensNovas) {
+                ImagemProdutoDAO imagemProdutoDAO = new ImagemProdutoDAO();
+                imagemProdutoDAO.addImagemProduto(imagem, manager);
+            }
+        }
+        manager.getTransaction().commit();
+        manager.close();
+        JOptionPane.showMessageDialog(null, "Produto alterado com sucesso", "Produto Alterado", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void removeProduto(Produto produto){
@@ -106,6 +114,7 @@ public class ProdutoDAO {
         }
         return produtoRetorno;
     }
+    
     public List<Produto> findProdutoByCategoria(Categoria categoria, EntityManager manager){
         List<Produto> produtosRetorno;
         String consulta="select p from Produto p where categoria_codigo = :codigo";

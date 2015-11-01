@@ -195,6 +195,11 @@ public class DetalhesProduto extends javax.swing.JFrame {
         );
 
         bAlterar.setText("Alterar");
+        bAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bAlterarActionPerformed(evt);
+            }
+        });
 
         bExcluir.setText("Excluir");
 
@@ -316,6 +321,11 @@ public class DetalhesProduto extends javax.swing.JFrame {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         carregarProduto();
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void bAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAlterarActionPerformed
+        AtualizarProduto atualizarProduto = new AtualizarProduto(produto);
+        atualizarProduto.setVisible(true);
+    }//GEN-LAST:event_bAlterarActionPerformed
     
     private void realizarAcao(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1) {

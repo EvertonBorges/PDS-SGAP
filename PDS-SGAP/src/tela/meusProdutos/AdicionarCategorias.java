@@ -23,7 +23,7 @@ import modelo.Categoria;
 public class AdicionarCategorias extends javax.swing.JFrame {
     private final Vector CheckBoxCategorias = new Vector<Object>();
     private List<Categoria> categorias;
-    private final List<Categoria> categoriasSelecionadas;
+    private List<Categoria> categoriasSelecionadas;
     
     /**
      * Creates new form AdicionarCategorias
@@ -116,9 +116,9 @@ public class AdicionarCategorias extends javax.swing.JFrame {
 
     private void categoriasJaSelecionadas(){
         if (!categoriasSelecionadas.isEmpty()) {
-            for (Categoria categorias1: categoriasSelecionadas) {
+            for (Categoria categoria: categoriasSelecionadas) {
                 for (int j=0; j < categorias.size(); j++) {
-                    if (categorias1.getCodigo() == categorias.get(j).getCodigo()) {
+                    if (categoria.getCodigo() == categorias.get(j).getCodigo()) {
                         ((JCheckBox) listaCategorias.getModel().getElementAt(j)).setSelected(true);
                     }
                 }

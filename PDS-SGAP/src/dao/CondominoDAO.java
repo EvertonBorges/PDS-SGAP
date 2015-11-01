@@ -5,37 +5,39 @@
  */
 package dao;
 
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import modelo.Categoria;
+import modelo.Condomino;
 import util.JPAUtil;
 
 /**
  *
- * @author Everton Soares
+ * @author Borges
  */
-public class CategoriaDAO {
+public class CondominoDAO {
+
+    public CondominoDAO() {
+    }
     
-    public void addCategoria(Categoria categoria){
+    public void addCondomino(Condomino condomino){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
-        manager.persist(categoria);
+        manager.persist(condomino);
         manager.getTransaction().commit();
         manager.close();
     }
     
-    public List<Categoria> allCategorias(){
+    public Condomino getCondominoById(Long codigo){
+        Condomino condomino;
         EntityManager manager = JPAUtil.getEntityManager();
-        Query query = manager.createQuery("SELECT c FROM Categoria c ORDER BY c.descricao");
-        List<Categoria> categorias;
-        try{
-            categorias = query.getResultList();
-        } catch(NoResultException ex){
-            categorias = null;
+        Query query = manager.createQuery("SELECT c FROM Condomino c WHERE c.codigo = :codigo");
+        query.setParameter("codigo", codigo);
+        try {
+            condomino = (Condomino) query.getSingleResult();
+        } catch (NoResultException ex) {
+            condomino = null;
         }
-        return categorias;
+        return condomino;
     }
-
 }

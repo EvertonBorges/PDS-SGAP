@@ -29,7 +29,7 @@ import modelo.Produto;
  * @author Everton Soares
  */
 public class CadastrarProduto extends javax.swing.JFrame {
-    private final Condomino condomino;
+    private Condomino condomino;
     private List<Categoria> categoriasSelecionadas = new ArrayList<>();
     private List<Categoria> categorias;
     private JPanel img;
@@ -409,7 +409,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
         img2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         if (img.getComponents().length > 0) {
             PainelImagens newImage = new PainelImagens();
-            newImage.setBfImage(img.getName());
+            newImage.setBfImage(((PainelImagens) img.getComponent(0)).getBfImage());
             imgPrincipal.add(newImage);
             imgPrincipal.revalidate();
             img.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
@@ -497,7 +497,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
         
         produto.setImagensProduto(imagens);
         ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtoDAO.addProduto(produto, imagens, categorias);
+        produtoDAO.addProduto(produto);
     }
     
     private void persistindoImagens(byte[] byteArray, Produto produto, List<ImagemProduto> imagens){

@@ -9,8 +9,8 @@ import dao.CategoriaDAO;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +41,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
         this.produto = produto;
         categoriasSelecionadas = produto.getCategorias();
         initComponents();
-        carregarCategorias();
+        carregarImagens();
     }
 
     /**
@@ -370,7 +370,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_tfTaxaFocusLost
 
     private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
-        cadastrarProduto();
+        atualizarProduto();
         dispose();
     }//GEN-LAST:event_bCadastrarActionPerformed
 
@@ -390,6 +390,11 @@ public class AtualizarProduto extends javax.swing.JFrame {
         categorias = categoriaDAO.allCategorias();
     }
     
+    private void carregarListCategorias(){
+        ListaCategorias modelo = new ListaCategorias(categoriasSelecionadas);
+        listCategorias.setModel(modelo);
+    }
+    
     private void carregarCampos(){
         tfNome.setText(produto.getNome());
         spQtde.setValue(produto.getQuantidade());
@@ -398,9 +403,38 @@ public class AtualizarProduto extends javax.swing.JFrame {
         taDescricao.setText(produto.getDescricao());
     }
     
-    private void carregarListCategorias(){
-        ListaCategorias modelo = new ListaCategorias(categoriasSelecionadas);
-        listCategorias.setModel(modelo);
+    private void carregarImagens(){
+        int cont = 1;
+        for (ImagemProduto imagem: produto.getImagensProduto()) {
+            PainelImagens painelImg = carregarImagem(imagem);
+            switch(cont){
+                case 1: mostrarImagem(img1, painelImg);
+                        break;
+                case 2: mostrarImagem(img2, painelImg);
+                        break;
+                case 3: mostrarImagem(img3, painelImg);
+                        break;
+            }
+            cont ++;
+        }
+    }
+    
+    private PainelImagens carregarImagem(ImagemProduto imagem){
+        BufferedImage img = null;
+        PainelImagens painelRetorno = null;
+        try {
+            img = ImageIO.read(new ByteArrayInputStream(imagem.getImagem()));
+            painelRetorno = new PainelImagens();
+            painelRetorno.setBfImage(img);
+        } catch (IOException ex) {
+            painelRetorno = null;
+        }
+        return painelRetorno;
+    }
+    
+    private void mostrarImagem(JPanel painel, PainelImagens imagemPainel){
+        painel.add(imagemPainel);
+        painel.revalidate();
     }
     
     private void realizarAcao(MouseEvent evt) {
@@ -423,7 +457,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
         img2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         if (img.getComponents().length > 0) {
             PainelImagens newImage = new PainelImagens();
-            newImage.setBfImage(img.getName());
+            newImage.setBfImage(((PainelImagens) img.getComponent(0)).getBfImage());
             imgPrincipal.add(newImage);
             imgPrincipal.revalidate();
             img.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
@@ -437,10 +471,8 @@ public class AtualizarProduto extends javax.swing.JFrame {
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             PainelImagens newImagem = new PainelImagens();
-            img.setName(chooser.getSelectedFile().getPath());
-            newImagem.setBfImage(img.getName());
+            newImagem.setBfImage(chooser.getSelectedFile().getPath());
             if ( (newImagem.getBfImage().getWidth() + newImagem.getBfImage().getHeight()) > 2000) {
-                img.setName("");
                 JOptionPane.showMessageDialog(null, "Imagem deve possuir resolução igual ou inferior a 1000x1000 pixels", "Imagem Grande", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 carregarImagem(newImagem);
@@ -468,14 +500,12 @@ public class AtualizarProduto extends javax.swing.JFrame {
         ByteArrayOutputStream bytesImg = new ByteArrayOutputStream();
         byte[] byteArray = null;
         try {
-            if (img.getName() != null){
-                if (!img.getName().equals("")) {
-                    imagem = ImageIO.read(new File(img.getName()));
-                    ImageIO.write(imagem, "jpg", bytesImg);
-                    bytesImg.flush();
-                    byteArray = bytesImg.toByteArray();
-                    bytesImg.close();
-                }
+            if ((img.getComponentCount()) > 0){
+                imagem = ((PainelImagens) img.getComponent(0)).getBfImage();
+                ImageIO.write(imagem, "jpg", bytesImg);
+                bytesImg.flush();
+                byteArray = bytesImg.toByteArray();
+                bytesImg.close();
             }
         } catch (IOException ex) {
             System.out.println("Erro: " + ex.getMessage());
@@ -483,7 +513,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
         return byteArray;
     } 
     
-    private void cadastrarProduto(){
+    private void atualizarProduto(){
         byte[] byteArray1 = arrayImage(img1);
         byte[] byteArray2 = arrayImage(img2);
         byte[] byteArray3 = arrayImage(img3);
@@ -507,9 +537,8 @@ public class AtualizarProduto extends javax.swing.JFrame {
             persistindoImagens(byteArray3, produto, imagens);
         }
         
-        produto.setImagensProduto(imagens);
         ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtoDAO.addProduto(produto, imagens, categorias);
+        produtoDAO.alterProduto(produto, imagens);
     }
     
     private void persistindoImagens(byte[] byteArray, Produto produto, List<ImagemProduto> imagens){

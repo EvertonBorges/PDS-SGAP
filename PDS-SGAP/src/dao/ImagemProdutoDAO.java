@@ -11,7 +11,6 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import modelo.ImagemProduto;
 import modelo.Produto;
-import util.JPAUtil;
 
 /**
  *
@@ -23,12 +22,8 @@ public class ImagemProdutoDAO {
         manager.persist(imagem);
     }
     
-    public void removeImagemProduto(ImagemProduto imagemProduto){
-        EntityManager manager = JPAUtil.getEntityManager();
-        manager.getTransaction().begin();
+    public void removeImagemProduto(ImagemProduto imagemProduto, EntityManager manager){
         manager.remove(imagemProduto);
-        manager.getTransaction().commit();
-        manager.close();
     }
     
     public List<ImagemProduto> listByProduto(Produto produto, EntityManager manager){
