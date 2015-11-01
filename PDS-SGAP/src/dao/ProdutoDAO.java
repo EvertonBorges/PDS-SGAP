@@ -21,8 +21,30 @@ import util.JPAUtil;
  * @author Everton Soares
  */
 public class ProdutoDAO {
+     
+    private List<Produto> produtos =  new ArrayList<>();
+
 
     public ProdutoDAO() {
+        preencherLista();
+    }
+    
+    public void preencherLista(){
+        
+        
+        this. produtos.clear();
+        EntityManager manager = JPAUtil.getManager();
+        Query query = manager.createQuery("SELECT p FROM Produto p ");
+        try{
+            this.produtos = query.getResultList();
+        } catch (NoResultException ex) {
+            this.produtos = null;
+            System.out.println("\nerro ao buscar produtos");
+        } 
+        
+    }
+    public List<Produto> getProdutos() {
+        return produtos;
     }
     
     public void addProduto(Produto produto, List<ImagemProduto> imagens, List<Categoria> categorias){
@@ -83,5 +105,32 @@ public class ProdutoDAO {
             produtoRetorno = null;
         }
         return produtoRetorno;
+    }
+    public List<Produto> findProdutoByCategoria(Categoria categoria, EntityManager manager){
+        List<Produto> produtosRetorno;
+        String consulta="select p from Produto p where categoria_codigo = :codigo";
+        TypedQuery<Produto> query =manager.createQuery(consulta, Produto.class);
+        query.setParameter("codigo", categoria.getCodigo());
+        
+        try{
+            produtosRetorno = query.getResultList();
+        } catch (NoResultException ex) {
+            produtosRetorno = null;
+            System.out.println("Erro ao procurar produtos por categoria: " + ex.getMessage());
+        }
+        return produtosRetorno;
+    }
+    
+    public List<Produto> findProdutoByStatus(boolean status, EntityManager manager){
+        List<Produto> produtosRetorno;
+        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.status = :status");
+        query.setParameter("status", status);
+        try{
+            produtosRetorno = query.getResultList();
+        } catch (NoResultException ex) {
+            produtosRetorno = null;
+            System.out.println("Erro ao procurar produtos por categoria: " + ex.getMessage());
+        }
+        return produtosRetorno;
     }
 }
