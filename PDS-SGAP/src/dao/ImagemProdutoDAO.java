@@ -23,7 +23,7 @@ public class ImagemProdutoDAO {
     }
     
     public void removeImagemProduto(ImagemProduto imagemProduto, EntityManager manager){
-        manager.remove(imagemProduto);
+        manager.remove(manager.getReference(ImagemProduto.class, imagemProduto.getCodigo()));
     }
     
     public List<ImagemProduto> listByProduto(Produto produto, EntityManager manager){

@@ -384,6 +384,12 @@ public class CadastrarProduto extends javax.swing.JFrame {
         listCategorias.setModel(modelo);
     }//GEN-LAST:event_formWindowGainedFocus
 
+    private void referenciasCategoriaProduto(Produto produto){
+        for(Categoria categoria: categoriasSelecionadas){
+            categoria.getProdutos().add(produto);
+        }
+    }
+    
     private void carregarCategorias(){
         CategoriaDAO categoriaDAO = new CategoriaDAO();
         categorias = categoriaDAO.allCategorias();
@@ -475,6 +481,8 @@ public class CadastrarProduto extends javax.swing.JFrame {
         byte[] byteArray3 = arrayImage(img3);
         
         Produto produto = new Produto();
+        referenciasCategoriaProduto(produto);
+        
         produto.setNome(tfNome.getText());
         produto.setQuantidade(Integer.parseInt(spQtde.getValue().toString()));
         produto.setDescricao(taDescricao.getText());

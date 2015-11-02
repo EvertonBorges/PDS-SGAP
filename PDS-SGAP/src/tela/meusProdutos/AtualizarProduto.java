@@ -14,6 +14,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -39,9 +40,10 @@ public class AtualizarProduto extends javax.swing.JFrame {
      */
     public AtualizarProduto(Produto produto) {
         this.produto = produto;
-        categoriasSelecionadas = produto.getCategorias();
         initComponents();
         carregarImagens();
+        carregarCategorias();
+        carregarSelecionados();
     }
 
     /**
@@ -74,7 +76,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
         img2 = new javax.swing.JPanel();
         img3 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        bCadastrar = new javax.swing.JButton();
+        bAtualizar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
         painelDescricao = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -216,10 +218,10 @@ public class AtualizarProduto extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        bCadastrar.setText("Atualizar");
-        bCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        bAtualizar.setText("Atualizar");
+        bAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCadastrarActionPerformed(evt);
+                bAtualizarActionPerformed(evt);
             }
         });
 
@@ -285,7 +287,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
                     .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(bCadastrar)
+                        .addComponent(bAtualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bCancelar)
                         .addGap(32, 32, 32)))
@@ -321,7 +323,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bCadastrar)
+                    .addComponent(bAtualizar)
                     .addComponent(bCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -369,10 +371,10 @@ public class AtualizarProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tfTaxaFocusLost
 
-    private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
+    private void bAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAtualizarActionPerformed
         atualizarProduto();
         dispose();
-    }//GEN-LAST:event_bCadastrarActionPerformed
+    }//GEN-LAST:event_bAtualizarActionPerformed
 
     private void bAddCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddCategoriaActionPerformed
         AdicionarCategorias adicionarCategorias = new AdicionarCategorias(categoriasSelecionadas, categorias);
@@ -380,14 +382,37 @@ public class AtualizarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_bAddCategoriaActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        carregarCategorias();
-        carregarCampos();
         carregarListCategorias();
+        carregarCampos();
     }//GEN-LAST:event_formWindowGainedFocus
 
+    private void referenciasCategoriaProduto(Produto produto){
+        removerCategoriasProduto(produto);
+        for(Categoria categoria: categoriasSelecionadas){
+            categoria.getProdutos().add(produto);
+        }
+    }
+    
+    private void removerCategoriasProduto(Produto produto){
+        for(Categoria categoria: categoriasSelecionadas){
+            categoria.getProdutos().remove(produto);
+        }
+    }
+    
     private void carregarCategorias(){
         CategoriaDAO categoriaDAO = new CategoriaDAO();
         categorias = categoriaDAO.allCategorias();
+    }
+    
+    private void carregarSelecionados(){
+        categoriasSelecionadas = new ArrayList<>();
+        for (Categoria categoria1: categorias) {
+            for (Categoria categoria2: produto.getCategorias()){
+                if (Objects.equals(categoria1.getCodigo(), categoria2.getCodigo())){
+                    categoriasSelecionadas.add(categoria1);
+                }
+            }
+        }
     }
     
     private void carregarListCategorias(){
@@ -518,6 +543,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
         byte[] byteArray2 = arrayImage(img2);
         byte[] byteArray3 = arrayImage(img3);
         
+        referenciasCategoriaProduto(produto);
         produto.setNome(tfNome.getText());
         produto.setQuantidade(Integer.parseInt(spQtde.getValue().toString()));
         produto.setDescricao(taDescricao.getText());
@@ -550,7 +576,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAddCategoria;
-    private javax.swing.JButton bCadastrar;
+    private javax.swing.JButton bAtualizar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JPanel img1;
     private javax.swing.JPanel img2;

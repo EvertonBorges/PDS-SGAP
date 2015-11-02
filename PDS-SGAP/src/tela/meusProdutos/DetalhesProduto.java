@@ -5,6 +5,7 @@
  */
 package tela.meusProdutos;
 
+import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -13,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import modelo.ImagemProduto;
 import modelo.Produto;
+import util.JPAUtil;
 
 /**
  *
@@ -349,9 +351,15 @@ public class DetalhesProduto extends javax.swing.JFrame {
     }
     
     private void carregarProduto(){
+        atualizarReferencia();
         carregarCampos();
         carregarCategorias();
         carregarImagens();
+    }
+    
+    private void atualizarReferencia() {
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produto = produtoDAO.findProdutoById(produto, JPAUtil.getEntityManager());
     }
     
     private void carregarCampos(){

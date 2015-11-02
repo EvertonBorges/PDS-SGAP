@@ -113,7 +113,7 @@ public class AdicionarCategorias extends javax.swing.JFrame {
     private void bOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOKActionPerformed
         dispose();
     }//GEN-LAST:event_bOKActionPerformed
-
+    
     private void categoriasJaSelecionadas(){
         if (!categoriasSelecionadas.isEmpty()) {
             for (Categoria categoria: categoriasSelecionadas) {
