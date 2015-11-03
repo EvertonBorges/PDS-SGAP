@@ -483,6 +483,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
         produto.setCategorias(categoriasSelecionadas);
         produto.setDiaria(Double.parseDouble(tfDiaria.getText().substring(2)));
         produto.setTaxa(Integer.parseInt(tfTaxa.getText().substring(0, tfTaxa.getText().length() - 1)));
+        produto.setStatus(true);
         
         List<ImagemProduto> imagens = new ArrayList<>();
         

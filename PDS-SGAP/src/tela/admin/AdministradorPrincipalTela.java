@@ -5,8 +5,11 @@
  */
 package tela.admin;
 
+import modelo.Administrador;
 import tela.*;
 import modelo.Condomino;
+import tela.Apartamento.ApartamentoPesquisarTela;
+import tela.condomino.PesquisaCondomino;
 import tela.meusProdutos.CadastrarProduto;
 import tela.meusProdutos.PesquisarProduto;
 
@@ -15,13 +18,12 @@ import tela.meusProdutos.PesquisarProduto;
  * @author Borges
  */
 public class AdministradorPrincipalTela extends javax.swing.JFrame {
-    private final Condomino condomino;
+    private final Administrador administrador;
     /**
      * Creates new form Principal
-     * @param condomino
      */
-    public AdministradorPrincipalTela(Condomino condomino) {
-        this.condomino = condomino;
+    public AdministradorPrincipalTela(Administrador administrador) {
+        this.administrador = administrador;
         initComponents();
     }
 
@@ -49,6 +51,7 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGAP - Sistema de Gerenciamento de Aluguel de Produtos - ADMINISTRADOR");
@@ -64,6 +67,11 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
         mConta.add(imAlterarSenha);
 
         imSair.setText("Sair");
+        imSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imSairActionPerformed(evt);
+            }
+        });
         mConta.add(imSair);
 
         mbMenu.add(mConta);
@@ -87,6 +95,11 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
         mCadastros.add(imCondomino);
 
         imApartamento.setText("Apartamento");
+        imApartamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imApartamentoActionPerformed(evt);
+            }
+        });
         mCadastros.add(imApartamento);
 
         imCategoria.setText("Categoria");
@@ -112,6 +125,9 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
         jMenuItem2.setText("Condôminos inadimplentes");
         jMenu2.add(jMenuItem2);
 
+        jMenuItem3.setText("Produtos mais procurados");
+        jMenu2.add(jMenuItem3);
+
         mbMenu.add(jMenu2);
 
         setJMenuBar(mbMenu);
@@ -132,18 +148,27 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void mAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAdministradorActionPerformed
-        CadastrarProduto cadastrarProduto = new CadastrarProduto(condomino);
-        cadastrarProduto.setVisible(true);
+        AdministradorPesquisarTela administradorPesquisarTela = new AdministradorPesquisarTela();
+        administradorPesquisarTela.setVisible(true);
     }//GEN-LAST:event_mAdministradorActionPerformed
 
     private void imCondominoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imCondominoActionPerformed
-        PesquisarProduto pesquisarProduto = new PesquisarProduto(condomino);
-        pesquisarProduto.setVisible(true);
+        PesquisaCondomino pesquisaCondomino = new PesquisaCondomino();
+        pesquisaCondomino.setVisible(true);
     }//GEN-LAST:event_imCondominoActionPerformed
 
     private void mContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mContaActionPerformed
         dispose();
     }//GEN-LAST:event_mContaActionPerformed
+
+    private void imSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imSairActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_imSairActionPerformed
+
+    private void imApartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imApartamentoActionPerformed
+        ApartamentoPesquisarTela apartamentoPesquisarTela = new ApartamentoPesquisarTela();
+        apartamentoPesquisarTela.setVisible(true);
+    }//GEN-LAST:event_imApartamentoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem imAlterarSenha;
@@ -156,6 +181,7 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem mAdministrador;
     private javax.swing.JMenu mApartamento;
     private javax.swing.JMenu mCadastros;

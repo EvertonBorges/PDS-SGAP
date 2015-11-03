@@ -22,7 +22,7 @@ import modelo.Produto;
 public class TabelaProdutosDisponiveis  extends AbstractTableModel  {
 
     private final List<Produto> produtos;
-    private final String[] campos = {"Imagem", "Produto", "Quantidade", "Status (teste)"}; 
+    private final String[] campos = {"    Não", "    Sei", "    O que", "   Colocar"}; 
     private byte[] byteImage = null; 
     private ImageIcon  imageIcon = new ImageIcon();  
     
@@ -34,15 +34,64 @@ public class TabelaProdutosDisponiveis  extends AbstractTableModel  {
     @Override
     public int getRowCount() {
         
-        return produtos.size();
+        return 2;
     }
     @Override
     public int getColumnCount() {
     
          return campos.length;
     }
-
+    
+    
     @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        
+        int indice =(rowIndex*(campos.length))+columnIndex;
+        if(produtos.size()<4){
+            indice=((rowIndex*(produtos.size()))+columnIndex);
+        }
+        Produto produto=new Produto();
+        if (indice <produtos.size()){
+            produto = produtos.get(indice);
+            return produto.getNome();
+        }
+        else
+            return "";
+          
+    }
+    
+    
+/*    @Override
+    public JPanel getValueAt(int rowIndex, int columnIndex) {
+        Produto produto=new Produto();
+        
+        int indice =(rowIndex*(campos.length))+columnIndex;
+        
+        
+        if (indice <produtos.size()){
+            produto = produtos.get(indice);
+            
+            JPanel painel = new JPanel();
+            ImageIcon  img= new ImageIcon(produto.getImagen());
+
+            JLabel lImagem = new JLabel(new ImageIcon(img.getImage().getScaledInstance(30, 
+                                              30, Image.SCALE_DEFAULT)));
+
+            lImagem.setBounds(1, 1, 30 , 30);
+            lImagem.setVisible(true);
+            painel.add(lImagem);
+            painel.setVisible(true);
+
+            
+            
+            return painel;
+        }
+        else
+            return new JPanel();
+          
+    }*/
+
+ /*   @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         
         Produto produto = produtos.get(rowIndex);
@@ -53,11 +102,11 @@ public class TabelaProdutosDisponiveis  extends AbstractTableModel  {
  //               System.out.println(""+ byteImage);
 //                InputStream inputStream= new ByteArrayInputStream(byteImage);  
 //                return new ImageIcon(byteImage).getImage();  
-                if (produto.getImagensProduto().get(0).getImagem()!= null){
+                if (produto.getImagen()!= null){
                     
-                    ImageIcon img= new ImageIcon(produto.getImagensProduto().get(0).getImagem());
+                    ImageIcon img= new ImageIcon(produto.getImagen());
                  //   ALabel lImagem = new ALabel(img);
-                   ImageIcon imagem= new ImageIcon(produto.getImagensProduto().get(0).getImagem());
+                   ImageIcon imagem= new ImageIcon(produto.getImagen());
                     JLabel lImagem = new JLabel();
                  //   lImagem.setIcon(new ImageIcon(img.getImage().getScaledInstance(5, 
                    //                     5, Image.SCALE_DEFAULT)));
@@ -73,7 +122,7 @@ public class TabelaProdutosDisponiveis  extends AbstractTableModel  {
                   // JPanel painel = new JPanel();
                 //   painel.add(lImagem);
                /*      return new ImageIcon(imagem.getImage().getScaledInstance(30, 
-                                        30, Image.SCALE_DEFAULT));*/
+                                        30, Image.SCALE_DEFAULT));--
                    return lImagem.getIcon();
                 }
                 else
@@ -89,7 +138,7 @@ public class TabelaProdutosDisponiveis  extends AbstractTableModel  {
 
           
         }
-    }
+    }*/
     
     @Override
     public String getColumnName(int column){
@@ -105,12 +154,11 @@ public class TabelaProdutosDisponiveis  extends AbstractTableModel  {
    @Override  
     public Class<?> getColumnClass(int column) {  
         //retorna a classe que representa a coluna  
-        switch (column){
-            case 0:
-            return ImageIcon.class;  
-            
+         switch(column){
+            case 1: return JPanel.class;
             default: return Object.class;  
-        }
-    }
-   } 
+         }
     
+    }
+}
+ 

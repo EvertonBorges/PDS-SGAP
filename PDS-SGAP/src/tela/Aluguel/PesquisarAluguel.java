@@ -9,14 +9,20 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.swing.JTable;
 import modelo.Produto;
+import tela.meusProdutos.TabelaProduto;
 import util.JPAUtil;
 import dao.ProdutoDAO;
 import java.awt.event.MouseAdapter;
 import javax.swing.DefaultListModel;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
 import modelo.Categoria;
+import modelo.Comentario;
 
 /**
  *
@@ -35,8 +41,7 @@ public class PesquisarAluguel extends javax.swing.JFrame {
 
     private ProdutoDAO pDAO = new ProdutoDAO();
     private Produto produto = new Produto();
-    private JPAUtil jpaUtil = new JPAUtil();
-    EntityManager manager = JPAUtil.getEntityManager();
+    private EntityManager manager = JPAUtil.getEntityManager();
     private  DefaultListModel listaModel = new DefaultListModel();  
 
     public PesquisarAluguel() {
@@ -77,7 +82,7 @@ public class PesquisarAluguel extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -104,7 +109,7 @@ public class PesquisarAluguel extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tbProduto);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Categorias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, new java.awt.Color(255, 0, 0)));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Categorias", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         jlCategoria.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -145,9 +150,9 @@ public class PesquisarAluguel extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -163,8 +168,8 @@ public class PesquisarAluguel extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
@@ -173,7 +178,7 @@ public class PesquisarAluguel extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addComponent(jButton2)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         pack();
@@ -196,7 +201,7 @@ public class PesquisarAluguel extends javax.swing.JFrame {
         // TODO add your handling code 
         
         selecionarProduto(evt);
-        realizarAcao(evt);
+    //    realizarAcao(evt);
     }//GEN-LAST:event_tbProdutoMouseReleased
 
     private void jlCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlCategoriaMouseClicked
@@ -205,8 +210,11 @@ public class PesquisarAluguel extends javax.swing.JFrame {
     }//GEN-LAST:event_jlCategoriaMouseClicked
    
     public void preencherTabelaByCategoria(Categoria cateoria){
-        
-        this.produtos= pDAO.findProdutoByCategoria(categoria, manager);
+        this.produtos.clear();
+        for (Produto p: pDAO.findProdutoByCategoria(categoria, manager)){
+            if(p.isStatus()== true)    
+                this.produtos.add(p) ;
+        }
         preencherTabela();
     }
     public void preencherCategoria(){
@@ -243,16 +251,30 @@ public class PesquisarAluguel extends javax.swing.JFrame {
            
     private void selecionarProduto(MouseEvent evt) {
 
-        // selecionar a linha, pois, se for botão direito do mouse,não seleciona automaticamente.
         int linha = tbProduto.rowAtPoint(evt.getPoint());
+        int coluna = tbProduto.columnAtPoint(evt.getPoint());
 
-        if (linha >= 0) { //se nao for fora 
-
-            tbProduto.setRowSelectionInterval(linha, linha); //marca linha
-
-            //linha = tabelaPessoa.getSelectedRow();
-
-            this.produto = produtos.get(linha);
+        if (linha >= 0 ) { 
+            
+       //     tbProduto.setRowSelectionInterval(linha, linha); 
+       //     tbProduto.setColumnSelectionInterval(coluna, coluna);
+      //      tbProduto.setRowSelectionAllowed(false);--
+            
+            tbProduto.getSelectionModel().setSelectionMode( ListSelectionModel.SINGLE_SELECTION);  
+            tbProduto.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);  
+            tbProduto.setCellSelectionEnabled(true);
+            
+            
+            
+            int indice=((linha)*4)+coluna;
+            
+            if (indice<this.produtos.size()){
+                this.produto = this.produtos.get(indice);
+                realizarAcao(evt);
+            }
+            else{
+                
+            }
         }
 
     }
@@ -280,11 +302,11 @@ public class PesquisarAluguel extends javax.swing.JFrame {
         
         
     } 
-    private void preencherTabela() {
+/*    private void preencherTabela() {
         //pesquisar();
       /*   tbProduto.getColumnModel().getColumn(1).setCellRenderer(new TabelaProdutosDisponiveisCustomizada());
         tbProduto.getColumnModel().getColumn(2).setCellRenderer(new TabelaProdutosDisponiveisCustomizada());
-        tbProduto.getColumnModel().getColumn(3).setCellRenderer(new TabelaProdutosDisponiveisCustomizada());*/
+        tbProduto.getColumnModel().getColumn(3).setCellRenderer(new TabelaProdutosDisponiveisCustomizada());--
 
         tbProduto.setModel(new TabelaProdutosDisponiveis(this.produtos));
      //   tbProduto.getColumnModel().getColumn(0).setCellRenderer(new TabelaProdutosDisponiveisCustomizada(this.produtos));
@@ -294,6 +316,22 @@ public class PesquisarAluguel extends javax.swing.JFrame {
         tbProduto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
         tbProduto.setRowHeight(30); 
 
+    }*/
+    
+    
+    private void preencherTabela() {
+        
+    
+    //    tbProduto.getColumnModel().getColumn(0).setCellRenderer(new TabelaProdutosDisponiveisRenderer(this.produtos));
+      // tbProduto.getColumnModel().getColumn(1).setCellRenderer(new TabelaProdutosDisponiveisRenderer(this.produtos));
+       //      tbProduto.getColumnModel().getColumn(2).setCellRenderer(new TabelaProdutosDisponiveisRenderer(this.produtos));
+       // tbProduto.getColumnModel().getColumn(3).setCellRenderer(new TabelaProdutosDisponiveisRenderer(this.produtos));
+     //   tbProduto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
+        tbProduto.setDefaultRenderer(Object.class, new TabelaProdutosDisponiveisRenderer(this.produtos));
+        tbProduto.setModel(new TabelaProdutosDisponiveis(this.produtos));
+
+        tbProduto.setRowHeight(200); 
+        //tbProduto.repaint();
     }
     
     private void pesquisar() {
@@ -369,18 +407,6 @@ public class PesquisarAluguel extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(PesquisarAluguel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

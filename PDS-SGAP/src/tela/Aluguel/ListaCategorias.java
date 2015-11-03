@@ -28,6 +28,6 @@ public class ListaCategorias extends AbstractListModel{
 
     @Override
     public Object getElementAt(int index) {
-        return categorias.get(index).getDescricao();
+        return categorias.get(index);
     }
 }

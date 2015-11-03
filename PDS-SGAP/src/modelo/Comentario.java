@@ -105,7 +105,4 @@ public class Comentario {
     public void setData(Calendar data) {
         this.data = data;
     }
-    
-    
-    
  }

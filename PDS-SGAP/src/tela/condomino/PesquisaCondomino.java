@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import modelo.Condomino;
-import modelo.tabela.TabelaCondomino;
+import tabelamodelo.TableModelCondomino;
 
 /**
  *
@@ -28,11 +28,12 @@ public class PesquisaCondomino extends javax.swing.JFrame {
         initComponents();
         preencheTabela();
         preencheEstadoCivil();
+        carregarMenuFlutuante();
     }
     
     public void preencheTabela(){
         pesquisar();
-        tbCondomino.setModel(new TabelaCondomino(this.listaCondominos));
+        tabelaCondomino.setModel(new TableModelCondomino(this.listaCondominos));
     }
     
     public void pesquisar(){
@@ -46,6 +47,73 @@ public class PesquisaCondomino extends javax.swing.JFrame {
         dao.insereEstadoCivil();
     }
 
+    private void carregarMenuFlutuante(){
+        JMenuItem[] itens = {new JMenuItem("Ver Detalhes"), new JMenuItem("Alterar"), new JMenuItem("Excluir")};
+        
+        itens[0].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                verDetalhes();
+            }
+        });
+        
+        itens[1].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    alterar();
+                } catch (ParseException ex) {
+                    ex.getMessage();
+                }
+            }
+        });
+        
+        itens[2].addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                excluir();
+            }
+        });
+        
+        for (JMenuItem item : itens) {
+            menuPopUp.add(item);
+        }
+    }
+    
+    private void verDetalhes(){
+        DetalhesCondomino detalhes = new DetalhesCondomino(this.condominoPesquisar);
+        detalhes.setVisible(true);
+    }
+    
+    private void alterar() throws ParseException{
+        AlterarCondomino alterar = new AlterarCondomino(this.condominoPesquisar);
+        alterar.setVisible(true);
+    }
+    
+    private void excluir(){
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja mesmo excluir o condômino: "+this.condominoPesquisar.getNome()+"?", "Aviso", JOptionPane.YES_NO_OPTION);
+        
+        if(resposta == JOptionPane.YES_OPTION){
+            CondominoDAO dao = new CondominoDAO();
+            dao.excluiCondomino(this.condominoPesquisar);
+            JOptionPane.showMessageDialog(this, "Condômino excluído com sucesso!");
+        }
+    }
+    
+    private void realizarAcao(MouseEvent e){
+        int linha = tabelaCondomino.rowAtPoint(e.getPoint());
+        this.condominoPesquisar = this.listaCondominos.get(linha);
+        
+        if (e.getButton() == MouseEvent.BUTTON1) { // Botão Esquerdo do Mouse
+            if (e.getClickCount() > 1) {
+                verDetalhes();
+            }
+
+        } else if (e.getButton() == MouseEvent.BUTTON3) { //Botão Direito do Mouse
+            menuPopUp.show(e.getComponent(), e.getX(), e.getY());
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,14 +123,14 @@ public class PesquisaCondomino extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pmFlutuante = new javax.swing.JPopupMenu();
+        menuPopUp = new javax.swing.JPopupMenu();
         lNome = new javax.swing.JLabel();
         tfNomePesquisa = new javax.swing.JTextField();
         botaoPesquisar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         lResultadosEncontrados = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbCondomino = new javax.swing.JTable();
+        tabelaCondomino = new javax.swing.JTable();
         jSeparator2 = new javax.swing.JSeparator();
         botaoCadastrar = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
@@ -91,7 +159,7 @@ public class PesquisaCondomino extends javax.swing.JFrame {
 
         lResultadosEncontrados.setText("Resultado Encontrados");
 
-        tbCondomino.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCondomino.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -102,12 +170,12 @@ public class PesquisaCondomino extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tbCondomino.addMouseListener(new java.awt.event.MouseAdapter() {
+        tabelaCondomino.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tbCondominoMouseReleased(evt);
+                tabelaCondominoMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tbCondomino);
+        jScrollPane1.setViewportView(tabelaCondomino);
 
         botaoCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botaoCadastrar.setText("Cadastrar");
@@ -199,10 +267,9 @@ public class PesquisaCondomino extends javax.swing.JFrame {
         preencheTabela();
     }//GEN-LAST:event_botaoPesquisarActionPerformed
 
-    private void tbCondominoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbCondominoMouseReleased
-        selecionarCondomino(evt);
+    private void tabelaCondominoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaCondominoMouseReleased
         realizarAcao(evt);
-    }//GEN-LAST:event_tbCondominoMouseReleased
+    }//GEN-LAST:event_tabelaCondominoMouseReleased
 
     /**
      * @param args the command line arguments
@@ -230,7 +297,6 @@ public class PesquisaCondomino extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PesquisaCondomino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -238,98 +304,6 @@ public class PesquisaCondomino extends javax.swing.JFrame {
                 new PesquisaCondomino().setVisible(true);
             }
         });
-    }
-    
-    private void selecionarCondomino(MouseEvent evt) {
-
-        // selecionar a linha, pois, se for botão direito do mouse,não seleciona automaticamente.
-        int linha =tbCondomino.rowAtPoint(evt.getPoint());
-
-        if (linha >= 0) {
-
-            tbCondomino.setRowSelectionInterval(linha, linha);
-
-            linha = tbCondomino.getSelectedRow();
-
-            this.condominoPesquisar = listaCondominos.get(linha);
-        }
-
-    }
-
-    private void realizarAcao(MouseEvent evt) {
-
-        if (evt.getButton() == MouseEvent.BUTTON1) { // Botão Esquerdo do Mouse
-
-            if (evt.getClickCount() > 1) { // Se for mais de 2 cliques
-                verDetalhes();
-            }
-
-        } else if (evt.getButton() == MouseEvent.BUTTON3) { //Botão Direito do Mouse
-
-            pmFlutuante.show(evt.getComponent(), evt.getX(), evt.getY());
-
-        }
-
-    }
-    
-    private void preencherMenuFlutuante() {
-        
-        JMenuItem itens[] = {new JMenuItem("Ver Detalhes"), new JMenuItem("Atualizar"), new JMenuItem("Remover")};
-        
-        itens[0].addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                verDetalhes();
-            }
-        }); 
-        
-        itens[1].addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                atualizar();
-            }
-
-        });
-        
-        itens[2].addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                remover();
-            }
-
-        });
-        
-        for (JMenuItem item : itens) {
-            pmFlutuante.add(item);
-        }
-        
-    }
-    
-    public void verDetalhes(){
-        //AdministradorDetalhesTela adminDetalhes = new AdministradorDetalhesTela(admin);
-        //adminDetalhes.setVisible(true);
-    }
-    
-    public void atualizar(){
-        //AdministradorAtualizarTela adminAtualizar = new AdministradorAtualizarTela(admin);
-        //adminAtualizar.setVisible(true);
-    }
-    
-    public void remover(){
-        
-        int res = JOptionPane.showConfirmDialog(null, "Confimar exclusão?");
-        
-        if(res == JOptionPane.YES_OPTION){
-            
-            CondominoDAO dao = new CondominoDAO();
-            dao.excluiCondomino(condominoPesquisar);
-            JOptionPane.showMessageDialog(null, condominoPesquisar.toString()+" excluido");
-            
-        } 
-        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -341,8 +315,8 @@ public class PesquisaCondomino extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lNome;
     private javax.swing.JLabel lResultadosEncontrados;
-    private javax.swing.JPopupMenu pmFlutuante;
-    private javax.swing.JTable tbCondomino;
+    private javax.swing.JPopupMenu menuPopUp;
+    private javax.swing.JTable tabelaCondomino;
     private javax.swing.JTextField tfNomePesquisa;
     // End of variables declaration//GEN-END:variables
 }

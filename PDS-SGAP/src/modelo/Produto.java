@@ -27,7 +27,6 @@ public class Produto {
     private List<ImagemProduto> imagensProduto;
     
     @ManyToOne
-    @JoinColumn (name= "condomino_codigo")
     private Condomino condomino;
     
     @ManyToMany
@@ -138,5 +137,9 @@ public class Produto {
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
+
+    @Override
+    public String toString() {
+        return nome;
+    }
 }

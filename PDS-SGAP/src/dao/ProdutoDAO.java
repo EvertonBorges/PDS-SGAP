@@ -128,17 +128,18 @@ public class ProdutoDAO {
     }
     
     public List<Produto> findProdutoByCategoria(Categoria categoria, EntityManager manager){
-        List<Produto> produtosRetorno;
-        String consulta="select p from Produto p where categoria_codigo = :codigo";
-        TypedQuery<Produto> query = manager.createQuery(consulta, Produto.class);
+        Categoria c;
+        String consulta="select c from Categoria c where c.codigo = :codigo";
+        TypedQuery<Categoria> query = manager.createQuery(consulta, Categoria.class);
         query.setParameter("codigo", categoria.getCodigo());
         
         try{
-            produtosRetorno = query.getResultList();
+            c = (Categoria) query.getSingleResult();
         } catch (NoResultException ex) {
-            produtosRetorno = null;
+            c = null;
             System.out.println("Erro ao procurar produtos por categoria: " + ex.getMessage());
         }
+        List<Produto> produtosRetorno = c.getProdutos();
         return produtosRetorno;
     }
     

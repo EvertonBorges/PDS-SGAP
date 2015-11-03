@@ -1,10 +1,10 @@
 package modelo;
 
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -34,13 +34,13 @@ public class Condomino {
     @OneToMany (mappedBy = "condomino")
     private List<Produto> produtos;
     
-    @ElementCollection
-    private Collection<String> telefones;
+    @ElementCollection (fetch = FetchType.EAGER)
+    private List<String> telefones;
 
     public Condomino() {
     }
 
-    public Condomino(String nome, String cpf, String login, String senha, Calendar dataNascimento, Apartamento apartamento, EstadoCivil estadoCivil, Collection<String> telefones) {
+    public Condomino(String nome, String cpf, String login, String senha, Calendar dataNascimento, Apartamento apartamento, EstadoCivil estadoCivil, List<String> telefones) {
         this.nome = nome;
         this.cpf = cpf;
         this.login = login;
@@ -103,11 +103,11 @@ public class Condomino {
         this.estadoCivil = estadoCivil;
     }
 
-    public Collection<String> getTelefones() {
+    public List<String> getTelefones() {
         return telefones;
     }
 
-    public void setTelefones(Collection<String> telefones) {
+    public void setTelefones(List<String> telefones) {
         this.telefones = telefones;
     }
 
@@ -125,5 +125,10 @@ public class Condomino {
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+    }
+
+    @Override
+    public String toString() {
+        return nome;
     }
 }

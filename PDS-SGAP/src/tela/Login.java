@@ -9,7 +9,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
+import modelo.Administrador;
 import modelo.Condomino;
+import tela.admin.AdministradorPrincipalTela;
 import util.JPAUtil;
 
 /**
@@ -140,17 +142,24 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_tfLoginKeyPressed
 
     private void botaoLogar(){
-        Condomino condomino = verificarLogin();
-        if(condomino != null){
-            Principal principal = new Principal(condomino);
-            principal.setVisible(true);
-            dispose();
+        Condomino condomino = verificarLoginCondomino();
+        Administrador adm = verificarLoginAdm();
+        if(condomino != null || adm != null){
+            if (condomino != null){
+                Principal principal = new Principal(condomino);
+                principal.setVisible(true);
+                dispose();
+            } else {
+                AdministradorPrincipalTela principal = new AdministradorPrincipalTela(adm);
+                principal.setVisible(true);
+                dispose();
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Login ou senha incorreta", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
     
-    private Condomino verificarLogin(){
+    private Condomino verificarLoginCondomino(){
         String senha = "";
         for(char password: tfSenha.getPassword()){
             senha = senha + "" + password;
@@ -166,6 +175,24 @@ public class Login extends javax.swing.JFrame {
             condominoConsulta = null;
         }
         return condominoConsulta;
+    }
+    
+    private Administrador verificarLoginAdm(){
+        String senha = "";
+        for(char password: tfSenha.getPassword()){
+            senha = senha + "" + password;
+        }
+        EntityManager manager = JPAUtil.getEntityManager();
+        Query query = manager.createQuery("SELECT c FROM Administrador c WHERE c.login = :login AND c.senha = :senha");
+        query.setParameter("login", tfLogin.getText());
+        query.setParameter("senha", senha);
+        Administrador administradorConsulta;
+        try{
+            administradorConsulta = (Administrador) query.getSingleResult();
+        } catch(NoResultException ex) {
+            administradorConsulta = null;
+        }
+        return administradorConsulta;
     }
     
     /**

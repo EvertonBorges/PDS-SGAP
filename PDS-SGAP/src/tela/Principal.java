@@ -7,6 +7,7 @@ package tela;
 
 import dao.CondominoDAO;
 import modelo.Condomino;
+import tela.Aluguel.PesquisarAluguel;
 import tela.meusProdutos.CadastrarProduto;
 import tela.meusProdutos.PesquisarProduto;
 
@@ -88,6 +89,11 @@ public class Principal extends javax.swing.JFrame {
         menuAluguel.setText("Aluguel");
 
         jMenuItem1.setText("Pesquisar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         menuAluguel.add(jMenuItem1);
 
         mbMenu.add(menuAluguel);
@@ -127,6 +133,11 @@ public class Principal extends javax.swing.JFrame {
         CondominoDAO condominoDAO = new CondominoDAO();
         condomino = condominoDAO.getCondominoById(condomino.getCodigo());
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        PesquisarAluguel pesquisarAluguel = new PesquisarAluguel();
+        pesquisarAluguel.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem jMenuItem1;

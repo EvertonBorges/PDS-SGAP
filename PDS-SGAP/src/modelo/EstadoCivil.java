@@ -34,6 +34,4 @@ public class EstadoCivil {
     public String toString() {
         return descricao;
     }
-    
-    
 }

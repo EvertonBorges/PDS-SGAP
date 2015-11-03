@@ -65,8 +65,6 @@ public class Apartamento {
 
     @Override
     public String toString() {
-        return "Bloco "+ bloco + ", Andar "+ andar + ", numero apto " + numApartamento;
+        return "Bloco " + bloco + ", Andar "+ andar + ", numero apto " + numApartamento;
     }
-    
-    
 }

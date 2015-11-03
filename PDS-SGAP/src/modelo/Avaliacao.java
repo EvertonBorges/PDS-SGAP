@@ -49,7 +49,4 @@ public class Avaliacao {
     public String toString() {
         return avaliacao;
     }
-    
-    
-    
 }

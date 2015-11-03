@@ -7,7 +7,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -24,32 +24,31 @@ import modelo.EstadoCivil;
  *
  * @author Bruna
  */
-public class CadastraCondomino extends javax.swing.JFrame {
-
-    private String mensagem;
+public class AlterarCondomino extends javax.swing.JFrame {
+    
+    private Condomino condomino;
+    private String mensagem = "";
     int indice = 0;
     int tamanho = 3;
-    private JFormattedTextField fmfTelefones[] = new JFormattedTextField[tamanho]; 
-    
-
+    private JFormattedTextField fmfTelefones[] = new JFormattedTextField[tamanho];
     /**
      * Creates new form CadastraCondomino
      */
-    public CadastraCondomino() throws ParseException {
+    public AlterarCondomino() {
+    }
+    
+    public AlterarCondomino(Condomino condomino) throws ParseException {
         initComponents();
-        preencheComboEstadoCivil();
-        preencheComboBloco();
-        comboAndar.removeAllItems();
-        comboNumero.removeAllItems();
+        this.condomino = condomino;
         
         painelTelefone.setLayout(new BoxLayout(painelTelefone, BoxLayout.Y_AXIS));
         painelTelefone.setSize(600, 500);
         
-        fmfTelefones[this.indice] = new JFormattedTextField(new DefaultFormatterFactory(new MaskFormatter("(##)#####-####")));
-        
-        fmfTelefones[this.indice].setFont(new Font("Tahoma", 0, 13));
-        painelTelefone.add(fmfTelefones[this.indice]);
-        fmfTelefones[this.indice].setPreferredSize(new Dimension(140, 32));
+        preencheComboEstadoCivil();
+        preencheComboBloco();
+        preencheComboAndar();
+        preencheComboNumero();
+        dadosCondomino();
     }
 
     private void preencheComboEstadoCivil() {
@@ -70,28 +69,100 @@ public class CadastraCondomino extends javax.swing.JFrame {
         for (Character bloco : dao.listaBloco()) {
             comboBloco.addItem(bloco);
         }
+        
+        comboBloco.getModel().setSelectedItem(this.condomino.getApartamento().getBloco());
     }
 
+    private void preencheComboAndar(){
+        comboAndar.removeAllItems();
+        comboAndar.addItem("");
+        
+        ApartamentoDAO dao = new ApartamentoDAO();
+        
+        List<Integer> andares = dao.listaAndar((char) comboBloco.getSelectedItem());
+        
+        for (Integer andar : andares) {
+            comboAndar.addItem(andar);
+        }
+        
+        comboAndar.getModel().setSelectedItem(this.condomino.getApartamento().getAndar());
+    }
+    
+    private void preencheComboNumero(){
+        comboNumero.removeAllItems();
+        comboNumero.addItem("");
+        
+        ApartamentoDAO dao = new ApartamentoDAO();
+        
+        List<String> numAps = dao.listaNumApartamento((Character) comboBloco.getSelectedItem(), (int) comboAndar.getSelectedItem());
+        
+        for (String numero : numAps) {
+            comboNumero.addItem(numero);
+        }
+        
+        comboNumero.getModel().setSelectedItem(this.condomino.getApartamento().getNumApartamento());
+    }
+    
+    private void dadosCondomino() throws ParseException {
+        tfNome.setText(this.condomino.getNome());
+        tfCpf.setValue(this.condomino.getCpf());
+        tfDataNascimento.setValue(dataFormatada(this.condomino.getDataNascimento()));
+        comboEstadoCivil.getModel().setSelectedItem(this.condomino.getEstadoCivil());
+        
+        for (int i = 0; i < this.condomino.getTelefones().size(); i++) {
+            fmfTelefones[i] = new JFormattedTextField(new DefaultFormatterFactory(new MaskFormatter("(##)#####-####")));
+        
+            fmfTelefones[i].setFont(new Font("Tahoma", 0, 13));
+            painelTelefone.add(fmfTelefones[i]);
+            fmfTelefones[i].setPreferredSize(new Dimension(140, 32));
+            fmfTelefones[i].setValue(this.condomino.getTelefones().get(i));
+        }
+        
+        tfLogin.setText(this.condomino.getLogin());
+        tfSenha.setText(this.condomino.getSenha());
+        System.out.println(this.condomino.getTelefones().size());
+        this.indice = this.condomino.getTelefones().size() -1;
+    }
+    
+    // transforma Calendar em String
+    private String dataFormatada(Calendar data){
+        Calendar c = data;
+        Date date = c.getTime();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        
+        return sdf.format(date);
+    }
+    
+    // retorna objeto calendar de uma string
+    private Calendar dateToCalendar(String data) throws ParseException {
+        DateFormat f = DateFormat.getDateInstance();
+        Date date = f.parse(data);
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+
+        return c;
+    }
+    
     private boolean validaCampos() {
         boolean valor = true;
         mensagem = "Campos não preenchidos: ";
 
-        if (tfNome.getText().equalsIgnoreCase("")) {
+        if (tfNome.getText().length() == 0) {
             mensagem = mensagem + "nome, ";
             valor = false;
         }
 
-        if (tfCpf.getValue() == null) {
+        if(tfCpf.getText() == "###.###.###-##"){
             mensagem = mensagem + "cpf, ";
             valor = false;
         }
-
-        if (tfDataNascimento.getValue() == null) {
+        
+        if (tfDataNascimento.getText() == "##/##/####") {
             mensagem = mensagem + "data de nascimento, ";
             valor = false;
         }
 
-        if (comboEstadoCivil.getSelectedIndex() < 1) {
+        if (comboEstadoCivil.getSelectedItem() == "") {
             mensagem = mensagem + "estado civil, ";
             valor = false;
         }
@@ -140,16 +211,6 @@ public class CadastraCondomino extends javax.swing.JFrame {
         return valor;
     }
 
-    // retorna objeto calendar de uma string
-    private Calendar dateToCalendar(String data) throws ParseException {
-        DateFormat f = DateFormat.getDateInstance();
-        Date date = f.parse(data);
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-
-        return c;
-    }
-
     private Apartamento apartamento() {
         Apartamento ap = new Apartamento();
 
@@ -159,58 +220,31 @@ public class CadastraCondomino extends javax.swing.JFrame {
 
         return ap;
     }
-
-    private Condomino novoCondomino() throws ParseException {
-        Condomino condomino = new Condomino();
-        List<String> telefones = new ArrayList<>();
-
-        for(int i = 0; i<=this.indice; i++){
-            if(fmfTelefones[i].getValue() != null) {
-                telefones.add(fmfTelefones[i].getText());
-            }
-        }
+    
+    private Condomino condominoAlterado() throws ParseException {
+        this.condomino.getTelefones().clear();
         
-        condomino.setNome(tfNome.getText());
-        condomino.setCpf(tfCpf.getText());
-        condomino.setDataNascimento(dateToCalendar(tfDataNascimento.getText()));
-        condomino.setEstadoCivil((EstadoCivil) comboEstadoCivil.getSelectedItem());
-        condomino.setTelefones(telefones);
-        condomino.setLogin(tfLogin.getText());
-        condomino.setSenha(tfSenha.getText());
-        condomino.setApartamento(apartamento());
-
-        return condomino;
-    }
-
-    private void limparCampos() {
-        tfNome.setText("");
-        tfCpf.setText("");
-        tfCpf.setValue("");
-        tfDataNascimento.setText("");
-        tfDataNascimento.setValue("");
-        comboEstadoCivil.setSelectedItem("");
+        this.condomino.setNome(tfNome.getText());
+        this.condomino.setCpf(tfCpf.getText());
+        this.condomino.setDataNascimento(dateToCalendar(tfDataNascimento.getText()));
+        this.condomino.setEstadoCivil((EstadoCivil) comboEstadoCivil.getSelectedItem());
         
         for(int i = 0; i<=this.indice; i++){
-            if(i == 0){
-                fmfTelefones[i].setText("");
-                fmfTelefones[i].setValue("");
-            }
             
-            else{
-                painelTelefone.setVisible(false);
-                fmfTelefones[i].setVisible(false);
-                painelTelefone.remove(fmfTelefones[i]);
-                painelTelefone.setVisible(true);
+            if(fmfTelefones[i].getValue() != null) {
+                this.condomino.getTelefones().add(fmfTelefones[i].getText());
             }
+        
         }
         
-        tfLogin.setText("");
-        tfSenha.setText("");
-        tfConfirmarSenha.setText("");
-        comboBloco.setSelectedItem("");
-        this.indice = 0;
+        this.condomino.setLogin(tfLogin.getText());
+        this.condomino.setSenha(tfSenha.getText());
+        this.condomino.setApartamento(apartamento());
+
+        return this.condomino;
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -240,7 +274,7 @@ public class CadastraCondomino extends javax.swing.JFrame {
         lNumero = new javax.swing.JLabel();
         comboNumero = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JSeparator();
-        botaoCadastrar = new javax.swing.JButton();
+        botaoSalvar = new javax.swing.JButton();
         botaoCancelar = new javax.swing.JButton();
         tfCpf = new javax.swing.JFormattedTextField();
         tfDataNascimento = new javax.swing.JFormattedTextField();
@@ -301,7 +335,6 @@ public class CadastraCondomino extends javax.swing.JFrame {
 
         comboAndar.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         comboAndar.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboAndar.setEnabled(false);
         comboAndar.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboAndarItemStateChanged(evt);
@@ -313,13 +346,12 @@ public class CadastraCondomino extends javax.swing.JFrame {
 
         comboNumero.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         comboNumero.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboNumero.setEnabled(false);
 
-        botaoCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        botaoCadastrar.setText("Cadastrar");
-        botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        botaoSalvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoSalvar.setText("Salvar");
+        botaoSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCadastrarActionPerformed(evt);
+                botaoSalvarActionPerformed(evt);
             }
         });
 
@@ -358,7 +390,7 @@ public class CadastraCondomino extends javax.swing.JFrame {
         );
         painelTelefoneLayout.setVerticalGroup(
             painelTelefoneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 92, Short.MAX_VALUE)
+            .addGap(0, 108, Short.MAX_VALUE)
         );
 
         botaoAdicionar.setText("Adicionar");
@@ -382,7 +414,7 @@ public class CadastraCondomino extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lLogin)
                             .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -391,7 +423,7 @@ public class CadastraCondomino extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lSenha)
                                 .addGap(150, 150, 150))
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(tfSenha)
                                 .addGap(63, 63, 63)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,6 +432,10 @@ public class CadastraCondomino extends javax.swing.JFrame {
                         .addGap(133, 133, 133))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(189, 189, 189)
+                                .addComponent(jLabel2))
                             .addComponent(lTelefone)
                             .addComponent(lApartamento)
                             .addComponent(comboEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -409,36 +445,30 @@ public class CadastraCondomino extends javax.swing.JFrame {
                             .addComponent(tfCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lDataNascimento)
                             .addComponent(tfDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 328, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(painelTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
+                                        .addGap(164, 164, 164)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(botaoRemover)
-                                            .addComponent(botaoAdicionar))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lBloco)
-                                        .addGap(134, 134, 134)
-                                        .addComponent(lAndar))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(comboBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(70, 70, 70)
-                                        .addComponent(comboAndar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addComponent(lAndar)
+                                            .addComponent(comboAndar, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(lBloco)
+                                    .addComponent(comboBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(61, 61, 61)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(comboNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lNumero))))
+                                    .addComponent(lNumero)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(painelTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(botaoAdicionar)
+                                    .addComponent(botaoRemover))))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -465,45 +495,45 @@ public class CadastraCondomino extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(64, 64, 64)
-                        .addComponent(jLabel2)
-                        .addGap(18, 52, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lConfirmarSenha)
-                            .addComponent(lSenha)
-                            .addComponent(lLogin))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                        .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(painelTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(botaoAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(botaoRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(painelTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(botaoRemover, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lLogin)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lSenha)
+                        .addComponent(lConfirmarSenha)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfConfirmarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lApartamento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lNumero)
+                    .addComponent(lBloco)
                     .addComponent(lAndar)
-                    .addComponent(lBloco))
+                    .addComponent(lNumero))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboAndar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(comboNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -516,7 +546,7 @@ public class CadastraCondomino extends javax.swing.JFrame {
 
             ApartamentoDAO dao = new ApartamentoDAO();
 
-            List<Integer> andares = dao.listaAndar((Character) comboBloco.getSelectedItem());
+            List<Integer> andares = dao.listaAndar((char) comboBloco.getSelectedItem());
 
             for (Integer andar : andares) {
                 comboAndar.addItem(andar);
@@ -552,28 +582,24 @@ public class CadastraCondomino extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_comboAndarItemStateChanged
 
-    private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
+    private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoSalvarActionPerformed
+        System.out.println(tfCpf.getText());
         if (validaCampos() == false) {
             JOptionPane.showMessageDialog(this, mensagem, "Aviso", JOptionPane.INFORMATION_MESSAGE);
             mensagem = "";
-        } else {
+        } 
+        
+        else {
             CondominoDAO dao = new CondominoDAO();
             try {
-                dao.insereCondomino(novoCondomino());
-                JOptionPane.showMessageDialog(this, "Condômino cadastrado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-
-                int resposta = JOptionPane.showConfirmDialog(this, "Deseja continuar cadastrando condôminos?", "Aviso", JOptionPane.YES_NO_OPTION);
-
-                if (resposta == JOptionPane.YES_OPTION) {
-                    limparCampos();
-                } else {
-                    dispose();
-                }
+                dao.alteraCondomino(condominoAlterado());
+                JOptionPane.showMessageDialog(this, "Dados do condômino alterado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
             } catch (ParseException ex) {
                 ex.printStackTrace();
             }
         }
-    }//GEN-LAST:event_botaoCadastrarActionPerformed
+    }//GEN-LAST:event_botaoSalvarActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
         dispose();
@@ -584,7 +610,7 @@ public class CadastraCondomino extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Limite!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
         else{
-            indice++;
+            this.indice++;
             try{
                 fmfTelefones[this.indice] = new JFormattedTextField(new DefaultFormatterFactory(new MaskFormatter("(##)#####-####")));
                 fmfTelefones[this.indice].setFont(new Font("Tahoma", 0, 13));
@@ -605,12 +631,13 @@ public class CadastraCondomino extends javax.swing.JFrame {
         if(this.indice == 0)
             botaoRemover.setEnabled(false);
         else{
-            painelTelefone.setVisible(false);
-            fmfTelefones[this.indice].setVisible(false);
-            painelTelefone.setVisible(true);
             painelTelefone.remove(fmfTelefones[this.indice]);
+            painelTelefone.setVisible(false);
+            //fmfTelefones[this.indice].setVisible(false);
+            
             this.indice--;
         }
+        painelTelefone.setVisible(true);
     }//GEN-LAST:event_botaoRemoverActionPerformed
 
     /**
@@ -630,33 +657,29 @@ public class CadastraCondomino extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastraCondomino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCondomino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastraCondomino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCondomino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastraCondomino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCondomino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastraCondomino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarCondomino.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new CadastraCondomino().setVisible(true);
-                } catch (ParseException ex) {
-                    ex.getMessage();
-                }
+                new AlterarCondomino().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoAdicionar;
-    private javax.swing.JButton botaoCadastrar;
     private javax.swing.JButton botaoCancelar;
     private javax.swing.JButton botaoRemover;
+    private javax.swing.JButton botaoSalvar;
     private javax.swing.JComboBox comboAndar;
     private javax.swing.JComboBox comboBloco;
     private javax.swing.JComboBox comboEstadoCivil;
