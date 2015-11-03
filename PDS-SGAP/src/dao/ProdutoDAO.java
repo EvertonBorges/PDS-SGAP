@@ -91,7 +91,12 @@ public class ProdutoDAO {
     public void removeProduto(Produto produto){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
-        manager.remove(produto);
+        Produto produtoRemover = manager.find(Produto.class, produto.getCodigo());
+        for (ImagemProduto imagemProduto: produtoRemover.getImagensProduto()) {
+            ImagemProdutoDAO imagemProdutoDAO = new ImagemProdutoDAO();
+            imagemProdutoDAO.removeImagemProduto(imagemProduto, manager);
+        }
+        manager.remove(produtoRemover);
         manager.getTransaction().commit();
         manager.close();
         JOptionPane.showMessageDialog(null, "Produto excluido com sucesso", "Produto Excluido", JOptionPane.INFORMATION_MESSAGE);

@@ -8,6 +8,7 @@ package tela.meusProdutos;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.util.List;
+import javax.swing.JOptionPane;
 import modelo.Condomino;
 import modelo.Produto;
 
@@ -238,11 +239,17 @@ public class PesquisarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_miDetalhesActionPerformed
 
     private void miAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAtualizarActionPerformed
-        // TODO add your handling code here:
+        AtualizarProduto atualizarProduto = new AtualizarProduto(produto);
+        atualizarProduto.setVisible(true);
     }//GEN-LAST:event_miAtualizarActionPerformed
 
     private void miExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExcluirActionPerformed
-        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja excluir o registro: " + produto.getNome() + "?", "Excluir Produto", JOptionPane.YES_NO_OPTION);
+        if(resposta == JOptionPane.YES_OPTION){
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            produtoDAO.removeProduto(produto);
+            dispose();
+        }
     }//GEN-LAST:event_miExcluirActionPerformed
     
     private void selecionarCliente(MouseEvent evt) {

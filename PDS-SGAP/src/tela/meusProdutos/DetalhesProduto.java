@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import modelo.ImagemProduto;
 import modelo.Produto;
@@ -204,6 +205,11 @@ public class DetalhesProduto extends javax.swing.JFrame {
         });
 
         bExcluir.setText("Excluir");
+        bExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bExcluirActionPerformed(evt);
+            }
+        });
 
         bCancelar.setText("Cancelar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -225,7 +231,7 @@ public class DetalhesProduto extends javax.swing.JFrame {
                         .addComponent(bAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bExcluir)
-                        .addGap(112, 112, 112)
+                        .addGap(132, 132, 132)
                         .addComponent(bCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,6 +334,15 @@ public class DetalhesProduto extends javax.swing.JFrame {
         AtualizarProduto atualizarProduto = new AtualizarProduto(produto);
         atualizarProduto.setVisible(true);
     }//GEN-LAST:event_bAlterarActionPerformed
+
+    private void bExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja excluir o registro: " + produto.getNome() + "?", "Excluir Produto", JOptionPane.YES_NO_OPTION);
+        if(resposta == JOptionPane.YES_OPTION){
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            produtoDAO.removeProduto(produto);
+            dispose();
+        }
+    }//GEN-LAST:event_bExcluirActionPerformed
     
     private void realizarAcao(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1) {
