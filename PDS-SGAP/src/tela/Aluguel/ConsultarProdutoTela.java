@@ -94,8 +94,7 @@ public class ConsultarProdutoTela extends javax.swing.JFrame {
     
     
     public void preencherComentarios(){
-        JPAUtil jpaUtil = new JPAUtil();
-        EntityManager manager = jpaUtil.getManager();
+        EntityManager manager = JPAUtil.getEntityManager();
           
         String consulta="select p from Comentario p where produto_codigo = :codigo";
         TypedQuery<Comentario> query =manager.createQuery(consulta, Comentario.class);

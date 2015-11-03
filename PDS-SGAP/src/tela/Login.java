@@ -155,8 +155,7 @@ public class Login extends javax.swing.JFrame {
         for(char password: tfSenha.getPassword()){
             senha = senha + "" + password;
         }
-        JPAUtil jpaUtil = new JPAUtil();
-        EntityManager manager = jpaUtil.getManager();
+        EntityManager manager = JPAUtil.getEntityManager();
         Query query = manager.createQuery("SELECT c FROM Condomino c WHERE c.login = :login AND c.senha = :senha");
         query.setParameter("login", tfLogin.getText());
         query.setParameter("senha", senha);

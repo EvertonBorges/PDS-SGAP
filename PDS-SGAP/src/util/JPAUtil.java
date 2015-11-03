@@ -14,14 +14,15 @@ import javax.persistence.Persistence;
  * @author Borges
  */
 public class JPAUtil {
-    private EntityManagerFactory factory = Persistence.createEntityManagerFactory("PDS-SGAPPU");
-    private EntityManager manager = factory.createEntityManager();
-
-    public JPAUtil() {
-        
+    
+    public static EntityManagerFactory emf;
+    
+    static{
+        emf = Persistence.createEntityManagerFactory("PDS-SGAPPU");
     }
-
-    public EntityManager getManager() {
-        return manager;
+    
+    public static EntityManager getEntityManager(){
+        return emf.createEntityManager();
     }
+    
 }

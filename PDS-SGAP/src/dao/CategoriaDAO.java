@@ -19,8 +19,7 @@ import util.JPAUtil;
 public class CategoriaDAO {
     
     public void addCategoria(Categoria categoria){
-        JPAUtil jpaUtil = new JPAUtil();
-        EntityManager manager = jpaUtil.getManager();
+        EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         manager.persist(categoria);
         manager.getTransaction().commit();
@@ -28,8 +27,7 @@ public class CategoriaDAO {
     }
     
     public List<Categoria> allCategorias(){
-        JPAUtil jpaUtil = new JPAUtil();
-        EntityManager manager = jpaUtil.getManager();
+        EntityManager manager = JPAUtil.getEntityManager();
         Query query = manager.createQuery("SELECT c FROM Categoria c ORDER BY c.descricao");
         List<Categoria> categorias;
         try{

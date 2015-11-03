@@ -36,7 +36,7 @@ public class PesquisarAluguel extends javax.swing.JFrame {
     private ProdutoDAO pDAO = new ProdutoDAO();
     private Produto produto = new Produto();
     private JPAUtil jpaUtil = new JPAUtil();
-    private EntityManager manager = jpaUtil.getManager();
+    EntityManager manager = JPAUtil.getEntityManager();
     private  DefaultListModel listaModel = new DefaultListModel();  
 
     public PesquisarAluguel() {

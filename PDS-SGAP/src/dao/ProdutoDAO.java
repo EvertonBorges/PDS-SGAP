@@ -32,8 +32,7 @@ public class ProdutoDAO {
     
     public void preencherLista(){
         this.produtos.clear();
-        JPAUtil jpaUtil = new JPAUtil();
-        EntityManager manager = jpaUtil.getManager();
+        EntityManager manager = JPAUtil.getEntityManager();
         Query query = manager.createQuery("SELECT p FROM Produto p ");
         try{
             this.produtos = query.getResultList();
@@ -48,8 +47,7 @@ public class ProdutoDAO {
     }
     
     public void addProduto(Produto produto){
-        JPAUtil jpaUtil = new JPAUtil();
-        EntityManager manager = jpaUtil.getManager();
+        EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         manager.persist(produto);
         for (ImagemProduto imagem: produto.getImagensProduto()){
@@ -62,8 +60,7 @@ public class ProdutoDAO {
     }
     
     public void alterProduto(Produto produtoNovo, List<ImagemProduto> imagensNovas){
-        JPAUtil jpaUtil = new JPAUtil();
-        EntityManager manager = jpaUtil.getManager();
+        EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         if (!produtoNovo.getImagensProduto().isEmpty()){
             for (ImagemProduto imagem: produtoNovo.getImagensProduto()) {
@@ -92,8 +89,7 @@ public class ProdutoDAO {
     }
     
     public void removeProduto(Produto produto){
-        JPAUtil jpaUtil = new JPAUtil();
-        EntityManager manager = jpaUtil.getManager();
+        EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         manager.remove(produto);
         manager.getTransaction().commit();
@@ -103,8 +99,7 @@ public class ProdutoDAO {
     
     public List<Produto> findProdutoByCondomino(Condomino condomino){
         List<Produto> produtosRetorno;
-        JPAUtil jpaUtil = new JPAUtil();
-        EntityManager manager = jpaUtil.getManager();
+        EntityManager manager = JPAUtil.getEntityManager();
         Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.condomino.codigo = :condominoCodigo");
         query.setParameter("condominoCodigo", condomino.getCodigo());
         try{
