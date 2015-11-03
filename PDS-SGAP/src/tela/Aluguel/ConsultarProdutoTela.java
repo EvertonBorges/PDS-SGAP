@@ -6,24 +6,13 @@
 package tela.Aluguel;
 
 import dao.ProdutoDAO;
-import java.awt.Graphics;
 import java.awt.Image;
-import java.lang.Object;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
 import modelo.Comentario;
 import modelo.Produto;
@@ -105,8 +94,8 @@ public class ConsultarProdutoTela extends javax.swing.JFrame {
     
     
     public void preencherComentarios(){
-        
-        EntityManager manager = JPAUtil.getEntityManager();
+        JPAUtil jpaUtil = new JPAUtil();
+        EntityManager manager = jpaUtil.getManager();
           
         String consulta="select p from Comentario p where produto_codigo = :codigo";
         TypedQuery<Comentario> query =manager.createQuery(consulta, Comentario.class);

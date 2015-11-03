@@ -44,6 +44,8 @@ public class AtualizarProduto extends javax.swing.JFrame {
         carregarImagens();
         carregarCategorias();
         carregarSelecionados();
+        carregarListCategorias();
+        carregarCampos();
     }
 
     /**
@@ -383,21 +385,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         carregarListCategorias();
-        carregarCampos();
     }//GEN-LAST:event_formWindowGainedFocus
-
-    private void referenciasCategoriaProduto(Produto produto){
-        removerCategoriasProduto(produto);
-        for(Categoria categoria: categoriasSelecionadas){
-            categoria.getProdutos().add(produto);
-        }
-    }
-    
-    private void removerCategoriasProduto(Produto produto){
-        for(Categoria categoria: categoriasSelecionadas){
-            categoria.getProdutos().remove(produto);
-        }
-    }
     
     private void carregarCategorias(){
         CategoriaDAO categoriaDAO = new CategoriaDAO();
@@ -543,7 +531,6 @@ public class AtualizarProduto extends javax.swing.JFrame {
         byte[] byteArray2 = arrayImage(img2);
         byte[] byteArray3 = arrayImage(img3);
         
-        referenciasCategoriaProduto(produto);
         produto.setNome(tfNome.getText());
         produto.setQuantidade(Integer.parseInt(spQtde.getValue().toString()));
         produto.setDescricao(taDescricao.getText());

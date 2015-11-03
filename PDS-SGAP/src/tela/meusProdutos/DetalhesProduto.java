@@ -359,7 +359,8 @@ public class DetalhesProduto extends javax.swing.JFrame {
     
     private void atualizarReferencia() {
         ProdutoDAO produtoDAO = new ProdutoDAO();
-        produto = produtoDAO.findProdutoById(produto, JPAUtil.getEntityManager());
+        JPAUtil jpaUtil = new JPAUtil();
+        produto = produtoDAO.findProdutoById(produto, jpaUtil.getManager());
     }
     
     private void carregarCampos(){

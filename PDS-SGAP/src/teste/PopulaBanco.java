@@ -149,7 +149,7 @@ public class PopulaBanco {
         cd4.getProdutos().add(p11);
         cd4.getProdutos().add(p12);
         
-        
+        /*
         cat1.getProdutos().add(p1);
         cat1.getProdutos().add(p2);
         cat1.getProdutos().add(p3);
@@ -164,6 +164,7 @@ public class PopulaBanco {
         cat3.getProdutos().add(p6);
         cat3.getProdutos().add(p10);
         cat3.getProdutos().add(p11);
+        */
         
         p1.setCondomino(cd);
         p2.setCondomino(cd);

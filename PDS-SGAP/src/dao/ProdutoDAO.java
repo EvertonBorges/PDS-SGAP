@@ -31,8 +31,9 @@ public class ProdutoDAO {
     }
     
     public void preencherLista(){
-        this. produtos.clear();
-        EntityManager manager = JPAUtil.getEntityManager();
+        this.produtos.clear();
+        JPAUtil jpaUtil = new JPAUtil();
+        EntityManager manager = jpaUtil.getManager();
         Query query = manager.createQuery("SELECT p FROM Produto p ");
         try{
             this.produtos = query.getResultList();
@@ -47,7 +48,8 @@ public class ProdutoDAO {
     }
     
     public void addProduto(Produto produto){
-        EntityManager manager = JPAUtil.getEntityManager();
+        JPAUtil jpaUtil = new JPAUtil();
+        EntityManager manager = jpaUtil.getManager();
         manager.getTransaction().begin();
         manager.persist(produto);
         for (ImagemProduto imagem: produto.getImagensProduto()){
@@ -59,13 +61,12 @@ public class ProdutoDAO {
         JOptionPane.showMessageDialog(null, "Produto inserido com sucesso", "Produto Inserido", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public void alterProduto(Produto produto, List<ImagemProduto> imagensNovas){
-        EntityManager manager = JPAUtil.getEntityManager();
+    public void alterProduto(Produto produtoNovo, List<ImagemProduto> imagensNovas){
+        JPAUtil jpaUtil = new JPAUtil();
+        EntityManager manager = jpaUtil.getManager();
         manager.getTransaction().begin();
-        List<ImagemProduto> imagens = produto.getImagensProduto();
-        produto.setImagensProduto(null);
-        if (!imagens.isEmpty()){
-            for (ImagemProduto imagem: imagens) {
+        if (!produtoNovo.getImagensProduto().isEmpty()){
+            for (ImagemProduto imagem: produtoNovo.getImagensProduto()) {
                 ImagemProdutoDAO imagemProdutoDAO = new ImagemProdutoDAO();
                 imagemProdutoDAO.removeImagemProduto(imagem, manager);
             }
@@ -76,13 +77,23 @@ public class ProdutoDAO {
                 imagemProdutoDAO.addImagemProduto(imagem, manager);
             }
         }
+        Produto produto = manager.find(Produto.class, produtoNovo.getCodigo());
+        produto.setNome(produtoNovo.getNome());
+        produto.setQuantidade(produtoNovo.getQuantidade());
+        produto.setTaxa(produtoNovo.getTaxa());
+        produto.setDiaria(produtoNovo.getDiaria());
+        produto.setCategorias(produtoNovo.getCategorias());
+        produto.setDescricao(produtoNovo.getDescricao());
+        produto.setImagensProduto(imagensNovas);
+        
         manager.getTransaction().commit();
         manager.close();
         JOptionPane.showMessageDialog(null, "Produto alterado com sucesso", "Produto Alterado", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void removeProduto(Produto produto){
-        EntityManager manager = JPAUtil.getEntityManager();
+        JPAUtil jpaUtil = new JPAUtil();
+        EntityManager manager = jpaUtil.getManager();
         manager.getTransaction().begin();
         manager.remove(produto);
         manager.getTransaction().commit();
@@ -92,7 +103,8 @@ public class ProdutoDAO {
     
     public List<Produto> findProdutoByCondomino(Condomino condomino){
         List<Produto> produtosRetorno;
-        EntityManager manager = JPAUtil.getEntityManager();
+        JPAUtil jpaUtil = new JPAUtil();
+        EntityManager manager = jpaUtil.getManager();
         Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.condomino.codigo = :condominoCodigo");
         query.setParameter("condominoCodigo", condomino.getCodigo());
         try{

@@ -9,18 +9,14 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.swing.JTable;
 import modelo.Produto;
-import tela.meusProdutos.TabelaProduto;
 import util.JPAUtil;
 import dao.ProdutoDAO;
 import java.awt.event.MouseAdapter;
 import javax.swing.DefaultListModel;
-import javax.swing.JCheckBox;
 import modelo.Categoria;
-import modelo.Comentario;
 
 /**
  *
@@ -39,7 +35,8 @@ public class PesquisarAluguel extends javax.swing.JFrame {
 
     private ProdutoDAO pDAO = new ProdutoDAO();
     private Produto produto = new Produto();
-    private EntityManager manager = JPAUtil.getEntityManager();
+    private JPAUtil jpaUtil = new JPAUtil();
+    private EntityManager manager = jpaUtil.getManager();
     private  DefaultListModel listaModel = new DefaultListModel();  
 
     public PesquisarAluguel() {

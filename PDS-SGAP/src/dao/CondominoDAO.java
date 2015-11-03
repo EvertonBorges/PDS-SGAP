@@ -21,7 +21,8 @@ public class CondominoDAO {
     }
     
     public void addCondomino(Condomino condomino){
-        EntityManager manager = JPAUtil.getEntityManager();
+        JPAUtil jpaUtil = new JPAUtil();
+        EntityManager manager = jpaUtil.getManager();
         manager.getTransaction().begin();
         manager.persist(condomino);
         manager.getTransaction().commit();
@@ -30,7 +31,8 @@ public class CondominoDAO {
     
     public Condomino getCondominoById(Long codigo){
         Condomino condomino;
-        EntityManager manager = JPAUtil.getEntityManager();
+        JPAUtil jpaUtil = new JPAUtil();
+        EntityManager manager = jpaUtil.getManager();
         Query query = manager.createQuery("SELECT c FROM Condomino c WHERE c.codigo = :codigo");
         query.setParameter("codigo", codigo);
         try {
