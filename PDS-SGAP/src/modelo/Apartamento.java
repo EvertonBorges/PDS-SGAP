@@ -62,4 +62,11 @@ public class Apartamento {
     public void setCondomino(List<Condomino> condomino) {
         this.condomino = condomino;
     }
+
+    @Override
+    public String toString() {
+        return "Bloco "+ bloco + ", Andar "+ andar + ", numero apto " + numApartamento;
+    }
+    
+    
 }

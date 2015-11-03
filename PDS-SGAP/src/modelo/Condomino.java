@@ -27,8 +27,10 @@ public class Condomino {
     
     @ManyToOne
     private Apartamento apartamento;
+    
     @ManyToOne
     private EstadoCivil estadoCivil;
+    
     @OneToMany (mappedBy = "condomino")
     private List<Produto> produtos;
     

@@ -22,6 +22,10 @@ public class Administrador {
         this.senha = senha;
     }
 
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
+   
     public Long getCodigo() {
         return codigo;
     }
@@ -49,4 +53,11 @@ public class Administrador {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
+    
 }

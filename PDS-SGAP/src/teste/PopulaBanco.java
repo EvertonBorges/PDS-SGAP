@@ -28,7 +28,7 @@ public class PopulaBanco {
     
     public static void main ( String [] args ) {
     
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory ("SGAPPU");
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory ("PDS-SGAPPU");
         EntityManager manager = factory . createEntityManager () ;
 
         manager.getTransaction().begin();
