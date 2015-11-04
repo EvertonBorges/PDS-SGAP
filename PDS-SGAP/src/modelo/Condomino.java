@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.ElementCollection;
@@ -39,6 +40,8 @@ public class Condomino {
     private List<String> telefones;
 
     public Condomino() {
+        
+        produtos= new ArrayList<>();
     }
 
     public Condomino(String nome, String cpf, String login, String senha, Calendar dataNascimento, Apartamento apartamento, EstadoCivil estadoCivil, List<String> telefones) {
