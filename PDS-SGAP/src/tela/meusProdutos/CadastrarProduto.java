@@ -5,6 +5,8 @@
  */
 package tela.meusProdutos;
 
+import painelmodelo.PainelModeloImagens;
+import listamodelo.ListaModeloCategorias;
 import dao.CategoriaDAO;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
@@ -380,7 +382,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_bAddCategoriaActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        ListaCategorias modelo = new ListaCategorias(categoriasSelecionadas);
+        ListaModeloCategorias modelo = new ListaModeloCategorias(categoriasSelecionadas);
         listCategorias.setModel(modelo);
     }//GEN-LAST:event_formWindowGainedFocus
     
@@ -408,8 +410,8 @@ public class CadastrarProduto extends javax.swing.JFrame {
         img3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         img2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         if (img.getComponents().length > 0) {
-            PainelImagens newImage = new PainelImagens();
-            newImage.setBfImage(((PainelImagens) img.getComponent(0)).getBfImage());
+            PainelModeloImagens newImage = new PainelModeloImagens();
+            newImage.setBfImage(((PainelModeloImagens) img.getComponent(0)).getBfImage());
             imgPrincipal.add(newImage);
             imgPrincipal.revalidate();
             img.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
@@ -422,7 +424,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-            PainelImagens newImagem = new PainelImagens();
+            PainelModeloImagens newImagem = new PainelModeloImagens();
             img.setName(chooser.getSelectedFile().getPath());
             newImagem.setBfImage(img.getName());
             if ( (newImagem.getBfImage().getWidth() + newImagem.getBfImage().getHeight()) > 2000) {
@@ -441,7 +443,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
         img.repaint();
     }
     
-    private void carregarImagem(PainelImagens newPainel){
+    private void carregarImagem(PainelModeloImagens newPainel){
         img.removeAll();
         img.repaint();
         mudarCorPaineis();

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela.meusProdutos;
+package listamodelo;
 
 import java.util.List;
 import javax.swing.AbstractListModel;
@@ -13,10 +13,10 @@ import modelo.Categoria;
  *
  * @author Everton Soares
  */
-public class ListaCategorias extends AbstractListModel{
+public class ListaModeloCategorias extends AbstractListModel{
     private final List<Categoria> categorias;
 
-    public ListaCategorias(List<Categoria> categorias) {
+    public ListaModeloCategorias(List<Categoria> categorias) {
         this.categorias = categorias;
     }
     

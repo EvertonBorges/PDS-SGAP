@@ -8,11 +8,11 @@ import modelo.Condomino;
  *
  * @author Bruna
  */
-public class TableModelCondomino extends AbstractTableModel{
+public class TabelaModeloCondomino extends AbstractTableModel{
     public List<Condomino> condominos;
     public String[] colunas = {"Nome", "CPF", "Apartamento"};
 
-    public TableModelCondomino(List<Condomino> condominos) {
+    public TabelaModeloCondomino(List<Condomino> condominos) {
         this.condominos = condominos;
     }
 
@@ -34,23 +34,14 @@ public class TableModelCondomino extends AbstractTableModel{
         switch(coluna){
             case 0: return condomino.getNome();
             case 1: return condomino.getCpf();
-            case 2: return "Bloco "+condomino.getApartamento().getBloco()+
-                           " Andar "+condomino.getApartamento().getAndar()+
-                           " Nº "+condomino.getApartamento().getNumApartamento();
-            
+            case 2: return condomino.getApartamento();
             default: return "";
         }
     }
     
     @Override
     public String getColumnName(int coluna){
-        switch(coluna){
-            case 0: return colunas[0];
-            case 1: return colunas[1];
-            case 2: return colunas[2];
-            
-            default: return super.getColumnName(coluna);
-        }
+        return colunas[coluna];
     }
 
 }

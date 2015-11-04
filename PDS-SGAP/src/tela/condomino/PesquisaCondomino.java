@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import modelo.Condomino;
-import tabelamodelo.TableModelCondomino;
+import tabelamodelo.TabelaModeloCondomino;
 
 /**
  *
@@ -33,7 +33,7 @@ public class PesquisaCondomino extends javax.swing.JFrame {
     
     public void preencheTabela(){
         pesquisar();
-        tabelaCondomino.setModel(new TableModelCondomino(this.listaCondominos));
+        tabelaCondomino.setModel(new TabelaModeloCondomino(this.listaCondominos));
     }
     
     public void pesquisar(){

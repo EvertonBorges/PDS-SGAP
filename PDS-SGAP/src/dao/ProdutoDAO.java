@@ -102,11 +102,10 @@ public class ProdutoDAO {
         JOptionPane.showMessageDialog(null, "Produto excluido com sucesso", "Produto Excluido", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public List<Produto> findProdutoByCondomino(Condomino condomino){
-        List<Produto> produtosRetorno;
+    public List<Produto> findProduto(Condomino condomino){
         EntityManager manager = JPAUtil.getEntityManager();
-        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.condomino.codigo = :condominoCodigo");
-        query.setParameter("condominoCodigo", condomino.getCodigo());
+        List<Produto> produtosRetorno;
+        TypedQuery<Produto> query = manager.createQuery("SELECT p FROM Produto p", Produto.class);
         try{
             produtosRetorno = query.getResultList();
         } catch (NoResultException ex) {
@@ -115,10 +114,10 @@ public class ProdutoDAO {
         return produtosRetorno;
     }
     
-    public Produto findProdutoById(Produto produto, EntityManager manager){
+    public Produto findProduto(Long codigo, EntityManager manager){
         Produto produtoRetorno;
         Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.codigo = :codigo");
-        query.setParameter("codigo", produto.getCodigo());
+        query.setParameter("codigo", codigo);
         try{
             produtoRetorno = (Produto) query.getSingleResult();
         } catch (NoResultException ex) {
@@ -127,7 +126,7 @@ public class ProdutoDAO {
         return produtoRetorno;
     }
     
-    public List<Produto> findProdutoByCategoria(Categoria categoria, EntityManager manager){
+    public List<Produto> findProduto(Categoria categoria, EntityManager manager){
         Categoria c;
         String consulta="select c from Categoria c where c.codigo = :codigo";
         TypedQuery<Categoria> query = manager.createQuery(consulta, Categoria.class);
@@ -143,7 +142,7 @@ public class ProdutoDAO {
         return produtosRetorno;
     }
     
-    public List<Produto> findProdutoByStatus(boolean status, EntityManager manager){
+    public List<Produto> findProduto(boolean status, EntityManager manager){
         List<Produto> produtosRetorno;
         Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.status = :status");
         query.setParameter("status", status);

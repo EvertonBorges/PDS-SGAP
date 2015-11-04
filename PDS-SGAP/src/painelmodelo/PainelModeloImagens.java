@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela.meusProdutos;
+package painelmodelo;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -15,10 +15,10 @@ import javax.imageio.ImageIO;
  *
  * @author Everton Soares
  */
-public class PainelImagens extends javax.swing.JPanel {
+public class PainelModeloImagens extends javax.swing.JPanel {
     private BufferedImage bfImage;
 
-    public PainelImagens() {
+    public PainelModeloImagens() {
         initComponents();
     }
 

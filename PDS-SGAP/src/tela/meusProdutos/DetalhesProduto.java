@@ -5,6 +5,8 @@
  */
 package tela.meusProdutos;
 
+import painelmodelo.PainelModeloImagens;
+import listamodelo.ListaModeloCategorias;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -338,9 +340,9 @@ public class DetalhesProduto extends javax.swing.JFrame {
     private void bExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirActionPerformed
         int resposta = JOptionPane.showConfirmDialog(null, "Deseja excluir o registro: " + produto.getNome() + "?", "Excluir Produto", JOptionPane.YES_NO_OPTION);
         if(resposta == JOptionPane.YES_OPTION){
+            dispose();
             ProdutoDAO produtoDAO = new ProdutoDAO();
             produtoDAO.removeProduto(produto);
-            dispose();
         }
     }//GEN-LAST:event_bExcluirActionPerformed
     
@@ -357,8 +359,8 @@ public class DetalhesProduto extends javax.swing.JFrame {
         img3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         img2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         if (img.getComponents().length > 0) {
-            PainelImagens newImage = new PainelImagens();
-            newImage.setBfImage(((PainelImagens) img.getComponent(0)).getBfImage());
+            PainelModeloImagens newImage = new PainelModeloImagens();
+            newImage.setBfImage(((PainelModeloImagens) img.getComponent(0)).getBfImage());
             imgPrincipal.add(newImage);
             imgPrincipal.revalidate();
             img.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
@@ -374,8 +376,7 @@ public class DetalhesProduto extends javax.swing.JFrame {
     
     private void atualizarReferencia() {
         ProdutoDAO produtoDAO = new ProdutoDAO();
-        JPAUtil jpaUtil = new JPAUtil();
-        produto = produtoDAO.findProdutoById(produto, JPAUtil.getEntityManager());
+        produto = produtoDAO.findProduto(produto.getCodigo(), JPAUtil.getEntityManager());
     }
     
     private void carregarCampos(){
@@ -387,14 +388,17 @@ public class DetalhesProduto extends javax.swing.JFrame {
     }
     
     private void carregarCategorias(){
-        ListaCategorias modelo = new ListaCategorias(produto.getCategorias());
+        ListaModeloCategorias modelo = new ListaModeloCategorias(produto.getCategorias());
         listaCategorias.setModel(modelo);
     }
     
     private void carregarImagens(){
+        img1.removeAll();
+        img2.removeAll();
+        img3.removeAll();
         int cont = 1;
         for (ImagemProduto imagem: produto.getImagensProduto()) {
-            PainelImagens painelImg = carregarImagem(imagem);
+            PainelModeloImagens painelImg = carregarImagem(imagem);
             switch(cont){
                 case 1: mostrarImagem(img1, painelImg);
                         break;
@@ -407,12 +411,12 @@ public class DetalhesProduto extends javax.swing.JFrame {
         }
     }
     
-    private PainelImagens carregarImagem(ImagemProduto imagem){
+    private PainelModeloImagens carregarImagem(ImagemProduto imagem){
         BufferedImage img = null;
-        PainelImagens painelRetorno = null;
+        PainelModeloImagens painelRetorno = null;
         try {
             img = ImageIO.read(new ByteArrayInputStream(imagem.getImagem()));
-            painelRetorno = new PainelImagens();
+            painelRetorno = new PainelModeloImagens();
             painelRetorno.setBfImage(img);
         } catch (IOException ex) {
             painelRetorno = null;
@@ -420,7 +424,7 @@ public class DetalhesProduto extends javax.swing.JFrame {
         return painelRetorno;
     }
     
-    private void mostrarImagem(JPanel painel, PainelImagens imagemPainel){
+    private void mostrarImagem(JPanel painel, PainelModeloImagens imagemPainel){
         painel.add(imagemPainel);
         painel.revalidate();
     }

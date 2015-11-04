@@ -9,20 +9,14 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.swing.JTable;
 import modelo.Produto;
-import tela.meusProdutos.TabelaProduto;
 import util.JPAUtil;
 import dao.ProdutoDAO;
 import java.awt.event.MouseAdapter;
 import javax.swing.DefaultListModel;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
 import modelo.Categoria;
-import modelo.Comentario;
 
 /**
  *
@@ -211,7 +205,7 @@ public class PesquisarAluguel extends javax.swing.JFrame {
    
     public void preencherTabelaByCategoria(Categoria cateoria){
         this.produtos.clear();
-        for (Produto p: pDAO.findProdutoByCategoria(categoria, manager)){
+        for (Produto p: pDAO.findProduto(categoria, manager)){
             if(p.isStatus()== true)    
                 this.produtos.add(p) ;
         }
@@ -369,7 +363,7 @@ public class PesquisarAluguel extends javax.swing.JFrame {
             query.setMaxResults(10);*/
             
             
-            this.produtos = pDAO.findProdutoByStatus(true, manager);
+            this.produtos = pDAO.findProduto(true, manager);
            
             
             

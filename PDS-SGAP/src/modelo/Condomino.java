@@ -21,6 +21,7 @@ public class Condomino {
     private String cpf;
     private String login;
     private String senha;
+    private boolean adm;
     
     @Temporal(TemporalType.DATE)
     private Calendar dataNascimento;

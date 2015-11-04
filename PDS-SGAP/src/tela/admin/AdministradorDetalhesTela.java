@@ -14,13 +14,11 @@ import modelo.Administrador;
  * @author Wilson
  */
 public class AdministradorDetalhesTela extends javax.swing.JFrame {
-    
-    private Administrador admin;
-    
+    private final Administrador admin;
 
     /**
      * Creates new form AutorDetalhesTela
-     * @param autor
+     * @param admin
      */
     public AdministradorDetalhesTela(Administrador admin) {
         initComponents();
@@ -238,6 +236,4 @@ public class AdministradorDetalhesTela extends javax.swing.JFrame {
         lLogin.setText(admin.getLogin());
         lSenha.setText(admin.getSenha());
     }
-
-   
 }

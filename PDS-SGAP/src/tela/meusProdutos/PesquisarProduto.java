@@ -5,6 +5,8 @@
  */
 package tela.meusProdutos;
 
+import dao.CondominoDAO;
+import tabelamodelo.TabelaModeloProduto;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -248,7 +250,6 @@ public class PesquisarProduto extends javax.swing.JFrame {
         if(resposta == JOptionPane.YES_OPTION){
             ProdutoDAO produtoDAO = new ProdutoDAO();
             produtoDAO.removeProduto(produto);
-            dispose();
         }
     }//GEN-LAST:event_miExcluirActionPerformed
     
@@ -276,15 +277,21 @@ public class PesquisarProduto extends javax.swing.JFrame {
         detalhesProduto.setVisible(true);
     }
     
-    private void carregarProdutos(){
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtos = produtoDAO.findProdutoByCondomino(condomino);
+    private void atualizarCondomino(){
+        CondominoDAO condominoDAO = new CondominoDAO();
+        condomino = condominoDAO.getCondominoById(condomino.getCodigo());
     }
     
-    private void carregarTabela(){
+    private void carregarProdutos(){
+        atualizarCondomino();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtos = produtoDAO.findProduto(condomino);
+    }
+    
+    private void carregarTabela() {
         carregarProdutos();
-        TabelaProduto tabelaProduto = new TabelaProduto(produtos);
-        tbResultados.setModel(tabelaProduto);
+        TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
+        tbResultados.setModel(modelo);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

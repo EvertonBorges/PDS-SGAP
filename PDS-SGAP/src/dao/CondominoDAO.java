@@ -141,5 +141,4 @@ public class CondominoDAO {
         manager.getTransaction().commit();
         manager.close();
     }
-    
 }

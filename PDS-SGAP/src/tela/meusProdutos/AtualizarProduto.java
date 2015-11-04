@@ -5,6 +5,8 @@
  */
 package tela.meusProdutos;
 
+import painelmodelo.PainelModeloImagens;
+import listamodelo.ListaModeloCategorias;
 import dao.CategoriaDAO;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
@@ -404,7 +406,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
     }
     
     private void carregarListCategorias(){
-        ListaCategorias modelo = new ListaCategorias(categoriasSelecionadas);
+        ListaModeloCategorias modelo = new ListaModeloCategorias(categoriasSelecionadas);
         listCategorias.setModel(modelo);
     }
     
@@ -419,7 +421,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
     private void carregarImagens(){
         int cont = 1;
         for (ImagemProduto imagem: produto.getImagensProduto()) {
-            PainelImagens painelImg = carregarImagem(imagem);
+            PainelModeloImagens painelImg = carregarImagem(imagem);
             switch(cont){
                 case 1: mostrarImagem(img1, painelImg);
                         break;
@@ -432,12 +434,12 @@ public class AtualizarProduto extends javax.swing.JFrame {
         }
     }
     
-    private PainelImagens carregarImagem(ImagemProduto imagem){
+    private PainelModeloImagens carregarImagem(ImagemProduto imagem){
         BufferedImage img = null;
-        PainelImagens painelRetorno = null;
+        PainelModeloImagens painelRetorno = null;
         try {
             img = ImageIO.read(new ByteArrayInputStream(imagem.getImagem()));
-            painelRetorno = new PainelImagens();
+            painelRetorno = new PainelModeloImagens();
             painelRetorno.setBfImage(img);
         } catch (IOException ex) {
             painelRetorno = null;
@@ -445,7 +447,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
         return painelRetorno;
     }
     
-    private void mostrarImagem(JPanel painel, PainelImagens imagemPainel){
+    private void mostrarImagem(JPanel painel, PainelModeloImagens imagemPainel){
         painel.add(imagemPainel);
         painel.revalidate();
     }
@@ -469,8 +471,8 @@ public class AtualizarProduto extends javax.swing.JFrame {
         img3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         img2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         if (img.getComponents().length > 0) {
-            PainelImagens newImage = new PainelImagens();
-            newImage.setBfImage(((PainelImagens) img.getComponent(0)).getBfImage());
+            PainelModeloImagens newImage = new PainelModeloImagens();
+            newImage.setBfImage(((PainelModeloImagens) img.getComponent(0)).getBfImage());
             imgPrincipal.add(newImage);
             imgPrincipal.revalidate();
             img.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
@@ -483,7 +485,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
         chooser.setFileFilter(filter);
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
-            PainelImagens newImagem = new PainelImagens();
+            PainelModeloImagens newImagem = new PainelModeloImagens();
             newImagem.setBfImage(chooser.getSelectedFile().getPath());
             if ( (newImagem.getBfImage().getWidth() + newImagem.getBfImage().getHeight()) > 2000) {
                 JOptionPane.showMessageDialog(null, "Imagem deve possuir resolução igual ou inferior a 1000x1000 pixels", "Imagem Grande", JOptionPane.INFORMATION_MESSAGE);
@@ -500,7 +502,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
         img.repaint();
     }
     
-    private void carregarImagem(PainelImagens newPainel){
+    private void carregarImagem(PainelModeloImagens newPainel){
         img.removeAll();
         img.repaint();
         mudarCorPaineis();
@@ -514,7 +516,7 @@ public class AtualizarProduto extends javax.swing.JFrame {
         byte[] byteArray = null;
         try {
             if ((img.getComponentCount()) > 0){
-                imagem = ((PainelImagens) img.getComponent(0)).getBfImage();
+                imagem = ((PainelModeloImagens) img.getComponent(0)).getBfImage();
                 ImageIO.write(imagem, "jpg", bytesImg);
                 bytesImg.flush();
                 byteArray = bytesImg.toByteArray();

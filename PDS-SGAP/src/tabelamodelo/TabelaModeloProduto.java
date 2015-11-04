@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela.meusProdutos;
+package tabelamodelo;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -13,11 +13,11 @@ import modelo.Produto;
  *
  * @author Everton Soares
  */
-public class TabelaProduto extends AbstractTableModel{
+public class TabelaModeloProduto extends AbstractTableModel{
     private final List<Produto> produtos;
     private final String[] campos = {"Produto", "Quantidade"}; 
 
-    public TabelaProduto(List<Produto> produtos) {
+    public TabelaModeloProduto(List<Produto> produtos) {
         this.produtos = produtos;
     }
     
