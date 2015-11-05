@@ -6,16 +6,25 @@
 package modelo;
 
 import java.util.Calendar;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 /**
  *
  * @author LAB
  */
+@Entity
 public class SolicitacaoAluguel {
     
+    @Id
+    @GeneratedValue
+    private Long codigo;
+    
+    @ManyToOne
     private Produto produto;
     private Condomino locatario;
-    private Condomino locador;
     private Calendar dataSolicitacao;
     private Calendar dataInicioAluguel;
     private int diasPretendidos;
@@ -24,15 +33,25 @@ public class SolicitacaoAluguel {
     public SolicitacaoAluguel() {
     }
 
-    public SolicitacaoAluguel(Produto produto, Condomino locatario, Condomino locador, Calendar dataSolicitacao, Calendar dataInicioAluguel, int diasPretendidos, int quantidade) {
+    public SolicitacaoAluguel(Long id, Produto produto, Condomino locatario, Condomino locador, Calendar dataSolicitacao, Calendar dataInicioAluguel, int diasPretendidos, int quantidade) {
+        this.codigo=id;
         this.produto = produto;
         this.locatario = locatario;
-        this.locador = locador;
         this.dataSolicitacao = dataSolicitacao;
         this.dataInicioAluguel = dataInicioAluguel;
         this.diasPretendidos = diasPretendidos;
         this.quantidade = quantidade;
     }
+
+    public Long getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(Long codigo) {
+        this.codigo = codigo;
+    }
+    
+    
 
     public Produto getProduto() {
         return produto;
@@ -48,14 +67,6 @@ public class SolicitacaoAluguel {
 
     public void setLocatario(Condomino locatario) {
         this.locatario = locatario;
-    }
-
-    public Condomino getLocador() {
-        return locador;
-    }
-
-    public void setLocador(Condomino locador) {
-        this.locador = locador;
     }
 
     public Calendar getDataSolicitacao() {

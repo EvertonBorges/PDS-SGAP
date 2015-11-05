@@ -21,6 +21,11 @@ public class Produto {
     private int taxa;
     private boolean status;
 
+    
+    @OneToMany (mappedBy = "produto")
+    private List<SolicitacaoAluguel> solicitacoes;
+
+        
     @OneToMany (mappedBy = "produto")
     private List<ImagemProduto> imagensProduto;
     
@@ -39,7 +44,7 @@ public class Produto {
         imagensProduto= new ArrayList<>();
     }
 
-    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa ,List<ImagemProduto> imagensProduto, Condomino condomino, List<Categoria> categorias, List<Comentario> comentarios ) {
+    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa ,List<ImagemProduto> imagensProduto, List<SolicitacaoAluguel> solicitacoes, Condomino condomino, List<Categoria> categorias, List<Comentario> comentarios ) {
         this.nome = nome;
         this.descricao = descricao;
         this.quantidade = quantidade;
@@ -49,6 +54,7 @@ public class Produto {
         this.condomino = condomino;
         this.categorias = categorias;
         this.comentarios=comentarios;
+        this.solicitacoes=solicitacoes;
     }
 
     public List<Comentario> getComentarios() {
@@ -136,6 +142,15 @@ public class Produto {
         this.status = status;
     }
 
+    
+    public List<SolicitacaoAluguel> getSolicitacoes() {
+        return solicitacoes;
+    }
+
+    public void setSolicitacoes(List<SolicitacaoAluguel> solicitacoes) {
+        this.solicitacoes = solicitacoes;
+    }
+    
     @Override
     public String toString() {
         return nome;
