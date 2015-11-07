@@ -18,13 +18,13 @@ public class Categoria {
     private List<Produto> produtos;
     
     public Categoria() {
-        produtos= new ArrayList<>();
+        
     }
 
-    public Categoria(String descricao) {
+    public Categoria(String descricao, List<Produto> produtos) {
         this.descricao = descricao;
+        this.produtos = produtos;
     }
-
     
     public Long getCodigo() {
         return codigo;

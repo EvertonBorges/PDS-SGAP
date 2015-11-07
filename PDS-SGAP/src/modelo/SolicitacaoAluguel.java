@@ -6,10 +6,14 @@
 package modelo;
 
 import java.util.Calendar;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -24,17 +28,22 @@ public class SolicitacaoAluguel {
     
     @ManyToOne
     private Produto produto;
-    private Condomino locatario;
+    
+    @OneToMany (mappedBy = "solicitacao")
+    private List<Condomino> locatario;
+    
+    @Temporal (TemporalType.DATE)
     private Calendar dataSolicitacao;
+    @Temporal (TemporalType.DATE)
     private Calendar dataInicioAluguel;
+    
     private int diasPretendidos;
     private int quantidade;
 
     public SolicitacaoAluguel() {
     }
 
-    public SolicitacaoAluguel(Long id, Produto produto, Condomino locatario, Condomino locador, Calendar dataSolicitacao, Calendar dataInicioAluguel, int diasPretendidos, int quantidade) {
-        this.codigo=id;
+    public SolicitacaoAluguel(Produto produto, List<Condomino> locatario, Calendar dataSolicitacao, Calendar dataInicioAluguel, int diasPretendidos, int quantidade) {
         this.produto = produto;
         this.locatario = locatario;
         this.dataSolicitacao = dataSolicitacao;
@@ -50,8 +59,6 @@ public class SolicitacaoAluguel {
     public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
-    
-    
 
     public Produto getProduto() {
         return produto;
@@ -61,11 +68,11 @@ public class SolicitacaoAluguel {
         this.produto = produto;
     }
 
-    public Condomino getLocatario() {
+    public List<Condomino> getLocatario() {
         return locatario;
     }
 
-    public void setLocatario(Condomino locatario) {
+    public void setLocatario(List<Condomino> locatario) {
         this.locatario = locatario;
     }
 
@@ -103,12 +110,6 @@ public class SolicitacaoAluguel {
 
     @Override
     public String toString() {
-        return dataSolicitacao+"  "+ produto + " " + locatario ;
-    }
-    
-    
-    
-    
-    
-    
+        return dataSolicitacao + "  " + produto + " " + locatario ;
+    }    
 }

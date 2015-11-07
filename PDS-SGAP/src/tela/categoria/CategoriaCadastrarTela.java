@@ -8,6 +8,7 @@ package tela.categoria;
 import dao.CategoriaDAO;
 import java.util.ArrayList;
 import modelo.Categoria;
+import modelo.Produto;
 
 /**
  *

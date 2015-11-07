@@ -49,7 +49,7 @@ public class SolicitacaoAluguelDAO {
 
         manager.getTransaction().commit();
         manager.close();
-        JOptionPane.showMessageDialog(null, "Solicitaca realizada com sucesso", "Confirmacao ", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Solicitação realizada com sucesso", "Confirmacao ", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void alterProduto(SolicitacaoAluguel solicitacaoNova){
@@ -73,16 +73,14 @@ public class SolicitacaoAluguelDAO {
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         SolicitacaoAluguel solicitacaoRemover = manager.find(SolicitacaoAluguel.class, solicitacao.getCodigo());
-        for (ImagemProduto imagemProduto: produtoRemover.getImagensProduto()) {
-            ImagemProdutoDAO imagemProdutoDAO = new ImagemProdutoDAO();
-            imagemProdutoDAO.removeImagemProduto(imagemProduto, manager);
-        }
-        manager.remove(produtoRemover);
+        
+        manager.remove(solicitacaoRemover);
         manager.getTransaction().commit();
         manager.close();
         JOptionPane.showMessageDialog(null, "Produto excluido com sucesso", "Produto Excluido", JOptionPane.INFORMATION_MESSAGE);
     }
     
+    /*
     public List<Produto> findProduto(Condomino condomino){
         EntityManager manager = JPAUtil.getEntityManager();
         List<Produto> produtosRetorno;
@@ -92,6 +90,16 @@ public class SolicitacaoAluguelDAO {
         } catch (NoResultException ex) {
             produtosRetorno = null;
         }
+        return produtosRetorno;
+    }
+    
+    public List<Produto> findProduto(Condomino condomino, Produto produto){
+        EntityManager manager = JPAUtil.getEntityManager();
+        List<Produto> produtosRetorno;
+        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.condomino.codigo = :codigo AND p.nome LIKE :nome");
+        query.setParameter("codigo", condomino.getCodigo());
+        query.setParameter("nome", produto.getNome()+ "%");
+        produtosRetorno = query.getResultList();
         return produtosRetorno;
     }
     
@@ -135,4 +143,5 @@ public class SolicitacaoAluguelDAO {
         }
         return produtosRetorno;
     }
+    */
 }

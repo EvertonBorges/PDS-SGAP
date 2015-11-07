@@ -1,6 +1,5 @@
 package modelo;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.ElementCollection;
@@ -31,6 +30,9 @@ public class Condomino {
     private Calendar dataNascimento;
     
     @ManyToOne
+    private SolicitacaoAluguel solicitacao;
+    
+    @ManyToOne
     private Apartamento apartamento;
     
     @ManyToOne
@@ -44,22 +46,22 @@ public class Condomino {
 
     public Condomino() {
         
-        produtos= new ArrayList<>();
     }
 
-    public Condomino(String nome, String cpf, String login, String senha, TipoUsuario tipoUsuario, Calendar dataNascimento, Apartamento apartamento, EstadoCivil estadoCivil, List<Produto> produtos, List<String> telefones) {
+    public Condomino(String nome, String cpf, String login, String senha, TipoUsuario tipoUsuario, Calendar dataNascimento, SolicitacaoAluguel solicitacao, Apartamento apartamento, EstadoCivil estadoCivil, List<Produto> produtos, List<String> telefones) {
         this.nome = nome;
         this.cpf = cpf;
         this.login = login;
         this.senha = senha;
         this.tipoUsuario = tipoUsuario;
         this.dataNascimento = dataNascimento;
+        this.solicitacao = solicitacao;
         this.apartamento = apartamento;
         this.estadoCivil = estadoCivil;
         this.produtos = produtos;
         this.telefones = telefones;
     }
-
+    
     public Long getCodigo() {
         return codigo;
     }
@@ -142,6 +144,14 @@ public class Condomino {
 
     public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
+    }
+
+    public SolicitacaoAluguel getSolicitacao() {
+        return solicitacao;
+    }
+
+    public void setSolicitacao(SolicitacaoAluguel solicitacao) {
+        this.solicitacao = solicitacao;
     }
 
     @Override
