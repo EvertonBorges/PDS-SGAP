@@ -2,8 +2,11 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -14,6 +17,7 @@ public class Produto {
     @Id
     @GeneratedValue
     private Long codigo;
+    @Column ()
     private String nome;
     private String descricao;
     private int quantidade;
@@ -29,14 +33,12 @@ public class Produto {
     
     @ManyToMany
     private List<Categoria> categorias;
-        
+    
     @OneToMany (mappedBy= "produto")
-    private List <Comentario> comentarios;
+    private List<Comentario> comentarios;
     
     public Produto() {
-        comentarios= new ArrayList<>();
-        categorias= new ArrayList<>();
-        imagensProduto= new ArrayList<>();
+        comentarios = new ArrayList<>();
     }
 
     public Produto(String nome, String descricao, int quantidade, double diaria, int taxa ,List<ImagemProduto> imagensProduto, Condomino condomino, List<Categoria> categorias, List<Comentario> comentarios ) {

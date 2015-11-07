@@ -8,23 +8,24 @@ package modelo.tabela;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import modelo.Administrador;
+import modelo.Apartamento;
 
 /**
  *
  * @author Wilson
  */
-public class TabelaAdministrador extends AbstractTableModel{
+public class TabelaModeloApartamento extends AbstractTableModel{
 
-    private List<Administrador> admins;
-    private String[] campos = {"codigo", "Nome", "Login"};
+    private List<Apartamento> aptos;
+    private String[] campos = {"Bloco", "Andar", "Numero"};
 
-    public TabelaAdministrador(List<Administrador> admins) {
-        this.admins = admins;
+    public TabelaModeloApartamento(List<Apartamento> aptos) {
+        this.aptos = aptos;
     }
     
     @Override
     public int getRowCount() {
-        return admins.size();
+        return aptos.size();
     }
 
     @Override
@@ -34,11 +35,11 @@ public class TabelaAdministrador extends AbstractTableModel{
 
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        Administrador admin = admins.get(rowIndex);
+        Apartamento apto = aptos.get(rowIndex);
         switch(columnIndex){
-            case 0 : return admin.getCodigo();
-            case 1 : return admin.getNome();
-            case 2 : return admin.getLogin();
+            case 0 : return apto.getBloco();
+            case 1 : return apto.getAndar();
+            case 2 : return apto.getNumApartamento();
             default: return null;
         }
     }

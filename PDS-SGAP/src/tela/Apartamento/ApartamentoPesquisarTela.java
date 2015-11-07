@@ -13,7 +13,7 @@ import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import modelo.Apartamento;
-import modelo.tabela.TabelaApartamento;
+import modelo.tabela.TabelaModeloApartamento;
 
 /**
  *
@@ -251,7 +251,7 @@ public class ApartamentoPesquisarTela extends javax.swing.JFrame {
     }
 
     private void preencherTabela() {
-        tbApartamento.setModel(new TabelaApartamento(aptos));
+        tbApartamento.setModel(new TabelaModeloApartamento(aptos));
     }
     
     private void selecionarCidade(MouseEvent evt) {

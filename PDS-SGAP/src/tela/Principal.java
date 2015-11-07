@@ -8,8 +8,8 @@ package tela;
 import dao.CondominoDAO;
 import modelo.Condomino;
 import tela.Aluguel.PesquisarAluguel;
-import tela.meusProdutos.CadastrarProduto;
-import tela.meusProdutos.PesquisarProduto;
+import tela.meusProdutos.ProdutoCadastrarTela;
+import tela.meusProdutos.ProdutoPesquisarTela;
 
 /**
  *
@@ -120,12 +120,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_miSairActionPerformed
 
     private void miCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarProdutoActionPerformed
-        CadastrarProduto cadastrarProduto = new CadastrarProduto(condomino);
+        ProdutoCadastrarTela cadastrarProduto = new ProdutoCadastrarTela(condomino);
         cadastrarProduto.setVisible(true);
     }//GEN-LAST:event_miCadastrarProdutoActionPerformed
 
     private void miPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPesquisarProdutoActionPerformed
-        PesquisarProduto pesquisarProduto = new PesquisarProduto(condomino);
+        ProdutoPesquisarTela pesquisarProduto = new ProdutoPesquisarTela(condomino);
         pesquisarProduto.setVisible(true);
     }//GEN-LAST:event_miPesquisarProdutoActionPerformed
 

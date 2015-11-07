@@ -5,8 +5,8 @@
  */
 package tela.meusProdutos;
 
-import painelmodelo.PainelModeloImagens;
-import listamodelo.ListaModeloCategorias;
+import modelo.painel.PainelModeloImagens;
+import modelo.lista.ListaModeloCategorias;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -23,7 +23,7 @@ import util.JPAUtil;
  *
  * @author Everton Soares
  */
-public class DetalhesProduto extends javax.swing.JFrame {
+public class ProdutoDetalhesTela extends javax.swing.JFrame {
     private Produto produto;
     private JPanel img;
     
@@ -31,7 +31,7 @@ public class DetalhesProduto extends javax.swing.JFrame {
      * Creates new form ConsultarProduto
      * @param produto
      */
-    public DetalhesProduto(Produto produto) {
+    public ProdutoDetalhesTela(Produto produto) {
         this.produto = produto;
         initComponents();
     }
@@ -125,6 +125,11 @@ public class DetalhesProduto extends javax.swing.JFrame {
         );
 
         painelImagens.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Imagens", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        painelImagens.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                painelImagensMouseReleased(evt);
+            }
+        });
 
         imgPrincipal.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 0, 0)));
         imgPrincipal.setLayout(new java.awt.BorderLayout());
@@ -333,7 +338,7 @@ public class DetalhesProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void bAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAlterarActionPerformed
-        AtualizarProduto atualizarProduto = new AtualizarProduto(produto);
+        ProdutoAtualizarTela atualizarProduto = new ProdutoAtualizarTela(produto);
         atualizarProduto.setVisible(true);
     }//GEN-LAST:event_bAlterarActionPerformed
 
@@ -345,6 +350,11 @@ public class DetalhesProduto extends javax.swing.JFrame {
             produtoDAO.removeProduto(produto);
         }
     }//GEN-LAST:event_bExcluirActionPerformed
+
+    private void painelImagensMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelImagensMouseReleased
+        img = null;
+        mudarCorPaineis();
+    }//GEN-LAST:event_painelImagensMouseReleased
     
     private void realizarAcao(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1) {
@@ -358,12 +368,14 @@ public class DetalhesProduto extends javax.swing.JFrame {
         img1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         img3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         img2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        if (img.getComponents().length > 0) {
-            PainelModeloImagens newImage = new PainelModeloImagens();
-            newImage.setBfImage(((PainelModeloImagens) img.getComponent(0)).getBfImage());
-            imgPrincipal.add(newImage);
-            imgPrincipal.revalidate();
-            img.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
+        if (img != null) {
+            if (img.getComponents().length > 0) {
+                PainelModeloImagens newImage = new PainelModeloImagens();
+                newImage.setBfImage(((PainelModeloImagens) img.getComponent(0)).getBfImage());
+                imgPrincipal.add(newImage);
+                imgPrincipal.revalidate();
+                img.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
+            }
         }
     }
     
@@ -412,12 +424,12 @@ public class DetalhesProduto extends javax.swing.JFrame {
     }
     
     private PainelModeloImagens carregarImagem(ImagemProduto imagem){
-        BufferedImage img = null;
-        PainelModeloImagens painelRetorno = null;
+        BufferedImage imagemLocal;
+        PainelModeloImagens painelRetorno;
         try {
-            img = ImageIO.read(new ByteArrayInputStream(imagem.getImagem()));
+            imagemLocal = ImageIO.read(new ByteArrayInputStream(imagem.getImagem()));
             painelRetorno = new PainelModeloImagens();
-            painelRetorno.setBfImage(img);
+            painelRetorno.setBfImage(imagemLocal);
         } catch (IOException ex) {
             painelRetorno = null;
         }

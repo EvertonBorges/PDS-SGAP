@@ -3,17 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela.Aluguel;
+package modelo.lista;
 
+import modelo.textarea.ATextArea;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.AbstractListModel;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 import modelo.Comentario;
-import modelo.Produto;
 
 /**
  *
@@ -54,6 +50,5 @@ public class ListaComentarios extends AbstractListModel{
         textArea.setLineWrap(true);
        
         return textArea;
-    }
-   
+    }   
 }

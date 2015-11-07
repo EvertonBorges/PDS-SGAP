@@ -26,6 +26,22 @@ public class CategoriaDAO {
         manager.close();
     }
     
+    public void alterCategoria(Categoria categoria){
+        EntityManager manager = JPAUtil.getEntityManager();
+        manager.getTransaction().begin();
+        manager.merge(categoria);
+        manager.getTransaction().commit();
+        manager.close();
+    }
+    
+    public void removeCategoria(Categoria categoria){
+        EntityManager manager = JPAUtil.getEntityManager();
+        manager.getTransaction().begin();
+        manager.remove(categoria);
+        manager.getTransaction().commit();
+        manager.close();
+    }
+    
     public List<Categoria> allCategorias(){
         EntityManager manager = JPAUtil.getEntityManager();
         Query query = manager.createQuery("SELECT c FROM Categoria c ORDER BY c.descricao");
@@ -37,5 +53,13 @@ public class CategoriaDAO {
         }
         return categorias;
     }
-
+    
+    public List<Categoria> findCategoria(Categoria categoria){
+        List<Categoria> categoriasRetorno;
+        EntityManager manager = JPAUtil.getEntityManager();
+        Query query = manager.createQuery("SELECT c FROM Categoria c WHERE c.descricao LIKE :descricao ORDER BY c.codigo");
+        query.setParameter("descricao", categoria.getDescricao() + "%");
+        categoriasRetorno = query.getResultList();
+        return categoriasRetorno;
+    }
 }

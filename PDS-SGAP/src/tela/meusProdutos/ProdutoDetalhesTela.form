@@ -250,6 +250,9 @@
           </Border>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="painelImagensMouseReleased"/>
+      </Events>
 
       <Layout>
         <DimensionLayout dim="0">

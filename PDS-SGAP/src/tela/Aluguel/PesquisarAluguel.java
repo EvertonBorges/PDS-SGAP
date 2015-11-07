@@ -5,6 +5,9 @@
  */
 package tela.Aluguel;
 
+import modelo.lista.ListaModeloCategorias;
+import modelo.tabela.TabelaProdutosDisponiveisRenderer;
+import modelo.tabela.TabelaProdutosDisponiveis;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -220,7 +223,7 @@ public class PesquisarAluguel extends javax.swing.JFrame {
         TypedQuery<Categoria> query =manager.createQuery(consulta, Categoria.class);
         this.categorias= query.getResultList();
         
-        jlCategoria.setModel(new ListaCategorias(this.categorias)); 
+        jlCategoria.setModel(new ListaModeloCategorias(this.categorias)); 
         
         jlCategoria.addMouseListener( new MouseAdapter() {
             @Override

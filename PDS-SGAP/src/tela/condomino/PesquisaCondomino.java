@@ -11,7 +11,7 @@ import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import modelo.Condomino;
-import tabelamodelo.TabelaModeloCondomino;
+import modelo.tabela.TabelaModeloCondomino;
 
 /**
  *

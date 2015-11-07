@@ -13,7 +13,7 @@ import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import modelo.Administrador;
-import modelo.tabela.TabelaAdministrador;
+import modelo.tabela.TabelaModeloAdministrador;
 
 /**
  *
@@ -251,7 +251,7 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
     }
 
     private void preencherTabela() {
-        tbAdministrador.setModel(new TabelaAdministrador(admins));
+        tbAdministrador.setModel(new TabelaModeloAdministrador(admins));
     }
     
     private void selecionarAdministrador(MouseEvent evt) {

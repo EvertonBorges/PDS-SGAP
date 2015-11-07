@@ -5,6 +5,7 @@
  */
 package tela.Aluguel;
 
+import modelo.lista.ListaComentarios;
 import dao.ProdutoDAO;
 import java.awt.Graphics;
 import java.awt.Image;

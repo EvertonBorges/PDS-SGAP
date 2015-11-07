@@ -6,12 +6,9 @@
 package tela.admin;
 
 import modelo.Administrador;
-import tela.*;
-import modelo.Condomino;
 import tela.Apartamento.ApartamentoPesquisarTela;
+import tela.categoria.CategoriaPesquisarTela;
 import tela.condomino.PesquisaCondomino;
-import tela.meusProdutos.CadastrarProduto;
-import tela.meusProdutos.PesquisarProduto;
 
 /**
  *
@@ -21,6 +18,7 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
     private final Administrador administrador;
     /**
      * Creates new form Principal
+     * @param administrador
      */
     public AdministradorPrincipalTela(Administrador administrador) {
         this.administrador = administrador;
@@ -103,6 +101,11 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
         mCadastros.add(imApartamento);
 
         imCategoria.setText("Categoria");
+        imCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imCategoriaActionPerformed(evt);
+            }
+        });
         mCadastros.add(imCategoria);
 
         mbMenu.add(mCadastros);
@@ -169,6 +172,11 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
         ApartamentoPesquisarTela apartamentoPesquisarTela = new ApartamentoPesquisarTela();
         apartamentoPesquisarTela.setVisible(true);
     }//GEN-LAST:event_imApartamentoActionPerformed
+
+    private void imCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imCategoriaActionPerformed
+        CategoriaPesquisarTela categoriaPesquisarTela = new CategoriaPesquisarTela();
+        categoriaPesquisarTela.setVisible(true);
+    }//GEN-LAST:event_imCategoriaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem imAlterarSenha;

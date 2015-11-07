@@ -5,24 +5,24 @@
  */
 package tela.meusProdutos;
 
-import painelmodelo.PainelModeloImagens;
-import listamodelo.ListaModeloCategorias;
+import modelo.painel.PainelModeloImagens;
+import modelo.lista.ListaModeloCategorias;
 import dao.CategoriaDAO;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import modelo.Categoria;
-import modelo.Condomino;
 import modelo.ImagemProduto;
 import modelo.Produto;
 
@@ -30,20 +30,24 @@ import modelo.Produto;
  *
  * @author Everton Soares
  */
-public class CadastrarProduto extends javax.swing.JFrame {
-    private Condomino condomino;
-    private List<Categoria> categoriasSelecionadas = new ArrayList<>();
+public class ProdutoAtualizarTela extends javax.swing.JFrame {
+    private List<Categoria> categoriasSelecionadas;
     private List<Categoria> categorias;
     private JPanel img;
+    private Produto produto;
     
     /**
      * Creates new form CadastrarProduto
-     * @param condomino
+     * @param produto
      */
-    public CadastrarProduto(Condomino condomino) {
-        this.condomino = condomino;
+    public ProdutoAtualizarTela(Produto produto) {
+        this.produto = produto;
         initComponents();
+        carregarImagens();
         carregarCategorias();
+        carregarSelecionados();
+        carregarListCategorias();
+        carregarCampos();
     }
 
     /**
@@ -76,7 +80,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
         img2 = new javax.swing.JPanel();
         img3 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
-        bCadastrar = new javax.swing.JButton();
+        bAtualizar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
         painelDescricao = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -99,7 +103,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
         menuFlutuante.add(miRemoverImagem);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadatrar Produto");
+        setTitle("Atualizar Produto");
         setResizable(false);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
@@ -163,6 +167,11 @@ public class CadastrarProduto extends javax.swing.JFrame {
         );
 
         painelImagens.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Imagens", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        painelImagens.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                painelImagensMouseReleased(evt);
+            }
+        });
 
         imgPrincipal.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
         imgPrincipal.setLayout(new java.awt.BorderLayout());
@@ -218,10 +227,10 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        bCadastrar.setText("Cadastrar");
-        bCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        bAtualizar.setText("Atualizar");
+        bAtualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCadastrarActionPerformed(evt);
+                bAtualizarActionPerformed(evt);
             }
         });
 
@@ -287,7 +296,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
                     .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(bCadastrar)
+                        .addComponent(bAtualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bCancelar)
                         .addGap(32, 32, 32)))
@@ -323,7 +332,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bCadastrar)
+                    .addComponent(bAtualizar)
                     .addComponent(bCancelar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -371,10 +380,10 @@ public class CadastrarProduto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tfTaxaFocusLost
 
-    private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
-        cadastrarProduto();
+    private void bAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAtualizarActionPerformed
+        atualizarProduto();
         dispose();
-    }//GEN-LAST:event_bCadastrarActionPerformed
+    }//GEN-LAST:event_bAtualizarActionPerformed
 
     private void bAddCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddCategoriaActionPerformed
         AdicionarCategorias adicionarCategorias = new AdicionarCategorias(categoriasSelecionadas, categorias);
@@ -382,13 +391,75 @@ public class CadastrarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_bAddCategoriaActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        ListaModeloCategorias modelo = new ListaModeloCategorias(categoriasSelecionadas);
-        listCategorias.setModel(modelo);
+        carregarListCategorias();
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void painelImagensMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelImagensMouseReleased
+        img = null;
+        mudarCorPaineis();
+    }//GEN-LAST:event_painelImagensMouseReleased
     
     private void carregarCategorias(){
         CategoriaDAO categoriaDAO = new CategoriaDAO();
         categorias = categoriaDAO.allCategorias();
+    }
+    
+    private void carregarSelecionados(){
+        categoriasSelecionadas = new ArrayList<>();
+        for (Categoria categoria1: categorias) {
+            for (Categoria categoria2: produto.getCategorias()){
+                if (Objects.equals(categoria1.getCodigo(), categoria2.getCodigo())){
+                    categoriasSelecionadas.add(categoria1);
+                }
+            }
+        }
+    }
+    
+    private void carregarListCategorias(){
+        ListaModeloCategorias modelo = new ListaModeloCategorias(categoriasSelecionadas);
+        listCategorias.setModel(modelo);
+    }
+    
+    private void carregarCampos(){
+        tfNome.setText(produto.getNome());
+        spQtde.setValue(produto.getQuantidade());
+        tfTaxa.setText(produto.getTaxa() + "%");
+        tfDiaria.setText("R$" + produto.getDiaria());
+        taDescricao.setText(produto.getDescricao());
+    }
+    
+    private void carregarImagens(){
+        int cont = 1;
+        for (ImagemProduto imagem: produto.getImagensProduto()) {
+            PainelModeloImagens painelImg = carregarImagem(imagem);
+            switch(cont){
+                case 1: mostrarImagem(img1, painelImg);
+                        break;
+                case 2: mostrarImagem(img2, painelImg);
+                        break;
+                case 3: mostrarImagem(img3, painelImg);
+                        break;
+            }
+            cont ++;
+        }
+    }
+    
+    private PainelModeloImagens carregarImagem(ImagemProduto imagem){
+        BufferedImage imgLocal;
+        PainelModeloImagens painelRetorno;
+        try {
+            imgLocal = ImageIO.read(new ByteArrayInputStream(imagem.getImagem()));
+            painelRetorno = new PainelModeloImagens();
+            painelRetorno.setBfImage(imgLocal);
+        } catch (IOException ex) {
+            painelRetorno = null;
+        }
+        return painelRetorno;
+    }
+    
+    private void mostrarImagem(JPanel painel, PainelModeloImagens imagemPainel){
+        painel.add(imagemPainel);
+        painel.revalidate();
     }
     
     private void realizarAcao(MouseEvent evt) {
@@ -409,12 +480,14 @@ public class CadastrarProduto extends javax.swing.JFrame {
         img1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         img3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         img2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        if (img.getComponents().length > 0) {
-            PainelModeloImagens newImage = new PainelModeloImagens();
-            newImage.setBfImage(((PainelModeloImagens) img.getComponent(0)).getBfImage());
-            imgPrincipal.add(newImage);
-            imgPrincipal.revalidate();
-            img.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
+        if (img != null){
+            if (img.getComponents().length > 0) {
+                PainelModeloImagens newImage = new PainelModeloImagens();
+                newImage.setBfImage(((PainelModeloImagens) img.getComponent(0)).getBfImage());
+                imgPrincipal.add(newImage);
+                imgPrincipal.revalidate();
+                img.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true));
+            }
         }
     }
     
@@ -425,10 +498,8 @@ public class CadastrarProduto extends javax.swing.JFrame {
         int returnVal = chooser.showOpenDialog(this);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             PainelModeloImagens newImagem = new PainelModeloImagens();
-            img.setName(chooser.getSelectedFile().getPath());
-            newImagem.setBfImage(img.getName());
+            newImagem.setBfImage(chooser.getSelectedFile().getPath());
             if ( (newImagem.getBfImage().getWidth() + newImagem.getBfImage().getHeight()) > 2000) {
-                img.setName("");
                 JOptionPane.showMessageDialog(null, "Imagem deve possuir resolução igual ou inferior a 1000x1000 pixels", "Imagem Grande", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 carregarImagem(newImagem);
@@ -438,7 +509,6 @@ public class CadastrarProduto extends javax.swing.JFrame {
     
     private void removerImagem(){
         img.removeAll();
-        img.setName("");
         mudarCorPaineis();
         img.repaint();
     }
@@ -456,14 +526,12 @@ public class CadastrarProduto extends javax.swing.JFrame {
         ByteArrayOutputStream bytesImg = new ByteArrayOutputStream();
         byte[] byteArray = null;
         try {
-            if (img.getName() != null){
-                if (!img.getName().equals("")) {
-                    imagem = ImageIO.read(new File(img.getName()));
-                    ImageIO.write(imagem, "jpg", bytesImg);
-                    bytesImg.flush();
-                    byteArray = bytesImg.toByteArray();
-                    bytesImg.close();
-                }
+            if ((img.getComponentCount()) > 0){
+                imagem = ((PainelModeloImagens) img.getComponent(0)).getBfImage();
+                ImageIO.write(imagem, "jpg", bytesImg);
+                bytesImg.flush();
+                byteArray = bytesImg.toByteArray();
+                bytesImg.close();
             }
         } catch (IOException ex) {
             System.out.println("Erro: " + ex.getMessage());
@@ -471,21 +539,17 @@ public class CadastrarProduto extends javax.swing.JFrame {
         return byteArray;
     } 
     
-    private void cadastrarProduto(){
+    private void atualizarProduto(){
         byte[] byteArray1 = arrayImage(img1);
         byte[] byteArray2 = arrayImage(img2);
         byte[] byteArray3 = arrayImage(img3);
         
-        Produto produto = new Produto();
-        
         produto.setNome(tfNome.getText());
         produto.setQuantidade(Integer.parseInt(spQtde.getValue().toString()));
         produto.setDescricao(taDescricao.getText());
-        produto.setCondomino(condomino);
         produto.setCategorias(categoriasSelecionadas);
         produto.setDiaria(Double.parseDouble(tfDiaria.getText().substring(2)));
         produto.setTaxa(Integer.parseInt(tfTaxa.getText().substring(0, tfTaxa.getText().length() - 1)));
-        produto.setStatus(true);
         
         List<ImagemProduto> imagens = new ArrayList<>();
         
@@ -499,9 +563,9 @@ public class CadastrarProduto extends javax.swing.JFrame {
             persistindoImagens(byteArray3, produto, imagens);
         }
         
-        produto.setImagensProduto(imagens);
         ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtoDAO.addProduto(produto);
+        produtoDAO.alterProduto(produto, imagens);
+        JOptionPane.showMessageDialog(null, "Produto alterado com sucesso", "Produto Alterado", JOptionPane.INFORMATION_MESSAGE);
     }
     
     private void persistindoImagens(byte[] byteArray, Produto produto, List<ImagemProduto> imagens){
@@ -513,7 +577,7 @@ public class CadastrarProduto extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAddCategoria;
-    private javax.swing.JButton bCadastrar;
+    private javax.swing.JButton bAtualizar;
     private javax.swing.JButton bCancelar;
     private javax.swing.JPanel img1;
     private javax.swing.JPanel img2;

@@ -6,7 +6,7 @@
 package tela.meusProdutos;
 
 import dao.CondominoDAO;
-import tabelamodelo.TabelaModeloProduto;
+import modelo.tabela.TabelaModeloProduto;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -18,7 +18,7 @@ import modelo.Produto;
  *
  * @author Borges
  */
-public class PesquisarProduto extends javax.swing.JFrame {
+public class ProdutoPesquisarTela extends javax.swing.JFrame {
     private List<Produto> produtos;
     private Produto produto;
     private Condomino condomino;
@@ -26,7 +26,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
      * Creates new form PesquisarProdutos
      * @param condomino
      */
-    public PesquisarProduto(Condomino condomino) {
+    public ProdutoPesquisarTela(Condomino condomino) {
         initComponents();
         this.condomino = condomino;
     }
@@ -47,7 +47,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
         pnCamposPesquisa = new javax.swing.JPanel();
         lNome = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        bPesquisar = new javax.swing.JButton();
         pnResultados = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbResultados = new javax.swing.JTable();
@@ -89,11 +89,22 @@ public class PesquisarProduto extends javax.swing.JFrame {
             }
         });
 
-        pnCamposPesquisa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Campos de Pesquisa", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        pnCamposPesquisa.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Campos de Pesquisa", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         lNome.setText("Nome");
 
-        jButton2.setText("Pesquisar");
+        tfNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tfNomeKeyPressed(evt);
+            }
+        });
+
+        bPesquisar.setText("Pesquisar");
+        bPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bPesquisarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnCamposPesquisaLayout = new javax.swing.GroupLayout(pnCamposPesquisa);
         pnCamposPesquisa.setLayout(pnCamposPesquisaLayout);
@@ -111,7 +122,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnCamposPesquisaLayout.createSequentialGroup()
                 .addContainerGap(151, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(bPesquisar)
                 .addGap(155, 155, 155))
         );
         pnCamposPesquisaLayout.setVerticalGroup(
@@ -121,11 +132,11 @@ public class PesquisarProduto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(bPesquisar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnResultados.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Resultados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        pnResultados.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Resultados", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
         tbResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -219,6 +230,10 @@ public class PesquisarProduto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        Produto produtoLocal = new Produto();
+        produtoLocal.setDescricao(tfNome.getText());
+        produtos = produtoDAO.findProduto(condomino, produtoLocal);
         carregarTabela();
     }//GEN-LAST:event_formWindowGainedFocus
 
@@ -227,7 +242,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
-        CadastrarProduto cadastrarProduto = new CadastrarProduto(condomino);
+        ProdutoCadastrarTela cadastrarProduto = new ProdutoCadastrarTela(condomino);
         cadastrarProduto.setVisible(true);
     }//GEN-LAST:event_bCadastrarActionPerformed
 
@@ -241,7 +256,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_miDetalhesActionPerformed
 
     private void miAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAtualizarActionPerformed
-        AtualizarProduto atualizarProduto = new AtualizarProduto(produto);
+        ProdutoAtualizarTela atualizarProduto = new ProdutoAtualizarTela(produto);
         atualizarProduto.setVisible(true);
     }//GEN-LAST:event_miAtualizarActionPerformed
 
@@ -252,6 +267,16 @@ public class PesquisarProduto extends javax.swing.JFrame {
             produtoDAO.removeProduto(produto);
         }
     }//GEN-LAST:event_miExcluirActionPerformed
+
+    private void bPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPesquisarActionPerformed
+        carregarTabela();
+    }//GEN-LAST:event_bPesquisarActionPerformed
+
+    private void tfNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            carregarTabela();
+        }
+    }//GEN-LAST:event_tfNomeKeyPressed
     
     private void selecionarCliente(MouseEvent evt) {
         int linha = tbResultados.rowAtPoint(evt.getPoint());
@@ -273,7 +298,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
     }
     
     private void verDetalhes(){
-        DetalhesProduto detalhesProduto = new DetalhesProduto(produto);
+        ProdutoDetalhesTela detalhesProduto = new ProdutoDetalhesTela(produto);
         detalhesProduto.setVisible(true);
     }
     
@@ -285,7 +310,9 @@ public class PesquisarProduto extends javax.swing.JFrame {
     private void carregarProdutos(){
         atualizarCondomino();
         ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtos = produtoDAO.findProduto(condomino);
+        Produto produtoLocal = new Produto();
+        produtoLocal.setNome(tfNome.getText());
+        produtos = produtoDAO.findProduto(condomino, produtoLocal);
     }
     
     private void carregarTabela() {
@@ -297,7 +324,7 @@ public class PesquisarProduto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCadastrar;
     private javax.swing.JButton bCancelar;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton bPesquisar;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lNome;

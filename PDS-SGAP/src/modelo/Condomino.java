@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,7 +22,9 @@ public class Condomino {
     private String cpf;
     private String login;
     private String senha;
-    private boolean adm;
+    
+    @Enumerated
+    private TipoUsuario tipoUsuario;
     
     @Temporal(TemporalType.DATE)
     private Calendar dataNascimento;
@@ -41,14 +44,16 @@ public class Condomino {
     public Condomino() {
     }
 
-    public Condomino(String nome, String cpf, String login, String senha, Calendar dataNascimento, Apartamento apartamento, EstadoCivil estadoCivil, List<String> telefones) {
+    public Condomino(String nome, String cpf, String login, String senha, TipoUsuario tipoUsuario, Calendar dataNascimento, Apartamento apartamento, EstadoCivil estadoCivil, List<Produto> produtos, List<String> telefones) {
         this.nome = nome;
         this.cpf = cpf;
         this.login = login;
         this.senha = senha;
+        this.tipoUsuario = tipoUsuario;
         this.dataNascimento = dataNascimento;
         this.apartamento = apartamento;
         this.estadoCivil = estadoCivil;
+        this.produtos = produtos;
         this.telefones = telefones;
     }
 
@@ -126,6 +131,14 @@ public class Condomino {
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+    }
+
+    public TipoUsuario getTipoUsuario() {
+        return tipoUsuario;
+    }
+
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
+        this.tipoUsuario = tipoUsuario;
     }
 
     @Override
