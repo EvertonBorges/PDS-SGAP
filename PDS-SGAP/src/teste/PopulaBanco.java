@@ -5,20 +5,25 @@
  */
 package teste;
 
+
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import modelo.Administrador;
 import modelo.Apartamento;
 import modelo.Avaliacao;
 import modelo.Categoria;
 import modelo.Comentario;
 import modelo.Condomino;
+import modelo.ImagemProduto;
 import modelo.Produto;
+import util.JPAUtil;
 
 /**
  *
@@ -28,20 +33,39 @@ public class PopulaBanco {
     
     public static void main ( String [] args ) {
     
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory ("PDS-SGAPPU");
-        EntityManager manager = factory . createEntityManager () ;
-
+    
+        EntityManager manager = JPAUtil.getEntityManager();
+                
         manager.getTransaction().begin();
 
-/*      Apartamento a1= new Apartamento();
+        Apartamento a1= new Apartamento();
         a1.setNumApartamento("apto1");
 
         Apartamento a2= new Apartamento();
         a2.setNumApartamento("apto2");
         
         Apartamento a3= new Apartamento();
-        a3.setNumApartamento("apto3");  */      
+        a3.setNumApartamento("apto3");       
    
+        Administrador adm= new Administrador();
+        adm.setNome("ADA");
+        adm.setLogin("laada");
+        adm.setSenha("saada");
+        
+        Administrador adm2= new Administrador();
+        adm2.setNome("BRUNA");
+        adm2.setLogin("labruna");
+        adm2.setSenha("sabruna");
+        
+        Administrador adm3= new Administrador();
+        adm3.setNome("EVERTON");
+        adm3.setLogin("laeverton");
+        adm3.setSenha("saeverton");
+        
+        Administrador adm4= new Administrador();
+        adm4.setNome("WILSON");
+        adm4.setLogin("lawilson");
+        adm4.setSenha("sawilson");
         
         Categoria cat1= new Categoria();
         cat1.setDescricao("INFORMATICA");
@@ -54,15 +78,23 @@ public class PopulaBanco {
         
         Condomino cd = new Condomino();
         cd.setNome("ADA");
-
+        cd.setLogin("lcada");
+        cd.setSenha("scada");
+        
         Condomino cd2 = new Condomino();
         cd2.setNome("BRUNA");
+        cd2.setLogin("lcbruna");
+        cd2.setSenha("scbruna");
         
         Condomino cd3 = new Condomino();
         cd3.setNome("WILSON");
+        cd3.setLogin("lcwilson");
+        cd3.setSenha("scwilson");
         
         Condomino cd4 = new Condomino();
         cd4.setNome("EVERTON");
+        cd4.setLogin("lceverton");
+        cd4.setSenha("sceverton");
         
         Produto p1= new Produto();
         p1.setNome("MOUSE");
@@ -149,7 +181,7 @@ public class PopulaBanco {
         cd4.getProdutos().add(p11);
         cd4.getProdutos().add(p12);
         
-        /*
+        
         cat1.getProdutos().add(p1);
         cat1.getProdutos().add(p2);
         cat1.getProdutos().add(p3);
@@ -164,7 +196,6 @@ public class PopulaBanco {
         cat3.getProdutos().add(p6);
         cat3.getProdutos().add(p10);
         cat3.getProdutos().add(p11);
-        */
         
         p1.setCondomino(cd);
         p2.setCondomino(cd);
@@ -224,25 +255,29 @@ public class PopulaBanco {
         com1.setProduto(p1);
         com1.setComentarista(cd4);
         com1.setAvaliacao(av3);
+        com1.setData(Calendar.getInstance());
         
         Comentario com2= new Comentario();
         com2.setComentario("Muito linda a locadora");
         com2.setProduto(p1);
         com2.setComentarista(cd2);
         com2.setAvaliacao(av1);
-       
+        com2.setData(Calendar.getInstance());
+
         
         Comentario com3= new Comentario();
         com3.setComentario("Muito bom esse produto");
         com3.setProduto(p2);
         com3.setComentarista(cd);
         com3.setAvaliacao(av1);
+        com3.setData(Calendar.getInstance());
         
         Comentario com4= new Comentario();
         com4.setComentario("Não gostei");
         com4.setProduto(p2);
         com4.setComentarista(cd3);
         com4.setAvaliacao(av3);
+        com4.setData(Calendar.getInstance());
 
         
         Comentario com5= new Comentario();
@@ -250,6 +285,7 @@ public class PopulaBanco {
         com5.setProduto(p2);
         com5.setComentarista(cd4);
         com5.setAvaliacao(av1);
+        com5.setData(Calendar.getInstance());
 
         
         Comentario com6= new Comentario();
@@ -257,19 +293,22 @@ public class PopulaBanco {
         com6.setProduto(p3);
         com6.setComentarista(cd3);
         com6.setAvaliacao(av3);
-       
+        com6.setData(Calendar.getInstance());
+      
         
         Comentario com7= new Comentario();
         com7.setComentario("Sem defeitos");
         com7.setProduto(p3);
         com7.setComentarista(cd);
         com7.setAvaliacao(av2);
+        com7.setData(Calendar.getInstance());
 
         Comentario com8= new Comentario();
         com8.setComentario("Legalzão, gostei mesmo");
         com8.setProduto(p4);
         com8.setComentarista(cd3);
         com8.setAvaliacao(av1);
+        com8.setData(Calendar.getInstance());
 
         
         Comentario com9= new Comentario();
@@ -277,25 +316,29 @@ public class PopulaBanco {
         com9.setProduto(p4);
         com9.setComentarista(cd2);
         com9.setAvaliacao(av1);
+        com9.setData(Calendar.getInstance());
        
         Comentario com10= new Comentario();
         com10.setComentario("Não gostei");
         com10.setProduto(p4);
         com10.setComentarista(cd4);
         com10.setAvaliacao(av3);
- 
+        com10.setData(Calendar.getInstance());
+
         Comentario com11= new Comentario();
         com11.setComentario("Sem defeitos");
         com11.setProduto(p5);
         com11.setComentarista(cd4);
         com11.setAvaliacao(av2);
+        com11.setData(Calendar.getInstance());
 
         Comentario com12= new Comentario();
         com12.setComentario("Legalzão, gostei mesmo");
         com12.setProduto(p5);
         com12.setComentarista(cd3);
         com12.setAvaliacao(av1);
- 
+        com12.setData(Calendar.getInstance());
+
         
         p1.getComentarios().add(com1);
         p1.getComentarios().add(com2);
@@ -318,12 +361,35 @@ public class PopulaBanco {
         BufferedImage imagem;
         ByteArrayOutputStream bytesImg;// = new ByteArrayOutputStream();
         //byte[] byteArray = null;
+        ImagemProduto img1= new ImagemProduto();
+        
+        ImagemProduto img2= new ImagemProduto();
+        
+        ImagemProduto img3= new ImagemProduto();
+        
+        ImagemProduto img4= new ImagemProduto();
+       
+        ImagemProduto img5= new ImagemProduto();
+
+        ImagemProduto img6= new ImagemProduto();
+
+        ImagemProduto img7= new ImagemProduto();
+        
+        ImagemProduto img8= new ImagemProduto();
+        
+        ImagemProduto img9= new ImagemProduto();       
+        
+        ImagemProduto img10= new ImagemProduto();       
+        
+
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\SGAP\\src\\icon\\mouse.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\mouse.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
-            p1.getImagensProduto().get(0).setImagem(bytesImg.toByteArray());
+            img1 = new ImagemProduto();
+            img1.setImagem(bytesImg.toByteArray());
+            p1.getImagensProduto().add(img1);
             bytesImg.close();
         } catch (IOException ex) {
             //Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -332,10 +398,12 @@ public class PopulaBanco {
   
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\SGAP\\src\\icon\\teclado.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\teclado.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
-            p2.getImagensProduto().get(0).setImagem(bytesImg.toByteArray());
+            img2= new ImagemProduto();
+            img2.setImagem(bytesImg.toByteArray());
+            p2.getImagensProduto().add(img2);
             bytesImg.close();
         } catch (IOException ex) {
             //Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -344,10 +412,12 @@ public class PopulaBanco {
 
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\SGAP\\src\\icon\\bicicleta.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\monitor.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
-            p3.getImagensProduto().get(0).setImagem(bytesImg.toByteArray());
+            img3 = new ImagemProduto();
+            img3.setImagem(bytesImg.toByteArray());
+            p3.getImagensProduto().add(img3);
             bytesImg.close();
         } catch (IOException ex) {
             //Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -356,10 +426,12 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\SGAP\\src\\icon\\caderno.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\caderno.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
-            p4.getImagensProduto().get(0).setImagem(bytesImg.toByteArray());
+            img4 = new ImagemProduto();
+            img4.setImagem(bytesImg.toByteArray());
+            p4.getImagensProduto().add(img4);
             bytesImg.close();
         } catch (IOException ex) {
             //Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -368,10 +440,12 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\SGAP\\src\\icon\\notebook.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\notebook.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
-            p5.getImagensProduto().get(0).setImagem(bytesImg.toByteArray());
+            img5 = new ImagemProduto();
+            img5.setImagem(bytesImg.toByteArray());
+            p5.getImagensProduto().add(img5);
             bytesImg.close();
         } catch (IOException ex) {
             //Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -380,10 +454,12 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\SGAP\\src\\icon\\caneta.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\caneta.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
-            p6.getImagensProduto().get(0).setImagem(bytesImg.toByteArray());
+            img6 = new ImagemProduto();
+            img6.setImagem(bytesImg.toByteArray());
+            p6.getImagensProduto().add(img6);
             bytesImg.close();
         } catch (IOException ex) {
             //Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -392,10 +468,12 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\SGAP\\src\\icon\\celular.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\celular.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
-            p7.getImagensProduto().get(0).setImagem(bytesImg.toByteArray());
+            img7 = new ImagemProduto();
+            img7.setImagem(bytesImg.toByteArray());
+            p7.getImagensProduto().add(img7);
             bytesImg.close();
         } catch (IOException ex) {
             //Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -404,10 +482,12 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\SGAP\\src\\icon\\fone.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\fone.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
-            p8.getImagensProduto().get(0).setImagem(bytesImg.toByteArray());
+            img8 = new ImagemProduto();
+            img8.setImagem(bytesImg.toByteArray());
+            p8.getImagensProduto().add(img8);
             bytesImg.close();
         } catch (IOException ex) {
             //Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -416,10 +496,12 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\SGAP\\src\\icon\\cabo.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\cabo.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
-            p9.getImagensProduto().get(0).setImagem(bytesImg.toByteArray());
+            img9 = new ImagemProduto();
+            img9.setImagem(bytesImg.toByteArray());
+            p9.getImagensProduto().add(img9);
             bytesImg.close();
         } catch (IOException ex) {
             //Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
@@ -428,24 +510,42 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\SGAP\\src\\icon\\chaveiro.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\chaveiro.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
-            p10.getImagensProduto().get(0).setImagem(bytesImg.toByteArray());
+            img10 = new ImagemProduto();
+            img10.setImagem(bytesImg.toByteArray());
+            p10.getImagensProduto().add(img10);
             bytesImg.close();
         } catch (IOException ex) {
             
             System.out.println("Erro imagem: " + ex.getMessage());
         }
         
-     /* manager.persist ( a1 ); 
+        img1.setProduto(p1);
+        img2.setProduto(p2);
+        img3.setProduto(p3);
+        img4.setProduto(p4);
+        img5.setProduto(p5);
+        img6.setProduto(p6);
+        img7.setProduto(p7);
+        img8.setProduto(p8);
+        img9.setProduto(p9);
+        img10.setProduto(p10);
+        
+        manager.persist ( a1 ); 
         manager.persist ( a2 ); 
-        manager.persist ( a3 );*/
+        manager.persist ( a3 );
 
         manager.persist ( cat1 ); 
         manager.persist ( cat2 ); 
         manager.persist ( cat3 );
 
+        manager.persist ( adm ); 
+        manager.persist ( adm2 ); 
+        manager.persist ( adm3 );
+        manager.persist ( adm4 );
+        
         manager.persist ( cd ); 
         manager.persist ( cd2 ); 
         manager.persist ( cd3 );
@@ -463,6 +563,18 @@ public class PopulaBanco {
         manager.persist ( p10); 
         manager.persist ( p11);
         manager.persist ( p12);
+        
+        manager.persist ( img1 ); 
+        manager.persist ( img2 ); 
+        manager.persist ( img3 );
+        manager.persist ( img4 );
+        manager.persist ( img5 ); 
+        manager.persist ( img6 ); 
+        manager.persist ( img7 );
+        manager.persist ( img8 );        
+        manager.persist ( img9 ); 
+        manager.persist ( img10); 
+        
         
         manager.persist ( av1 ); 
         manager.persist ( av2 ); 
@@ -484,7 +596,7 @@ public class PopulaBanco {
         
         manager . getTransaction () . commit () ;
         manager . close () ;
-        factory . close () ;
+//        factory . close () ;
         
         
         System.exit(0);
