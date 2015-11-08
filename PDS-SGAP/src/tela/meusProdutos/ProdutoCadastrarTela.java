@@ -377,6 +377,7 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
 
     private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
         cadastrarProduto();
+        JOptionPane.showMessageDialog(null, "Produto inserido com sucesso", "Produto Inserido", JOptionPane.INFORMATION_MESSAGE);
         dispose();
     }//GEN-LAST:event_bCadastrarActionPerformed
 

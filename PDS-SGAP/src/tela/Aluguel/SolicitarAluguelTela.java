@@ -7,14 +7,8 @@ package tela.Aluguel;
 
 import dao.ProdutoDAO;
 import dao.SolicitacaoAluguelDAO;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.lang.Object;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -23,19 +17,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
 import modelo.Comentario;
 import modelo.Condomino;
@@ -43,7 +28,6 @@ import modelo.ImagemProduto;
 import modelo.Produto;
 import modelo.SolicitacaoAluguel;
 import modelo.painel.PainelModeloImagens;
-import util.JPAUtil;
 
 /**
  *

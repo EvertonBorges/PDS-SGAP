@@ -2,7 +2,6 @@ package modelo;
 
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,18 +14,15 @@ public class Produto {
     @Id
     @GeneratedValue
     private Long codigo;
-    @Column ()
     private String nome;
     private String descricao;
     private int quantidade;
     private double diaria;
     private int taxa;
     private boolean status;
-
     
     @OneToMany (mappedBy = "produto")
     private List<SolicitacaoAluguel> solicitacoes;
-
         
     @OneToMany (mappedBy = "produto")
     private List<ImagemProduto> imagensProduto;
@@ -41,9 +37,9 @@ public class Produto {
     private List<Comentario> comentarios;
     
     public Produto() {
+        imagensProduto = new ArrayList<>();
+        categorias = new ArrayList<>();
         comentarios = new ArrayList<>();
-        categorias= new ArrayList<>();
-        imagensProduto= new ArrayList<>();
     }
 
     public Produto(String nome, String descricao, int quantidade, double diaria, int taxa ,List<ImagemProduto> imagensProduto, List<SolicitacaoAluguel> solicitacoes, Condomino condomino, List<Categoria> categorias, List<Comentario> comentarios ) {
@@ -66,7 +62,6 @@ public class Produto {
     public void setComentarios(List<Comentario> comentarios) {
         this.comentarios = comentarios;
     }
-    
 
     public Long getCodigo() {
         return codigo;

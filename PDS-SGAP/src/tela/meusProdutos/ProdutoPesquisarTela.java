@@ -247,7 +247,7 @@ public class ProdutoPesquisarTela extends javax.swing.JFrame {
     }//GEN-LAST:event_bCadastrarActionPerformed
 
     private void tbResultadosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbResultadosMouseReleased
-        selecionarCliente(evt);
+        selecionarProduto(evt);
         realizarAcao(evt);
     }//GEN-LAST:event_tbResultadosMouseReleased
 
@@ -278,7 +278,7 @@ public class ProdutoPesquisarTela extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tfNomeKeyPressed
     
-    private void selecionarCliente(MouseEvent evt) {
+    private void selecionarProduto(MouseEvent evt) {
         int linha = tbResultados.rowAtPoint(evt.getPoint());
         if (linha >= 0) {
             tbResultados.setRowSelectionInterval(linha, linha);

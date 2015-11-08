@@ -442,6 +442,10 @@ public class ProdutoAtualizarTela extends javax.swing.JFrame {
             }
             cont ++;
         }
+        img = img1;
+        if (img.getComponentCount() > 0) {
+            mudarCorPaineis();
+        }
     }
     
     private PainelModeloImagens carregarImagem(ImagemProduto imagem){

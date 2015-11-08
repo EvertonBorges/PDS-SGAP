@@ -13,8 +13,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import modelo.Administrador;
 import modelo.Apartamento;
 import modelo.Avaliacao;
@@ -366,6 +364,7 @@ public class PopulaBanco {
         p5.getComentarios().add(com11);
         p5.getComentarios().add(com12);
         
+        
         BufferedImage imagem;
         ByteArrayOutputStream bytesImg;// = new ByteArrayOutputStream();
         //byte[] byteArray = null;
@@ -541,6 +540,8 @@ public class PopulaBanco {
         img9.setProduto(p9);
         img10.setProduto(p10);
         
+        
+        
         manager.persist ( a1 ); 
         manager.persist ( a2 ); 
         manager.persist ( a3 );
@@ -571,6 +572,7 @@ public class PopulaBanco {
         manager.persist ( p10); 
         manager.persist ( p11);
         manager.persist ( p12);
+        
         
         manager.persist ( img1 ); 
         manager.persist ( img2 ); 

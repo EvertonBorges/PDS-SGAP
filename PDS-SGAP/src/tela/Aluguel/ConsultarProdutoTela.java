@@ -7,14 +7,8 @@ package tela.Aluguel;
 
 import modelo.lista.ListaComentarios;
 import dao.ProdutoDAO;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.lang.Object;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,13 +16,8 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-import javax.swing.DefaultListModel;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.ListSelectionModel;
 import javax.swing.SpinnerNumberModel;
 import modelo.Comentario;
 import modelo.Condomino;
@@ -59,7 +48,6 @@ public class ConsultarProdutoTela extends javax.swing.JFrame {
         this.condomino=condomino;
         initComponents();
         carregarProduto();
-
     }
     
     public void preencherCampos(){
