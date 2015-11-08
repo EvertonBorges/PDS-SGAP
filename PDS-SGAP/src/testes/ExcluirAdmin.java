@@ -15,7 +15,7 @@ import modelo.Administrador;
 public class ExcluirAdmin {
     public static void main(String[] args){
         Administrador admin = new Administrador();
-        admin.setCodigo(1l);
+        //admin.setCodigo(1l);
         admin.setNome("Jorge");
         
         AdministradorDAO dao = new AdministradorDAO();

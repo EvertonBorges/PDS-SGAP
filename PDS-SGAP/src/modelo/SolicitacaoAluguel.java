@@ -6,12 +6,10 @@
 package modelo;
 
 import java.util.Calendar;
-import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -25,39 +23,34 @@ public class SolicitacaoAluguel {
     @Id
     @GeneratedValue
     private Long codigo;
+    private int diasPretendidos;
+    private int quantidade;
     
     @ManyToOne
     private Produto produto;
     
-    @OneToMany (mappedBy = "solicitacao")
-    private List<Condomino> locatario;
+    @ManyToOne
+    private Condomino locatario;
     
     @Temporal (TemporalType.DATE)
     private Calendar dataSolicitacao;
     @Temporal (TemporalType.DATE)
     private Calendar dataInicioAluguel;
-    
-    private int diasPretendidos;
-    private int quantidade;
 
     public SolicitacaoAluguel() {
     }
 
-    public SolicitacaoAluguel(Produto produto, List<Condomino> locatario, Calendar dataSolicitacao, Calendar dataInicioAluguel, int diasPretendidos, int quantidade) {
+    public SolicitacaoAluguel(int diasPretendidos, int quantidade, Produto produto, Condomino locatario, Calendar dataSolicitacao, Calendar dataInicioAluguel) {
+        this.diasPretendidos = diasPretendidos;
+        this.quantidade = quantidade;
         this.produto = produto;
         this.locatario = locatario;
         this.dataSolicitacao = dataSolicitacao;
         this.dataInicioAluguel = dataInicioAluguel;
-        this.diasPretendidos = diasPretendidos;
-        this.quantidade = quantidade;
     }
 
     public Long getCodigo() {
         return codigo;
-    }
-
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
     }
 
     public Produto getProduto() {
@@ -68,11 +61,11 @@ public class SolicitacaoAluguel {
         this.produto = produto;
     }
 
-    public List<Condomino> getLocatario() {
+    public Condomino getLocatario() {
         return locatario;
     }
 
-    public void setLocatario(List<Condomino> locatario) {
+    public void setLocatario(Condomino locatario) {
         this.locatario = locatario;
     }
 

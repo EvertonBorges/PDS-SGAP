@@ -33,10 +33,6 @@ public class Avaliacao {
         return codigo;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
-
     public String getAvaliacao() {
         return avaliacao;
     }

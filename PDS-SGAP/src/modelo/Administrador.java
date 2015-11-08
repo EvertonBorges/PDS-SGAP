@@ -21,10 +21,6 @@ public class Administrador {
         this.login = login;
         this.senha = senha;
     }
-
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
    
     public Long getCodigo() {
         return codigo;

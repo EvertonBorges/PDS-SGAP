@@ -29,8 +29,8 @@ public class Condomino {
     @Temporal(TemporalType.DATE)
     private Calendar dataNascimento;
     
-    @ManyToOne
-    private SolicitacaoAluguel solicitacao;
+    @OneToMany (mappedBy = "locatario")
+    private List<SolicitacaoAluguel> solicitacoes;
     
     @ManyToOne
     private Apartamento apartamento;
@@ -48,14 +48,14 @@ public class Condomino {
         
     }
 
-    public Condomino(String nome, String cpf, String login, String senha, TipoUsuario tipoUsuario, Calendar dataNascimento, SolicitacaoAluguel solicitacao, Apartamento apartamento, EstadoCivil estadoCivil, List<Produto> produtos, List<String> telefones) {
+    public Condomino(String nome, String cpf, String login, String senha, TipoUsuario tipoUsuario, Calendar dataNascimento, List<SolicitacaoAluguel> solicitacoes, Apartamento apartamento, EstadoCivil estadoCivil, List<Produto> produtos, List<String> telefones) {
         this.nome = nome;
         this.cpf = cpf;
         this.login = login;
         this.senha = senha;
         this.tipoUsuario = tipoUsuario;
         this.dataNascimento = dataNascimento;
-        this.solicitacao = solicitacao;
+        this.solicitacoes = solicitacoes;
         this.apartamento = apartamento;
         this.estadoCivil = estadoCivil;
         this.produtos = produtos;
@@ -146,12 +146,12 @@ public class Condomino {
         this.tipoUsuario = tipoUsuario;
     }
 
-    public SolicitacaoAluguel getSolicitacao() {
-        return solicitacao;
+    public List<SolicitacaoAluguel> getSolicitacoes() {
+        return solicitacoes;
     }
 
-    public void setSolicitacao(SolicitacaoAluguel solicitacao) {
-        this.solicitacao = solicitacao;
+    public void setSolicitacoes(List<SolicitacaoAluguel> solicitacoes) {
+        this.solicitacoes = solicitacoes;
     }
 
     @Override

@@ -73,10 +73,6 @@ public class Comentario {
         return codigo;
     }
 
-    public void setCodigo(Long codigo) {
-        this.codigo = codigo;
-    }
-
     public String getComentario() {
         return comentario;
     }
