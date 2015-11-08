@@ -42,6 +42,8 @@ public class Produto {
     
     public Produto() {
         comentarios = new ArrayList<>();
+        categorias= new ArrayList<>();
+        imagensProduto= new ArrayList<>();
     }
 
     public Produto(String nome, String descricao, int quantidade, double diaria, int taxa ,List<ImagemProduto> imagensProduto, List<SolicitacaoAluguel> solicitacoes, Condomino condomino, List<Categoria> categorias, List<Comentario> comentarios ) {

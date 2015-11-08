@@ -7,7 +7,7 @@ package tela;
 
 import dao.CondominoDAO;
 import modelo.Condomino;
-import tela.Aluguel.PesquisarAluguel;
+import tela.Aluguel.PesquisarAluguelTela;
 import tela.meusProdutos.ProdutoCadastrarTela;
 import tela.meusProdutos.ProdutoPesquisarTela;
 
@@ -135,7 +135,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        PesquisarAluguel pesquisarAluguel = new PesquisarAluguel();
+        PesquisarAluguelTela pesquisarAluguel = new PesquisarAluguelTela(this.condomino);
         pesquisarAluguel.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 

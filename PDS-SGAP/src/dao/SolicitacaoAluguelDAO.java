@@ -23,7 +23,7 @@ public class SolicitacaoAluguelDAO {
     private List<SolicitacaoAluguel> solicitacoes =  new ArrayList<>();
     
     public SolicitacaoAluguelDAO() {
-        preencherLista();
+        //preencherLista();
     }
     
     public void preencherLista(){
@@ -52,7 +52,7 @@ public class SolicitacaoAluguelDAO {
         JOptionPane.showMessageDialog(null, "Solicitação realizada com sucesso", "Confirmacao ", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public void alterProduto(SolicitacaoAluguel solicitacaoNova){
+    public void alterSolicitacao(SolicitacaoAluguel solicitacaoNova){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
 
@@ -69,7 +69,7 @@ public class SolicitacaoAluguelDAO {
         JOptionPane.showMessageDialog(null, "Solicitacao alterada com sucesso", "Solicitacao Alterado", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public void removeProduto(SolicitacaoAluguel solicitacao){
+    public void removeSolicitacao(SolicitacaoAluguel solicitacao){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         SolicitacaoAluguel solicitacaoRemover = manager.find(SolicitacaoAluguel.class, solicitacao.getCodigo());
@@ -77,7 +77,7 @@ public class SolicitacaoAluguelDAO {
         manager.remove(solicitacaoRemover);
         manager.getTransaction().commit();
         manager.close();
-        JOptionPane.showMessageDialog(null, "Produto excluido com sucesso", "Produto Excluido", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, "Solicitacao cancelada com sucesso", "Solicitacao cancelada", JOptionPane.INFORMATION_MESSAGE);
     }
     
     /*

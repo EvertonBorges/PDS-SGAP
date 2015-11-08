@@ -107,7 +107,7 @@ public class CategoriaCadastrarTela extends javax.swing.JFrame {
         if (!tfDescricao.getText().equals("")) {
             Categoria categoria = new Categoria();
             categoria.setDescricao(tfDescricao.getText());
-            categoria.setProdutos(new ArrayList<>());
+            categoria.setProdutos(new ArrayList());
             CategoriaDAO categoriaDAO = new CategoriaDAO();
             categoriaDAO.addCategoria(categoria);
         }

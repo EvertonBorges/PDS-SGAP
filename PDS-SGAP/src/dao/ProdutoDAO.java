@@ -110,6 +110,15 @@ public class ProdutoDAO {
         produtosRetorno = query.getResultList();
         return produtosRetorno;
     }
+    public List<Produto> findProduto(Produto produto){
+        EntityManager manager = JPAUtil.getEntityManager();
+        List<Produto> produtosRetorno;
+        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.nome LIKE :nome");
+        query.setParameter("nome", produto.getNome()+ "%");
+        produtosRetorno = query.getResultList();
+        return produtosRetorno;
+    }
+    
     
     public Produto findProduto(Long codigo, EntityManager manager){
         Produto produtoRetorno;
@@ -139,9 +148,11 @@ public class ProdutoDAO {
         return produtosRetorno;
     }
     
-    public List<Produto> findProduto(boolean status, EntityManager manager){
+    public List<Produto> findProduto(boolean status, Produto produto){
+        EntityManager manager = JPAUtil.getEntityManager();
         List<Produto> produtosRetorno;
-        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.status = :status");
+        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.status = :status AND  p.nome LIKE :nome ");
+        query.setParameter("nome", produto.getNome()+ "%");
         query.setParameter("status", status);
         try{
             produtosRetorno = query.getResultList();
@@ -150,5 +161,6 @@ public class ProdutoDAO {
             System.out.println("Erro ao procurar produtos por categoria: " + ex.getMessage());
         }
         return produtosRetorno;
+        
     }
 }

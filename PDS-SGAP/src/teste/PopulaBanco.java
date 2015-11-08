@@ -135,16 +135,21 @@ public class PopulaBanco {
 
         Produto p7= new Produto();
         p7.setNome("CELULAR");
+        p7.setStatus(true);
         p7.getCategorias().add(cat2);
         p7.setQuantidade(10);
 
         Produto p8= new Produto();
         p8.setNome("FONE");
+        p8.setStatus(true);
+
         p8.getCategorias().add(cat2);
         p8.setQuantidade(10);
 
         Produto p9= new Produto();
         p9.setNome("CABO USB");
+         p9.setStatus(true);
+
         p9.getCategorias().add(cat2);
         p9.setQuantidade(10);
 
@@ -163,7 +168,10 @@ public class PopulaBanco {
         p12.getCategorias().add(cat2);
         p12.setQuantidade(10);
       
-        
+        cd.getTelefones().add("1111111111");
+        cd2.getTelefones().add("2222222222");
+        cd3.getTelefones().add("3333333333");
+        cd4.getTelefones().add("4444444444");
                 
         cd.getProdutos().add(p1);
         cd.getProdutos().add(p2);
@@ -384,7 +392,7 @@ public class PopulaBanco {
 
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\mouse.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\mouse.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img1 = new ImagemProduto();
@@ -398,7 +406,7 @@ public class PopulaBanco {
   
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\teclado.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\teclado.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img2= new ImagemProduto();
@@ -412,7 +420,7 @@ public class PopulaBanco {
 
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\monitor.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\monitor.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img3 = new ImagemProduto();
@@ -426,7 +434,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\caderno.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\caderno.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img4 = new ImagemProduto();
@@ -440,7 +448,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\notebook.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\notebook.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img5 = new ImagemProduto();
@@ -454,7 +462,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\caneta.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\caneta.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img6 = new ImagemProduto();
@@ -468,7 +476,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\celular.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\celular.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img7 = new ImagemProduto();
@@ -482,7 +490,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\fone.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\fone.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img8 = new ImagemProduto();
@@ -496,7 +504,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\cabo.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\cabo.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img9 = new ImagemProduto();
@@ -510,7 +518,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\LAB\\Documents\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\chaveiro.jpg"));
+            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\chaveiro.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img10 = new ImagemProduto();

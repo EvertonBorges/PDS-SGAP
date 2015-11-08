@@ -30,96 +30,18 @@ import modelo.textarea.ATextArea;
  *
 * @author Ada
  */
-/*public class TabelaProdutosDisponiveisRenderer extends JLabel implements TableCellRenderer{
-
-   private final List<Produto> produtos;   
-   
-   public TabelaProdutosDisponiveisRenderer(List<Produto> produtos) {
-        
-       this.produtos = produtos;
-  	setOpaque(true);
-  }
-  
-   @Override
-  public Component getTableCellRendererComponent(JTable table, 
-     Object value, boolean isSelected, boolean hasFocus, int row, 
-     int column){
-    
-        ImageIcon img= new ImageIcon(produtos.get(row).getImagen());
-     // certifique-se da existencia da imagem "icon.gif" antes de executar
-    
-     if(isSelected)
-       setBackground(table.getSelectionBackground());
-     else
-       setBackground(table.getBackground());		
-     
-     setIcon(new ImageIcon(img.getImage().getScaledInstance(30, 
-                                        30, Image.SCALE_DEFAULT)));
-     setText(value.toString());
-     	
-     return this;   	
-  }
-  
-  public void validate() {}
-  public void revalidate() {}
-  protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
-  public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}  
-}
-}*/
-/*
-public class TabelaProdutosDisponiveisRenderer extends JPanel implements TableCellRenderer{
-
-   private final List<Produto> produtos;   
-   private ImageIcon img= new ImageIcon();
-   
-   public TabelaProdutosDisponiveisRenderer(List<Produto> produtos) {
-        
-        this.produtos = produtos;
-  	setOpaque(true);
-  }
-  
-   @Override
-    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, 
-                                                    boolean hasFocus, int rowIndex,  int columnIndex){
-        
-        Produto p = produtos.get((rowIndex*4)+columnIndex);
-        
-        img= new ImageIcon(p.getImagen());
-
-        //if(isSelected)
-         //   setBackground(table.getSelectionBackground());
-        //else
-           // setBackground(table.getBackground());		
- 
-        JLabel lImagem = new JLabel(new ImageIcon(img.getImage().getScaledInstance(30, 
-                                          30, Image.SCALE_DEFAULT)));
-        
-        lImagem.setBounds(1, 1, 30 , 30);
-        lImagem.setVisible(true);
-        add(lImagem);
-        setVisible(true);
-              
-        return this;   	
-    }
-  
-   @Override
-    public void validate() {}
-    public void revalidate() {}
-    protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
-    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}  
-}*/
 
 public class TabelaProdutosDisponiveisRenderer  implements TableCellRenderer{
 
-   private final List<Produto> produtos;   
-   private ImageIcon img= new ImageIcon();
-   private JPanel painel= new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
-   
-   public TabelaProdutosDisponiveisRenderer(List<Produto> produtos) {
+    private final List<Produto> produtos;   
+    private ImageIcon img= new ImageIcon();
+    private JPanel painel= new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+
+    public TabelaProdutosDisponiveisRenderer(List<Produto> produtos) {
         painel=new JPanel();
         this.produtos = produtos;
   	painel.setOpaque(true);
-  }
+    }
   
    @Override
     public Component getTableCellRendererComponent(JTable tbProduto, Object value, boolean isSelected, 
@@ -140,13 +62,13 @@ public class TabelaProdutosDisponiveisRenderer  implements TableCellRenderer{
         if (indice < produtos.size()){
             painel.removeAll();
             p= produtos.get(indice);
-            
+            painel.setLayout(new FlowLayout(FlowLayout.CENTER,2,2));
             painel.add(getImagem(p));
             painel.add(getTextArea(p, rowIndex, isSelected));
+            painel.setBackground(getCor(isSelected));
+            painel.setBorder(getBorder(isSelected));
             painel.setVisible(true);
             painel.repaint();
-            painel.setBackground(getCor(rowIndex,isSelected));
-            
             
             return painel;   
         }
@@ -157,8 +79,8 @@ public class TabelaProdutosDisponiveisRenderer  implements TableCellRenderer{
         }
         	
     }
-      // escolhe a cor a partir da linha  
-        private Color getCor(int linha, boolean selecionada) {  
+    
+    private Color getCor(boolean selecionada) {  
             // linhas selecionadas são azuis  
             if (selecionada) {  
                 
@@ -167,9 +89,19 @@ public class TabelaProdutosDisponiveisRenderer  implements TableCellRenderer{
             else
                 return new Color(223, 223, 223);  
 
-        }
+    }
     
-    public JLabel getImagem(Produto produto){
+    private Border getBorder(boolean selecionada){
+        if (selecionada){
+            return new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true);
+        }
+        else{
+            return null;
+        }
+    }
+        
+    
+    private JLabel getImagem(Produto produto){
         ImageIcon img = new ImageIcon(produto.getImagensProduto().get(0).getImagem());
         JLabel lImagem = new JLabel(new ImageIcon(img.getImage().getScaledInstance(100, 
                                           100, Image.SCALE_DEFAULT)));
@@ -181,18 +113,14 @@ public class TabelaProdutosDisponiveisRenderer  implements TableCellRenderer{
         return lImagem ;
   }
     
-    public ATextArea getTextArea(Produto produto, int rowIndex, boolean isSelected){
+    private ATextArea getTextArea(Produto produto, int rowIndex, boolean isSelected){
         ATextArea textArea = new ATextArea();
-       /* textArea.setText("<html>Produto "+ produto.getNome()+" "+
-                "<br>"+ " "+ produto.getCondomino()+
-                "<br>Reputação: calcular "+
-                "<br> </html>" );*/
         
         textArea.setText("      "+ produto.getNome()+
-                "\n      "+produto.getCondomino().getNome()+
-                "\n      Reputação:cal%");
-        textArea.setBounds(156, 3, 145 , 50);
-        textArea.setBackground(getCor(rowIndex, isSelected));
+                            "\n      "+produto.getCondomino().getNome()+
+                            "\n      Reputação:cal%");
+        textArea.setBounds(156, 3, 144 , 50);
+        textArea.setBackground(getCor( isSelected));
         textArea.setEditable(false);  
         textArea.setLineWrap(true);
         textArea.setVisible(true);
