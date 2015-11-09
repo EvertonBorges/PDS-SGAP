@@ -63,7 +63,17 @@ public class TabelaProdutosDisponiveisRenderer  implements TableCellRenderer{
             painel.removeAll();
             p= produtos.get(indice);
             painel.setLayout(new FlowLayout(FlowLayout.CENTER,2,2));
-            painel.add(getImagem(p));
+//            System.out.println("---"+p.getImagensProduto().get(0));
+            if (p.getImagensProduto().size()>0){
+                painel.add(getImagem(p));
+            }
+            else {
+                ATextArea tA= new ATextArea();
+                tA.setText("\n\n\nSEM IMAGEM"+"\n               ");
+                tA.setBounds(1, 1, 156 , 156);
+                tA.setBackground(getCor(isSelected));
+                painel.add(tA);
+            }
             painel.add(getTextArea(p, rowIndex, isSelected));
             painel.setBackground(getCor(isSelected));
             painel.setBorder(getBorder(isSelected));
