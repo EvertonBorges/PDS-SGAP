@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.util.List;
@@ -12,45 +7,34 @@ import javax.persistence.TypedQuery;
 import modelo.Apartamento;
 import util.JPAUtil;
 
-/**
- *
- * @author Wilson
- */
 public class ApartamentoDAO {
     
     public void inserir(Apartamento apto){
-        
         EntityManager entityManager = JPAUtil.getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.persist(apto);
         entityManager.getTransaction().commit();
         entityManager.close();
-        
     }
     
     public void atualizar(Apartamento apto){
-        
         EntityManager entityManager = JPAUtil.getEntityManager();
         entityManager.getTransaction().begin();
         entityManager.merge(apto);
         entityManager.getTransaction().commit();
         entityManager.close();
-        
     }
     
     public void remove(Apartamento apto){
-        
         EntityManager entityManager = JPAUtil.getEntityManager();
         entityManager.getTransaction().begin();
         Apartamento ap = entityManager.find(Apartamento.class, apto.getCodigo());
         entityManager.remove(ap);
         entityManager.getTransaction().commit();
         entityManager.close();
-        
     }
     
     public List<Apartamento> listar(){
-        
         EntityManager entityManager = JPAUtil.getEntityManager();
         Query query = entityManager.createQuery
                 ("select a from Apartamento a");
@@ -60,7 +44,6 @@ public class ApartamentoDAO {
     }
     
     public List<Character> listaBloco(){
-        
         EntityManager manager = JPAUtil.getEntityManager();
         
         String consulta = "select distinct ap.bloco from Apartamento ap "
@@ -76,7 +59,6 @@ public class ApartamentoDAO {
     }
     
     public List<Integer> listaAndar(Character bloco){
-        
         EntityManager manager = JPAUtil.getEntityManager();
         
         String consulta = "select distinct ap.andar from Apartamento ap "
@@ -94,7 +76,6 @@ public class ApartamentoDAO {
     }
     
     public List<String> listaNumApartamento(Character bloco, int andar){
-        
         EntityManager manager = JPAUtil.getEntityManager();
         
         String consulta = "select distinct ap.numApartamento from Apartamento ap "
@@ -111,11 +92,9 @@ public class ApartamentoDAO {
         manager.close();
         
         return numAp;
-        
     }
     
     public Apartamento apartamento(char bloco, int andar, String numApartamento){
-        
         EntityManager manager = JPAUtil.getEntityManager();
        
         manager.getTransaction().begin();
@@ -137,5 +116,4 @@ public class ApartamentoDAO {
         
         return ap;
     }
-    
 }

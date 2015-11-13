@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.util.ArrayList;
@@ -18,10 +13,6 @@ import modelo.ImagemProduto;
 import modelo.Produto;
 import util.JPAUtil;
 
-/**
- *
- * @author Everton Soares
- */
 public class ProdutoDAO {
      
     private List<Produto> produtos =  new ArrayList<>();
@@ -110,6 +101,7 @@ public class ProdutoDAO {
         produtosRetorno = query.getResultList();
         return produtosRetorno;
     }
+    
     public List<Produto> findProduto(Produto produto){
         EntityManager manager = JPAUtil.getEntityManager();
         List<Produto> produtosRetorno;
@@ -161,6 +153,5 @@ public class ProdutoDAO {
             System.out.println("Erro ao procurar produtos por categoria: " + ex.getMessage());
         }
         return produtosRetorno;
-        
     }
 }

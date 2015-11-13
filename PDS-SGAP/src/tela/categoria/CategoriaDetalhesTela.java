@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tela.categoria;
 
 import dao.CategoriaDAO;
 import javax.swing.JOptionPane;
 import modelo.Categoria;
 
-/**
- *
- * @author Everton Soares
- */
 public class CategoriaDetalhesTela extends javax.swing.JFrame {
     private final Categoria categoria;
     

@@ -1,26 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.tabela;
 
-import java.awt.Image;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.List;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
 import modelo.Produto;
 
-/**
- *
-* @author Ada
- */
 public class TabelaProdutosDisponiveis  extends AbstractTableModel  {
 
     private final List<Produto> produtos;

@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package teste;
-
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -13,7 +7,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
-import modelo.Administrador;
 import modelo.Apartamento;
 import modelo.Avaliacao;
 import modelo.Categoria;
@@ -23,10 +16,6 @@ import modelo.ImagemProduto;
 import modelo.Produto;
 import util.JPAUtil;
 
-/**
- *
- * @author LAB-05
- */
 public class PopulaBanco {
     
     public static void main ( String [] args ) {

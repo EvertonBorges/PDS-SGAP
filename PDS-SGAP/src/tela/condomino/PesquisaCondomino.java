@@ -13,10 +13,6 @@ import javax.swing.JOptionPane;
 import modelo.Condomino;
 import modelo.tabela.TabelaModeloCondomino;
 
-/**
- *
- * @author Bruna
- */
 public class PesquisaCondomino extends javax.swing.JFrame {
     public List<Condomino> listaCondominos = new ArrayList<>();
     public Condomino condominoPesquisar = new Condomino();
@@ -144,12 +140,12 @@ public class PesquisaCondomino extends javax.swing.JFrame {
             }
         });
 
-        lNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lNome.setText("Nome");
 
-        tfNomePesquisa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tfNomePesquisa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        botaoPesquisar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoPesquisar.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         botaoPesquisar.setText("Pesquisar");
         botaoPesquisar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,7 +173,7 @@ public class PesquisaCondomino extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabelaCondomino);
 
-        botaoCadastrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoCadastrar.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         botaoCadastrar.setText("Cadastrar");
         botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,7 +181,7 @@ public class PesquisaCondomino extends javax.swing.JFrame {
             }
         });
 
-        botaoCancelar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botaoCancelar.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
         botaoCancelar.setText("Cancelar");
         botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,16 +197,16 @@ public class PesquisaCondomino extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(lNome)
                     .addComponent(jScrollPane1)
                     .addComponent(jSeparator2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(tfNomePesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botaoPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(botaoPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lResultadosEncontrados)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -226,7 +222,7 @@ public class PesquisaCondomino extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfNomePesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfNomePesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(botaoPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(lResultadosEncontrados))
@@ -239,7 +235,7 @@ public class PesquisaCondomino extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();

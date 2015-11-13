@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.lista;
 
 import modelo.textarea.ATextArea;
@@ -11,10 +6,6 @@ import java.util.List;
 import javax.swing.AbstractListModel;
 import modelo.Comentario;
 
-/**
- *
- * @author Ada
- */
 public class ListaComentarios extends AbstractListModel{
 
     private final List<Comentario> comentarios;

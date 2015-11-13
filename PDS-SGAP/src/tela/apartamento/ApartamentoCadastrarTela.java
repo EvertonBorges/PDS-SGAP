@@ -1,24 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tela.admin;
+package tela.apartamento;
 
-import dao.AdministradorDAO;
+import dao.ApartamentoDAO;
 import javax.swing.JOptionPane;
-import modelo.Administrador;
+import modelo.Apartamento;
 
-/**
- *
- * @author Neto
- */
-public class AdministradorCadastrarTela extends javax.swing.JFrame {
+public class ApartamentoCadastrarTela extends javax.swing.JFrame {
 
     /**
      * Creates new form AutorCadastrarTela
      */
-    public AdministradorCadastrarTela() {
+    public ApartamentoCadastrarTela() {
         initComponents();
     }
 
@@ -31,32 +22,32 @@ public class AdministradorCadastrarTela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfNome = new javax.swing.JTextField();
+        tfBloco = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        tfLogin = new javax.swing.JTextField();
+        tfAndar = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         bCadastrar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
-        tfSenha = new javax.swing.JTextField();
+        tfNumApartamento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de Administrador");
+        setTitle("Cadastro de Apartamento");
 
-        tfNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfNome.setForeground(new java.awt.Color(102, 102, 102));
+        tfBloco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfBloco.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel2.setText("Nome");
+        jLabel2.setText("Bloco");
 
-        tfLogin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfLogin.setForeground(new java.awt.Color(102, 102, 102));
+        tfAndar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfAndar.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel3.setText("Login");
+        jLabel3.setText("Andar");
 
         bCadastrar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCadastrar.setText("Cadastrar");
@@ -76,10 +67,10 @@ public class AdministradorCadastrarTela extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel4.setText("Senha");
+        jLabel4.setText("Numero do Apartamento");
 
-        tfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfSenha.setForeground(new java.awt.Color(102, 102, 102));
+        tfNumApartamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfNumApartamento.setForeground(new java.awt.Color(102, 102, 102));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,12 +85,13 @@ public class AdministradorCadastrarTela extends javax.swing.JFrame {
                         .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3)
                     .addComponent(jLabel2)
-                    .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tfLogin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(tfSenha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)))
+                        .addComponent(tfNumApartamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tfAndar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                        .addComponent(tfBloco, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -108,15 +100,15 @@ public class AdministradorCadastrarTela extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(11, 11, 11)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfAndar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfNumApartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -133,21 +125,17 @@ public class AdministradorCadastrarTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
-        Administrador admin =  new Administrador();
-        admin.setNome(tfNome.getText());
-        admin.setLogin(tfLogin.getText());
-        admin.setSenha(tfSenha.getText());
+        Apartamento apto =  new Apartamento();
+        apto.setBloco(tfBloco.getText().charAt(0));
+        apto.setAndar(Integer.parseInt(tfAndar.getText()));
+        apto.setNumApartamento(tfNumApartamento.getText());
         
-        AdministradorDAO dao = new AdministradorDAO();
+        ApartamentoDAO dao = new ApartamentoDAO();
+        dao.inserir(apto);
         
-        if(dao.validarLogin(admin)){
-            dao.inserir(admin);
-            JOptionPane.showMessageDialog(null, "Administrador cadastrado");
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Login não disponível");
-        }
+        JOptionPane.showMessageDialog(null, "Apartamento Cadastrado");
         
+        dispose();
         
     }//GEN-LAST:event_bCadastrarActionPerformed
 
@@ -162,14 +150,10 @@ public class AdministradorCadastrarTela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField tfLogin;
-    private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfSenha;
+    private javax.swing.JTextField tfAndar;
+    private javax.swing.JTextField tfBloco;
+    private javax.swing.JTextField tfNumApartamento;
     // End of variables declaration//GEN-END:variables
 
-    private void limpar() {
-        tfNome.setText("");
-        tfLogin.setText("");
-        tfSenha.setText("");
-    }
+    
 }

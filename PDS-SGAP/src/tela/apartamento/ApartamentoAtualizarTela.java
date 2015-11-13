@@ -1,28 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tela.admin;
+package tela.apartamento;
 
-import dao.AdministradorDAO;
+import dao.ApartamentoDAO;
 import javax.swing.JOptionPane;
-import modelo.Administrador;
+import modelo.Apartamento;
 
-/**
- *
- * @author Neto
- */
-public class AdministradorAtualizarTela extends javax.swing.JFrame {
+public class ApartamentoAtualizarTela extends javax.swing.JFrame {
     
-    private Administrador admin;
-    
-    public AdministradorAtualizarTela(Administrador admin) {
+    private Apartamento apto;
+
+    /**
+     * Creates new form AutorCadastrarTela
+     */
+    public ApartamentoAtualizarTela(Apartamento apto) {
         initComponents();
-        this.admin = admin;
+        this.apto = apto;
         preencherCampos();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,32 +26,32 @@ public class AdministradorAtualizarTela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        tfNome = new javax.swing.JTextField();
+        tfBloco = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        tfLogin = new javax.swing.JTextField();
+        tfAndar = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         bAtualizar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        tfSenha = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        tfNumApartamento = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Atualização de Administrador");
+        setTitle("Atualização de Apartamento");
 
-        tfNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfNome.setForeground(new java.awt.Color(102, 102, 102));
+        tfBloco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfBloco.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel2.setText("Nome");
+        jLabel2.setText("Bloco");
 
-        tfLogin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfLogin.setForeground(new java.awt.Color(102, 102, 102));
+        tfAndar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfAndar.setForeground(new java.awt.Color(102, 102, 102));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel3.setText("Login");
+        jLabel3.setText("Andar");
 
         bAtualizar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bAtualizar.setText("Atualizar");
@@ -75,12 +69,12 @@ public class AdministradorAtualizarTela extends javax.swing.JFrame {
             }
         });
 
-        tfSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfSenha.setForeground(new java.awt.Color(102, 102, 102));
-
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel4.setText("Senha");
+        jLabel4.setText("Numero do Apartamento");
+
+        tfNumApartamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfNumApartamento.setForeground(new java.awt.Color(102, 102, 102));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,20 +82,20 @@ public class AdministradorAtualizarTela extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel4)
-                        .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(bAtualizar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addComponent(tfNome)
-                        .addComponent(tfLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
-                        .addComponent(jSeparator1)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bAtualizar)
+                        .addGap(102, 102, 102)
+                        .addComponent(bCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(tfNumApartamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tfAndar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                        .addComponent(tfBloco, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -110,21 +104,24 @@ public class AdministradorAtualizarTela extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(tfBloco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfAndar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(tfSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(tfNumApartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(2, 2, 2)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bAtualizar)
-                    .addComponent(bCancelar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(bCancelar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(bAtualizar)
+                        .addGap(1, 1, 1)))
                 .addContainerGap())
         );
 
@@ -132,14 +129,16 @@ public class AdministradorAtualizarTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAtualizarActionPerformed
-        admin.setNome(tfNome.getText());
-        admin.setLogin(tfLogin.getText());
+        apto.setBloco(tfBloco.getText().charAt(0));
+        apto.setAndar(Integer.parseInt(tfAndar.getText()));
+        apto.setNumApartamento(tfNumApartamento.getText());
         
-        AdministradorDAO dao = new AdministradorDAO();
-        dao.atualizar(admin);
+        ApartamentoDAO dao = new ApartamentoDAO();
+        dao.atualizar(apto);
         
-        JOptionPane.showMessageDialog(null, "Administrador atualizado");
+        JOptionPane.showMessageDialog(null, "Apartamento atualizado");
         dispose();
+        
     }//GEN-LAST:event_bAtualizarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
@@ -153,21 +152,14 @@ public class AdministradorAtualizarTela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField tfLogin;
-    private javax.swing.JTextField tfNome;
-    private javax.swing.JTextField tfSenha;
+    private javax.swing.JTextField tfAndar;
+    private javax.swing.JTextField tfBloco;
+    private javax.swing.JTextField tfNumApartamento;
     // End of variables declaration//GEN-END:variables
 
-    private void limpar() {
-        tfNome.setText("");
-        tfLogin.setText("");
-        tfSenha.setText("");
-    }
-
     private void preencherCampos() {
-        tfNome.setText(admin.getNome());
-        tfLogin.setText(admin.getLogin());
-        tfSenha.setText(admin.getSenha());
+        tfBloco.setText(apto.getBloco() + "");
+        tfAndar.setText(Integer.toString(apto.getAndar()));
+        tfNumApartamento.setText(apto.getNumApartamento());
     }
-    
 }

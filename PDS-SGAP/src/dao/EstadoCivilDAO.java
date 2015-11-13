@@ -10,21 +10,15 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import modelo.EstadoCivil;
 import util.JPAUtil;
-/**
- *
- * @author Bruna
- */
+
 public class EstadoCivilDAO {
     
     public void insereEstadoCivil(){
         EntityManager manager = JPAUtil.getEntityManager();
-       
         manager.getTransaction().begin();
         
         CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
-        
         CriteriaQuery<String> criteriaQuery = criteriaBuilder.createQuery(String.class);
-        
         Root<EstadoCivil> estadoCivil = criteriaQuery.from(EstadoCivil.class);
         
         List<String> estadoCivis = new ArrayList<>();
@@ -41,8 +35,7 @@ public class EstadoCivilDAO {
             TypedQuery<String> query = manager.createQuery(criteriaQuery);
             
             try{
-               String resultado
-                       = query.getSingleResult();
+               String resultado = query.getSingleResult();
             }
             catch(Exception noresult){
                 EstadoCivil ec = new EstadoCivil();
@@ -50,20 +43,16 @@ public class EstadoCivilDAO {
                 manager.persist(ec);
             }
         }
-        
         manager.getTransaction().commit();
         manager.close();
     }
     
     public List<EstadoCivil> listaEstadoCivil(){
         EntityManager manager = JPAUtil.getEntityManager();
-       
         manager.getTransaction().begin();
         
         String consulta = "select ec from EstadoCivil ec";
-        
         TypedQuery<EstadoCivil> query = manager.createQuery(consulta, EstadoCivil.class);
-        
         List<EstadoCivil> estadosCivis = query.getResultList();
         
         manager.getTransaction().commit();

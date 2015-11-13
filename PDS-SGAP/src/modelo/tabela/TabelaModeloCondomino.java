@@ -4,10 +4,6 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import modelo.Condomino;
 
-/**
- *
- * @author Bruna
- */
 public class TabelaModeloCondomino extends AbstractTableModel{
     public List<Condomino> condominos;
     public String[] colunas = {"Nome", "CPF", "Apartamento"};

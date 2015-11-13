@@ -1,33 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tela.admin;
+package tela.apartamento;
 
-import dao.AdministradorDAO;
+import dao.ApartamentoDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import modelo.Administrador;
-import modelo.tabela.TabelaModeloAdministrador;
+import modelo.Apartamento;
+import modelo.tabela.TabelaModeloApartamento;
 
-/**
- *
- * @author Wilson
- */
-public class AdministradorPesquisarTela extends javax.swing.JFrame {
+public class ApartamentoPesquisarTela extends javax.swing.JFrame {
     
-    private List<Administrador> admins;
-    private Administrador admin;
+    private List<Apartamento> aptos;
+    private Apartamento apto;
 
     /**
      * Creates new form AdiministradorCadastroTela
      */
-    public AdministradorPesquisarTela() {
+    public ApartamentoPesquisarTela() {
         initComponents();
         preencherLista();
         preencherTabela();
@@ -46,15 +37,15 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
         pmFlutuante = new javax.swing.JPopupMenu();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        tfPesquisa = new javax.swing.JTextField();
+        tfApartamento = new javax.swing.JTextField();
         bPesquisar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbAdministrador = new javax.swing.JTable();
+        tbApartamento = new javax.swing.JTable();
         bCadastrar = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pesquisa de Administrador");
+        setTitle("Pesquisa de Apartamento");
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -63,7 +54,7 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Nome");
+        jLabel1.setText("Apartamento");
 
         bPesquisar.setText("Pesquisar");
         bPesquisar.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +71,7 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfApartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(bPesquisar)
                         .addGap(22, 22, 22))
@@ -95,12 +86,12 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfApartamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bPesquisar))
                 .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        tbAdministrador.setModel(new javax.swing.table.DefaultTableModel(
+        tbApartamento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -111,12 +102,12 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tbAdministrador.addMouseListener(new java.awt.event.MouseAdapter() {
+        tbApartamento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tbAdministradorMouseReleased(evt);
+                tbApartamentoMouseReleased(evt);
             }
         });
-        jScrollPane2.setViewportView(tbAdministrador);
+        jScrollPane2.setViewportView(tbApartamento);
 
         bCadastrar.setText("Cadastrar");
         bCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -173,26 +164,22 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
         preencherTabela();
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void tbAdministradorMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbAdministradorMouseReleased
-        selecionarAdministrador(evt);
+    private void tbApartamentoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbApartamentoMouseReleased
+        selecionarCidade(evt);
         realizarAcao(evt);
-    }//GEN-LAST:event_tbAdministradorMouseReleased
+    }//GEN-LAST:event_tbApartamentoMouseReleased
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
-        AdministradorCadastrarTela adminCadastrar = new AdministradorCadastrarTela();
-        adminCadastrar.setVisible(true);
+        ApartamentoCadastrarTela aptoCadastrar = new ApartamentoCadastrarTela();
+        aptoCadastrar.setVisible(true);
     }//GEN-LAST:event_bCadastrarActionPerformed
 
     private void bPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPesquisarActionPerformed
-        AdministradorDAO dao = new AdministradorDAO();
-        admin = new Administrador();
-        admin.setNome(tfPesquisa.getText());
-        admins = dao.pesquisar(admin);
-        preencherTabela();
+        JOptionPane.showMessageDialog(null, "Sem função");
     }//GEN-LAST:event_bPesquisarActionPerformed
 
     /**
@@ -212,14 +199,18 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdministradorPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApartamentoPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdministradorPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApartamentoPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdministradorPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApartamentoPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdministradorPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ApartamentoPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -228,7 +219,7 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AdministradorPesquisarTela().setVisible(true);
+                new ApartamentoPesquisarTela().setVisible(true);
             }
         });
     }
@@ -241,31 +232,31 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu pmFlutuante;
-    private javax.swing.JTable tbAdministrador;
-    private javax.swing.JTextField tfPesquisa;
+    private javax.swing.JTable tbApartamento;
+    private javax.swing.JTextField tfApartamento;
     // End of variables declaration//GEN-END:variables
 
     private void preencherLista() {
-        AdministradorDAO dao =  new AdministradorDAO();
-        admins = dao.listar();
+        ApartamentoDAO dao =  new ApartamentoDAO();
+        aptos = dao.listar();
     }
 
     private void preencherTabela() {
-        tbAdministrador.setModel(new TabelaModeloAdministrador(admins));
+        tbApartamento.setModel(new TabelaModeloApartamento(aptos));
     }
     
-    private void selecionarAdministrador(MouseEvent evt) {
+    private void selecionarCidade(MouseEvent evt) {
 
         // selecionar a linha, pois, se for botão direito do mouse,não seleciona automaticamente.
-        int linha =tbAdministrador.rowAtPoint(evt.getPoint());
+        int linha =tbApartamento.rowAtPoint(evt.getPoint());
 
         if (linha >= 0) {
 
-            tbAdministrador.setRowSelectionInterval(linha, linha);
+            tbApartamento.setRowSelectionInterval(linha, linha);
 
-            linha = tbAdministrador.getSelectedRow();
+            linha = tbApartamento.getSelectedRow();
 
-            this.admin = admins.get(linha);
+            this.apto = aptos.get(linha);
         }
 
     }
@@ -323,13 +314,13 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
     }
     
     public void verDetalhes(){
-        AdministradorDetalhesTela adminDetalhes = new AdministradorDetalhesTela(admin);
-        adminDetalhes.setVisible(true);
+        ApartamentoDetalhesTela aptoDetalhes =  new ApartamentoDetalhesTela(apto);
+        aptoDetalhes.setVisible(true);
     }
     
     public void atualizar(){
-        AdministradorAtualizarTela adminAtualizar = new AdministradorAtualizarTela(admin);
-        adminAtualizar.setVisible(true);
+        ApartamentoAtualizarTela aptoAtualizar =  new ApartamentoAtualizarTela(apto);
+        aptoAtualizar.setVisible(true);
     }
     
     public void remover(){
@@ -338,9 +329,9 @@ public class AdministradorPesquisarTela extends javax.swing.JFrame {
         
         if(res == JOptionPane.YES_OPTION){
             
-            AdministradorDAO dao = new AdministradorDAO();
-            dao.remover(admin);
-            JOptionPane.showMessageDialog(null, admin.toString().concat(" foi excluído"));
+            ApartamentoDAO dao = new ApartamentoDAO();
+            dao.remove(apto);
+            JOptionPane.showMessageDialog(null, apto.toString() + " Excluido");
             
         } 
         

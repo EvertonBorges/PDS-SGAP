@@ -1,20 +1,25 @@
-package tela.categoria;
+package tela.meusprodutos;
 
-import dao.CategoriaDAO;
+import dao.CondominoDAO;
+import modelo.tabela.TabelaModeloProduto;
+import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
-import modelo.Categoria;
-import modelo.tabela.TabelaModeloCategoria;
+import modelo.Condomino;
+import modelo.Produto;
 
-public class CategoriaPesquisarTela extends javax.swing.JFrame {
-    private List<Categoria> categorias;
-    private Categoria categoria;
+public class ProdutoPesquisarTela extends javax.swing.JFrame {
+    private List<Produto> produtos;
+    private Produto produto;
+    private Condomino condomino;
     /**
      * Creates new form PesquisarProdutos
+     * @param condomino
      */
-    public CategoriaPesquisarTela() {
+    public ProdutoPesquisarTela(Condomino condomino) {
         initComponents();
+        this.condomino = condomino;
     }
 
     /**
@@ -216,6 +221,10 @@ public class CategoriaPesquisarTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        Produto produtoLocal = new Produto();
+        produtoLocal.setDescricao(tfNome.getText());
+        produtos = produtoDAO.findProduto(condomino, produtoLocal);
         carregarTabela();
     }//GEN-LAST:event_formWindowGainedFocus
 
@@ -224,12 +233,12 @@ public class CategoriaPesquisarTela extends javax.swing.JFrame {
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
-        CategoriaCadastrarTela categoriaCadastrarTela = new CategoriaCadastrarTela();
-        categoriaCadastrarTela.setVisible(true);
+        ProdutoCadastrarTela cadastrarProduto = new ProdutoCadastrarTela(condomino);
+        cadastrarProduto.setVisible(true);
     }//GEN-LAST:event_bCadastrarActionPerformed
 
     private void tbResultadosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbResultadosMouseReleased
-        selecionarCategoria(evt);
+        selecionarProduto(evt);
         realizarAcao(evt);
     }//GEN-LAST:event_tbResultadosMouseReleased
 
@@ -238,14 +247,15 @@ public class CategoriaPesquisarTela extends javax.swing.JFrame {
     }//GEN-LAST:event_miDetalhesActionPerformed
 
     private void miAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAtualizarActionPerformed
-        
+        ProdutoAtualizarTela atualizarProduto = new ProdutoAtualizarTela(produto);
+        atualizarProduto.setVisible(true);
     }//GEN-LAST:event_miAtualizarActionPerformed
 
     private void miExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExcluirActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja excluir o registro: " + categoria.getDescricao() + "?", "Excluir Produto", JOptionPane.YES_NO_OPTION);
+        int resposta = JOptionPane.showConfirmDialog(null, "Deseja excluir o registro: " + produto.getNome() + "?", "Excluir Produto", JOptionPane.YES_NO_OPTION);
         if(resposta == JOptionPane.YES_OPTION){
-            CategoriaDAO categoriaDAO = new CategoriaDAO();
-            categoriaDAO.removeCategoria(categoria);
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            produtoDAO.removeProduto(produto);
         }
     }//GEN-LAST:event_miExcluirActionPerformed
 
@@ -254,17 +264,17 @@ public class CategoriaPesquisarTela extends javax.swing.JFrame {
     }//GEN-LAST:event_bPesquisarActionPerformed
 
     private void tfNomeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfNomeKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             carregarTabela();
         }
     }//GEN-LAST:event_tfNomeKeyPressed
     
-    private void selecionarCategoria(MouseEvent evt) {
+    private void selecionarProduto(MouseEvent evt) {
         int linha = tbResultados.rowAtPoint(evt.getPoint());
         if (linha >= 0) {
             tbResultados.setRowSelectionInterval(linha, linha);
             linha = tbResultados.getSelectedRow();
-            categoria = categorias.get(linha);
+            this.produto = condomino.getProdutos().get(linha);
         }
     }
     
@@ -279,20 +289,26 @@ public class CategoriaPesquisarTela extends javax.swing.JFrame {
     }
     
     private void verDetalhes(){
-        CategoriaDetalhesTela categoriaDetalhesTela = new CategoriaDetalhesTela(categoria);
-        categoriaDetalhesTela.setVisible(true);
+        ProdutoDetalhesTela detalhesProduto = new ProdutoDetalhesTela(produto);
+        detalhesProduto.setVisible(true);
     }
     
-    private void carregarCategorias(){
-        CategoriaDAO categoriaDAO = new CategoriaDAO();
-        Categoria categoriaLocal = new Categoria();
-        categoriaLocal.setDescricao(tfNome.getText());
-        categorias = categoriaDAO.findCategoria(categoriaLocal);
+    private void atualizarCondomino(){
+        CondominoDAO condominoDAO = new CondominoDAO();
+        condomino = condominoDAO.getCondominoById(condomino.getCodigo());
+    }
+    
+    private void carregarProdutos(){
+        atualizarCondomino();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        Produto produtoLocal = new Produto();
+        produtoLocal.setNome(tfNome.getText());
+        produtos = produtoDAO.findProduto(condomino, produtoLocal);
     }
     
     private void carregarTabela() {
-        carregarCategorias();
-        TabelaModeloCategoria modelo = new TabelaModeloCategoria(categorias);
+        carregarProdutos();
+        TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
         tbResultados.setModel(modelo);
     }
 

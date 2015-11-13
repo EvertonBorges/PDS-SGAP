@@ -1,28 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tela.admin;
+package tela.apartamento;
 
-import dao.AdministradorDAO;
+import dao.ApartamentoDAO;
 import javax.swing.JOptionPane;
-import modelo.Administrador;
+import modelo.Apartamento;
 
-/**
- *
- * @author Wilson
- */
-public class AdministradorDetalhesTela extends javax.swing.JFrame {
-    private final Administrador admin;
-
-    /**
-     * Creates new form AutorDetalhesTela
-     * @param admin
-     */
-    public AdministradorDetalhesTela(Administrador admin) {
+public class ApartamentoDetalhesTela extends javax.swing.JFrame {
+    
+    private Apartamento apto;
+    
+    public ApartamentoDetalhesTela(Apartamento apto) {
         initComponents();
-        this.admin = admin;
+        this.apto = apto;
         preencherCampos();
     }
 
@@ -43,13 +31,13 @@ public class AdministradorDetalhesTela extends javax.swing.JFrame {
         bExcluir = new javax.swing.JButton();
         bCancelar = new javax.swing.JButton();
         lCodigo = new javax.swing.JLabel();
-        lNome = new javax.swing.JLabel();
-        lLogin = new javax.swing.JLabel();
-        lSenha = new javax.swing.JLabel();
+        lBloco = new javax.swing.JLabel();
+        lAndar = new javax.swing.JLabel();
+        lNumApartamento = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Detalhes Administrador");
+        setTitle("Detalhes Apartamento");
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -64,11 +52,11 @@ public class AdministradorDetalhesTela extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel3.setText("Nome");
+        jLabel3.setText("Bloco");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel5.setText("Login");
+        jLabel5.setText("Andar");
 
         bAlterar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bAlterar.setText("Atualizar");
@@ -97,21 +85,21 @@ public class AdministradorDetalhesTela extends javax.swing.JFrame {
         lCodigo.setForeground(new java.awt.Color(0, 0, 255));
         lCodigo.setText("Codigo");
 
-        lNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lNome.setForeground(new java.awt.Color(0, 0, 255));
-        lNome.setText("Nome");
+        lBloco.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lBloco.setForeground(new java.awt.Color(0, 0, 255));
+        lBloco.setText("Bloco");
 
-        lLogin.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lLogin.setForeground(new java.awt.Color(0, 0, 255));
-        lLogin.setText("Login");
+        lAndar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lAndar.setForeground(new java.awt.Color(0, 0, 255));
+        lAndar.setText("Andar");
 
-        lSenha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lSenha.setForeground(new java.awt.Color(0, 0, 255));
-        lSenha.setText("Senha");
+        lNumApartamento.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lNumApartamento.setForeground(new java.awt.Color(0, 0, 255));
+        lNumApartamento.setText("Num do Apto");
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(51, 102, 255));
-        jLabel6.setText("Senha");
+        jLabel6.setText("Numero do Apartamento");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -141,15 +129,15 @@ public class AdministradorDetalhesTela extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lLogin)
-                                    .addComponent(lNome)
+                                    .addComponent(lAndar)
+                                    .addComponent(lBloco)
                                     .addComponent(lCodigo)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel6)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(10, 10, 10)
-                                        .addComponent(lSenha)))
+                                        .addComponent(lNumApartamento)))
                                 .addGap(5, 5, 5)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -163,15 +151,15 @@ public class AdministradorDetalhesTela extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lNome)
+                .addComponent(lBloco)
                 .addGap(26, 26, 26)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lLogin)
+                .addComponent(lAndar)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lSenha)
+                .addComponent(lNumApartamento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -186,8 +174,8 @@ public class AdministradorDetalhesTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAlterarActionPerformed
-        AdministradorAtualizarTela AdministradorAtualizar = new AdministradorAtualizarTela(admin);
-        AdministradorAtualizar.setVisible(true);
+        ApartamentoAtualizarTela apartamentoAtualizar = new ApartamentoAtualizarTela(apto);
+        apartamentoAtualizar.setVisible(true);
     }//GEN-LAST:event_bAlterarActionPerformed
 
     private void bExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirActionPerformed
@@ -196,10 +184,10 @@ public class AdministradorDetalhesTela extends javax.swing.JFrame {
         
         if(res == JOptionPane.YES_OPTION){
             
-            AdministradorDAO dao =  new AdministradorDAO();
-            dao.remover(admin);
+            ApartamentoDAO dao =  new ApartamentoDAO();
+            dao.remove(apto);
             
-            JOptionPane.showMessageDialog(null, admin.getNome()+" foi excluido");
+            JOptionPane.showMessageDialog(null, apto.toString()+" foi excluido");
             
             dispose();
         }   
@@ -224,16 +212,18 @@ public class AdministradorDetalhesTela extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lAndar;
+    private javax.swing.JLabel lBloco;
     private javax.swing.JLabel lCodigo;
-    private javax.swing.JLabel lLogin;
-    private javax.swing.JLabel lNome;
-    private javax.swing.JLabel lSenha;
+    private javax.swing.JLabel lNumApartamento;
     // End of variables declaration//GEN-END:variables
 
     private void preencherCampos() {
-        lCodigo.setText(""+admin.getCodigo());
-        lNome.setText(admin.getNome());
-        lLogin.setText(admin.getLogin());
-        lSenha.setText(admin.getSenha());
+        lCodigo.setText(""+apto.getCodigo());
+        lBloco.setText(apto.getBloco() + "");
+        lAndar.setText(Integer.toString(apto.getAndar()));
+        lNumApartamento.setText(apto.getNumApartamento());
     }
+
+   
 }

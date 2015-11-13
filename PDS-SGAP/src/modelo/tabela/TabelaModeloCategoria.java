@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.tabela;
 
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import modelo.Categoria;
 
-/**
- *
- * @author Everton Soares
- */
 public class TabelaModeloCategoria extends AbstractTableModel{
     private final List<Categoria> categorias;
     private final String[] campos = {"Codigo", "Descricao"}; 

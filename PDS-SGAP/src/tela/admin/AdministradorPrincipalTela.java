@@ -1,27 +1,18 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tela.admin;
 
-import modelo.Administrador;
-import tela.Apartamento.ApartamentoPesquisarTela;
+import modelo.Condomino;
+import tela.apartamento.ApartamentoPesquisarTela;
 import tela.categoria.CategoriaPesquisarTela;
 import tela.condomino.PesquisaCondomino;
 
-/**
- *
- * @author Borges
- */
 public class AdministradorPrincipalTela extends javax.swing.JFrame {
-    private final Administrador administrador;
+    private final Condomino condomino;
     /**
      * Creates new form Principal
-     * @param administrador
+     * @param condomino
      */
-    public AdministradorPrincipalTela(Administrador administrador) {
-        this.administrador = administrador;
+    public AdministradorPrincipalTela(Condomino condomino) {
+        this.condomino = condomino;
         initComponents();
     }
 
@@ -39,7 +30,6 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
         imAlterarSenha = new javax.swing.JMenuItem();
         imSair = new javax.swing.JMenuItem();
         mCadastros = new javax.swing.JMenu();
-        mAdministrador = new javax.swing.JMenuItem();
         imCondomino = new javax.swing.JMenuItem();
         imApartamento = new javax.swing.JMenuItem();
         imCategoria = new javax.swing.JMenuItem();
@@ -75,14 +65,6 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
         mbMenu.add(mConta);
 
         mCadastros.setText("Cadastros");
-
-        mAdministrador.setText("Administrador");
-        mAdministrador.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mAdministradorActionPerformed(evt);
-            }
-        });
-        mCadastros.add(mAdministrador);
 
         imCondomino.setText("Condomino");
         imCondomino.addActionListener(new java.awt.event.ActionListener() {
@@ -150,11 +132,6 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mAdministradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mAdministradorActionPerformed
-        AdministradorPesquisarTela administradorPesquisarTela = new AdministradorPesquisarTela();
-        administradorPesquisarTela.setVisible(true);
-    }//GEN-LAST:event_mAdministradorActionPerformed
-
     private void imCondominoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imCondominoActionPerformed
         PesquisaCondomino pesquisaCondomino = new PesquisaCondomino();
         pesquisaCondomino.setVisible(true);
@@ -190,7 +167,6 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem mAdministrador;
     private javax.swing.JMenu mApartamento;
     private javax.swing.JMenu mCadastros;
     private javax.swing.JMenu mConta;

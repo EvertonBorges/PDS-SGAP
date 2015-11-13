@@ -1,35 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package modelo.tabela;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Image;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.List;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 import modelo.Produto;
 import modelo.textarea.ATextArea;
-
-/**
- *
-* @author Ada
- */
 
 public class TabelaProdutosDisponiveisRenderer  implements TableCellRenderer{
 
