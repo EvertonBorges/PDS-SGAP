@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.table.AbstractTableModel;
 import modelo.Produto;
 
-public class TabelaProdutosDisponiveis  extends AbstractTableModel  {
+public class TabelaModeloProdutosDisponiveis  extends AbstractTableModel  {
 
     private final List<Produto> produtos;
     private final String[] campos = {"", "", "", ""}; 
@@ -14,7 +14,7 @@ public class TabelaProdutosDisponiveis  extends AbstractTableModel  {
     private ImageIcon  imageIcon = new ImageIcon();  
     
     
-    public TabelaProdutosDisponiveis(List<Produto> produtos) {
+    public TabelaModeloProdutosDisponiveis(List<Produto> produtos) {
         this.produtos = produtos;
     }
     

@@ -2,6 +2,7 @@ package tela;
 
 import dao.CondominoDAO;
 import modelo.Condomino;
+import modelo.TipoUsuario;
 import tela.aluguel.PesquisarAluguelTela;
 import tela.apartamento.ApartamentoPesquisarTela;
 import tela.categoria.CategoriaPesquisarTela;
@@ -18,12 +19,13 @@ public class Principal extends javax.swing.JFrame {
     public Principal(Condomino condomino) {
         initComponents();
         this.condomino = condomino;
+        menuCadastro.setVisible(false);
         verificaUsuario();
     }
 
     private void verificaUsuario(){
-        if(this.condomino.getTipoUsuario().name() == "ADMIN"){
-            menuCadastro.setVisible(false);
+        if(this.condomino.getTipoUsuario() == TipoUsuario.ADMIN){
+            menuCadastro.setVisible(true);
         }
     }
     /**

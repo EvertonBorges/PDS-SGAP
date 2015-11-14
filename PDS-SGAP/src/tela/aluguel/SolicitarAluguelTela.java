@@ -58,8 +58,10 @@ public class SolicitarAluguelTela extends javax.swing.JFrame {
         tfTaxa.setText(produto.getTaxa()+"%");
 
 //        tfImagem= new JLabel((Icon) this.produto.getImagens());
-        
-     ImageIcon imagem = new ImageIcon(produto.getImagensProduto().get(0).getImagem());
+        ImageIcon imagem = null;
+        if (!produto.getImagensProduto().isEmpty()) {
+            imagem = new ImageIcon(produto.getImagensProduto().get(0).getImagem());
+        }
         
      //   int H = tfImagem.getHeight();  
      //   int W = tfImagem.getWidth();  

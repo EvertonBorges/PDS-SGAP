@@ -13,15 +13,15 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 import javax.swing.table.TableCellRenderer;
 import modelo.Produto;
-import modelo.textarea.ATextArea;
+import modelo.textarea.TextAreaModeloComentarios;
 
-public class TabelaProdutosDisponiveisRenderer  implements TableCellRenderer{
+public class TabelaModeloProdutosDisponiveisRenderer  implements TableCellRenderer{
 
     private final List<Produto> produtos;   
     private ImageIcon img= new ImageIcon();
     private JPanel painel= new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
 
-    public TabelaProdutosDisponiveisRenderer(List<Produto> produtos) {
+    public TabelaModeloProdutosDisponiveisRenderer(List<Produto> produtos) {
         painel=new JPanel();
         this.produtos = produtos;
   	painel.setOpaque(true);
@@ -52,7 +52,7 @@ public class TabelaProdutosDisponiveisRenderer  implements TableCellRenderer{
                 painel.add(getImagem(p));
             }
             else {
-                ATextArea tA= new ATextArea();
+                TextAreaModeloComentarios tA= new TextAreaModeloComentarios();
                 tA.setText("\n\n\nSEM IMAGEM"+"\n               ");
                 tA.setBounds(1, 1, 156 , 156);
                 tA.setBackground(getCor(isSelected));
@@ -107,8 +107,8 @@ public class TabelaProdutosDisponiveisRenderer  implements TableCellRenderer{
         return lImagem ;
   }
     
-    private ATextArea getTextArea(Produto produto, int rowIndex, boolean isSelected){
-        ATextArea textArea = new ATextArea();
+    private TextAreaModeloComentarios getTextArea(Produto produto, int rowIndex, boolean isSelected){
+        TextAreaModeloComentarios textArea = new TextAreaModeloComentarios();
         
         textArea.setText("      "+ produto.getNome()+
                             "\n      "+produto.getCondomino().getNome()+

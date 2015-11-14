@@ -12,8 +12,10 @@ import modelo.Avaliacao;
 import modelo.Categoria;
 import modelo.Comentario;
 import modelo.Condomino;
+import modelo.EstadoCivil;
 import modelo.ImagemProduto;
 import modelo.Produto;
+import modelo.TipoUsuario;
 import util.JPAUtil;
 
 public class PopulaBanco {
@@ -21,67 +23,129 @@ public class PopulaBanco {
     public static void main ( String [] args ) {
     
     
-        EntityManager manager = JPAUtil.getEntityManager();
-                
-        manager.getTransaction().begin();
-
-        Apartamento a1= new Apartamento();
-        a1.setNumApartamento("apto1");
-
-        Apartamento a2= new Apartamento();
-        a2.setNumApartamento("apto2");
         
-        Apartamento a3= new Apartamento();
-        a3.setNumApartamento("apto3");       
-   
-        Administrador adm= new Administrador();
+        
+        EstadoCivil etc1 = new EstadoCivil("Solteiro");
+        EstadoCivil etc2 = new EstadoCivil("Casado");
+        EstadoCivil etc3 = new EstadoCivil("Divorciado");
+        EstadoCivil etc4 = new EstadoCivil("Viúvo");
+
+        Apartamento a1 = new Apartamento();
+        a1.setBloco('A');
+        a1.setAndar(1);
+        a1.setNumApartamento("101");
+
+        Apartamento a2 = new Apartamento();
+        a2.setBloco('A');
+        a2.setAndar(2);
+        a2.setNumApartamento("201");
+        
+        Apartamento a3 = new Apartamento();
+        a3.setBloco('A');
+        a3.setAndar(3);
+        a3.setNumApartamento("301");
+        
+        Apartamento a4 = new Apartamento();
+        a4.setBloco('A');
+        a4.setAndar(4);
+        a4.setNumApartamento("401");
+        
+        Condomino adm = new Condomino();
         adm.setNome("ADA");
         adm.setLogin("laada");
         adm.setSenha("saada");
+        adm.setTipoUsuario(TipoUsuario.ADMIN);
+        adm.setDataNascimento(Calendar.getInstance());
+        adm.getDataNascimento().set(1997, 11, 26);
+        adm.setCpf("111.111.111-11");
+        adm.setApartamento(a1);
+        adm.setEstadoCivil(etc1);
         
-        Administrador adm2= new Administrador();
+        Condomino adm2 = new Condomino();
         adm2.setNome("BRUNA");
         adm2.setLogin("labruna");
         adm2.setSenha("sabruna");
+        adm2.setTipoUsuario(TipoUsuario.ADMIN);
+        adm2.setDataNascimento(Calendar.getInstance());
+        adm2.getDataNascimento().set(1994, 00, 21);
+        adm2.setCpf("222.222.222-22");
+        adm2.setApartamento(a2);
+        adm2.setEstadoCivil(etc2);
         
-        Administrador adm3= new Administrador();
+        Condomino adm3 = new Condomino();
         adm3.setNome("EVERTON");
         adm3.setLogin("laeverton");
         adm3.setSenha("saeverton");
+        adm3.setTipoUsuario(TipoUsuario.ADMIN);
+        adm3.setDataNascimento(Calendar.getInstance());
+        adm3.getDataNascimento().set(1990, 07, 20);
+        adm3.setCpf("333.333.333-33");
+        adm3.setApartamento(a3);
+        adm3.setEstadoCivil(etc3);
         
-        Administrador adm4= new Administrador();
+        Condomino adm4 = new Condomino();
         adm4.setNome("WILSON");
         adm4.setLogin("lawilson");
         adm4.setSenha("sawilson");
+        adm4.setTipoUsuario(TipoUsuario.ADMIN);
+        adm4.setDataNascimento(Calendar.getInstance());
+        adm4.getDataNascimento().set(1988, 05, 03);
+        adm4.setCpf("444.444.444-44");
+        adm4.setApartamento(a4);
+        adm4.setEstadoCivil(etc4);
         
-        Categoria cat1= new Categoria();
+        Categoria cat1 = new Categoria();
         cat1.setDescricao("INFORMATICA");
 
-        Categoria cat2= new Categoria();
+        Categoria cat2 = new Categoria();
         cat2.setDescricao("ELETRÔNICO");
         
-        Categoria cat3= new Categoria();
+        Categoria cat3 = new Categoria();
         cat3.setDescricao("DIVERSOS");
         
         Condomino cd = new Condomino();
         cd.setNome("ADA");
         cd.setLogin("lcada");
         cd.setSenha("scada");
+        cd.setTipoUsuario(TipoUsuario.CONDOMINO);
+        cd.setDataNascimento(Calendar.getInstance());
+        cd.getDataNascimento().set(1997, 11, 26);
+        cd.setCpf("555.555.555-55");
+        cd.setApartamento(a1);
+        cd.setEstadoCivil(etc1);
         
         Condomino cd2 = new Condomino();
         cd2.setNome("BRUNA");
         cd2.setLogin("lcbruna");
         cd2.setSenha("scbruna");
+        cd2.setTipoUsuario(TipoUsuario.CONDOMINO);
+        cd2.setDataNascimento(Calendar.getInstance());
+        cd2.getDataNascimento().set(1994, 00, 21);
+        cd2.setCpf("666.666.666-66");
+        cd2.setApartamento(a2);
+        cd2.setEstadoCivil(etc2);
         
         Condomino cd3 = new Condomino();
         cd3.setNome("WILSON");
         cd3.setLogin("lcwilson");
         cd3.setSenha("scwilson");
+        cd3.setTipoUsuario(TipoUsuario.CONDOMINO);
+        cd3.setDataNascimento(Calendar.getInstance());
+        cd3.getDataNascimento().set(1988, 05, 03);
+        cd3.setCpf("777.777.777-77");
+        cd3.setApartamento(a3);
+        cd3.setEstadoCivil(etc3);
         
         Condomino cd4 = new Condomino();
         cd4.setNome("EVERTON");
         cd4.setLogin("lceverton");
         cd4.setSenha("sceverton");
+        cd4.setTipoUsuario(TipoUsuario.CONDOMINO);
+        cd4.setDataNascimento(Calendar.getInstance());
+        cd4.getDataNascimento().set(1990, 07, 20);
+        cd4.setCpf("888.888.888-88");
+        cd4.setApartamento(a4);
+        cd4.setEstadoCivil(etc4);
         
         Produto p1= new Produto();
         p1.setNome("MOUSE");
@@ -354,6 +418,17 @@ public class PopulaBanco {
         p5.getComentarios().add(com12);
         
         
+        a1.getCondominos().add(adm);
+        a1.getCondominos().add(cd);
+        a2.getCondominos().add(adm2);
+        a2.getCondominos().add(cd2);
+        a3.getCondominos().add(adm3);
+        a3.getCondominos().add(cd3);
+        a4.getCondominos().add(adm4);
+        a4.getCondominos().add(cd4);
+        
+        
+        /*
         BufferedImage imagem;
         ByteArrayOutputStream bytesImg;// = new ByteArrayOutputStream();
         //byte[] byteArray = null;
@@ -528,12 +603,22 @@ public class PopulaBanco {
         img8.setProduto(p8);
         img9.setProduto(p9);
         img10.setProduto(p10);
+        */
         
+        EntityManager manager = JPAUtil.getEntityManager();
+                
+        manager.getTransaction().begin();
+        
+        manager.persist ( etc1 );
+        manager.persist ( etc2 );
+        manager.persist ( etc3 );
+        manager.persist ( etc4 );
         
         
         manager.persist ( a1 ); 
         manager.persist ( a2 ); 
         manager.persist ( a3 );
+        manager.persist ( a4 );
 
         manager.persist ( cat1 ); 
         manager.persist ( cat2 ); 
@@ -562,7 +647,7 @@ public class PopulaBanco {
         manager.persist ( p11);
         manager.persist ( p12);
         
-        
+        /*
         manager.persist ( img1 ); 
         manager.persist ( img2 ); 
         manager.persist ( img3 );
@@ -573,7 +658,7 @@ public class PopulaBanco {
         manager.persist ( img8 );        
         manager.persist ( img9 ); 
         manager.persist ( img10); 
-        
+        */
         
         manager.persist ( av1 ); 
         manager.persist ( av2 ); 
@@ -593,12 +678,9 @@ public class PopulaBanco {
         manager.persist ( com12); 
         
         
-        manager . getTransaction () . commit () ;
-        manager . close () ;
-//        factory . close () ;
-        
+        manager.getTransaction().commit();
+        manager.close();
         
         System.exit(0);
     }
 }
-

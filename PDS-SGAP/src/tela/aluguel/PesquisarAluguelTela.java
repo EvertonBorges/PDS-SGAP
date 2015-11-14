@@ -2,8 +2,8 @@ package tela.aluguel;
 
 import dao.CategoriaDAO;
 import modelo.lista.ListaModeloCategorias;
-import modelo.tabela.TabelaProdutosDisponiveisRenderer;
-import modelo.tabela.TabelaProdutosDisponiveis;
+import modelo.tabela.TabelaModeloProdutosDisponiveisRenderer;
+import modelo.tabela.TabelaModeloProdutosDisponiveis;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +79,7 @@ public class PesquisarAluguelTela extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -309,9 +309,9 @@ public class PesquisarAluguelTela extends javax.swing.JFrame {
         
         //tbProduto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
         
-        tbProduto.setDefaultRenderer(JPanel.class, new TabelaProdutosDisponiveisRenderer(this.produtos));
+        tbProduto.setDefaultRenderer(JPanel.class, new TabelaModeloProdutosDisponiveisRenderer(this.produtos));
         
-        tbProduto.setModel(new TabelaProdutosDisponiveis(this.produtos));
+        tbProduto.setModel(new TabelaModeloProdutosDisponiveis(this.produtos));
 
         tbProduto.setRowHeight(180); 
     }

@@ -1,7 +1,7 @@
 
 package tela.aluguel;
 
-import modelo.lista.ListaComentarios;
+import modelo.lista.ListaModeloComentarios;
 import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -48,7 +48,10 @@ public class ConsultarProdutoTela extends javax.swing.JFrame {
         tfProduto.setText(this.produto.getNome());
         tfDescricao.setText(this.produto.getDescricao());
 
-        ImageIcon imagem = new ImageIcon(produto.getImagensProduto().get(0).getImagem());
+        ImageIcon imagem = null;
+        if (!produto.getImagensProduto().isEmpty()){
+            imagem = new ImageIcon(produto.getImagensProduto().get(0).getImagem());
+        }
         
     /*    tfImagem.setIcon( new ImageIcon(imagem.getImage().getScaledInstance(pImagem.getHeight(), 
                                         pImagem.getWidth(), Image.SCALE_DEFAULT)) );  */
@@ -73,7 +76,7 @@ public class ConsultarProdutoTela extends javax.swing.JFrame {
         query.setMaxResults(10);
         
         this.comentarios = query.getResultList();
-        this.jlComentarios.setModel(new ListaComentarios(comentarios));
+        this.jlComentarios.setModel(new ListaModeloComentarios(comentarios));
         
     }
     /**

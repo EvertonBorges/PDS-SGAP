@@ -1,5 +1,6 @@
 package modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,9 +17,10 @@ public class Apartamento {
     private String numApartamento;
     
     @OneToMany (mappedBy = "apartamento")
-    private List<Condomino> condomino;
+    private List<Condomino> condominos;
 
     public Apartamento() {
+        condominos = new ArrayList<>();
     }
 
     public Apartamento(char bloco, int andar, String numApartamento) {
@@ -55,12 +57,12 @@ public class Apartamento {
         this.numApartamento = numApartamento;
     }
 
-    public List<Condomino> getCondomino() {
-        return condomino;
+    public List<Condomino> getCondominos() {
+        return condominos;
     }
 
-    public void setCondomino(List<Condomino> condomino) {
-        this.condomino = condomino;
+    public void setCondominos(List<Condomino> condominos) {
+        this.condominos = condominos;
     }
 
     @Override

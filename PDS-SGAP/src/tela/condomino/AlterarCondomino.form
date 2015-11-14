@@ -10,7 +10,7 @@
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -30,103 +30,95 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Component id="lNome" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace min="-2" pref="259" max="-2" attributes="0"/>
-                                              <Component id="lCpf" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="lBloco" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="comboBloco" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                                                  <Component id="lApartamento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                                  <Component id="lLogin" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="comboAndar" min="-2" pref="94" max="-2" attributes="0"/>
-                                                  <Component id="lAndar" min="-2" max="-2" attributes="0"/>
-                                              </Group>
-                                          </Group>
-                                          <Component id="tfLogin" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lNumero" min="-2" max="-2" attributes="0"/>
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
-                                              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                          </Group>
-                                          <Component id="comboNumero" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Component id="lTelefone" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="tfNome" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
-                                          <Component id="lDataNascimento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tfDataNascimento" alignment="0" min="-2" pref="198" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="comboEstadoCivil" min="-2" pref="158" max="-2" attributes="0"/>
-                                          <Component id="tfCpf" min="-2" pref="198" max="-2" attributes="0"/>
-                                          <Component id="lEstadoCivil" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="painelTelefone" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="botaoAdicionar" min="-2" max="-2" attributes="0"/>
-                                          <Component id="botaoRemover" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lSenha" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tfSenha" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="lConfirmarSenha" min="-2" max="-2" attributes="0"/>
-                                          <Component id="tfConfirmarSenha" min="-2" pref="130" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                              </Group>
-                              <EmptySpace pref="89" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jSeparator1" alignment="0" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="botaoSalvar" min="-2" pref="103" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="botaoCancelar" min="-2" pref="107" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="checkCondomino" min="-2" max="-2" attributes="0"/>
                           <Component id="lTipoUsuario" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                       <Component id="checkAdministrador" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="lNome" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="259" max="-2" attributes="0"/>
+                                      <Component id="lCpf" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="lBloco" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="comboBloco" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
+                                          <Component id="lApartamento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lLogin" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="comboAndar" min="-2" pref="94" max="-2" attributes="0"/>
+                                          <Component id="lAndar" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="tfLogin" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lNumero" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+                                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="comboNumero" alignment="0" min="-2" pref="94" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="lTelefone" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lDataNascimento" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfNome" min="-2" pref="260" max="-2" attributes="0"/>
+                                  <Component id="tfDataNascimento" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="comboEstadoCivil" min="-2" pref="158" max="-2" attributes="0"/>
+                                  <Component id="tfCpf" min="-2" pref="198" max="-2" attributes="0"/>
+                                  <Component id="lEstadoCivil" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="painelTelefone" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="botaoAdicionar" min="-2" max="-2" attributes="0"/>
+                                  <Component id="botaoRemover" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lSenha" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfSenha" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="lConfirmarSenha" min="-2" max="-2" attributes="0"/>
+                                  <Component id="tfConfirmarSenha" min="-2" pref="130" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Component id="botaoSalvar" min="-2" pref="103" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="243" max="-2" attributes="0"/>
+                                  <Component id="botaoCancelar" min="-2" pref="107" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jSeparator1" alignment="0" min="-2" pref="453" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -202,14 +194,14 @@
                   <Component id="checkCondomino" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="checkAdministrador" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="botaoSalvar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="botaoCancelar" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="23" max="32767" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

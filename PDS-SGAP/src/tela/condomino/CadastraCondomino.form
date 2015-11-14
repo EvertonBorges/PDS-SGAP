@@ -68,11 +68,11 @@
                           <Component id="lTelefone" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfNome" alignment="0" min="-2" pref="215" max="-2" attributes="0"/>
                                   <Component id="lDataNascimento" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="tfDataNascimento" alignment="0" min="-2" pref="198" max="-2" attributes="0"/>
+                                  <Component id="tfNome" min="-2" pref="260" max="-2" attributes="0"/>
+                                  <Component id="tfDataNascimento" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="80" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="comboEstadoCivil" min="-2" pref="158" max="-2" attributes="0"/>
                                   <Component id="tfCpf" min="-2" pref="198" max="-2" attributes="0"/>

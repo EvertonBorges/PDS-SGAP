@@ -1,16 +1,16 @@
 package modelo.lista;
 
-import modelo.textarea.ATextArea;
+import modelo.textarea.TextAreaModeloComentarios;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.AbstractListModel;
 import modelo.Comentario;
 
-public class ListaComentarios extends AbstractListModel{
+public class ListaModeloComentarios extends AbstractListModel{
 
     private final List<Comentario> comentarios;
 
-    public ListaComentarios (List<Comentario> comentarios){
+    public ListaModeloComentarios (List<Comentario> comentarios){
         this.comentarios= comentarios;
     }
     
@@ -22,7 +22,7 @@ public class ListaComentarios extends AbstractListModel{
     @Override
     public Object getElementAt(int index) {
         String espaco=new String();
-        ATextArea textArea = new ATextArea();
+        TextAreaModeloComentarios textArea = new TextAreaModeloComentarios();
         Comentario comentario= comentarios.get(index);
         
         SimpleDateFormat formatador= new SimpleDateFormat("dd/MM/yyyy");
