@@ -20,7 +20,7 @@ import javax.swing.ListSelectionModel;
 import modelo.Categoria;
 import modelo.Condomino;
 
-public class PesquisarAluguelTela extends javax.swing.JFrame {
+public class AluguelPesquisarTela extends javax.swing.JFrame {
 
     /**
      * Creates new form PesquisarProduto
@@ -38,7 +38,7 @@ public class PesquisarAluguelTela extends javax.swing.JFrame {
 
     private Condomino condomino;
     
-    public PesquisarAluguelTela(Condomino condomino) {
+    public AluguelPesquisarTela(Condomino condomino) {
         initComponents();
         this.condomino = condomino;
     
@@ -80,6 +80,7 @@ public class PesquisarAluguelTela extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Pesquisar Produtos");
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);
@@ -175,7 +176,7 @@ public class PesquisarAluguelTela extends javax.swing.JFrame {
                         .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(29, 29, 29)
                         .addComponent(bPesquisar)))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -297,11 +298,11 @@ public class PesquisarAluguelTela extends javax.swing.JFrame {
 
     }
     private void telaConsultar(){
-        ConsultarProdutoTela telaConsultar= new ConsultarProdutoTela(this.produto, this.condomino);
+        AluguelDetalhesTela telaConsultar= new AluguelDetalhesTela(this.produto, this.condomino);
         telaConsultar.setVisible(true);
     }
     private void telaSolicitarAluguel(){
-        SolicitarAluguelTela telaSolicitarAluguel= new SolicitarAluguelTela(this.produto, this.condomino);
+        AluguelSolicitarTela telaSolicitarAluguel= new AluguelSolicitarTela(this.produto, this.condomino);
         telaSolicitarAluguel.setVisible(true);
     }
         
@@ -344,14 +345,22 @@ public class PesquisarAluguelTela extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PesquisarAluguelTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AluguelPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PesquisarAluguelTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AluguelPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PesquisarAluguelTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AluguelPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PesquisarAluguelTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AluguelPesquisarTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -364,7 +373,7 @@ public class PesquisarAluguelTela extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-           //     new PesquisarAluguelTela().setVisible(true);
+           //     new AluguelPesquisarTela().setVisible(true);
             }
         });
     }

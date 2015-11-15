@@ -3,10 +3,10 @@ package tela;
 import dao.CondominoDAO;
 import modelo.Condomino;
 import modelo.TipoUsuario;
-import tela.aluguel.PesquisarAluguelTela;
+import tela.aluguel.AluguelPesquisarTela;
 import tela.apartamento.ApartamentoPesquisarTela;
 import tela.categoria.CategoriaPesquisarTela;
-import tela.condomino.PesquisaCondomino;
+import tela.condomino.CondominoPesquisarTela;
 import tela.meusprodutos.ProdutoCadastrarTela;
 import tela.meusprodutos.ProdutoPesquisarTela;
 
@@ -172,7 +172,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        PesquisarAluguelTela pesquisarAluguel = new PesquisarAluguelTela(this.condomino);
+        AluguelPesquisarTela pesquisarAluguel = new AluguelPesquisarTela(this.condomino);
         pesquisarAluguel.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -187,7 +187,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_miCategoriaActionPerformed
 
     private void miCondominoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCondominoActionPerformed
-        PesquisaCondomino pesCondomino = new PesquisaCondomino();
+        CondominoPesquisarTela pesCondomino = new CondominoPesquisarTela();
         pesCondomino.setVisible(true);
     }//GEN-LAST:event_miCondominoActionPerformed
 

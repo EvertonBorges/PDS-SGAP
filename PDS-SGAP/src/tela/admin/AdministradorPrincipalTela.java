@@ -3,7 +3,7 @@ package tela.admin;
 import modelo.Condomino;
 import tela.apartamento.ApartamentoPesquisarTela;
 import tela.categoria.CategoriaPesquisarTela;
-import tela.condomino.PesquisaCondomino;
+import tela.condomino.CondominoPesquisarTela;
 
 public class AdministradorPrincipalTela extends javax.swing.JFrame {
     private final Condomino condomino;
@@ -133,7 +133,7 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void imCondominoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imCondominoActionPerformed
-        PesquisaCondomino pesquisaCondomino = new PesquisaCondomino();
+        CondominoPesquisarTela pesquisaCondomino = new CondominoPesquisarTela();
         pesquisaCondomino.setVisible(true);
     }//GEN-LAST:event_imCondominoActionPerformed
 

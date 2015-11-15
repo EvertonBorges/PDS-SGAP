@@ -5,7 +5,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class JPAUtil {
-    
     public static EntityManagerFactory emf;
     
     static{
@@ -15,5 +14,4 @@ public class JPAUtil {
     public static EntityManager getEntityManager(){
         return emf.createEntityManager();
     }
-    
 }

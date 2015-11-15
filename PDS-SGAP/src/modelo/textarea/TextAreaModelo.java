@@ -2,13 +2,13 @@ package modelo.textarea;
 
 import javax.swing.JTextArea;
 
-public class TextAreaModeloComentarios  extends JTextArea {
+public class TextAreaModelo  extends JTextArea {
     
-    public TextAreaModeloComentarios() {
+    public TextAreaModelo() {
         
     }
     
-    public TextAreaModeloComentarios(String text){
+    public TextAreaModelo(String text){
         super(text);
     }
     

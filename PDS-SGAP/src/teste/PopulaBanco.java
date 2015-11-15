@@ -20,11 +20,7 @@ import util.JPAUtil;
 
 public class PopulaBanco {
     
-    public static void main ( String [] args ) {
-    
-    
-        
-        
+    public static void main (String[] args) {
         EstadoCivil etc1 = new EstadoCivil("Solteiro");
         EstadoCivil etc2 = new EstadoCivil("Casado");
         EstadoCivil etc3 = new EstadoCivil("Divorciado");
@@ -285,20 +281,6 @@ public class PopulaBanco {
         p11.setDescricao("Produto de boa qualidade e resistente. Ano:2015. ");
         p12.setDescricao("Produto de boa qualidade e resistente. Ano:2015. ");
 
-    /*    a1.getCondominos().add(cd);
-       
-        cd.setApartamentos(a1);
-
-        a2.getCondominos().add(cd2);
-        a2.getCondominos().add(cd3);
-        
-        cd2.setApartamentos(a2);
-        cd3.setApartamentos(a2);
-
-        a3.getCondominos().add(cd3);
-        cd4.setApartamentos(a3);*/
-        
-
         Avaliacao av1= new Avaliacao();
         av1.setAvaliacao("Positiva");
         
@@ -428,7 +410,7 @@ public class PopulaBanco {
         a4.getCondominos().add(cd4);
         
         
-        /*
+        
         BufferedImage imagem;
         ByteArrayOutputStream bytesImg;// = new ByteArrayOutputStream();
         //byte[] byteArray = null;
@@ -455,7 +437,7 @@ public class PopulaBanco {
 
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\mouse.jpg"));
+            imagem = ImageIO.read(new File("src/icon/mouse.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img1 = new ImagemProduto();
@@ -464,12 +446,12 @@ public class PopulaBanco {
             bytesImg.close();
         } catch (IOException ex) {
             //Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Erro imagem: " + ex.getMessage());
+            System.out.println("Erro imagem 1: " + ex.getMessage());
         }
   
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\teclado.jpg"));
+            imagem = ImageIO.read(new File("src/icon/teclado.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img2= new ImagemProduto();
@@ -478,12 +460,12 @@ public class PopulaBanco {
             bytesImg.close();
         } catch (IOException ex) {
             //Logger.getLogger(CadastrarProduto.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("Erro imagem: " + ex.getMessage());
+            System.out.println("Erro imagem 2: " + ex.getMessage());
         }
 
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\monitor.jpg"));
+            imagem = ImageIO.read(new File("src/icon/monitor.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img3 = new ImagemProduto();
@@ -497,7 +479,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\caderno.jpg"));
+            imagem = ImageIO.read(new File("src/icon/caderno.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img4 = new ImagemProduto();
@@ -511,7 +493,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\notebook.jpg"));
+            imagem = ImageIO.read(new File("src/icon/notebook.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img5 = new ImagemProduto();
@@ -525,7 +507,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\caneta.jpg"));
+            imagem = ImageIO.read(new File("src/icon/caneta.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img6 = new ImagemProduto();
@@ -539,7 +521,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\celular.jpg"));
+            imagem = ImageIO.read(new File("src/icon/celular.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img7 = new ImagemProduto();
@@ -553,7 +535,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\fone.jpg"));
+            imagem = ImageIO.read(new File("src/icon/fone.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img8 = new ImagemProduto();
@@ -567,7 +549,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\cabo.jpg"));
+            imagem = ImageIO.read(new File("src/icon/cabo.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img9 = new ImagemProduto();
@@ -581,7 +563,7 @@ public class PopulaBanco {
         
         try {
             bytesImg = new ByteArrayOutputStream();
-            imagem = ImageIO.read(new File("C:\\Users\\Ada\\Documents\\TADS\\3° periodo\\PIG\\NetBeansProjects\\PDS-SGAP\\PDS-SGAP\\src\\icon\\chaveiro.jpg"));
+            imagem = ImageIO.read(new File("src/icon/chaveiro.jpg"));
             ImageIO.write(imagem, "jpg", bytesImg);
             bytesImg.flush();
             img10 = new ImagemProduto();
@@ -603,10 +585,9 @@ public class PopulaBanco {
         img8.setProduto(p8);
         img9.setProduto(p9);
         img10.setProduto(p10);
-        */
+        
         
         EntityManager manager = JPAUtil.getEntityManager();
-                
         manager.getTransaction().begin();
         
         manager.persist ( etc1 );
@@ -647,7 +628,6 @@ public class PopulaBanco {
         manager.persist ( p11);
         manager.persist ( p12);
         
-        /*
         manager.persist ( img1 ); 
         manager.persist ( img2 ); 
         manager.persist ( img3 );
@@ -657,8 +637,7 @@ public class PopulaBanco {
         manager.persist ( img7 );
         manager.persist ( img8 );        
         manager.persist ( img9 ); 
-        manager.persist ( img10); 
-        */
+        manager.persist ( img10);
         
         manager.persist ( av1 ); 
         manager.persist ( av2 ); 
@@ -675,8 +654,7 @@ public class PopulaBanco {
         manager.persist ( com9 ); 
         manager.persist ( com10); 
         manager.persist ( com11);
-        manager.persist ( com12); 
-        
+        manager.persist ( com12);
         
         manager.getTransaction().commit();
         manager.close();

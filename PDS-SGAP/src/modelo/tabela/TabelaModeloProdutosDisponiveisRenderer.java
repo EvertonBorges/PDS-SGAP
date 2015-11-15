@@ -13,7 +13,7 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.Border;
 import javax.swing.table.TableCellRenderer;
 import modelo.Produto;
-import modelo.textarea.TextAreaModeloComentarios;
+import modelo.textarea.TextAreaModelo;
 
 public class TabelaModeloProdutosDisponiveisRenderer  implements TableCellRenderer{
 
@@ -52,7 +52,7 @@ public class TabelaModeloProdutosDisponiveisRenderer  implements TableCellRender
                 painel.add(getImagem(p));
             }
             else {
-                TextAreaModeloComentarios tA= new TextAreaModeloComentarios();
+                TextAreaModelo tA= new TextAreaModelo();
                 tA.setText("\n\n\nSEM IMAGEM"+"\n               ");
                 tA.setBounds(1, 1, 156 , 156);
                 tA.setBackground(getCor(isSelected));
@@ -107,8 +107,8 @@ public class TabelaModeloProdutosDisponiveisRenderer  implements TableCellRender
         return lImagem ;
   }
     
-    private TextAreaModeloComentarios getTextArea(Produto produto, int rowIndex, boolean isSelected){
-        TextAreaModeloComentarios textArea = new TextAreaModeloComentarios();
+    private TextAreaModelo getTextArea(Produto produto, int rowIndex, boolean isSelected){
+        TextAreaModelo textArea = new TextAreaModelo();
         
         textArea.setText("      "+ produto.getNome()+
                             "\n      "+produto.getCondomino().getNome()+
