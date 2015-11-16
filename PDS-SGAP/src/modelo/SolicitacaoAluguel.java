@@ -10,7 +10,6 @@ import javax.persistence.TemporalType;
 
 @Entity
 public class SolicitacaoAluguel {
-    
     @Id
     @GeneratedValue
     private Long codigo;

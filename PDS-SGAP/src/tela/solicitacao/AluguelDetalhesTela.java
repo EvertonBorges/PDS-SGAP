@@ -1,5 +1,5 @@
 
-package tela.aluguel;
+package tela.solicitacao;
 
 import modelo.lista.ListaModeloComentarios;
 import dao.ProdutoDAO;

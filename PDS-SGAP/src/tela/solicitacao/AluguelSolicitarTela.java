@@ -1,4 +1,4 @@
-package tela.aluguel;
+package tela.solicitacao;
 
 import dao.ProdutoDAO;
 import dao.SolicitacaoAluguelDAO;
@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SpinnerNumberModel;
 import modelo.Comentario;
@@ -469,14 +470,16 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
     private void spDiasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_spDiasFocusLost
         // TODO add your handling code here:
     }//GEN-LAST:event_spDiasFocusLost
+    
     private Calendar dateToCalendar(String data) throws ParseException {
-        DateFormat f = DateFormat.getDateInstance();
-        Date date = f.parse(data);
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
+        DateFormat formatador = DateFormat.getDateInstance();
+        Date date = formatador.parse(data);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
 
-        return c;
+        return calendar;
     }
+    
     public void preencherSolicitacao(){
         this.solicitacaoAluguel= new SolicitacaoAluguel();
         try{
@@ -491,10 +494,12 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
         this.solicitacaoAluguel.setDiasPretendidos(Integer.parseInt(spDias.getValue().toString()));
         this.solicitacaoAluguel.setProduto(this.produto);
     }
+    
     public void criarSolicitacao(){
         preencherSolicitacao();
         sDAO = new SolicitacaoAluguelDAO();
         sDAO.addSolicitacao(this.solicitacaoAluguel);
+        JOptionPane.showMessageDialog(null, "Solicitação realizada com sucesso", "Confirmacao ", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**

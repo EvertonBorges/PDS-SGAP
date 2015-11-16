@@ -1,4 +1,4 @@
-package tela.aluguel;
+package tela.solicitacao;
 
 import dao.CategoriaDAO;
 import modelo.lista.ListaModeloCategorias;

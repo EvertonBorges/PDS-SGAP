@@ -3,12 +3,13 @@ package tela;
 import dao.CondominoDAO;
 import modelo.Condomino;
 import modelo.TipoUsuario;
-import tela.aluguel.AluguelPesquisarTela;
+import tela.solicitacao.AluguelPesquisarTela;
 import tela.apartamento.ApartamentoPesquisarTela;
 import tela.categoria.CategoriaPesquisarTela;
 import tela.condomino.CondominoPesquisarTela;
 import tela.meusprodutos.ProdutoCadastrarTela;
 import tela.meusprodutos.ProdutoPesquisarTela;
+import tela.aluguel.SolicitacaoPesquisarTela;
 
 public class Principal extends javax.swing.JFrame {
     private Condomino condomino;
@@ -42,10 +43,11 @@ public class Principal extends javax.swing.JFrame {
         menuAcesso = new javax.swing.JMenu();
         miSair = new javax.swing.JMenuItem();
         menuProdutos = new javax.swing.JMenu();
-        miCadastrarProduto = new javax.swing.JMenuItem();
-        miPesquisarProduto = new javax.swing.JMenuItem();
+        miPesquisarProdutos = new javax.swing.JMenuItem();
+        miSolicitacoesProdutos = new javax.swing.JMenuItem();
         menuAluguel = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        miPesquisarAluguel = new javax.swing.JMenuItem();
+        miSolicitacoesAluguel = new javax.swing.JMenuItem();
         menuCadastro = new javax.swing.JMenu();
         miApartamento = new javax.swing.JMenuItem();
         miCategoria = new javax.swing.JMenuItem();
@@ -77,33 +79,36 @@ public class Principal extends javax.swing.JFrame {
 
         menuProdutos.setText("Meus Produtos");
 
-        miCadastrarProduto.setText("Cadastrar");
-        miCadastrarProduto.addActionListener(new java.awt.event.ActionListener() {
+        miPesquisarProdutos.setText("Pesquisar");
+        miPesquisarProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miCadastrarProdutoActionPerformed(evt);
+                miPesquisarProdutosActionPerformed(evt);
             }
         });
-        menuProdutos.add(miCadastrarProduto);
+        menuProdutos.add(miPesquisarProdutos);
 
-        miPesquisarProduto.setText("Pesquisar");
-        miPesquisarProduto.addActionListener(new java.awt.event.ActionListener() {
+        miSolicitacoesProdutos.setText("Solicitações");
+        miSolicitacoesProdutos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miPesquisarProdutoActionPerformed(evt);
+                miSolicitacoesProdutosActionPerformed(evt);
             }
         });
-        menuProdutos.add(miPesquisarProduto);
+        menuProdutos.add(miSolicitacoesProdutos);
 
         mbMenu.add(menuProdutos);
 
         menuAluguel.setText("Aluguel");
 
-        jMenuItem1.setText("Pesquisar");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        miPesquisarAluguel.setText("Pesquisar Produto");
+        miPesquisarAluguel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                miPesquisarAluguelActionPerformed(evt);
             }
         });
-        menuAluguel.add(jMenuItem1);
+        menuAluguel.add(miPesquisarAluguel);
+
+        miSolicitacoesAluguel.setText("Minhas Solicitações");
+        menuAluguel.add(miSolicitacoesAluguel);
 
         mbMenu.add(menuAluguel);
 
@@ -156,25 +161,20 @@ public class Principal extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_miSairActionPerformed
 
-    private void miCadastrarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCadastrarProdutoActionPerformed
-        ProdutoCadastrarTela cadastrarProduto = new ProdutoCadastrarTela(condomino);
-        cadastrarProduto.setVisible(true);
-    }//GEN-LAST:event_miCadastrarProdutoActionPerformed
-
-    private void miPesquisarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPesquisarProdutoActionPerformed
+    private void miPesquisarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPesquisarProdutosActionPerformed
         ProdutoPesquisarTela pesquisarProduto = new ProdutoPesquisarTela(condomino);
         pesquisarProduto.setVisible(true);
-    }//GEN-LAST:event_miPesquisarProdutoActionPerformed
+    }//GEN-LAST:event_miPesquisarProdutosActionPerformed
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         CondominoDAO condominoDAO = new CondominoDAO();
         condomino = condominoDAO.getCondominoById(condomino.getCodigo());
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void miPesquisarAluguelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPesquisarAluguelActionPerformed
         AluguelPesquisarTela pesquisarAluguel = new AluguelPesquisarTela(this.condomino);
         pesquisarAluguel.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_miPesquisarAluguelActionPerformed
 
     private void miApartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miApartamentoActionPerformed
         ApartamentoPesquisarTela apPesquisar = new ApartamentoPesquisarTela();
@@ -191,19 +191,25 @@ public class Principal extends javax.swing.JFrame {
         pesCondomino.setVisible(true);
     }//GEN-LAST:event_miCondominoActionPerformed
 
+    private void miSolicitacoesProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSolicitacoesProdutosActionPerformed
+        SolicitacaoPesquisarTela solicitacaoPesquisarTela = new SolicitacaoPesquisarTela(condomino);
+        solicitacaoPesquisarTela.setVisible(true);
+    }//GEN-LAST:event_miSolicitacoesProdutosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuBar mbMenu;
     private javax.swing.JMenu menuAcesso;
     private javax.swing.JMenu menuAluguel;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenu menuProdutos;
     private javax.swing.JMenuItem miApartamento;
-    private javax.swing.JMenuItem miCadastrarProduto;
     private javax.swing.JMenuItem miCategoria;
     private javax.swing.JMenuItem miCondomino;
-    private javax.swing.JMenuItem miPesquisarProduto;
+    private javax.swing.JMenuItem miPesquisarAluguel;
+    private javax.swing.JMenuItem miPesquisarProdutos;
     private javax.swing.JMenuItem miSair;
+    private javax.swing.JMenuItem miSolicitacoesAluguel;
+    private javax.swing.JMenuItem miSolicitacoesProdutos;
     // End of variables declaration//GEN-END:variables
 }

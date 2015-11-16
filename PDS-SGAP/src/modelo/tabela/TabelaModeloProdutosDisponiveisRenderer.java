@@ -16,11 +16,9 @@ import modelo.Produto;
 import modelo.textarea.TextAreaModelo;
 
 public class TabelaModeloProdutosDisponiveisRenderer  implements TableCellRenderer{
-
-    private final List<Produto> produtos;   
-    private ImageIcon img= new ImageIcon();
+    private final List<Produto> produtos;
     private JPanel painel= new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
-
+    
     public TabelaModeloProdutosDisponiveisRenderer(List<Produto> produtos) {
         painel=new JPanel();
         this.produtos = produtos;

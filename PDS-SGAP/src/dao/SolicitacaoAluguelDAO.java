@@ -1,11 +1,16 @@
 package dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
+import modelo.Condomino;
+import modelo.Produto;
 import modelo.SolicitacaoAluguel;
 import util.JPAUtil;
 
@@ -19,12 +24,12 @@ public class SolicitacaoAluguelDAO {
     public void preencherLista(){
         this.solicitacoes.clear();
         EntityManager manager = JPAUtil.getEntityManager();
-        Query query = manager.createQuery("SELECT s FROM Solicitacao s ");
+        Query query = manager.createQuery("SELECT s FROM SolicitacaoAluguel s");
         try{
             this.solicitacoes = query.getResultList();
         } catch (NoResultException ex) {
             this.solicitacoes = null;
-            System.out.println("\nerro ao buscar solicitacao");
+            System.out.println("Erro ao buscar solicitacao");
         }
     }
     
@@ -36,16 +41,19 @@ public class SolicitacaoAluguelDAO {
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         manager.persist(solicitacao);
-
         manager.getTransaction().commit();
         manager.close();
-        JOptionPane.showMessageDialog(null, "Solicitação realizada com sucesso", "Confirmacao ", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void alterSolicitacao(SolicitacaoAluguel solicitacaoNova){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
-
+        manager.merge(solicitacaoNova);
+        manager.getTransaction().commit();
+        manager.close();
+        JOptionPane.showMessageDialog(null, "Solicitacao alterada com sucesso", "Solicitacao Alterado", JOptionPane.INFORMATION_MESSAGE);
+        
+        /*
         SolicitacaoAluguel solicitacao = manager.find(SolicitacaoAluguel.class, solicitacaoNova.getCodigo());
         solicitacao.setDataInicioAluguel(solicitacaoNova.getDataInicioAluguel());
         solicitacao.setDataSolicitacao(solicitacaoNova.getDataSolicitacao());
@@ -57,6 +65,7 @@ public class SolicitacaoAluguelDAO {
         manager.getTransaction().commit();
         manager.close();
         JOptionPane.showMessageDialog(null, "Solicitacao alterada com sucesso", "Solicitacao Alterado", JOptionPane.INFORMATION_MESSAGE);
+        */
     }
     
     public void removeSolicitacao(SolicitacaoAluguel solicitacao){
@@ -70,19 +79,39 @@ public class SolicitacaoAluguelDAO {
         JOptionPane.showMessageDialog(null, "Solicitacao cancelada com sucesso", "Solicitacao cancelada", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    /*
-    public List<Produto> findProduto(Condomino condomino){
+    public List<Produto> findProdutos(Condomino condomino, Produto produtoPesquisa){
+        Calendar dataAtual = Calendar.getInstance();
         EntityManager manager = JPAUtil.getEntityManager();
         List<Produto> produtosRetorno;
-        TypedQuery<Produto> query = manager.createQuery("SELECT p FROM Produto p", Produto.class);
+        TypedQuery<Produto> query = manager.createQuery("SELECT DISTINCT s.produto FROM SolicitacaoAluguel s WHERE s.produto.condomino.codigo = :codigoCondomino AND s.produto.nome LIKE :nomeProduto AND s.dataInicioAluguel >= :dataAtual", Produto.class);
+        query.setParameter("codigoCondomino", condomino.getCodigo());
+        query.setParameter("nomeProduto", produtoPesquisa.getNome() + "%");
+        query.setParameter("dataAtual", dataAtual);
         try{
             produtosRetorno = query.getResultList();
         } catch (NoResultException ex) {
             produtosRetorno = null;
         }
+        manager.close();
         return produtosRetorno;
     }
     
+    public List<SolicitacaoAluguel> findSolicitacoes(Produto produtoPesquisa){
+        Calendar dataAtual = Calendar.getInstance();
+        EntityManager manager = JPAUtil.getEntityManager();
+        List<SolicitacaoAluguel> solicitacoesRetorno;
+        TypedQuery<SolicitacaoAluguel> query = manager.createQuery("SELECT s FROM SolicitacaoAluguel s WHERE s.produto.codigo = :codigoProduto AND s.dataInicioAluguel >= :dataAtual", SolicitacaoAluguel.class);
+        query.setParameter("codigoProduto", produtoPesquisa.getCodigo());
+        query.setParameter("dataAtual", dataAtual);
+        try {
+            solicitacoesRetorno = query.getResultList();
+        } catch(NoResultException ex){
+            solicitacoesRetorno = null;
+        }
+        return solicitacoesRetorno;
+    }
+    
+    /*
     public List<Produto> findProduto(Condomino condomino, Produto produto){
         EntityManager manager = JPAUtil.getEntityManager();
         List<Produto> produtosRetorno;
