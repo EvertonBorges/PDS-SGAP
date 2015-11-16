@@ -5,23 +5,45 @@
  */
 package tela.aluguel;
 
+import dao.SolicitacaoAluguelDAO;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JPanel;
+import javax.swing.ListSelectionModel;
+import modelo.Condomino;
 import modelo.Produto;
+import modelo.SolicitacaoAluguel;
+import modelo.tabela.TabelaModeloProduto;
+import modelo.tabela.TabelaModeloProdutosDisponiveis;
+import modelo.tabela.TabelaModeloProdutosDisponiveisRenderer;
+import modelo.tabela.TabelaModeloSolicitacoes;
+import modelo.tabela.TabelaModeloSolicitacoesRenderer;
+import tela.solicitacao.AluguelDetalhesTela;
 
 /**
  *
  * @author Borges
  */
 public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
-    private final Produto produto;
     
+    private SolicitacaoAluguelDAO sDAO= new SolicitacaoAluguelDAO();
+    private  SolicitacaoAluguel solicitacaoAluguel;
+    private Condomino condomino;
+    private List<SolicitacaoAluguel> solicitacaoAluguels = new ArrayList<>();
     /**
      * Creates new form SolicitacaoRequerentesTela
      * @param produto
      */
     public SolicitacaoRequerentesTela(Produto produto) {
-        this.produto = produto;
+        this.solicitacaoAluguels = sDAO.findSolicitacoes(produto);
+        System.out.println("soal: " + this.solicitacaoAluguels);
+        System.out.println("soal: " + this.solicitacaoAluguels);
         initComponents();
+        preencherTabela();
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,7 +56,7 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
 
         painelRequerentes = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbRequerentes = new javax.swing.JTable();
+        tbProduto = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         bSair = new javax.swing.JButton();
 
@@ -42,7 +64,7 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
 
         painelRequerentes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Requerentes", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
-        tbRequerentes.setModel(new javax.swing.table.DefaultTableModel(
+        tbProduto.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -53,23 +75,32 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tbRequerentes.setRowSelectionAllowed(false);
-        tbRequerentes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(tbRequerentes);
+        tbProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                tbProdutoMouseReleased(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tbProduto);
 
         javax.swing.GroupLayout painelRequerentesLayout = new javax.swing.GroupLayout(painelRequerentes);
         painelRequerentes.setLayout(painelRequerentesLayout);
         painelRequerentesLayout.setHorizontalGroup(
             painelRequerentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelRequerentesLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 610, Short.MAX_VALUE)
+            .addGroup(painelRequerentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(painelRequerentesLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         painelRequerentesLayout.setVerticalGroup(
             painelRequerentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelRequerentesLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(painelRequerentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelRequerentesLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         bSair.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -105,7 +136,63 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tbProdutoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutoMouseReleased
+        // TODO add your handling code
+
+        selecionarProduto(evt);
+        //    realizarAcao(evt);
+    }//GEN-LAST:event_tbProdutoMouseReleased
     
+        private void selecionarProduto(MouseEvent evt) {
+
+        int linha = tbProduto.rowAtPoint(evt.getPoint());
+        int coluna = tbProduto.columnAtPoint(evt.getPoint());
+
+        if (linha >= 0 ) { 
+            
+            tbProduto.getSelectionModel().setSelectionMode( ListSelectionModel.SINGLE_SELECTION);  
+            tbProduto.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);  
+            tbProduto.setCellSelectionEnabled(true);
+            
+            int indice=((linha)*4)+coluna;
+            
+            if (indice<this.solicitacaoAluguels.size()){
+                this.solicitacaoAluguel = this.solicitacaoAluguels.get(indice);
+                realizarAcao(evt);
+            }
+        }
+
+    }
+        private void realizarAcao(MouseEvent evt) {
+
+        if (evt.getButton() == MouseEvent.BUTTON1) { 
+
+            if (evt.getClickCount() > 1) { 
+                telaConsultar();
+            }
+
+        } else if (evt.getButton() == MouseEvent.BUTTON3) { 
+         //   mPopup.show(evt.getComponent(), evt.getX(), evt.getY());
+
+        }
+
+    }
+    private void telaConsultar(){
+        SolicitacaoDetalhesTela telaConsultar= new SolicitacaoDetalhesTela(this.solicitacaoAluguel, this.condomino);
+        telaConsultar.setVisible(true);
+    }
+    
+        private void preencherTabela() {
+        
+        //tbProduto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
+        
+        tbProduto.setDefaultRenderer(JPanel.class, new TabelaModeloSolicitacoesRenderer(this.solicitacaoAluguels));
+        
+        tbProduto.setModel(new TabelaModeloSolicitacoes(this.solicitacaoAluguels));
+
+        tbProduto.setRowHeight(100); 
+    }
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -113,6 +200,6 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel painelRequerentes;
-    private javax.swing.JTable tbRequerentes;
+    private javax.swing.JTable tbProduto;
     // End of variables declaration//GEN-END:variables
 }
