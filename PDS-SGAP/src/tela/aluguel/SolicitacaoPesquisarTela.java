@@ -238,7 +238,7 @@ public class SolicitacaoPesquisarTela extends javax.swing.JFrame {
         if (linha >= 0) {
             tbResultados.setRowSelectionInterval(linha, linha);
             linha = tbResultados.getSelectedRow();
-            this.produtoSelecionado = condomino.getProdutos().get(linha);
+            this.produtoSelecionado = produtos.get(linha);
         }
     }
     
@@ -261,7 +261,8 @@ public class SolicitacaoPesquisarTela extends javax.swing.JFrame {
         SolicitacaoAluguelDAO solicitacaoAluguelDAO = new SolicitacaoAluguelDAO();
         Produto produto = new Produto();
         produto.setNome(tfProduto.getText());
-        produtos = solicitacaoAluguelDAO.findProdutos(condomino, produto);
+        produto.setCondomino(condomino);
+        produtos = solicitacaoAluguelDAO.findProdutos(produto);
         TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
         tbResultados.setModel(modelo);
     }

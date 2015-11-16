@@ -28,6 +28,7 @@ public class SolicitacaoAluguel {
     private Calendar dataInicioAluguel;
 
     public SolicitacaoAluguel() {
+        
     }
 
     public SolicitacaoAluguel(int diasPretendidos, int quantidade, Produto produto, Condomino locatario, Calendar dataSolicitacao, Calendar dataInicioAluguel) {
@@ -94,5 +95,5 @@ public class SolicitacaoAluguel {
     @Override
     public String toString() {
         return dataSolicitacao + "  " + produto + " " + locatario ;
-    }    
+    }
 }

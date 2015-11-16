@@ -71,7 +71,7 @@ public class ProdutoPesquisarTela extends javax.swing.JFrame {
         menuFlutuante.add(miExcluir);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Pesquisar Categoria");
+        setTitle("Pesquisar Produto");
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
             public void windowGainedFocus(java.awt.event.WindowEvent evt) {
                 formWindowGainedFocus(evt);

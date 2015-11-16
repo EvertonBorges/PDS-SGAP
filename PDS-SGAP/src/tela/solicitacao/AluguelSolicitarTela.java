@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -49,12 +50,15 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
     }
     
     public void preencherCampos(){
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        
         tfDono.setText(this.produto.getCondomino().toString());
         tfProduto.setText(this.produto.getNome());
         tfDescricao.setText(this.produto.getDescricao());
         tfContato.setText(produto.getCondomino().getTelefones().get(0));
         tfDiaria.setText("R$"+produto.getDiaria());
         tfTaxa.setText(produto.getTaxa()+"%");
+        tfDataInicio.setText(formatador.format(Calendar.getInstance().getTime()));
        
         SpinnerNumberModel spModelQuantidade = new SpinnerNumberModel(this.produto.getQuantidade(), 1, this.produto.getQuantidade(), 1);
         spQuantidade.setModel(spModelQuantidade);
@@ -500,6 +504,7 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
         sDAO = new SolicitacaoAluguelDAO();
         sDAO.addSolicitacao(this.solicitacaoAluguel);
         JOptionPane.showMessageDialog(null, "Solicitação realizada com sucesso", "Confirmacao ", JOptionPane.INFORMATION_MESSAGE);
+        dispose();
     }
 
     /**

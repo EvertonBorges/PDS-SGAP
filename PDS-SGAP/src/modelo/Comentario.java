@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Comentario {
@@ -14,12 +16,13 @@ public class Comentario {
     @GeneratedValue
     private Long codigo;
     private String comentario;
+    
+    @Temporal(TemporalType.DATE)
     private Calendar data;
     
     @ManyToOne
     @JoinColumn (name= "produto_codigo")
     private Produto produto;
-    
     
     @ManyToOne
     @JoinColumn (name= "comentarista_codigo")

@@ -1,14 +1,13 @@
 package dao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
-import modelo.Condomino;
 import modelo.Produto;
 import modelo.SolicitacaoAluguel;
 import util.JPAUtil;
@@ -78,13 +77,16 @@ public class SolicitacaoAluguelDAO {
         JOptionPane.showMessageDialog(null, "Solicitacao cancelada com sucesso", "Solicitacao cancelada", JOptionPane.INFORMATION_MESSAGE);
     }
     
-    public List<Produto> findProdutos(Condomino condomino, Produto produtoPesquisa){
+    public List<Produto> findProdutos(Produto produtoPesquisa){
+        Calendar dataAtualCalendar = Calendar.getInstance();
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+        String dataAtualString = formatador.format(dataAtualCalendar.getTime());
         EntityManager manager = JPAUtil.getEntityManager();
         List<Produto> produtosRetorno;
-        TypedQuery<Produto> query = manager.createQuery("SELECT DISTINCT s.produto FROM SolicitacaoAluguel s WHERE s.produto.condomino.codigo = :codigoCondomino AND s.produto.nome LIKE :nomeProduto AND s.dataInicioAluguel >= :dataAtual AND (SELECT a.dataDevolucao FROM Aluguel a WHERE a.solicitacaoAluguel = s) IS NOT NULL", Produto.class);
-        query.setParameter("codigoCondomino", condomino.getCodigo());
+        Query query = manager.createNativeQuery("CALL SP_PRODUTOS_SOLICITADOS(:codigoDono, :nomeProduto, :dataAtual)", Produto.class);
+        query.setParameter("codigoDono", produtoPesquisa.getCondomino().getCodigo());
         query.setParameter("nomeProduto", produtoPesquisa.getNome() + "%");
-        query.setParameter("dataAtual", Calendar.getInstance());
+        query.setParameter("dataAtual", dataAtualString);
         try{
             produtosRetorno = query.getResultList();
         } catch (NoResultException ex) {
@@ -95,16 +97,20 @@ public class SolicitacaoAluguelDAO {
     }
     
     public List<SolicitacaoAluguel> findSolicitacoes(Produto produtoPesquisa){
+        Calendar dataAtualCalendar = Calendar.getInstance();
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+        String dataAtualString = formatador.format(dataAtualCalendar.getTime());
         EntityManager manager = JPAUtil.getEntityManager();
         List<SolicitacaoAluguel> solicitacoesRetorno;
-        TypedQuery<SolicitacaoAluguel> query = manager.createQuery("SELECT s FROM SolicitacaoAluguel s WHERE s.produto.codigo = :codigoProduto AND s.dataInicioAluguel >= :dataAtual", SolicitacaoAluguel.class);
+        Query query = manager.createNativeQuery("CALL SP_SOLICITACOES_PRODUTO(:codigoProduto, :dataAtual)", SolicitacaoAluguel.class);
         query.setParameter("codigoProduto", produtoPesquisa.getCodigo());
-        query.setParameter("dataAtual", Calendar.getInstance());
+        query.setParameter("dataAtual", dataAtualString);
         try {
             solicitacoesRetorno = query.getResultList();
         } catch(NoResultException ex){
             solicitacoesRetorno = null;
         }
+        manager.close();
         return solicitacoesRetorno;
     }
     
