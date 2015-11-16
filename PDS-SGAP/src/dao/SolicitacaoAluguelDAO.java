@@ -1,6 +1,5 @@
 package dao;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -80,13 +79,12 @@ public class SolicitacaoAluguelDAO {
     }
     
     public List<Produto> findProdutos(Condomino condomino, Produto produtoPesquisa){
-        Calendar dataAtual = Calendar.getInstance();
         EntityManager manager = JPAUtil.getEntityManager();
         List<Produto> produtosRetorno;
-        TypedQuery<Produto> query = manager.createQuery("SELECT DISTINCT s.produto FROM SolicitacaoAluguel s WHERE s.produto.condomino.codigo = :codigoCondomino AND s.produto.nome LIKE :nomeProduto AND s.dataInicioAluguel >= :dataAtual", Produto.class);
+        TypedQuery<Produto> query = manager.createQuery("SELECT DISTINCT s.produto FROM SolicitacaoAluguel s WHERE s.produto.condomino.codigo = :codigoCondomino AND s.produto.nome LIKE :nomeProduto AND s.dataInicioAluguel >= :dataAtual AND (SELECT a.dataDevolucao FROM Aluguel a WHERE a.solicitacaoAluguel = s) IS NOT NULL", Produto.class);
         query.setParameter("codigoCondomino", condomino.getCodigo());
         query.setParameter("nomeProduto", produtoPesquisa.getNome() + "%");
-        query.setParameter("dataAtual", dataAtual);
+        query.setParameter("dataAtual", Calendar.getInstance());
         try{
             produtosRetorno = query.getResultList();
         } catch (NoResultException ex) {
@@ -97,12 +95,11 @@ public class SolicitacaoAluguelDAO {
     }
     
     public List<SolicitacaoAluguel> findSolicitacoes(Produto produtoPesquisa){
-        Calendar dataAtual = Calendar.getInstance();
         EntityManager manager = JPAUtil.getEntityManager();
         List<SolicitacaoAluguel> solicitacoesRetorno;
         TypedQuery<SolicitacaoAluguel> query = manager.createQuery("SELECT s FROM SolicitacaoAluguel s WHERE s.produto.codigo = :codigoProduto AND s.dataInicioAluguel >= :dataAtual", SolicitacaoAluguel.class);
         query.setParameter("codigoProduto", produtoPesquisa.getCodigo());
-        query.setParameter("dataAtual", dataAtual);
+        query.setParameter("dataAtual", Calendar.getInstance());
         try {
             solicitacoesRetorno = query.getResultList();
         } catch(NoResultException ex){

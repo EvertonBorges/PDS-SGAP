@@ -5,9 +5,13 @@
  */
 package modelo;
 
+import java.util.Calendar;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -15,33 +19,35 @@ import javax.persistence.Id;
  */
 
 @Entity
-public class Alugado {
+public class Aluguel {
     @Id
     @GeneratedValue
     private Long codigo;
     
-    
-    private Condomino condomino;
+    @OneToOne
     private SolicitacaoAluguel solicitacaoAluguel;
+    
+    @Temporal (TemporalType.DATE)
+    private Calendar dataDevolucao;
 
-    public Alugado() {
+    public Aluguel() {
     }
 
-    public Alugado(Condomino condomino, SolicitacaoAluguel solicitacaoAluguel) {
-        this.condomino = condomino;
+    public Aluguel(SolicitacaoAluguel solicitacaoAluguel, Calendar dataDevolucao) {
         this.solicitacaoAluguel = solicitacaoAluguel;
+        this.dataDevolucao = dataDevolucao;
     }
 
     public Long getCodigo() {
         return codigo;
     }
 
-    public Condomino getCondomino() {
-        return condomino;
+    public Calendar getDataDevolucao() {
+        return dataDevolucao;
     }
 
-    public void setCondomino(Condomino condomino) {
-        this.condomino = condomino;
+    public void setDataDevolucao(Calendar dataDevolucao) {
+        this.dataDevolucao = dataDevolucao;
     }
 
     public SolicitacaoAluguel getSolicitacaoAluguel() {

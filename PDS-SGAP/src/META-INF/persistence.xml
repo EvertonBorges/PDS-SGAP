@@ -12,6 +12,7 @@
     <class>modelo.Avaliacao</class>
     <class>modelo.Comentario</class>
     <class>modelo.SolicitacaoAluguel</class>
+    <class>modelo.Aluguel</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/BD_PDS_SGAP?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

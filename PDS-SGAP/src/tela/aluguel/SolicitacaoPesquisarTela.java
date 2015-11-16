@@ -226,8 +226,7 @@ public class SolicitacaoPesquisarTela extends javax.swing.JFrame {
     }//GEN-LAST:event_tbResultadosMouseReleased
 
     private void miDetalhesProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miDetalhesProdutoActionPerformed
-        ProdutoDetalhesTela produtoDetalhesTela = new ProdutoDetalhesTela(produtoSelecionado);
-        produtoDetalhesTela.setVisible(true);
+        verDetalhes();
     }//GEN-LAST:event_miDetalhesProdutoActionPerformed
 
     private void miRequerentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRequerentesActionPerformed
@@ -254,7 +253,8 @@ public class SolicitacaoPesquisarTela extends javax.swing.JFrame {
     }
     
     private void verDetalhes(){
-        
+        ProdutoDetalhesTela produtoDetalhesTela = new ProdutoDetalhesTela(produtoSelecionado);
+        produtoDetalhesTela.setVisible(true);
     }
     
     private void preencherTabela(){
