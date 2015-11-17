@@ -7,7 +7,6 @@ import tela.solicitacao.AluguelPesquisarTela;
 import tela.apartamento.ApartamentoPesquisarTela;
 import tela.categoria.CategoriaPesquisarTela;
 import tela.condomino.CondominoPesquisarTela;
-import tela.meusprodutos.ProdutoCadastrarTela;
 import tela.meusprodutos.ProdutoPesquisarTela;
 import tela.aluguel.SolicitacaoPesquisarTela;
 
