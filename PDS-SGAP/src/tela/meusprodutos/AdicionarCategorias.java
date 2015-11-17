@@ -1,4 +1,9 @@
-package tela.meusprodutos;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package tela.meusProdutos;
 
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
@@ -11,6 +16,10 @@ import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 import modelo.Categoria;
 
+/**
+ *
+ * @author Everton Soares
+ */
 public class AdicionarCategorias extends javax.swing.JFrame {
     private final Vector CheckBoxCategorias = new Vector<Object>();
     private List<Categoria> categorias;
