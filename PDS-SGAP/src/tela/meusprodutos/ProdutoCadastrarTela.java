@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tela.meusProdutos;
+package tela.meusprodutos;
 
 import modelo.painel.PainelModeloImagens;
 import modelo.lista.ListaModeloCategorias;
@@ -25,10 +20,6 @@ import modelo.Condomino;
 import modelo.ImagemProduto;
 import modelo.Produto;
 
-/**
- *
- * @author Everton Soares
- */
 public class ProdutoCadastrarTela extends javax.swing.JFrame {
     private final Condomino condomino;
     private List<Categoria> categoriasSelecionadas = new ArrayList<>();

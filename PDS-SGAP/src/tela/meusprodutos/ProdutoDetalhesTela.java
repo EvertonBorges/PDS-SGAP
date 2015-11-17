@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tela.meusProdutos;
+package tela.meusprodutos;
 
 import modelo.painel.PainelModeloImagens;
 import modelo.lista.ListaModeloCategorias;
@@ -19,10 +14,6 @@ import modelo.ImagemProduto;
 import modelo.Produto;
 import util.JPAUtil;
 
-/**
- *
- * @author Everton Soares
- */
 public class ProdutoDetalhesTela extends javax.swing.JFrame {
     private Produto produto;
     private JPanel img;
