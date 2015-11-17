@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package tela.meusProdutos;
+package tela.minhassolicitacoes;
 
+import tela.aluguel.*;
 import modelo.painel.PainelModeloImagens;
 import modelo.lista.ListaModeloCategorias;
 import dao.ProdutoDAO;
@@ -13,26 +9,25 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import javax.imageio.ImageIO;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import modelo.Condomino;
 import modelo.ImagemProduto;
 import modelo.Produto;
 import util.JPAUtil;
 
-/**
- *
- * @author Everton Soares
- */
-public class ProdutoDetalhesTela extends javax.swing.JFrame {
+public class ProdutoSolicitadoDetalhesTela extends javax.swing.JFrame {
     private Produto produto;
+    private Condomino condomino;
     private JPanel img;
     
     /**
      * Creates new form ConsultarProduto
      * @param produto
+     * @param condomino
      */
-    public ProdutoDetalhesTela(Produto produto) {
+    public ProdutoSolicitadoDetalhesTela(Produto produto, Condomino condomino) {
         this.produto = produto;
+        this.condomino= condomino;
         initComponents();
     }
 
@@ -49,12 +44,10 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
         lQuantidade = new javax.swing.JLabel();
         lDiária = new javax.swing.JLabel();
         lTaxaAtraso = new javax.swing.JLabel();
-        lStatus = new javax.swing.JLabel();
         tfNome = new javax.swing.JLabel();
         tfQuantidade = new javax.swing.JLabel();
         tfTaxaAtraso = new javax.swing.JLabel();
         tfDiaria = new javax.swing.JLabel();
-        tfStatus = new javax.swing.JLabel();
         painelCategorias = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         listaCategorias = new javax.swing.JList();
@@ -67,9 +60,8 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         taDescricao = new javax.swing.JTextArea();
         jSeparator1 = new javax.swing.JSeparator();
-        bAlterar = new javax.swing.JButton();
-        bExcluir = new javax.swing.JButton();
-        bCancelar = new javax.swing.JButton();
+        bRequerentes = new javax.swing.JButton();
+        bSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Detalhes do Produto");
@@ -81,27 +73,31 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
             }
         });
 
+        lNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lNome.setText("Nome:");
 
+        lQuantidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lQuantidade.setText("Quantidade:");
 
+        lDiária.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lDiária.setText("Diária:");
 
+        lTaxaAtraso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lTaxaAtraso.setText("Taxa de atraso:");
 
-        lStatus.setText("Status:");
-
+        tfNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfNome.setText("jLabel6");
 
+        tfQuantidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfQuantidade.setText("jLabel7");
 
+        tfTaxaAtraso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfTaxaAtraso.setText("jLabel8");
 
+        tfDiaria.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfDiaria.setText("jLabel9");
 
-        tfStatus.setText("jLabel10");
-
-        painelCategorias.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Categorias", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        painelCategorias.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Categorias", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
         listaCategorias.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -124,7 +120,7 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
         );
 
-        painelImagens.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Imagens", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        painelImagens.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Imagens", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
         painelImagens.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 painelImagensMouseReleased(evt);
@@ -185,7 +181,7 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
                 .addGap(5, 5, 5))
         );
 
-        painelDescricao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Descrição", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        painelDescricao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Descrição", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
         taDescricao.setBackground(new java.awt.Color(240, 240, 240));
         taDescricao.setColumns(20);
@@ -204,24 +200,19 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        bAlterar.setText("Alterar");
-        bAlterar.addActionListener(new java.awt.event.ActionListener() {
+        bRequerentes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bRequerentes.setText("Solicitações");
+        bRequerentes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bAlterarActionPerformed(evt);
+                bRequerentesActionPerformed(evt);
             }
         });
 
-        bExcluir.setText("Excluir");
-        bExcluir.addActionListener(new java.awt.event.ActionListener() {
+        bSair.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        bSair.setText("Sair");
+        bSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bExcluirActionPerformed(evt);
-            }
-        });
-
-        bCancelar.setText("Cancelar");
-        bCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCancelarActionPerformed(evt);
+                bSairActionPerformed(evt);
             }
         });
 
@@ -234,12 +225,6 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(painelDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(bAlterar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(bExcluir)
-                        .addGap(132, 132, 132)
-                        .addComponent(bCancelar))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -258,16 +243,18 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
                                         .addComponent(tfDiaria))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lTaxaAtraso)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(tfTaxaAtraso))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lStatus)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tfStatus))
                                     .addComponent(painelCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(81, 81, 81)
+                        .addComponent(bRequerentes)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bSair, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(83, 83, 83)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -277,36 +264,33 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lNome)
                     .addComponent(tfNome))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lQuantidade)
-                            .addComponent(tfQuantidade))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(15, 15, 15)
+                        .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfQuantidade)
+                            .addComponent(lQuantidade))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lTaxaAtraso)
                             .addComponent(tfTaxaAtraso))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lDiária)
                             .addComponent(tfDiaria))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lStatus)
-                            .addComponent(tfStatus))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(painelCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bAlterar)
-                    .addComponent(bExcluir)
-                    .addComponent(bCancelar))
+                    .addComponent(bRequerentes)
+                    .addComponent(bSair))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -314,9 +298,9 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
+    private void bSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSairActionPerformed
         dispose();
-    }//GEN-LAST:event_bCancelarActionPerformed
+    }//GEN-LAST:event_bSairActionPerformed
 
     private void img1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_img1MouseReleased
         img = img1;
@@ -337,25 +321,22 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
         carregarProduto();
     }//GEN-LAST:event_formWindowGainedFocus
 
-    private void bAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAlterarActionPerformed
-        ProdutoAtualizarTela atualizarProduto = new ProdutoAtualizarTela(produto);
-        atualizarProduto.setVisible(true);
-    }//GEN-LAST:event_bAlterarActionPerformed
+    private void bRequerentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRequerentesActionPerformed
+        
+        telaSolicitacoes();
 
-    private void bExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bExcluirActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja excluir o registro: " + produto.getNome() + "?", "Excluir Produto", JOptionPane.YES_NO_OPTION);
-        if(resposta == JOptionPane.YES_OPTION){
-            dispose();
-            ProdutoDAO produtoDAO = new ProdutoDAO();
-            produtoDAO.removeProduto(produto);
-        }
-    }//GEN-LAST:event_bExcluirActionPerformed
+    }//GEN-LAST:event_bRequerentesActionPerformed
 
     private void painelImagensMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelImagensMouseReleased
         img = null;
         mudarCorPaineis();
     }//GEN-LAST:event_painelImagensMouseReleased
     
+    
+    private void telaSolicitacoes() {
+        SolicitacoesProdutoTela produtoTela = new SolicitacoesProdutoTela(this.produto, this.condomino);
+        produtoTela.setVisible(true);
+    }
     private void realizarAcao(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1) {
             mudarCorPaineis();
@@ -400,7 +381,7 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
     }
     
     private void carregarCategorias(){
-        ListaModeloCategorias modelo = new ListaModeloCategorias(produto.getCategorias());
+        ListaModeloCategorias modelo = new ListaModeloCategorias(this.produto.getCategorias());
         listaCategorias.setModel(modelo);
     }
     
@@ -446,9 +427,8 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bAlterar;
-    private javax.swing.JButton bCancelar;
-    private javax.swing.JButton bExcluir;
+    private javax.swing.JButton bRequerentes;
+    private javax.swing.JButton bSair;
     private javax.swing.JPanel img1;
     private javax.swing.JPanel img2;
     private javax.swing.JPanel img3;
@@ -459,7 +439,6 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
     private javax.swing.JLabel lDiária;
     private javax.swing.JLabel lNome;
     private javax.swing.JLabel lQuantidade;
-    private javax.swing.JLabel lStatus;
     private javax.swing.JLabel lTaxaAtraso;
     private javax.swing.JList listaCategorias;
     private javax.swing.JPanel painelCategorias;
@@ -469,7 +448,7 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
     private javax.swing.JLabel tfDiaria;
     private javax.swing.JLabel tfNome;
     private javax.swing.JLabel tfQuantidade;
-    private javax.swing.JLabel tfStatus;
     private javax.swing.JLabel tfTaxaAtraso;
     // End of variables declaration//GEN-END:variables
+
 }

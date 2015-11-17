@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela.aluguel;
+package tela.minhassolicitacoes;
 
+import tela.aluguel.*;
 import dao.SolicitacaoAluguelDAO;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -20,7 +21,7 @@ import modelo.tabela.TabelaModeloSolicitacoes;
  *
  * @author Borges
  */
-public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
+public class SolicitacoesProdutoTela extends javax.swing.JFrame {
     
     private SolicitacaoAluguelDAO sDAO = new SolicitacaoAluguelDAO();
     private  SolicitacaoAluguel solicitacaoAluguel;
@@ -30,8 +31,8 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
      * Creates new form SolicitacaoRequerentesTela
      * @param produto
      */
-    public SolicitacaoRequerentesTela(Produto produto) {
-        this.solicitacaoAluguels = sDAO.findSolicitacoes(produto);
+    public SolicitacoesProdutoTela(Produto produto, Condomino condomino) {
+        this.solicitacaoAluguels = sDAO.findSolicitacoes(produto, condomino);
         initComponents();
         preencherTabela();
     }
@@ -181,7 +182,7 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
 
     }
     private void telaConsultar(){
-        SolicitacaoDetalhesTela telaConsultar = new SolicitacaoDetalhesTela(this.solicitacaoAluguel);
+        MinhaSolicitacaoDetalhesTela telaConsultar = new MinhaSolicitacaoDetalhesTela(this.solicitacaoAluguel);
         telaConsultar.setVisible(true);
     }
     
@@ -189,9 +190,8 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
         
         //tbProduto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
         
-     //   tbProduto.setDefaultRenderer(JPanel.class, new TabelaModeloSolicitacoesRenderer(this.solicitacaoAluguels));
-        tbProduto.setDefaultRenderer(JPanel.class, new TabelaModeloRenderer(this.solicitacaoAluguels, 2));
-
+        tbProduto.setDefaultRenderer(JPanel.class, new TabelaModeloRenderer(this.solicitacaoAluguels, 1));
+        
         tbProduto.setModel(new TabelaModeloSolicitacoes(this.solicitacaoAluguels));
 
         tbProduto.setRowHeight(100); 

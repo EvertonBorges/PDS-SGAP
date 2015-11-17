@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.swing.JOptionPane;
+import modelo.Condomino;
 import modelo.Produto;
 import modelo.SolicitacaoAluguel;
 import util.JPAUtil;
@@ -96,6 +97,25 @@ public class SolicitacaoAluguelDAO {
         return produtosRetorno;
     }
     
+    public List<Produto> findProdutos(Produto produtoPesquisa, Condomino locatario){
+        Calendar dataAtualCalendar = Calendar.getInstance();
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+        String dataAtualString = formatador.format(dataAtualCalendar.getTime());
+        EntityManager manager = JPAUtil.getEntityManager();
+        List<Produto> produtosRetorno;
+        Query query = manager.createNativeQuery("CALL SP_PRODUTOS_SOLICITADOS_LOCATARIO(:codigoLocatario, :nomeProduto)", Produto.class);
+        query.setParameter("codigoLocatario", locatario.getCodigo());
+        query.setParameter("nomeProduto", produtoPesquisa.getNome() + "%");
+        try{
+            produtosRetorno = query.getResultList();
+        } catch (NoResultException ex) {
+            produtosRetorno = null;
+        }
+        manager.close();
+        return produtosRetorno;
+    }
+    
+
     public List<SolicitacaoAluguel> findSolicitacoes(Produto produtoPesquisa){
         Calendar dataAtualCalendar = Calendar.getInstance();
         SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
@@ -114,6 +134,23 @@ public class SolicitacaoAluguelDAO {
         return solicitacoesRetorno;
     }
     
+    public List<SolicitacaoAluguel> findSolicitacoes(Produto produtoPesquisa, Condomino locatario){
+        Calendar dataAtualCalendar = Calendar.getInstance();
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+        String dataAtualString = formatador.format(dataAtualCalendar.getTime());
+        EntityManager manager = JPAUtil.getEntityManager();
+        List<SolicitacaoAluguel> solicitacoesRetorno;
+        Query query = manager.createNativeQuery("CALL SP_SOLICITACOES_PRODUTO_LOCATARIO(:codigoProduto, :codigoLocatario)", SolicitacaoAluguel.class);
+        query.setParameter("codigoProduto", produtoPesquisa.getCodigo());
+        query.setParameter("codigoLocatario", locatario.getCodigo());
+        try {
+            solicitacoesRetorno = query.getResultList();
+        } catch(NoResultException ex){
+            solicitacoesRetorno = null;
+        }
+        manager.close();
+        return solicitacoesRetorno;
+    }
     /*
     public List<Produto> findProduto(Condomino condomino, Produto produto){
         EntityManager manager = JPAUtil.getEntityManager();

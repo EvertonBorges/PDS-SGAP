@@ -9,6 +9,7 @@ import tela.categoria.CategoriaPesquisarTela;
 import tela.condomino.CondominoPesquisarTela;
 import tela.produtos.ProdutoPesquisarTela;
 import tela.aluguel.SolicitacaoPesquisarTela;
+import tela.minhassolicitacoes.MinhasSolicitacoesPesquisarTela;
 
 public class Principal extends javax.swing.JFrame {
     private Condomino condomino;
@@ -107,6 +108,11 @@ public class Principal extends javax.swing.JFrame {
         menuAluguel.add(miPesquisarAluguel);
 
         miSolicitacoesAluguel.setText("Minhas Solicitações");
+        miSolicitacoesAluguel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSolicitacoesAluguelActionPerformed(evt);
+            }
+        });
         menuAluguel.add(miSolicitacoesAluguel);
 
         mbMenu.add(menuAluguel);
@@ -194,6 +200,12 @@ public class Principal extends javax.swing.JFrame {
         SolicitacaoPesquisarTela solicitacaoPesquisarTela = new SolicitacaoPesquisarTela(condomino);
         solicitacaoPesquisarTela.setVisible(true);
     }//GEN-LAST:event_miSolicitacoesProdutosActionPerformed
+
+    private void miSolicitacoesAluguelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSolicitacoesAluguelActionPerformed
+        // TODO add your handling code here:
+        MinhasSolicitacoesPesquisarTela minhasSolicitacoes =  new MinhasSolicitacoesPesquisarTela(this.condomino);
+        minhasSolicitacoes.setVisible(true);
+    }//GEN-LAST:event_miSolicitacoesAluguelActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;

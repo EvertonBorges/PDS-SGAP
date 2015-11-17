@@ -68,6 +68,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Minhas Solicita&#xe7;&#xf5;es"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miSolicitacoesAluguelActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

@@ -41,9 +41,7 @@ public class AluguelPesquisarTela extends javax.swing.JFrame {
     public AluguelPesquisarTela(Condomino condomino) {
         initComponents();
         this.condomino = condomino;
-    
-        pesquisar();    
-        preencherTabela();
+      
         preencherCategoria(); 
         carregarMenuFlutuante();
     }
@@ -321,10 +319,10 @@ public class AluguelPesquisarTela extends javax.swing.JFrame {
         try {
             this.produtos.clear();
             this.produto.setNome(tfNome.getText());
-            this.produtos = pDAO.findProduto(true, this.produto);
+            this.produtos = pDAO.findProdutosDisponiveis(this.produto);
         
         } catch (Exception ex) {
-            System.out.println("Erro ao pesquisar:" + ex.getCause());
+            System.out.println("Erro ao pesquisar:" + ex.getCause()+ "\n  "+ ex.getMessage());
         }
     }
     
