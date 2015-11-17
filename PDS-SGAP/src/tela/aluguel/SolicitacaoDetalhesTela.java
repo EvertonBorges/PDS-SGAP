@@ -360,7 +360,7 @@ public class SolicitacaoDetalhesTela extends javax.swing.JFrame {
     
     public void criarAluguel(){
         Aluguel aluguel = new Aluguel();
-        aluguel.setDataDevolucao(Calendar.getInstance());
+        aluguel.setDataDevolucao(null);
         aluguel.setSolicitacaoAluguel(solicitacaoAluguel);
         
         AluguelDAO aluguelDAO = new AluguelDAO();

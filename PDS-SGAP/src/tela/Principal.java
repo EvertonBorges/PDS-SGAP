@@ -7,7 +7,7 @@ import tela.solicitacao.AluguelPesquisarTela;
 import tela.apartamento.ApartamentoPesquisarTela;
 import tela.categoria.CategoriaPesquisarTela;
 import tela.condomino.CondominoPesquisarTela;
-import tela.meusprodutos.ProdutoPesquisarTela;
+import tela.produtos.ProdutoPesquisarTela;
 import tela.aluguel.SolicitacaoPesquisarTela;
 
 public class Principal extends javax.swing.JFrame {

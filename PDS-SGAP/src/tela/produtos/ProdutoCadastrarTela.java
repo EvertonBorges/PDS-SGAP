@@ -1,4 +1,4 @@
-package tela.meusprodutos;
+package tela.produtos;
 
 import modelo.painel.PainelModeloImagens;
 import modelo.lista.ListaModeloCategorias;

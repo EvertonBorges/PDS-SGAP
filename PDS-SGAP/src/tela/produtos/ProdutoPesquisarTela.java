@@ -1,4 +1,4 @@
-package tela.meusprodutos;
+package tela.produtos;
 
 import dao.CondominoDAO;
 import modelo.tabela.TabelaModeloProduto;
