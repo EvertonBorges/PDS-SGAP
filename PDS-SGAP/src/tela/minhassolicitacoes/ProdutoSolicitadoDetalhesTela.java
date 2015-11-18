@@ -324,7 +324,7 @@ public class ProdutoSolicitadoDetalhesTela extends javax.swing.JFrame {
     private void bRequerentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRequerentesActionPerformed
         
         telaSolicitacoes();
-
+        dispose();
     }//GEN-LAST:event_bRequerentesActionPerformed
 
     private void painelImagensMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelImagensMouseReleased

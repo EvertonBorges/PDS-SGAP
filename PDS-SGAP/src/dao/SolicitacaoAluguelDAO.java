@@ -7,8 +7,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.swing.JOptionPane;
+import modelo.Aluguel;
 import modelo.Condomino;
+import modelo.ImagemProduto;
 import modelo.Produto;
 import modelo.SolicitacaoAluguel;
 import util.JPAUtil;
@@ -71,7 +74,21 @@ public class SolicitacaoAluguelDAO {
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         SolicitacaoAluguel solicitacaoRemover = manager.find(SolicitacaoAluguel.class, solicitacao.getCodigo());
+        AluguelDAO aDAO = new AluguelDAO();
+        List<Aluguel> alugueis = aDAO.getAlugueis();
+        TypedQuery<Aluguel> query =  manager.createQuery("SELECT a FROM Aluguel a WHERE a.solicitacaoAluguel.codigo = :solicitacao ",Aluguel.class);
+        query.setParameter("solicitacao", solicitacao.getCodigo());
         
+        try{
+            alugueis = query.getResultList();
+        } catch (NoResultException ex) {
+            alugueis = null;
+        }
+        if(alugueis != null && !alugueis.isEmpty()){
+           // aDAO.removeAluguel();
+            manager.remove(manager.getReference(Aluguel.class, alugueis.get(0).getCodigo()));
+
+        }
         manager.remove(solicitacaoRemover);
         manager.getTransaction().commit();
         manager.close();

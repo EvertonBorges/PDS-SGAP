@@ -328,19 +328,23 @@ public class MinhaSolicitacaoDetalhesTela extends javax.swing.JFrame {
 
     private void bCancelarSolicitacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarSolicitacaoActionPerformed
         excluirSolicitacao();
+        dispose();
     }//GEN-LAST:event_bCancelarSolicitacaoActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
     private void excluirSolicitacao(){
-        try {            
-            sDAO.removeSolicitacao(solicitacaoAluguel);
-           // JOptionPane.showMessageDialog(null, "Solicitação cancelada com sucesso!", "Confirmacao de cancelamento", JOptionPane.INFORMATION_MESSAGE);
-        }
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente cancelar solicitação??", "Confirmar cancelamento", JOptionPane.YES_NO_OPTION);
         
-        catch (Exception ex){
-            JOptionPane.showMessageDialog(null, "Erro: "+ ex.getMessage(), "Erro ao cancelar!", JOptionPane.INFORMATION_MESSAGE);
+        if(resposta == JOptionPane.YES_OPTION){
+            try {            
+                sDAO.removeSolicitacao(solicitacaoAluguel);
+            }
+
+            catch (Exception ex){
+                JOptionPane.showMessageDialog(null, "Erro: "+ ex.getMessage(), "Erro ao cancelar!", JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
     private String stringToCalendar(Calendar date){

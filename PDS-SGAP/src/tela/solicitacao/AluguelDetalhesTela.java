@@ -342,6 +342,7 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
     private void bAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAlugarActionPerformed
         // TODO add your handling code here:
         telaAlugarProduto();
+        dispose();
     }//GEN-LAST:event_bAlugarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
