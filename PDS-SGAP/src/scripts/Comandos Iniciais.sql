@@ -28,6 +28,7 @@ BEGIN
                                                                                          FROM PRODUTO 
                                                                                          WHERE NOME LIKE P_PRODUTO
                                                                                          AND CONDOMINO_CODIGO = P_DONO)));
+
     IF V_EXISTE_ALUGUEL THEN
         SET V_DATADEVOLUCAO_IS_NULL = (SELECT COUNT(*) 
                                        FROM ALUGUEL 
@@ -41,21 +42,23 @@ BEGIN
     END IF;
     
     IF V_EXISTE_ALUGUEL THEN
-        IF NOT V_DATADEVOLUCAO_IS_NULL THEN
-                SELECT DISTINCT * 
-                FROM PRODUTO AS P
-                WHERE P.CONDOMINO_CODIGO = P_DONO
-                AND P.NOME LIKE P_PRODUTO
-                AND P.CODIGO IN (SELECT PRODUTO_CODIGO 
-                                 FROM SOLICITACAOALUGUEL AS S
-                                 WHERE S.DATAINICIOALUGUEL >= P_DATA 
-                                 AND S.CODIGO IN (SELECT SOLICITACAOALUGUEL_CODIGO 
-                                                  FROM ALUGUEL AS A
-                                                  WHERE S.CODIGO = A.SOLICITACAOALUGUEL_CODIGO
-                                                  AND A.DATADEVOLUCAO IS NOT NULL
-                                                  GROUP BY A.SOLICITACAOALUGUEL_CODIGO
-                                                  HAVING MAX(A.DATADEVOLUCAO) < P_DATA));
-        END IF;
+	IF NOT V_DATADEVOLUCAO_IS_NULL THEN
+            SELECT DISTINCT * 
+            FROM PRODUTO AS P
+            WHERE P.CONDOMINO_CODIGO = P_DONO
+            AND P.NOME LIKE P_PRODUTO
+            AND P.CODIGO IN (SELECT PRODUTO_CODIGO 
+                             FROM SOLICITACAOALUGUEL AS S
+                             WHERE S.DATAINICIOALUGUEL >= P_DATA 
+                             AND S.CODIGO IN (SELECT SOLICITACAOALUGUEL_CODIGO 
+                                              FROM ALUGUEL AS A
+                                              WHERE S.CODIGO = A.SOLICITACAOALUGUEL_CODIGO
+                                              AND A.DATADEVOLUCAO IS NOT NULL
+                                              GROUP BY A.SOLICITACAOALUGUEL_CODIGO
+                                              HAVING MAX(A.DATADEVOLUCAO) < P_DATA));
+    ELSE
+        SELECT * FROM PRODUTO WHERE CODIGO = 0;
+    END IF;
     ELSE
         SELECT DISTINCT * 
         FROM PRODUTO
@@ -97,15 +100,13 @@ DELIMITER ;
 DELIMITER #
     CREATE PROCEDURE SP_PRODUTOS_DISPONIVEIS( P_PRODUTO VARCHAR(255))
 BEGIN	
-        
-        
-        SELECT CODIGO
-		FROM PRODUTO 
-		WHERE CODIGO NOT IN (SELECT PRODUTO_CODIGO
-							FROM SOLICITACAOALUGUEL
-							WHERE CODIGO IN (SELECT SOLICITACAOALUGUEL_CODIGO
-																	FROM ALUGUEL
-																	WHERE ALUGUEL.DATADEVOLUCAO IS  NULL))
-	    AND NOME LIKE P_PRODUTO;
+    SELECT CODIGO
+    FROM PRODUTO 
+    WHERE CODIGO NOT IN (SELECT PRODUTO_CODIGO
+                         FROM SOLICITACAOALUGUEL
+                         WHERE CODIGO IN (SELECT SOLICITACAOALUGUEL_CODIGO
+                                          FROM ALUGUEL
+                                          WHERE ALUGUEL.DATADEVOLUCAO IS  NULL))
+    AND NOME LIKE P_PRODUTO;
 END#
 DELIMITER ;

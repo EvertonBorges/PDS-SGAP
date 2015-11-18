@@ -1,4 +1,4 @@
-package tela.produtos;
+package tela.meusprodutos;
 
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
