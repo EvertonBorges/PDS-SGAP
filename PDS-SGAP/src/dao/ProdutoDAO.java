@@ -1,9 +1,7 @@
 package dao;
 
 import java.math.BigInteger;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -158,58 +156,26 @@ public class ProdutoDAO {
         return produtosRetorno;
     }
     
- /*   public List<Produto> findProdutosDisponiveis(Produto produtoPesquisa){
-        Calendar dataAtualCalendar = Calendar.getInstance();
-        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
-        String dataAtualString = formatador.format(dataAtualCalendar.getTime());
-        EntityManager manager = JPAUtil.getEntityManager();
-        List<Produto> produtosRetorno;
-        Query query = manager.createNativeQuery("CALL SP_PRODUTOS_DISPONIVEIS( :nomeProduto)", Produto.class);
-        query.setParameter("nomeProduto", produtoPesquisa.getNome() + "%");
-        try{
-            produtosRetorno = query.getResultList();
-        } catch (NoResultException ex) {
-            produtosRetorno = null;
-        }
-        manager.close();
-        return produtosRetorno;
-    }*/
-    
     public List<Produto> findProdutosDisponiveis(Produto produtoPesquisa){
         List<Produto> produtosRetorno = new ArrayList<>();
-       
+        List<BigInteger> codigos;
         EntityManager manager = JPAUtil.getEntityManager();
-        List<BigInteger> codigosRetorno ;
-        Query query = manager.createNativeQuery("CALL SP_PRODUTOS_DISPONIVEIS( :nomeProduto)");
+        Query query = manager.createNativeQuery("CALL SP_PRODUTOS_DISPONIVEIS(:nomeProduto)");
         query.setParameter("nomeProduto", produtoPesquisa + "%");
+        
         try{
-            codigosRetorno = query.getResultList();
+            codigos = query.getResultList();
         } catch (NoResultException ex) {
-            codigosRetorno = null;
+            codigos = null;
         }
         
-       // System.out.println("LISTA REFERENCIA:"  + codigosRetorno);
-         
-        produtosRetorno = alteraReferencia(codigosRetorno, manager);
-        System.out.println("LISTA REFERENCIA produtos:"  + produtosRetorno);
+        for (int i = 0; i < codigos.size(); i++){
+            Long numero = Long.parseLong("" + codigos.get(i));
+            Produto produto = manager.find(Produto.class, numero);
+            produtosRetorno.add(produto);
+        }
 
-        manager.close();
+        //manager.close();
         return produtosRetorno;
-    }
-    
-    public List<Produto> alteraReferencia(List<BigInteger> codigos, EntityManager manager){
-        List<Produto> produtosRetorno = new ArrayList<>();
-        System.out.println("cima");
-        
-        for (int i= 0; i<codigos.size(); i++){
-            System.out.println("dentro");
-            produtosRetorno.add(manager.find(Produto.class, Long.parseLong(""+codigos.get(i))));
-            System.out.println(produtosRetorno.get(i).getImagensProduto().size());
-         }
-         System.out.println("LISTA REFERENCIA produtos:"  + produtosRetorno);
-                 System.out.println("fora");
-
-         return produtosRetorno;
-         
     }
 }

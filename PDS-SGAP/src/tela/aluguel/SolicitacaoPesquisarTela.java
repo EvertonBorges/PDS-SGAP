@@ -17,7 +17,7 @@ import modelo.tabela.TabelaModeloProduto;
  * @author Borges
  */
 public class SolicitacaoPesquisarTela extends javax.swing.JFrame {
-    private Condomino condomino;
+    private final Condomino condomino;
     private List<Produto> produtos;
     private Produto produtoSelecionado;
     
@@ -263,7 +263,6 @@ public class SolicitacaoPesquisarTela extends javax.swing.JFrame {
         produto.setNome(tfProduto.getText());
         produto.setCondomino(condomino);
         produtos = solicitacaoAluguelDAO.findProdutos(produto);
-        System.out.println("LISTA SOLICITACOES EM SOLICITACAOOESQUISARTELA");
         TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
         tbResultados.setModel(modelo);
     }

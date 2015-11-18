@@ -21,16 +21,14 @@ import modelo.tabela.TabelaModeloSolicitacoes;
  * @author Borges
  */
 public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
-    
-    private SolicitacaoAluguelDAO sDAO = new SolicitacaoAluguelDAO();
     private  SolicitacaoAluguel solicitacaoAluguel;
-    private Condomino condomino;
-    private List<SolicitacaoAluguel> solicitacaoAluguels;
+    private final List<SolicitacaoAluguel> solicitacaoAluguels;
     /**
      * Creates new form SolicitacaoRequerentesTela
      * @param produto
      */
     public SolicitacaoRequerentesTela(Produto produto) {
+        SolicitacaoAluguelDAO sDAO = new SolicitacaoAluguelDAO();
         this.solicitacaoAluguels = sDAO.findSolicitacoes(produto);
         initComponents();
         preencherTabela();
@@ -135,10 +133,7 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbProdutoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutoMouseReleased
-        // TODO add your handling code
-
         selecionarProduto(evt);
-        //    realizarAcao(evt);
     }//GEN-LAST:event_tbProdutoMouseReleased
 
     private void bSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSairActionPerformed
@@ -146,12 +141,10 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
     }//GEN-LAST:event_bSairActionPerformed
     
     private void selecionarProduto(MouseEvent evt) {
-
         int linha = tbProduto.rowAtPoint(evt.getPoint());
         int coluna = tbProduto.columnAtPoint(evt.getPoint());
 
-        if (linha >= 0 ) { 
-            
+        if (linha >= 0 ) {
             tbProduto.getSelectionModel().setSelectionMode( ListSelectionModel.SINGLE_SELECTION);  
             tbProduto.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);  
             tbProduto.setCellSelectionEnabled(true);
@@ -163,40 +156,26 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
                 realizarAcao(evt);
             }
         }
-
     }
     
     private void realizarAcao(MouseEvent evt) {
-
-        if (evt.getButton() == MouseEvent.BUTTON1) { 
-
+        if (evt.getButton() == MouseEvent.BUTTON1) {
             if (evt.getClickCount() > 1) { 
                 telaConsultar();
             }
-
-        } else if (evt.getButton() == MouseEvent.BUTTON3) { 
-         //   mPopup.show(evt.getComponent(), evt.getX(), evt.getY());
-
         }
-
     }
+    
     private void telaConsultar(){
         SolicitacaoDetalhesTela telaConsultar = new SolicitacaoDetalhesTela(this.solicitacaoAluguel);
         telaConsultar.setVisible(true);
     }
     
     private void preencherTabela() {
-        
-        //tbProduto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
-        
-     //   tbProduto.setDefaultRenderer(JPanel.class, new TabelaModeloSolicitacoesRenderer(this.solicitacaoAluguels));
         tbProduto.setDefaultRenderer(JPanel.class, new TabelaModeloRenderer(this.solicitacaoAluguels, 2));
-
         tbProduto.setModel(new TabelaModeloSolicitacoes(this.solicitacaoAluguels));
-
         tbProduto.setRowHeight(100); 
     }
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bSair;
