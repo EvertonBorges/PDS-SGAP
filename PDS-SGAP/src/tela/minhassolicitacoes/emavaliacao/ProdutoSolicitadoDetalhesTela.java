@@ -1,5 +1,6 @@
-package tela.minhassolicitacoes;
+package tela.minhassolicitacoes.emavaliacao;
 
+import tela.minhassolicitacoes.*;
 import tela.aluguel.*;
 import modelo.painel.PainelModeloImagens;
 import modelo.lista.ListaModeloCategorias;

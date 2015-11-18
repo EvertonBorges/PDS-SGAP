@@ -1,5 +1,6 @@
-package tela.minhassolicitacoes;
+package tela.minhassolicitacoes.alugueisConfirmados;
 
+import tela.minhassolicitacoes.*;
 import tela.aluguel.*;
 import dao.AluguelDAO;
 import dao.SolicitacaoAluguelDAO;
@@ -59,7 +60,6 @@ public class MinhaSolicitacaoDetalhesTela extends javax.swing.JFrame {
         lReputacao = new javax.swing.JLabel();
         tfReputacao = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
-        bCancelarSolicitacao = new javax.swing.JToggleButton();
         bCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -274,14 +274,6 @@ public class MinhaSolicitacaoDetalhesTela extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        bCancelarSolicitacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        bCancelarSolicitacao.setText("Cancelar Soliciatação");
-        bCancelarSolicitacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCancelarSolicitacaoActionPerformed(evt);
-            }
-        });
-
         bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setText("Voltar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -301,8 +293,7 @@ public class MinhaSolicitacaoDetalhesTela extends javax.swing.JFrame {
                     .addComponent(painelProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelRequerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(bCancelarSolicitacao)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(bCancelar)))
                 .addContainerGap())
         );
@@ -316,20 +307,13 @@ public class MinhaSolicitacaoDetalhesTela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bCancelarSolicitacao)
-                    .addComponent(bCancelar))
+                .addComponent(bCancelar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bCancelarSolicitacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarSolicitacaoActionPerformed
-        excluirSolicitacao();
-        dispose();
-    }//GEN-LAST:event_bCancelarSolicitacaoActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         dispose();
@@ -388,7 +372,6 @@ public class MinhaSolicitacaoDetalhesTela extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancelar;
-    private javax.swing.JToggleButton bCancelarSolicitacao;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel lContato;

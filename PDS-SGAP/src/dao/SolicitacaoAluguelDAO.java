@@ -1,6 +1,7 @@
 package dao;
 
 import java.text.SimpleDateFormat;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -76,7 +77,7 @@ public class SolicitacaoAluguelDAO {
         SolicitacaoAluguel solicitacaoRemover = manager.find(SolicitacaoAluguel.class, solicitacao.getCodigo());
         AluguelDAO aDAO = new AluguelDAO();
         List<Aluguel> alugueis = aDAO.getAlugueis();
-        TypedQuery<Aluguel> query =  manager.createQuery("SELECT a FROM Aluguel a WHERE a.solicitacaoAluguel.codigo = :solicitacao ",Aluguel.class);
+        TypedQuery<Aluguel> query =  manager.createQuery("SELECT a FROM Aluguel azz WHERE a.solicitacaoAluguel.codigo = :solicitacao ",Aluguel.class);
         query.setParameter("solicitacao", solicitacao.getCodigo());
         
         try{
@@ -168,6 +169,30 @@ public class SolicitacaoAluguelDAO {
         manager.close();
         return solicitacoesRetorno;
     }
+    
+    public List<SolicitacaoAluguel>  findSolicitacaoEmAndamento(Condomino locatario,){
+        EntityManager manager = JPAUtil.getEntityManager();
+        manager.getTransaction().begin();
+        List<SolicitacaoAluguel> solicitacoesRetorno= new ArrayList<>();
+        TypedQuery<Aluguel> query =  manager.createQuery("SELECT a FROM Aluguel a WHERE a.solicitacaoAluguel.locatario = :locatario", Aluguel.class);
+        query.setParameter("locatario", locatario);
+        List<Aluguel> alugueis = new ArrayList<>();
+        try {
+            alugueis = query.getResultList();
+        } catch(NoResultException ex){
+            alugueis = null;
+        }   
+        for (Aluguel s: alugueis){
+            solicitacoesRetorno.add(s.getSolicitacaoAluguel());
+        }
+        
+        manager.close();
+        
+        return  solicitacoesRetorno;
+
+    }
+    
+       
     /*
     public List<Produto> findProduto(Condomino condomino, Produto produto){
         EntityManager manager = JPAUtil.getEntityManager();

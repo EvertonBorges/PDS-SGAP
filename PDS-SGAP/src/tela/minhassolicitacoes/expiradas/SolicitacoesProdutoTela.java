@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela.minhassolicitacoes;
+package tela.minhassolicitacoes.expiradas;
 
+import tela.minhassolicitacoes.alugueisConfirmados.*;
+import tela.minhassolicitacoes.*;
 import tela.aluguel.*;
 import dao.SolicitacaoAluguelDAO;
 import java.awt.event.MouseEvent;

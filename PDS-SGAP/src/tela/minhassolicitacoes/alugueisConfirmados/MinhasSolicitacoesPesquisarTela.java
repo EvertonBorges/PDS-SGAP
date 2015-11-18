@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela.minhassolicitacoes;
+package tela.minhassolicitacoes.alugueisConfirmados;
 
+import tela.minhassolicitacoes.*;
 import tela.aluguel.*;
 import dao.SolicitacaoAluguelDAO;
 import java.awt.event.MouseEvent;
@@ -30,6 +31,7 @@ public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
         this.condomino = condomino;
         initComponents();
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -263,7 +265,7 @@ public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
         Produto produto = new Produto();
         produto.setNome(tfProduto.getText());
         produto.setCondomino(condomino);
-        produtos = solicitacaoAluguelDAO.findProdutos(produto, condomino);
+        produtos = solicitacaoAluguelDAO.findProdutosEmAluguel(produto, condomino);
         TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
         tbResultados.setModel(modelo);
     }
