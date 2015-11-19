@@ -22,7 +22,7 @@ import modelo.tabela.TabelaModeloSolicitacoes;
  *
  * @author Borges
  */
-public class SolicitacoesProdutoTela extends javax.swing.JFrame {
+public class SolicitacoesProdutoEmAvaliacaoTela extends javax.swing.JFrame {
     
     private SolicitacaoAluguelDAO sDAO = new SolicitacaoAluguelDAO();
     private  SolicitacaoAluguel solicitacaoAluguel;
@@ -32,7 +32,7 @@ public class SolicitacoesProdutoTela extends javax.swing.JFrame {
      * Creates new form SolicitacaoRequerentesTela
      * @param produto
      */
-    public SolicitacoesProdutoTela(Produto produto, Condomino condomino) {
+    public SolicitacoesProdutoEmAvaliacaoTela(Produto produto, Condomino condomino) {
         this.solicitacaoAluguels = sDAO.findSolicitacoes(produto, condomino);
         initComponents();
         preencherTabela();
@@ -183,7 +183,7 @@ public class SolicitacoesProdutoTela extends javax.swing.JFrame {
 
     }
     private void telaConsultar(){
-        MinhaSolicitacaoDetalhesTela telaConsultar = new MinhaSolicitacaoDetalhesTela(this.solicitacaoAluguel);
+        MinhaSolicitacaoEmAvaliacaoDetalhesTela telaConsultar = new MinhaSolicitacaoEmAvaliacaoDetalhesTela(this.solicitacaoAluguel);
         telaConsultar.setVisible(true);
     }
     

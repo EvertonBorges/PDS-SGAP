@@ -170,12 +170,13 @@ public class SolicitacaoAluguelDAO {
         return solicitacoesRetorno;
     }
     
-    public List<SolicitacaoAluguel>  findSolicitacaoEmAndamento(Condomino locatario,){
+    public List<SolicitacaoAluguel>  findSolicitacaoEmAndamento(Condomino locatario, Produto produto){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         List<SolicitacaoAluguel> solicitacoesRetorno= new ArrayList<>();
-        TypedQuery<Aluguel> query =  manager.createQuery("SELECT a FROM Aluguel a WHERE a.solicitacaoAluguel.locatario = :locatario", Aluguel.class);
+        TypedQuery<Aluguel> query =  manager.createQuery("SELECT a FROM Aluguel a WHERE a.solicitacaoAluguel.locatario = :locatario AND a.solicitacaoAluguel.produto = :produto", Aluguel.class);
         query.setParameter("locatario", locatario);
+        query.setParameter("produto", produto);
         List<Aluguel> alugueis = new ArrayList<>();
         try {
             alugueis = query.getResultList();
@@ -192,6 +193,29 @@ public class SolicitacaoAluguelDAO {
 
     }
     
+    public List<Produto>  findProdutoSolicitacaoEmAndamento(Condomino locatario, Produto produto){
+        List<Aluguel> alugueis = new ArrayList<>();
+
+        EntityManager manager = JPAUtil.getEntityManager();
+        manager.getTransaction().begin();
+        List<Produto> produtoRetorno= new ArrayList<>();
+        TypedQuery<Aluguel> query =  manager.createQuery("SELECT a FROM Aluguel a WHERE a.solicitacaoAluguel.locatario = :locatario AND a.solicitacaoAluguel.produto = :produto", Aluguel.class);
+        query.setParameter("locatario", locatario);
+        query.setParameter("produto", produto);
+        try {
+            alugueis = query.getResultList();
+        } catch(NoResultException ex){
+            alugueis = null;
+        }   
+        for (Aluguel s: alugueis){
+            produtoRetorno.add(s.getSolicitacaoAluguel().getProduto());
+        }
+        
+        manager.close();
+        
+        return  produtoRetorno;
+
+    }
        
     /*
     public List<Produto> findProduto(Condomino condomino, Produto produto){

@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela.minhassolicitacoes.expiradas;
+package tela.minhassolicitacoes.alugueisConfirmados;
 
-import tela.minhassolicitacoes.alugueisConfirmados.*;
 import tela.minhassolicitacoes.*;
 import tela.aluguel.*;
 import dao.SolicitacaoAluguelDAO;
@@ -19,7 +18,7 @@ import modelo.tabela.TabelaModeloProduto;
  *
  * @author Ada
  */
-public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
+public class MinhasSolicitacoesConfirmadasPesquisarTela extends javax.swing.JFrame {
     private Condomino condomino;
     private List<Produto> produtos;
     private Produto produtoSelecionado;
@@ -28,7 +27,7 @@ public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
      * Creates new form SolicitacaoPesquisarTela
      * @param condomino
      */
-    public MinhasSolicitacoesPesquisarTela(Condomino condomino) {
+    public MinhasSolicitacoesConfirmadasPesquisarTela(Condomino condomino) {
         this.condomino = condomino;
         initComponents();
     }
@@ -265,8 +264,8 @@ public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
         SolicitacaoAluguelDAO solicitacaoAluguelDAO = new SolicitacaoAluguelDAO();
         Produto produto = new Produto();
         produto.setNome(tfProduto.getText());
-        produto.setCondomino(condomino);
-        produtos = solicitacaoAluguelDAO.findProdutos(produto, condomino);
+        produto.setCondomino(this.condomino);
+        this.produtos = solicitacaoAluguelDAO.findProdutoSolicitacaoEmAndamento( this.condomino, produto);
         TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
         tbResultados.setModel(modelo);
     }

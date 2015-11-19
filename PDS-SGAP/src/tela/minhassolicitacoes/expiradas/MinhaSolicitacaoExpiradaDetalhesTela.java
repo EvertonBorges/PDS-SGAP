@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import modelo.Aluguel;
 import modelo.SolicitacaoAluguel;
 
-public class MinhaSolicitacaoDetalhesTela extends javax.swing.JFrame {
+public class MinhaSolicitacaoExpiradaDetalhesTela extends javax.swing.JFrame {
     private final SolicitacaoAluguel solicitacaoAluguel;
 
     /**
@@ -21,7 +21,7 @@ public class MinhaSolicitacaoDetalhesTela extends javax.swing.JFrame {
     
     private SolicitacaoAluguelDAO sDAO = new SolicitacaoAluguelDAO();
   
-    public MinhaSolicitacaoDetalhesTela(SolicitacaoAluguel solicitacaoAluguel) {
+    public MinhaSolicitacaoExpiradaDetalhesTela(SolicitacaoAluguel solicitacaoAluguel) {
         this.solicitacaoAluguel = solicitacaoAluguel;
         initComponents();
         carregarProduto();

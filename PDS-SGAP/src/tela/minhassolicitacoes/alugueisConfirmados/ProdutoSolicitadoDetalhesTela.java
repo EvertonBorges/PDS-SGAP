@@ -1,7 +1,5 @@
 package tela.minhassolicitacoes.alugueisConfirmados;
 
-import tela.minhassolicitacoes.*;
-import tela.aluguel.*;
 import modelo.painel.PainelModeloImagens;
 import modelo.lista.ListaModeloCategorias;
 import dao.ProdutoDAO;

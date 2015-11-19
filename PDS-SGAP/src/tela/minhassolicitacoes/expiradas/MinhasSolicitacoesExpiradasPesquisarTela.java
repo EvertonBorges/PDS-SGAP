@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela.minhassolicitacoes.emavaliacao;
+package tela.minhassolicitacoes.expiradas;
 
+import tela.minhassolicitacoes.alugueisConfirmados.*;
 import tela.minhassolicitacoes.*;
 import tela.aluguel.*;
 import dao.SolicitacaoAluguelDAO;
@@ -18,7 +19,7 @@ import modelo.tabela.TabelaModeloProduto;
  *
  * @author Ada
  */
-public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
+public class MinhasSolicitacoesExpiradasPesquisarTela extends javax.swing.JFrame {
     private Condomino condomino;
     private List<Produto> produtos;
     private Produto produtoSelecionado;
@@ -27,7 +28,7 @@ public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
      * Creates new form SolicitacaoPesquisarTela
      * @param condomino
      */
-    public MinhasSolicitacoesPesquisarTela(Condomino condomino) {
+    public MinhasSolicitacoesExpiradasPesquisarTela(Condomino condomino) {
         this.condomino = condomino;
         initComponents();
     }
@@ -256,7 +257,7 @@ public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
     }
     
     private void verDetalhes(){
-        ProdutoSolicitadoDetalhesTela produtoDetalhesTela = new ProdutoSolicitadoDetalhesTela(this.produtoSelecionado, this.condomino);
+        ProdutoSolicitadoExpiradoDetalhesTela produtoDetalhesTela = new ProdutoSolicitadoExpiradoDetalhesTela(this.produtoSelecionado, this.condomino);
         produtoDetalhesTela.setVisible(true);
     }
     
@@ -265,7 +266,10 @@ public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
         Produto produto = new Produto();
         produto.setNome(tfProduto.getText());
         produto.setCondomino(condomino);
-        produtos = solicitacaoAluguelDAO.findProdutos(produto, condomino);
+        this.produtos = solicitacaoAluguelDAO.findProdutos(produto, condomino);
+        for (Produto p : this.produtos){
+            
+        }
         TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
         tbResultados.setModel(modelo);
     }

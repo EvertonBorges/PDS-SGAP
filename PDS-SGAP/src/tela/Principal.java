@@ -9,6 +9,7 @@ import tela.categoria.CategoriaPesquisarTela;
 import tela.condomino.CondominoPesquisarTela;
 import tela.meusprodutos.ProdutoPesquisarTela;
 import tela.aluguel.SolicitacaoPesquisarTela;
+import tela.minhassolicitacoes.alugueisConfirmados.MinhasSolicitacoesConfirmadasPesquisarTela;
 import tela.minhassolicitacoes.todas.MinhasSolicitacoesPesquisarTela;
 //import tela.minhassolicitacoes.MinhasSolicitacoesPesquisarTela;
 
@@ -247,6 +248,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void miConfirmadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConfirmadasActionPerformed
         // TODO add your handling code here:
+        MinhasSolicitacoesConfirmadasPesquisarTela solicitacoesConfirmadasPesquisarTela = new MinhasSolicitacoesConfirmadasPesquisarTela(this.condomino);
+        solicitacoesConfirmadasPesquisarTela.setVisible(true);
     }//GEN-LAST:event_miConfirmadasActionPerformed
 
     private void miExpiradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExpiradasActionPerformed

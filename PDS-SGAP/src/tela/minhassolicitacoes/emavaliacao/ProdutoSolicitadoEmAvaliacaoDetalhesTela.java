@@ -1,8 +1,5 @@
-package tela.minhassolicitacoes.expiradas;
+package tela.minhassolicitacoes.emavaliacao;
 
-import tela.minhassolicitacoes.alugueisConfirmados.*;
-import tela.minhassolicitacoes.*;
-import tela.aluguel.*;
 import modelo.painel.PainelModeloImagens;
 import modelo.lista.ListaModeloCategorias;
 import dao.ProdutoDAO;
@@ -17,7 +14,7 @@ import modelo.ImagemProduto;
 import modelo.Produto;
 import util.JPAUtil;
 
-public class ProdutoSolicitadoDetalhesTela extends javax.swing.JFrame {
+public class ProdutoSolicitadoEmAvaliacaoDetalhesTela extends javax.swing.JFrame {
     private Produto produto;
     private Condomino condomino;
     private JPanel img;
@@ -27,7 +24,7 @@ public class ProdutoSolicitadoDetalhesTela extends javax.swing.JFrame {
      * @param produto
      * @param condomino
      */
-    public ProdutoSolicitadoDetalhesTela(Produto produto, Condomino condomino) {
+    public ProdutoSolicitadoEmAvaliacaoDetalhesTela(Produto produto, Condomino condomino) {
         this.produto = produto;
         this.condomino= condomino;
         initComponents();
@@ -336,7 +333,7 @@ public class ProdutoSolicitadoDetalhesTela extends javax.swing.JFrame {
     
     
     private void telaSolicitacoes() {
-        SolicitacoesProdutoTela produtoTela = new SolicitacoesProdutoTela(this.produto, this.condomino);
+        SolicitacoesProdutoEmAvaliacaoTela produtoTela = new SolicitacoesProdutoEmAvaliacaoTela(this.produto, this.condomino);
         produtoTela.setVisible(true);
     }
     private void realizarAcao(MouseEvent evt) {

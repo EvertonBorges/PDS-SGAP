@@ -31,6 +31,7 @@ public class SolicitacoesProdutoTela extends javax.swing.JFrame {
     /**
      * Creates new form SolicitacaoRequerentesTela
      * @param produto
+     * @param condomino
      */
     public SolicitacoesProdutoTela(Produto produto, Condomino condomino) {
         this.solicitacaoAluguels = sDAO.findSolicitacoes(produto, condomino);
@@ -183,7 +184,7 @@ public class SolicitacoesProdutoTela extends javax.swing.JFrame {
 
     }
     private void telaConsultar(){
-        MinhaSolicitacaoDetalhesTela telaConsultar = new MinhaSolicitacaoDetalhesTela(this.solicitacaoAluguel);
+        MinhaSolicitacaoConfirmadaDetalhesTela telaConsultar = new MinhaSolicitacaoConfirmadaDetalhesTela(this.solicitacaoAluguel);
         telaConsultar.setVisible(true);
     }
     

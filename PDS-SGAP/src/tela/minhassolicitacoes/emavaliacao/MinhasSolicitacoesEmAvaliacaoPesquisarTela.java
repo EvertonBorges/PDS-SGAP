@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tela.minhassolicitacoes.alugueisConfirmados;
+package tela.minhassolicitacoes.emavaliacao;
 
 import tela.minhassolicitacoes.*;
 import tela.aluguel.*;
@@ -18,7 +18,7 @@ import modelo.tabela.TabelaModeloProduto;
  *
  * @author Ada
  */
-public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
+public class MinhasSolicitacoesEmAvaliacaoPesquisarTela extends javax.swing.JFrame {
     private Condomino condomino;
     private List<Produto> produtos;
     private Produto produtoSelecionado;
@@ -27,7 +27,7 @@ public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
      * Creates new form SolicitacaoPesquisarTela
      * @param condomino
      */
-    public MinhasSolicitacoesPesquisarTela(Condomino condomino) {
+    public MinhasSolicitacoesEmAvaliacaoPesquisarTela(Condomino condomino) {
         this.condomino = condomino;
         initComponents();
     }
@@ -256,7 +256,7 @@ public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
     }
     
     private void verDetalhes(){
-        ProdutoSolicitadoDetalhesTela produtoDetalhesTela = new ProdutoSolicitadoDetalhesTela(this.produtoSelecionado, this.condomino);
+        ProdutoSolicitadoEmAvaliacaoDetalhesTela produtoDetalhesTela = new ProdutoSolicitadoEmAvaliacaoDetalhesTela(this.produtoSelecionado, this.condomino);
         produtoDetalhesTela.setVisible(true);
     }
     
@@ -265,7 +265,7 @@ public class MinhasSolicitacoesPesquisarTela extends javax.swing.JFrame {
         Produto produto = new Produto();
         produto.setNome(tfProduto.getText());
         produto.setCondomino(condomino);
-        produtos = solicitacaoAluguelDAO.findProdutosEmAluguel(produto, condomino);
+        produtos = solicitacaoAluguelDAO.findProdutos(produto, condomino);
         TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
         tbResultados.setModel(modelo);
     }
