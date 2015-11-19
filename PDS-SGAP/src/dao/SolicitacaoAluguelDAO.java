@@ -170,7 +170,7 @@ public class SolicitacaoAluguelDAO {
         return solicitacoesRetorno;
     }
     
-    public List<SolicitacaoAluguel>  findSolicitacaoEmAndamento(Condomino locatario, Produto produto){
+/*    public List<SolicitacaoAluguel>  findSolicitacaoEmAndamento(Condomino locatario, Produto produto){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
         List<SolicitacaoAluguel> solicitacoesRetorno= new ArrayList<>();
@@ -191,26 +191,31 @@ public class SolicitacaoAluguelDAO {
         
         return  solicitacoesRetorno;
 
-    }
+    }*/
     
     public List<Produto>  findProdutoSolicitacaoEmAndamento(Condomino locatario, Produto produto){
-        List<Aluguel> alugueis = new ArrayList<>();
-
-        EntityManager manager = JPAUtil.getEntityManager();
-        manager.getTransaction().begin();
-        List<Produto> produtoRetorno= new ArrayList<>();
-        TypedQuery<Aluguel> query =  manager.createQuery("SELECT a FROM Aluguel a WHERE a.solicitacaoAluguel.locatario = :locatario AND a.solicitacaoAluguel.produto = :produto", Aluguel.class);
-        query.setParameter("locatario", locatario);
-        query.setParameter("produto", produto);
-        try {
-            alugueis = query.getResultList();
-        } catch(NoResultException ex){
-            alugueis = null;
-        }   
-        for (Aluguel s: alugueis){
-            produtoRetorno.add(s.getSolicitacaoAluguel().getProduto());
-        }
+        Calendar dataAtualCalendar = Calendar.getInstance();
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+        String dataAtualString = formatador.format(dataAtualCalendar.getTime());
         
+        EntityManager manager = JPAUtil.getEntityManager();
+        
+        List<Produto> produtoRetorno= new ArrayList<>();
+        Query query = manager.createNativeQuery("CALL SP_PRODUTOS_SOLICITADOS_EM_ANDAMENTO( :locatario, :produto , :dataAtual)", Produto.class);
+        query.setParameter("locatario", locatario.getCodigo());
+        query.setParameter("produto", produto.getNome()+"%");
+        query.setParameter("dataAtual", dataAtualString);
+        //List<Aluguel> alugueis ;
+        System.out.println("LOCATARIO:"+locatario.getCodigo());
+        System.out.println("PRODUTO:"+produto.getCodigo());
+        System.out.println("DATA ATUAL:"+dataAtualString);
+          
+        try {
+            produtoRetorno = query.getResultList();
+        } catch(NoResultException ex){
+            produtoRetorno = null;
+        }  
+       
         manager.close();
         
         return  produtoRetorno;

@@ -110,3 +110,56 @@ BEGIN
     AND NOME LIKE P_PRODUTO;
 END#
 DELIMITER ;
+
+
+
+DELIMITER #
+    CREATE PROCEDURE SP_PRODUTOS_SOLICITADOS_EM_ANDAMENTO(P_LOCATARIO INT, P_PRODUTO VARCHAR(255), P_DATA DATE)
+BEGIN
+    DECLARE V_EXISTE_ALUGUEL BOOLEAN DEFAULT 0;
+    DECLARE V_DATADEVOLUCAO_IS_NULL BOOLEAN DEFAULT 0;
+	
+    SET V_EXISTE_ALUGUEL = (SELECT COUNT(*) 
+                            FROM ALUGUEL 
+                            WHERE SOLICITACAOALUGUEL_CODIGO IN (SELECT CODIGO 
+                                                                FROM SOLICITACAOALUGUEL 
+                                                                WHERE LOCATARIO_CODIGO = P_LOCATARIO));
+
+    IF V_EXISTE_ALUGUEL THEN
+        SET V_DATADEVOLUCAO_IS_NULL = (SELECT COUNT(*) 
+                                       FROM ALUGUEL 
+                                       WHERE DATADEVOLUCAO IS NULL
+                                       AND SOLICITACAOALUGUEL_CODIGO IN (SELECT CODIGO 
+                                                                         FROM SOLICITACAOALUGUEL AS S
+                                                                         WHERE S.locatario_codigo = P_LOCATARIO));
+    END IF;
+    
+    IF V_EXISTE_ALUGUEL THEN
+	IF NOT V_DATADEVOLUCAO_IS_NULL THEN
+            SELECT DISTINCT * 
+            FROM PRODUTO AS P
+            WHERE  P.NOME LIKE P_PRODUTO
+            AND P.CODIGO IN (SELECT PRODUTO_CODIGO 
+                             FROM SOLICITACAOALUGUEL AS S
+                             WHERE S.DATAINICIOALUGUEL >= P_DATA 
+                             AND S.CODIGO IN (SELECT SOLICITACAOALUGUEL_CODIGO 
+                                              FROM ALUGUEL AS A
+                                              WHERE S.CODIGO = A.SOLICITACAOALUGUEL_CODIGO
+                                              AND A.DATADEVOLUCAO IS NOT NULL
+                                              GROUP BY A.SOLICITACAOALUGUEL_CODIGO
+                                              HAVING MAX(A.DATADEVOLUCAO) < P_DATA)
+                            AND S.LOCATARIO_CODIGO = P_LOCATARIO);
+        END IF;
+    
+     ELSE
+        SELECT DISTINCT * 
+        FROM PRODUTO
+        WHERE  NOME LIKE P_PRODUTO
+        AND CODIGO IN (SELECT PRODUTO_CODIGO 
+                       FROM SOLICITACAOALUGUEL 
+                       WHERE DATAINICIOALUGUEL >= P_DATA
+                        AND LOCATARIO_CODIGO = P_LOCATARIO);
+    END IF;
+END#
+DELIMITER ;
+

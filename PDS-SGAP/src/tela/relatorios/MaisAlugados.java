@@ -7,10 +7,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
+//import net.sf.jasperreports.engine.JRException;
+//import net.sf.jasperreports.engine.JasperFillManager;
+//import net.sf.jasperreports.engine.JasperPrint;
+//import net.sf.jasperreports.view.JasperViewer;
 import util.ControlaConexaoJasper;
 
 public class MaisAlugados extends javax.swing.JFrame {
@@ -133,15 +133,15 @@ public class MaisAlugados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRelatorioActionPerformed
-        gerarRelatorio();
+     //   gerarRelatorio();
     }//GEN-LAST:event_bRelatorioActionPerformed
 
     private void tfDataFimKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfDataFimKeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            gerarRelatorio();
+        //    gerarRelatorio();
         }
     }//GEN-LAST:event_tfDataFimKeyPressed
-    
+   /*     
     private Date stringToDate(String data) throws ParseException{
         SimpleDateFormat formatador = new  SimpleDateFormat("dd/MM/yyyy");
         return formatador.parse(data);
@@ -159,21 +159,21 @@ public class MaisAlugados extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Data informadas estão incorretas.", "Erro de datas", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+   
     private void gerarRelatorio(Date dataInicio, Date dataFim) throws SQLException, ClassNotFoundException {
         HashMap parametros = new HashMap();
         parametros.put("dataInicio", dataInicio);
         parametros.put("dataFim", dataFim);
         
-        try {
-            JasperPrint relatorio = JasperFillManager.fillReport("src/relatorios/MaisAlugados.jasper", parametros, ControlaConexaoJasper.getConexao());
+       // try {
+         JasperPrint relatorio = JasperFillManager.fillReport("src/relatorios/MaisAlugados.jasper", parametros, ControlaConexaoJasper.getConexao());
             JasperViewer visualizador = new JasperViewer(relatorio, false);
             visualizador.setVisible(true);
         } catch (JRException ex) {
             System.out.println("Possível erro ao conectar ao banco, ou gerar JasperPrint:\n" + ex.getMessage());
-        }
+       // }
     }
-    
+    */
     /**
      * @param args the command line arguments
      */

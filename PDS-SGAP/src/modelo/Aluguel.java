@@ -6,6 +6,7 @@
 package modelo;
 
 import java.util.Calendar;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ public class Aluguel {
     @GeneratedValue
     private Long codigo;
     
-    @OneToOne
+    @OneToOne //(cascade = CascadeType.ALL)
     private SolicitacaoAluguel solicitacaoAluguel;
     
     @Temporal (TemporalType.DATE)
