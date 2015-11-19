@@ -11,6 +11,7 @@ import tela.meusprodutos.ProdutoPesquisarTela;
 import tela.aluguel.SolicitacaoPesquisarTela;
 import tela.minhassolicitacoes.alugueisConfirmados.MinhasSolicitacoesConfirmadasPesquisarTela;
 import tela.minhassolicitacoes.todas.MinhasSolicitacoesPesquisarTela;
+import tela.relatorios.MaisAlugados;
 //import tela.minhassolicitacoes.MinhasSolicitacoesPesquisarTela;
 
 public class Principal extends javax.swing.JFrame {
@@ -23,12 +24,14 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.condomino = condomino;
         menuCadastro.setVisible(false);
+        menuRelatorios.setVisible(false);
         verificaUsuario();
     }
 
     private void verificaUsuario(){
         if(this.condomino.getTipoUsuario() == TipoUsuario.ADMIN){
             menuCadastro.setVisible(true);
+            menuRelatorios.setVisible(true);
         }
     }
     /**
@@ -58,6 +61,8 @@ public class Principal extends javax.swing.JFrame {
         miApartamento = new javax.swing.JMenuItem();
         miCategoria = new javax.swing.JMenuItem();
         miCondomino = new javax.swing.JMenuItem();
+        menuRelatorios = new javax.swing.JMenu();
+        miProdutosMaisAlugados = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -179,6 +184,18 @@ public class Principal extends javax.swing.JFrame {
 
         mbMenu.add(menuCadastro);
 
+        menuRelatorios.setText("Relatórios");
+
+        miProdutosMaisAlugados.setText("Produtos mais alugados");
+        miProdutosMaisAlugados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miProdutosMaisAlugadosActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(miProdutosMaisAlugados);
+
+        mbMenu.add(menuRelatorios);
+
         setJMenuBar(mbMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -256,6 +273,11 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_miExpiradasActionPerformed
 
+    private void miProdutosMaisAlugadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miProdutosMaisAlugadosActionPerformed
+        MaisAlugados maisAlugados = new MaisAlugados();
+        maisAlugados.setVisible(true);
+    }//GEN-LAST:event_miProdutosMaisAlugadosActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar mbMenu;
@@ -264,6 +286,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenu menuMinhasSolicitacoes;
     private javax.swing.JMenu menuProdutos;
+    private javax.swing.JMenu menuRelatorios;
     private javax.swing.JMenuItem miApartamento;
     private javax.swing.JMenuItem miCategoria;
     private javax.swing.JMenuItem miCondomino;
@@ -272,6 +295,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miExpiradas;
     private javax.swing.JMenuItem miPesquisarAluguel;
     private javax.swing.JMenuItem miPesquisarProdutos;
+    private javax.swing.JMenuItem miProdutosMaisAlugados;
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenuItem miSolicitacoesProdutos;
     private javax.swing.JMenuItem miTodas;
