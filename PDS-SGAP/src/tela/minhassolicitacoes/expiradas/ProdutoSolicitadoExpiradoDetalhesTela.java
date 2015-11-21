@@ -1,8 +1,5 @@
 package tela.minhassolicitacoes.expiradas;
 
-import tela.minhassolicitacoes.alugueisConfirmados.*;
-import tela.minhassolicitacoes.*;
-import tela.aluguel.*;
 import modelo.painel.PainelModeloImagens;
 import modelo.lista.ListaModeloCategorias;
 import dao.ProdutoDAO;
@@ -339,6 +336,7 @@ public class ProdutoSolicitadoExpiradoDetalhesTela extends javax.swing.JFrame {
         SolicitacoesProdutoExpiradaTela produtoTela = new SolicitacoesProdutoExpiradaTela(this.produto, this.condomino);
         produtoTela.setVisible(true);
     }
+    
     private void realizarAcao(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1) {
             mudarCorPaineis();
@@ -376,7 +374,6 @@ public class ProdutoSolicitadoExpiradoDetalhesTela extends javax.swing.JFrame {
     
     private void carregarCampos(){
         tfNome.setText(produto.getNome());
-        tfQuantidade.setText("" + produto.getQuantidade());
         tfTaxaAtraso.setText(produto.getTaxa() + "%");
         tfDiaria.setText("R$" + produto.getDiaria());
         taDescricao.setText(produto.getDescricao());

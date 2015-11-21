@@ -1,13 +1,20 @@
 package modelo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Produto {
@@ -16,15 +23,19 @@ public class Produto {
     private Long codigo;
     private String nome;
     private String descricao;
-    private int quantidade;
     private double diaria;
-    private int taxa;
+    private double taxa;
     private boolean status;
     
-    @OneToMany (mappedBy = "produto")
+    @Transient
+    private double reputacao;
+    
+    @OneToMany (mappedBy = "produto", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  
+    @Fetch(FetchMode.SUBSELECT)
     private List<SolicitacaoAluguel> solicitacoes;
         
-    @OneToMany (mappedBy = "produto")
+    @OneToMany (mappedBy = "produto", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  
+    @Fetch(FetchMode.SUBSELECT)
     private List<ImagemProduto> imagensProduto;
     
     @ManyToOne
@@ -33,8 +44,11 @@ public class Produto {
     @ManyToMany
     private List<Categoria> categorias;
     
-    @OneToMany (mappedBy= "produto")
+    @OneToMany (mappedBy= "produto", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  
+    @Fetch(FetchMode.SUBSELECT)
     private List<Comentario> comentarios;
+    
+    
     
     public Produto() {
         imagensProduto = new ArrayList<>();
@@ -42,10 +56,9 @@ public class Produto {
         comentarios = new ArrayList<>();
     }
 
-    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa ,List<ImagemProduto> imagensProduto, List<SolicitacaoAluguel> solicitacoes, Condomino condomino, List<Categoria> categorias, List<Comentario> comentarios ) {
+    public Produto(String nome, String descricao, double diaria, int taxa ,List<ImagemProduto> imagensProduto, List<SolicitacaoAluguel> solicitacoes, Condomino condomino, List<Categoria> categorias, List<Comentario> comentarios ) {
         this.nome = nome;
         this.descricao = descricao;
-        this.quantidade = quantidade;
         this.diaria = diaria;
         this.taxa = taxa;
         this.imagensProduto = imagensProduto;
@@ -83,14 +96,6 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-
     public Condomino getCondomino() {
         return condomino;
     }
@@ -115,11 +120,11 @@ public class Produto {
         this.diaria = diaria;
     }
 
-    public int getTaxa() {
+    public double getTaxa() {
         return taxa;
     }
 
-    public void setTaxa(int taxa) {
+    public void setTaxa(double taxa) {
         this.taxa = taxa;
     }
 
@@ -151,5 +156,37 @@ public class Produto {
     @Override
     public String toString() {
         return nome;
+    }
+    public String getReputacao(){
+        calcularReputacao();
+        if (reputacao==200)
+            return "NOVO";
+        else{
+            String valor = ""+reputacao;
+            valor=(valor.substring(valor.length()-1));
+            if (valor.equals("0")){
+                return Math.round(reputacao)+"%";
+            }
+            return reputacao+"%";
+        }
+    }
+    
+    public void calcularReputacao(){
+        
+        double positiva=0, regular=0;
+        if(comentarios.size()>0){
+            for (Comentario comentario : comentarios) {
+                if (comentario.getAvaliacao().getCodigo()==1) {
+                    positiva++;
+                }
+                if (comentario.getAvaliacao().getCodigo()==2) {
+                    regular++;
+                }
+            }
+            reputacao = Double.valueOf(String.format(Locale.US, "%.1f", ((positiva/comentarios.size()) + ((regular/2)/comentarios.size()))*100));
+        }
+        else{
+            reputacao=200;
+        }
     }
 }

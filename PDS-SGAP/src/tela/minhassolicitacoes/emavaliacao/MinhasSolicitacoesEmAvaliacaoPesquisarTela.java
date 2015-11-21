@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tela.minhassolicitacoes.emavaliacao;
 
-import tela.minhassolicitacoes.*;
-import tela.aluguel.*;
 import dao.SolicitacaoAluguelDAO;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -14,10 +7,6 @@ import modelo.Condomino;
 import modelo.Produto;
 import modelo.tabela.TabelaModeloProduto;
 
-/**
- *
- * @author Ada
- */
 public class MinhasSolicitacoesEmAvaliacaoPesquisarTela extends javax.swing.JFrame {
     private Condomino condomino;
     private List<Produto> produtos;
@@ -265,7 +254,7 @@ public class MinhasSolicitacoesEmAvaliacaoPesquisarTela extends javax.swing.JFra
         Produto produto = new Produto();
         produto.setNome(tfProduto.getText());
         produto.setCondomino(condomino);
-        produtos = solicitacaoAluguelDAO.findProdutos(produto, condomino);
+        produtos = solicitacaoAluguelDAO.findProdutoSolicitacaoEmAvaliacao( this.condomino, produto);
         TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
         tbResultados.setModel(modelo);
     }

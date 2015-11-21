@@ -1,7 +1,5 @@
 package tela.minhassolicitacoes.todas;
 
-import tela.minhassolicitacoes.*;
-import tela.aluguel.*;
 import dao.AluguelDAO;
 import dao.SolicitacaoAluguelDAO;
 import java.text.SimpleDateFormat;
@@ -293,8 +291,9 @@ public class MinhaSolicitacaoDetalhesTela extends javax.swing.JFrame {
                     .addComponent(painelProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelRequerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(bCancelar)))
+                        .addGap(206, 206, 206)
+                        .addComponent(bCancelar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -318,19 +317,7 @@ public class MinhaSolicitacaoDetalhesTela extends javax.swing.JFrame {
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
-    private void excluirSolicitacao(){
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente cancelar solicitação??", "Confirmar cancelamento", JOptionPane.YES_NO_OPTION);
-        
-        if(resposta == JOptionPane.YES_OPTION){
-            try {            
-                sDAO.removeSolicitacao(solicitacaoAluguel);
-            }
-
-            catch (Exception ex){
-                JOptionPane.showMessageDialog(null, "Erro: "+ ex.getMessage(), "Erro ao cancelar!", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-    }
+    
     private String stringToCalendar(Calendar date){
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         return formatador.format(date.getTime());

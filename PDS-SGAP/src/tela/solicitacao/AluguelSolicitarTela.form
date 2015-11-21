@@ -56,11 +56,6 @@
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="lNome2" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="spQuantidade" min="-2" pref="78" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" attributes="0">
                                       <Component id="lNome3" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                       <Component id="spDias" min="-2" pref="54" max="-2" attributes="0"/>
@@ -109,14 +104,9 @@
                   <Component id="tfDescricao6" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="tfDataInicio" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="spQuantidade" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
-                          <Component id="lNome2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="13" pref="13" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="spDias" alignment="3" min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="lNome3" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -138,7 +128,7 @@
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
-                      <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                       <Component id="painelImagens" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -155,11 +145,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lNome2">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Quantidade:"/>
-      </Properties>
-    </Component>
     <Component class="javax.swing.JToggleButton" name="bAlugar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Solicitar Alugel"/>
@@ -177,8 +162,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bCancelarActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JSpinner" name="spQuantidade">
     </Component>
     <Component class="javax.swing.JLabel" name="tfDescricao2">
       <Properties>

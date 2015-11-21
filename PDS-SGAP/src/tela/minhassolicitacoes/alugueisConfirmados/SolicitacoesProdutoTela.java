@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tela.minhassolicitacoes.alugueisConfirmados;
 
-import tela.minhassolicitacoes.*;
-import tela.aluguel.*;
 import dao.SolicitacaoAluguelDAO;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -17,11 +10,7 @@ import modelo.Produto;
 import modelo.SolicitacaoAluguel;
 import modelo.tabela.TabelaModeloRenderer;
 import modelo.tabela.TabelaModeloSolicitacoes;
-
-/**
- *
- * @author Borges
- */
+ 
 public class SolicitacoesProdutoTela extends javax.swing.JFrame {
     
     private SolicitacaoAluguelDAO sDAO = new SolicitacaoAluguelDAO();
@@ -34,7 +23,7 @@ public class SolicitacoesProdutoTela extends javax.swing.JFrame {
      * @param condomino
      */
     public SolicitacoesProdutoTela(Produto produto, Condomino condomino) {
-        this.solicitacaoAluguels = sDAO.findSolicitacoes(produto, condomino);
+        this.solicitacaoAluguels = sDAO.findSolicitacaoProdutoEmAndamento(condomino, produto);
         initComponents();
         preencherTabela();
     }
@@ -55,6 +44,13 @@ public class SolicitacoesProdutoTela extends javax.swing.JFrame {
         bSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         painelRequerentes.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Solicitações", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -147,6 +143,10 @@ public class SolicitacoesProdutoTela extends javax.swing.JFrame {
     private void bSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSairActionPerformed
         dispose();
     }//GEN-LAST:event_bSairActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowGainedFocus
     
     private void selecionarProduto(MouseEvent evt) {
 

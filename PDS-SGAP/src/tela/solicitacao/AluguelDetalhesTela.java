@@ -1,4 +1,3 @@
-
 package tela.solicitacao;
 
 import modelo.lista.ListaModeloComentarios;
@@ -13,7 +12,6 @@ import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.swing.JPanel;
-import javax.swing.SpinnerNumberModel;
 import modelo.Comentario;
 import modelo.Condomino;
 import modelo.ImagemProduto;
@@ -42,16 +40,10 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
     }
     
     public void preencherCampos(){
-        
         tfDono.setText(this.produto.getCondomino().getNome());
         tfProduto.setText(this.produto.getNome());
         tfDescricao.setText(this.produto.getDescricao());
-
-        SpinnerNumberModel spModel = new SpinnerNumberModel(produto.getQuantidade(), 1, produto.getQuantidade(), 1);  
-        
         tfContato.setText(produto.getCondomino().getTelefones().get(0));
-        spQuantidade.setModel(spModel);  
-        spQuantidade.setValue( produto.getQuantidade());
         tfReputacao.setText("calcular reputação");
         img = img1;
         mudarCorPaineis();
@@ -80,7 +72,6 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
     private void initComponents() {
 
         jInternalFrame1 = new javax.swing.JInternalFrame();
-        lNome2 = new javax.swing.JLabel();
         lNome4 = new javax.swing.JLabel();
         tfDono = new javax.swing.JLabel();
         lNome6 = new javax.swing.JLabel();
@@ -91,7 +82,6 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         jlComentarios = new javax.swing.JList();
-        spQuantidade = new javax.swing.JSpinner();
         jPanel4 = new javax.swing.JPanel();
         tfDescricao = new javax.swing.JLabel();
         tfProduto = new javax.swing.JLabel();
@@ -119,16 +109,19 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar Produto");
 
-        lNome2.setText("Quantidade");
-
+        lNome4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lNome4.setText("Reputação:");
 
+        tfDono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfDono.setText("DONO PRODUTO");
 
-        lNome6.setText("Dono");
+        lNome6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lNome6.setText("Dono:");
 
+        tfReputacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfReputacao.setText("calcular reptação");
 
+        bAlugar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bAlugar.setText("Alugar");
         bAlugar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,6 +129,7 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
             }
         });
 
+        bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setText("Cancelar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -145,6 +139,7 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Avaliações", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
 
+        jlComentarios.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jlComentarios.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
@@ -165,13 +160,13 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                 .addGap(0, 9, Short.MAX_VALUE))
         );
 
-        spQuantidade.setEnabled(false);
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Produto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Produto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
         jPanel4.setToolTipText("");
 
+        tfDescricao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfDescricao.setText("descricao");
 
+        tfProduto.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfProduto.setText("NOME DO PRODUTO");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -194,7 +189,7 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        painelImagens.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Imagens", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        painelImagens.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Imagens", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
         painelImagens.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 painelImagensMouseReleased(evt);
@@ -255,9 +250,11 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                 .addGap(5, 5, 5))
         );
 
+        tfContato.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfContato.setText("DONO PRODUTO");
 
-        lNome7.setText("Contato");
+        lNome7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lNome7.setText("Contato:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,23 +273,19 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lNome2)
+                                .addComponent(lNome6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(spQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfDono, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(lNome4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(tfReputacao, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(lNome6)
-                                            .addComponent(lNome7))
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(tfContato, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tfDono, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(lNome7)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(tfContato, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -308,18 +301,15 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lNome2)
-                            .addComponent(spQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
+                        .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lNome6)
                             .addComponent(tfDono))
-                        .addGap(18, 18, 18)
+                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(tfContato)
-                            .addComponent(lNome7))
-                        .addGap(18, 18, 18)
+                            .addComponent(lNome7)
+                            .addComponent(tfContato))
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lNome4)
                             .addComponent(tfReputacao)))
@@ -493,12 +483,10 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JList jlComentarios;
-    private javax.swing.JLabel lNome2;
     private javax.swing.JLabel lNome4;
     private javax.swing.JLabel lNome6;
     private javax.swing.JLabel lNome7;
     private javax.swing.JPanel painelImagens;
-    private javax.swing.JSpinner spQuantidade;
     private javax.swing.JLabel tfContato;
     private javax.swing.JLabel tfDescricao;
     private javax.swing.JLabel tfDono;

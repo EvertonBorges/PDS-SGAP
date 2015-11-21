@@ -12,6 +12,7 @@ public class ImagemProduto {
     @Id
     @GeneratedValue
     private Long codigo;
+    
     @Lob
     private byte[] imagem;
     

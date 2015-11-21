@@ -364,7 +364,6 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
     
     private void carregarCampos(){
         tfNome.setText(produto.getNome());
-        tfQuantidade.setText("" + produto.getQuantidade());
         tfTaxaAtraso.setText(produto.getTaxa() + "%");
         tfDiaria.setText("R$" + produto.getDiaria());
         taDescricao.setText(produto.getDescricao());

@@ -10,9 +10,10 @@ import tela.condomino.CondominoPesquisarTela;
 import tela.meusprodutos.ProdutoPesquisarTela;
 import tela.aluguel.SolicitacaoPesquisarTela;
 import tela.minhassolicitacoes.alugueisConfirmados.MinhasSolicitacoesConfirmadasPesquisarTela;
+import tela.minhassolicitacoes.emavaliacao.MinhasSolicitacoesEmAvaliacaoPesquisarTela;
+import tela.minhassolicitacoes.expiradas.MinhasSolicitacoesExpiradasPesquisarTela;
 import tela.minhassolicitacoes.todas.MinhasSolicitacoesPesquisarTela;
 import tela.relatorios.MaisAlugados;
-//import tela.minhassolicitacoes.MinhasSolicitacoesPesquisarTela;
 
 public class Principal extends javax.swing.JFrame {
     private Condomino condomino;
@@ -254,7 +255,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void miEmAvaliacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEmAvaliacaoActionPerformed
         // TODO add your handling code here:
-
+        MinhasSolicitacoesEmAvaliacaoPesquisarTela emAvaliacaoPesquisarTela =  new MinhasSolicitacoesEmAvaliacaoPesquisarTela(condomino);
+        emAvaliacaoPesquisarTela.setVisible(true);
     }//GEN-LAST:event_miEmAvaliacaoActionPerformed
 
     private void miTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTodasActionPerformed
@@ -271,6 +273,8 @@ public class Principal extends javax.swing.JFrame {
 
     private void miExpiradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExpiradasActionPerformed
         // TODO add your handling code here:
+        MinhasSolicitacoesExpiradasPesquisarTela emAvaliacaoPesquisarTela =  new MinhasSolicitacoesExpiradasPesquisarTela(condomino);
+        emAvaliacaoPesquisarTela.setVisible(true);
     }//GEN-LAST:event_miExpiradasActionPerformed
 
     private void miProdutosMaisAlugadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miProdutosMaisAlugadosActionPerformed

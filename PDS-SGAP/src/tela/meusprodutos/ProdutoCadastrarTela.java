@@ -50,8 +50,6 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
         miRemoverImagem = new javax.swing.JMenuItem();
         lNome = new javax.swing.JLabel();
         tfNome = new javax.swing.JTextField();
-        lQtde = new javax.swing.JLabel();
-        spQtde = new javax.swing.JSpinner();
         lDiaria = new javax.swing.JLabel();
         tfDiaria = new javax.swing.JTextField();
         lTaxa = new javax.swing.JLabel();
@@ -99,30 +97,40 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
             }
         });
 
+        lNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lNome.setText("Nome");
 
-        lQtde.setText("Quantidade");
+        tfNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
-        spQtde.setModel(new javax.swing.SpinnerNumberModel(1, 1, 30, 1));
-
+        lDiaria.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lDiaria.setText("Diária");
 
+        tfDiaria.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfDiaria.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfDiariaFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfDiariaFocusLost(evt);
             }
         });
 
+        lTaxa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lTaxa.setText("Taxa por atraso");
 
+        tfTaxa.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfTaxa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tfTaxaFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tfTaxaFocusLost(evt);
             }
         });
 
-        painelCategorias.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Categorias", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        painelCategorias.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Categorias", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
+        listCategorias.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jScrollPane1.setViewportView(listCategorias);
 
         bAddCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/refresh-icon.png"))); // NOI18N
@@ -152,7 +160,7 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        painelImagens.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Imagens", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        painelImagens.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Imagens", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
         painelImagens.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 painelImagensMouseReleased(evt);
@@ -213,6 +221,7 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        bCadastrar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCadastrar.setText("Cadastrar");
         bCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -220,6 +229,7 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
             }
         });
 
+        bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setText("Cancelar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -227,9 +237,10 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
             }
         });
 
-        painelDescricao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Descrição", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11), new java.awt.Color(255, 0, 0))); // NOI18N
+        painelDescricao.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Descrição", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
         taDescricao.setColumns(20);
+        taDescricao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         taDescricao.setRows(5);
         jScrollPane2.setViewportView(taDescricao);
 
@@ -268,15 +279,11 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(lTaxa)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tfTaxa))
+                                    .addComponent(tfTaxa, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addComponent(lDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(tfDiaria))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(lQtde)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(spQtde, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(tfDiaria))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelImagens, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jSeparator1)
@@ -295,23 +302,21 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lNome)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lQtde)
-                            .addComponent(spQtde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lDiaria)
                             .addComponent(tfDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lTaxa)
                             .addComponent(tfTaxa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(painelCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -368,8 +373,6 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
 
     private void bCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCadastrarActionPerformed
         cadastrarProduto();
-        JOptionPane.showMessageDialog(null, "Produto inserido com sucesso", "Produto Inserido", JOptionPane.INFORMATION_MESSAGE);
-        dispose();
     }//GEN-LAST:event_bCadastrarActionPerformed
 
     private void bAddCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddCategoriaActionPerformed
@@ -386,6 +389,14 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
         img = null;
         mudarCorPaineis();
     }//GEN-LAST:event_painelImagensMouseReleased
+
+    private void tfTaxaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfTaxaFocusGained
+        tfTaxa.setText("");
+    }//GEN-LAST:event_tfTaxaFocusGained
+
+    private void tfDiariaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDiariaFocusGained
+        tfDiaria.setText("");
+    }//GEN-LAST:event_tfDiariaFocusGained
     
     private void carregarCategorias(){
         CategoriaDAO categoriaDAO = new CategoriaDAO();
@@ -474,32 +485,40 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
         byte[] byteArray2 = arrayImage(img2);
         byte[] byteArray3 = arrayImage(img3);
         
-        Produto produto = new Produto();
         
-        produto.setNome(tfNome.getText());
-        produto.setQuantidade(Integer.parseInt(spQtde.getValue().toString()));
-        produto.setDescricao(taDescricao.getText());
-        produto.setCondomino(condomino);
-        produto.setCategorias(categoriasSelecionadas);
-        produto.setDiaria(Double.parseDouble(tfDiaria.getText().substring(2)));
-        produto.setTaxa(Integer.parseInt(tfTaxa.getText().substring(0, tfTaxa.getText().length() - 1)));
-        produto.setStatus(true);
-        
-        List<ImagemProduto> imagens = new ArrayList<>();
-        
-        if (byteArray1 != null){
-            persistindoImagens(byteArray1, produto, imagens);
+        if (validaCampos()) {
+            String diaria = tfDiaria.getText();
+            String diariaReplace = diaria.replace("R$", "");
+            String taxa = tfTaxa.getText();
+            String taxaReplace = taxa.replace("%", "");
+
+            Produto produto = new Produto();
+            produto.setNome(tfNome.getText());
+            produto.setDescricao(taDescricao.getText());
+            produto.setCondomino(condomino);
+            produto.setCategorias(categoriasSelecionadas);
+            produto.setDiaria(Double.parseDouble(diariaReplace));
+            produto.setTaxa(Double.parseDouble(taxaReplace));
+            produto.setStatus(true);
+
+            List<ImagemProduto> imagens = new ArrayList<>();
+
+            if (byteArray1 != null){
+                persistindoImagens(byteArray1, produto, imagens);
+            }
+            if (byteArray2 != null){
+                persistindoImagens(byteArray2, produto, imagens);
+            }
+            if (byteArray3 != null){
+                persistindoImagens(byteArray3, produto, imagens);
+            }
+
+            produto.setImagensProduto(imagens);
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            produtoDAO.addProduto(produto);
+            JOptionPane.showMessageDialog(null, "Produto inserido com sucesso", "Produto Inserido", JOptionPane.INFORMATION_MESSAGE);
+            dispose();
         }
-        if (byteArray2 != null){
-            persistindoImagens(byteArray2, produto, imagens);
-        }
-        if (byteArray3 != null){
-            persistindoImagens(byteArray3, produto, imagens);
-        }
-        
-        produto.setImagensProduto(imagens);
-        ProdutoDAO produtoDAO = new ProdutoDAO();
-        produtoDAO.addProduto(produto);
     }
     
     private void persistindoImagens(byte[] byteArray, Produto produto, List<ImagemProduto> imagens){
@@ -507,6 +526,43 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
             ImagemProduto imagem = new ImagemProduto(byteArray, produto);
             imagens.add(imagem);
         }
+    }
+    
+    private boolean validaCampos(){
+        String diaria = tfDiaria.getText();
+        String diariaReplace = diaria.replace("R$", "");
+        String taxa = tfTaxa.getText();
+        String taxaReplace = taxa.replace("%", "");
+        String nome = tfNome.getText();
+        String descricao = taDescricao.getText();
+        double diariaNumero;
+        double taxaNumero;
+        
+        if (nome.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Preencha o campo nome", "Preencher Nome", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        } else {
+            if (descricao.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Preencha algo na descrição", "Preencha Descrição", JOptionPane.INFORMATION_MESSAGE);
+                return false;
+            } else {
+                try {
+                    diariaNumero = Double.parseDouble(diariaReplace);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Campo diária, não está preenchido de forma correta\nInforme apenas números.", "Erro na Diária", JOptionPane.INFORMATION_MESSAGE);
+                    return false;
+                }
+
+                try {
+                    taxaNumero = Double.parseDouble(taxaReplace);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Campo taxa, não está preenchido de forma correta\nInforme apenas números.", "Erro na Taxa", JOptionPane.INFORMATION_MESSAGE);
+                    return false;
+                }
+            }
+        }
+        
+        return true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -522,7 +578,6 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lDiaria;
     private javax.swing.JLabel lNome;
-    private javax.swing.JLabel lQtde;
     private javax.swing.JLabel lTaxa;
     private javax.swing.JList listCategorias;
     private javax.swing.JPopupMenu menuFlutuante;
@@ -531,7 +586,6 @@ public class ProdutoCadastrarTela extends javax.swing.JFrame {
     private javax.swing.JPanel painelCategorias;
     private javax.swing.JPanel painelDescricao;
     private javax.swing.JPanel painelImagens;
-    private javax.swing.JSpinner spQtde;
     private javax.swing.JTextArea taDescricao;
     private javax.swing.JTextField tfDiaria;
     private javax.swing.JTextField tfNome;

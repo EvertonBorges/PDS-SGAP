@@ -59,10 +59,6 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
         tfDiaria.setText("R$"+produto.getDiaria());
         tfTaxa.setText(produto.getTaxa()+"%");
         tfDataInicio.setText(formatador.format(Calendar.getInstance().getTime()));
-       
-        SpinnerNumberModel spModelQuantidade = new SpinnerNumberModel(this.produto.getQuantidade(), 1, this.produto.getQuantidade(), 1);
-        spQuantidade.setModel(spModelQuantidade);
-        spQuantidade.setValue( this.produto.getQuantidade());
         
         SpinnerNumberModel spModelDias = new SpinnerNumberModel(31, 1, 31, 1);
         spDias.setModel(spModelDias);
@@ -149,11 +145,9 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lNome2 = new javax.swing.JLabel();
         bAlugar = new javax.swing.JToggleButton();
         jSeparator2 = new javax.swing.JSeparator();
         bCancelar = new javax.swing.JButton();
-        spQuantidade = new javax.swing.JSpinner();
         tfDescricao2 = new javax.swing.JLabel();
         tfDiaria = new javax.swing.JLabel();
         tfTaxa = new javax.swing.JLabel();
@@ -179,8 +173,6 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Solicitar Aluguel");
-
-        lNome2.setText("Quantidade:");
 
         bAlugar.setText("Solicitar Alugel");
         bAlugar.addActionListener(new java.awt.event.ActionListener() {
@@ -360,10 +352,6 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lNome2)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(spQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(lNome3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(spDias, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -399,13 +387,9 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
                     .addComponent(tfTaxa)
                     .addComponent(tfDescricao6)
                     .addComponent(tfDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lNome2))
-                        .addGap(13, 13, 13)
+                        .addGap(57, 57, 57)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(spDias, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lNome3))
@@ -422,7 +406,7 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
                             .addComponent(tfReputacao)
                             .addComponent(lNome4)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(23, 23, 23)
                         .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -493,7 +477,6 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
             System.out.println("Erro ao preencher solicitação(erro na data): "+ex.getMessage());
         }
         this.solicitacaoAluguel.setDataSolicitacao(Calendar.getInstance());
-        this.solicitacaoAluguel.setQuantidade(Integer.parseInt(spQuantidade.getValue().toString()));
         this.solicitacaoAluguel.setLocatario(this.condomino);
         this.solicitacaoAluguel.setDiasPretendidos(Integer.parseInt(spDias.getValue().toString()));
         this.solicitacaoAluguel.setProduto(this.produto);
@@ -558,14 +541,12 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
     private javax.swing.JPanel imgPrincipal;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lNome2;
     private javax.swing.JLabel lNome3;
     private javax.swing.JLabel lNome4;
     private javax.swing.JLabel lNome6;
     private javax.swing.JLabel lNome7;
     private javax.swing.JPanel painelImagens;
     private javax.swing.JSpinner spDias;
-    private javax.swing.JSpinner spQuantidade;
     private javax.swing.JLabel tfContato;
     private javax.swing.JFormattedTextField tfDataInicio;
     private javax.swing.JLabel tfDescricao;

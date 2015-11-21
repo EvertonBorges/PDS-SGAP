@@ -1,7 +1,5 @@
 package tela.minhassolicitacoes.alugueisConfirmados;
 
-import tela.minhassolicitacoes.*;
-import tela.aluguel.*;
 import dao.AluguelDAO;
 import dao.SolicitacaoAluguelDAO;
 import java.text.SimpleDateFormat;
@@ -318,19 +316,7 @@ public class MinhaSolicitacaoConfirmadaDetalhesTela extends javax.swing.JFrame {
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
         dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
-    private void excluirSolicitacao(){
-        int resposta = JOptionPane.showConfirmDialog(this, "Deseja realmente cancelar solicitação??", "Confirmar cancelamento", JOptionPane.YES_NO_OPTION);
-        
-        if(resposta == JOptionPane.YES_OPTION){
-            try {            
-                sDAO.removeSolicitacao(solicitacaoAluguel);
-            }
-
-            catch (Exception ex){
-                JOptionPane.showMessageDialog(null, "Erro: "+ ex.getMessage(), "Erro ao cancelar!", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }
-    }
+    
     private String stringToCalendar(Calendar date){
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         return formatador.format(date.getTime());

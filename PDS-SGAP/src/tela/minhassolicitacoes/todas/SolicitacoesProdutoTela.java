@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package tela.minhassolicitacoes.todas;
 
-import tela.minhassolicitacoes.*;
-import tela.aluguel.*;
 import dao.SolicitacaoAluguelDAO;
 import java.awt.event.MouseEvent;
 import java.util.List;
@@ -18,10 +11,6 @@ import modelo.SolicitacaoAluguel;
 import modelo.tabela.TabelaModeloRenderer;
 import modelo.tabela.TabelaModeloSolicitacoes;
 
-/**
- *
- * @author Borges
- */
 public class SolicitacoesProdutoTela extends javax.swing.JFrame {
     
     private SolicitacaoAluguelDAO sDAO = new SolicitacaoAluguelDAO();
@@ -33,7 +22,7 @@ public class SolicitacoesProdutoTela extends javax.swing.JFrame {
      * @param produto
      */
     public SolicitacoesProdutoTela(Produto produto, Condomino condomino) {
-        this.solicitacaoAluguels = sDAO.findSolicitacoes(produto, condomino);
+        this.solicitacaoAluguels = sDAO.findSolicitacoes( condomino, produto);
         initComponents();
         preencherTabela();
     }
