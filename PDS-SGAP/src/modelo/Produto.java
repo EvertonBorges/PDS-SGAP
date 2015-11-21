@@ -1,9 +1,7 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -27,9 +24,6 @@ public class Produto {
     private double taxa;
     private boolean status;
     
-    @Transient
-    private double reputacao;
-    
     @OneToMany (mappedBy = "produto", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  
     @Fetch(FetchMode.SUBSELECT)
     private List<SolicitacaoAluguel> solicitacoes;
@@ -43,20 +37,13 @@ public class Produto {
     
     @ManyToMany
     private List<Categoria> categorias;
-    
-    @OneToMany (mappedBy= "produto", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  
-    @Fetch(FetchMode.SUBSELECT)
-    private List<Comentario> comentarios;
-    
-    
-    
+        
     public Produto() {
         imagensProduto = new ArrayList<>();
         categorias = new ArrayList<>();
-        comentarios = new ArrayList<>();
     }
 
-    public Produto(String nome, String descricao, double diaria, int taxa ,List<ImagemProduto> imagensProduto, List<SolicitacaoAluguel> solicitacoes, Condomino condomino, List<Categoria> categorias, List<Comentario> comentarios ) {
+    public Produto(String nome, String descricao, double diaria, int taxa ,List<ImagemProduto> imagensProduto, List<SolicitacaoAluguel> solicitacoes, Condomino condomino, List<Categoria> categorias) {
         this.nome = nome;
         this.descricao = descricao;
         this.diaria = diaria;
@@ -64,16 +51,7 @@ public class Produto {
         this.imagensProduto = imagensProduto;
         this.condomino = condomino;
         this.categorias = categorias;
-        this.comentarios=comentarios;
         this.solicitacoes=solicitacoes;
-    }
-
-    public List<Comentario> getComentarios() {
-        return comentarios;
-    }
-
-    public void setComentarios(List<Comentario> comentarios) {
-        this.comentarios = comentarios;
     }
 
     public Long getCodigo() {
@@ -157,6 +135,8 @@ public class Produto {
     public String toString() {
         return nome;
     }
+    
+    /*
     public String getReputacao(){
         calcularReputacao();
         if (reputacao==200)
@@ -171,7 +151,7 @@ public class Produto {
         }
     }
     
-    public void calcularReputacao(){
+    private void calcularReputacao(){
         
         double positiva=0, regular=0;
         if(comentarios.size()>0){
@@ -189,4 +169,5 @@ public class Produto {
             reputacao=200;
         }
     }
+    */
 }

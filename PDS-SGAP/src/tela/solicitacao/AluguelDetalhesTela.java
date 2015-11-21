@@ -1,67 +1,35 @@
 package tela.solicitacao;
 
+import dao.ComentarioDAO;
 import modelo.lista.ListaModeloComentarios;
-import dao.ProdutoDAO;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import modelo.Comentario;
 import modelo.Condomino;
 import modelo.ImagemProduto;
 import modelo.Produto;
 import modelo.painel.PainelModeloImagens;
-import util.JPAUtil;
 
 public class AluguelDetalhesTela extends javax.swing.JFrame {
-
-    /**
-     * Creates new form AluguelDetalhesTela
-     */
-    
-    private Produto produto= new Produto();
-    private ProdutoDAO dao= new ProdutoDAO();
-    private List<Comentario> comentarios = new ArrayList<>();
+    private Produto produto;
+    private List<Comentario> comentarios;
     private Condomino condomino;
     private JPanel img;
 
-
     public AluguelDetalhesTela(Produto produto, Condomino condomino) {
-        this.produto=produto;
-        this.condomino=condomino;
+        this.produto = produto;
+        this.condomino = condomino;
         initComponents();
         carregarProduto();
     }
     
-    public void preencherCampos(){
-        tfDono.setText(this.produto.getCondomino().getNome());
-        tfProduto.setText(this.produto.getNome());
-        tfDescricao.setText(this.produto.getDescricao());
-        tfContato.setText(produto.getCondomino().getTelefones().get(0));
-        tfReputacao.setText("calcular reputação");
-        img = img1;
-        mudarCorPaineis();
-    }
-    
-    public void preencherComentarios(){
-        //FALTA FAZER O DAO DE COMENTARIO
-        EntityManager manager = JPAUtil.getEntityManager();
-          
-        String consulta="select p from Comentario p where produto_codigo = :codigo";
-        TypedQuery<Comentario> query =manager.createQuery(consulta, Comentario.class);
-        query.setParameter("codigo", this.produto.getCodigo());
-        query.setMaxResults(10);
-        
-        this.comentarios = query.getResultList();
-        this.jlComentarios.setModel(new ListaModeloComentarios(comentarios));
-        
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -90,7 +58,9 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
         img1 = new javax.swing.JPanel();
         img2 = new javax.swing.JPanel();
         img3 = new javax.swing.JPanel();
-        tfContato = new javax.swing.JLabel();
+        tfContato1 = new javax.swing.JLabel();
+        tfContato2 = new javax.swing.JLabel();
+        tfContato3 = new javax.swing.JLabel();
         lNome7 = new javax.swing.JLabel();
 
         jInternalFrame1.setVisible(true);
@@ -250,8 +220,14 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                 .addGap(5, 5, 5))
         );
 
-        tfContato.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfContato.setText("DONO PRODUTO");
+        tfContato1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfContato1.setText("DONO PRODUTO");
+
+        tfContato2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfContato2.setText("DONO PRODUTO");
+
+        tfContato3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfContato3.setText("DONO PRODUTO");
 
         lNome7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lNome7.setText("Contato:");
@@ -273,21 +249,24 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lNome6)
+                                .addComponent(lNome4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfDono, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfReputacao, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lNome7)
+                                    .addComponent(lNome6))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfDono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(tfContato3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lNome4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(tfReputacao, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(tfContato2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lNome7)
-                                        .addGap(24, 24, 24)
-                                        .addComponent(tfContato, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(tfContato1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator2)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -299,7 +278,10 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -308,13 +290,16 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lNome7)
-                            .addComponent(tfContato))
-                        .addGap(28, 28, 28)
+                            .addComponent(tfContato1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfContato2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(tfContato3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lNome4)
-                            .addComponent(tfReputacao)))
-                    .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(tfReputacao))
+                        .addGap(14, 14, 14)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -330,13 +315,11 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAlugarActionPerformed
-        // TODO add your handling code here:
         telaAlugarProduto();
         dispose();
     }//GEN-LAST:event_bAlugarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 
@@ -359,11 +342,13 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
         img = null;
         mudarCorPaineis();
     }//GEN-LAST:event_painelImagensMouseReleased
+    
     private void realizarAcao(MouseEvent evt) {
         if (evt.getButton() == MouseEvent.BUTTON1) {
             mudarCorPaineis();
         }
     }
+    
     public void telaAlugarProduto (){
         AluguelSolicitarTela telaAlugarProduto =  new AluguelSolicitarTela(this.produto, this.condomino);
         telaAlugarProduto.setVisible(true);
@@ -428,46 +413,80 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
         painel.add(imagemPainel);
         painel.revalidate();
     }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+    
+    public void preencherCampos(){
+        tfDono.setText(this.produto.getCondomino().getNome());
+        tfProduto.setText(this.produto.getNome());
+        tfDescricao.setText(this.produto.getDescricao());
+        preencherTelefones();
+        tfReputacao.setText("calcular reputação");
+        img = img1;
+        mudarCorPaineis();
+    }
+    
+    private void preencherTelefones(){
+        tfContato1.setText("S/ Telefone");
+        tfContato2.setText("");
+        tfContato3.setText("");
+        if (!produto.getCondomino().getTelefones().isEmpty()) {
+            int cont = 0;
+            for (String telefone: produto.getCondomino().getTelefones()) {
+                JLabel tfTelefone;
+                switch (cont) {
+                    case 0:  tfTelefone = tfContato1;
+                             break;
+                    case 1:  tfTelefone = tfContato2;
+                             break;
+                    default: tfTelefone = tfContato3;
+                             break;
                 }
+                
+                if (cont != (produto.getCondomino().getTelefones().size())) {
+                    if (telefone.length() < 10) {
+                        if (telefone.length() == 9) {
+                            String telefoneFormatado = telefone.substring(0,5) + "-" + telefone.substring(5,9);
+                            tfTelefone.setText(telefoneFormatado);
+                        } else {
+                            String telefoneFormatado = telefone.substring(0,4) + "-" + telefone.substring(4,8);
+                            tfTelefone.setText(telefoneFormatado);
+                        }
+                    } else {
+                        if (telefone.length() == 11) {
+                            String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,7) + "-" + telefone.substring(7,11);
+                            tfTelefone.setText(telefoneFormatado);
+                        } else {
+                            String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,6) + "-" + telefone.substring(6,10);
+                            tfTelefone.setText(telefoneFormatado);
+                        }
+                    }
+                } else {
+                    if (telefone.length() < 10) {
+                        if (telefone.length() == 9) {
+                            String telefoneFormatado = telefone.substring(0,5) + "-" + telefone.substring(5,9) + " /";
+                            tfTelefone.setText(telefoneFormatado);
+                        } else {
+                            String telefoneFormatado = telefone.substring(0,4) + "-" + telefone.substring(4,8) + " /";
+                            tfTelefone.setText(telefoneFormatado);
+                        }
+                    } else {
+                        if (telefone.length() == 12) {
+                            String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,7) + "-" + telefone.substring(7,11) + " /";
+                            tfTelefone.setText(telefoneFormatado);
+                        } else {
+                            String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,6) + "-" + telefone.substring(6,10) + " /";
+                            tfTelefone.setText(telefoneFormatado);
+                        }
+                    }
+                }
+                cont++;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AluguelDetalhesTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AluguelDetalhesTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AluguelDetalhesTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AluguelDetalhesTela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-//                new AluguelDetalhesTela().setVisible(true);
-            }
-        });
+    }
+    
+    public void preencherComentarios(){
+        ComentarioDAO comentarioDAO = new ComentarioDAO();
+        this.comentarios = comentarioDAO.findComentarios(produto);
+        this.jlComentarios.setModel(new ListaModeloComentarios(comentarios));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -487,7 +506,9 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
     private javax.swing.JLabel lNome6;
     private javax.swing.JLabel lNome7;
     private javax.swing.JPanel painelImagens;
-    private javax.swing.JLabel tfContato;
+    private javax.swing.JLabel tfContato1;
+    private javax.swing.JLabel tfContato2;
+    private javax.swing.JLabel tfContato3;
     private javax.swing.JLabel tfDescricao;
     private javax.swing.JLabel tfDono;
     private javax.swing.JLabel tfProduto;

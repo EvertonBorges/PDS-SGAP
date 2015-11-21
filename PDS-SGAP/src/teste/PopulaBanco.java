@@ -422,117 +422,6 @@ public class PopulaBanco {
         p10.setDescricao("Produto de boa qualidade e resistente. Ano:2015. ");
         p11.setDescricao("Produto de boa qualidade e resistente. Ano:2015. ");
         p12.setDescricao("Produto de boa qualidade e resistente. Ano:2015. ");
-
-        Avaliacao av1= new Avaliacao();
-        av1.setAvaliacao("Positiva");
-        
-        Avaliacao av2= new Avaliacao();
-        av2.setAvaliacao("Razoável");
-       
-        Avaliacao av3= new Avaliacao();
-        av3.setAvaliacao("Negativa");
-        
-        
-        Comentario com1= new Comentario();
-        com1.setComentario("Uma porcaria!!!");
-        com1.setProduto(p1);
-        com1.setComentarista(cd4);
-        com1.setAvaliacao(av3);
-        com1.setData(Calendar.getInstance());
-        
-        Comentario com2= new Comentario();
-        com2.setComentario("Muito linda a locadora");
-        com2.setProduto(p1);
-        com2.setComentarista(cd2);
-        com2.setAvaliacao(av1);
-        com2.setData(Calendar.getInstance());
-        
-        Comentario com3= new Comentario();
-        com3.setComentario("Muito bom esse produto");
-        com3.setProduto(p2);
-        com3.setComentarista(cd1);
-        com3.setAvaliacao(av1);
-        com3.setData(Calendar.getInstance());
-        
-        Comentario com4= new Comentario();
-        com4.setComentario("Não gostei");
-        com4.setProduto(p2);
-        com4.setComentarista(cd3);
-        com4.setAvaliacao(av3);
-        com4.setData(Calendar.getInstance());
-        
-        Comentario com5= new Comentario();
-        com5.setComentario("Muito show");
-        com5.setProduto(p2);
-        com5.setComentarista(cd4);
-        com5.setAvaliacao(av1);
-        com5.setData(Calendar.getInstance());
-        
-        Comentario com6= new Comentario();
-        com6.setComentario("Não gostei");
-        com6.setProduto(p3);
-        com6.setComentarista(cd3);
-        com6.setAvaliacao(av3);
-        com6.setData(Calendar.getInstance());
-        
-        Comentario com7= new Comentario();
-        com7.setComentario("Sem defeitos");
-        com7.setProduto(p3);
-        com7.setComentarista(cd1);
-        com7.setAvaliacao(av2);
-        com7.setData(Calendar.getInstance());
-
-        Comentario com8= new Comentario();
-        com8.setComentario("Legalzão, gostei mesmo");
-        com8.setProduto(p4);
-        com8.setComentarista(cd3);
-        com8.setAvaliacao(av1);
-        com8.setData(Calendar.getInstance());
-        
-        Comentario com9= new Comentario();
-        com9.setComentario("Muito show");
-        com9.setProduto(p4);
-        com9.setComentarista(cd2);
-        com9.setAvaliacao(av1);
-        com9.setData(Calendar.getInstance());
-       
-        Comentario com10= new Comentario();
-        com10.setComentario("Não gostei");
-        com10.setProduto(p4);
-        com10.setComentarista(cd4);
-        com10.setAvaliacao(av3);
-        com10.setData(Calendar.getInstance());
-
-        Comentario com11= new Comentario();
-        com11.setComentario("Sem defeitos");
-        com11.setProduto(p5);
-        com11.setComentarista(cd4);
-        com11.setAvaliacao(av2);
-        com11.setData(Calendar.getInstance());
-
-        Comentario com12= new Comentario();
-        com12.setComentario("Legalzão, gostei mesmo");
-        com12.setProduto(p5);
-        com12.setComentarista(cd3);
-        com12.setAvaliacao(av1);
-        com12.setData(Calendar.getInstance());
-        
-        p1.getComentarios().add(com1);
-        p1.getComentarios().add(com2);
-
-        p2.getComentarios().add(com3);
-        p2.getComentarios().add(com4);
-        p2.getComentarios().add(com5);
-        
-        p3.getComentarios().add(com6);
-        p3.getComentarios().add(com7);
-        
-        p4.getComentarios().add(com8);
-        p4.getComentarios().add(com9);
-        p4.getComentarios().add(com10);
-
-        p5.getComentarios().add(com11);
-        p5.getComentarios().add(com12);
         
         a1.getCondominos().add(adm1);
         a1.getCondominos().add(cd1);
@@ -699,23 +588,6 @@ public class PopulaBanco {
         manager.persist ( img9 ); 
         manager.persist ( img10);
         
-        manager.persist ( av1 ); 
-        manager.persist ( av2 ); 
-        manager.persist ( av3 );
-        
-        manager.persist ( com1 ); 
-        manager.persist ( com2 ); 
-        manager.persist ( com3 );
-        manager.persist ( com4 );
-        manager.persist ( com5 ); 
-        manager.persist ( com6 ); 
-        manager.persist ( com7 );
-        manager.persist ( com8 );        
-        manager.persist ( com9 ); 
-        manager.persist ( com10); 
-        manager.persist ( com11);
-        manager.persist ( com12);
-        
         List<SolicitacaoAluguel> solicitacoes = new ArrayList<>();
         for (int i = 5; i < 1605; i++) {
             int diaSolicitacao, diaInicioAluguel, quantidadeDias, sorteioProduto, sorteioCondomino;
@@ -748,9 +620,17 @@ public class PopulaBanco {
             dataDevolucao.set(Calendar.DAY_OF_YEAR, sorteioDataDevolucao);
             
             solicitacao = sorteiaAluguelSemRepeticao(alugueis, solicitacoes, dataDevolucao);
-            Aluguel aluguel = new Aluguel(solicitacao, dataDevolucao);
+            Comentario comentario= new Comentario();
+            Aluguel aluguel = new Aluguel(solicitacao, dataDevolucao, comentario);
+            Calendar dataComentario = Calendar.getInstance();
+            dataComentario.set(Calendar.DAY_OF_YEAR, (int) (dataDevolucao.get(Calendar.DAY_OF_YEAR) + 2 + Math.random() * 8));
+            comentario.setComentario(sorteiaComentario());
+            comentario.setAvaliacao(sorteiaAvaliacao());
+            comentario.setDataComentario(dataComentario);
+            comentario.setAluguel(aluguel);
             alugueis.add(aluguel);
             manager.persist(aluguel);
+            manager.persist(comentario);
         }
         
         manager.getTransaction().commit();
@@ -797,6 +677,31 @@ public class PopulaBanco {
             }
         }
         return solicitacao;
+    }
+    
+    private String sorteiaComentario(){
+        int numSorteio = (int) (Math.random() * 8);
+        switch (numSorteio) {
+            case 0: return "Muito linda a locadora";
+            case 1: return "Muito bom esse produto";
+            case 2: return "Não gostei";
+            case 3: return "Muito show";
+            case 4: return "Não gostei";
+            case 5: return "Sem defeitos";
+            case 6: return "Legalzão, gostei mesmo";
+            case 7: return "Uma porcaria!!!";
+            default: return "Nada a declarar";
+        }
+    }
+    
+    private Avaliacao sorteiaAvaliacao(){
+        int numSorteio = (int) (Math.random() * 3);
+        switch (numSorteio) {
+            case 0: return Avaliacao.NEGATIVA;
+            case 1: return Avaliacao.NEUTRA;
+            case 2: return Avaliacao.POSITIVA;
+            default: return Avaliacao.POSITIVA;
+        }
     }
     
     public static void main(String args[]){

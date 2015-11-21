@@ -2,6 +2,7 @@ package modelo;
 
 import java.util.Calendar;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -19,15 +20,19 @@ public class Aluguel {
     @JoinColumn (unique = true)
     private SolicitacaoAluguel solicitacaoAluguel;
     
+    @OneToOne
+    private Comentario comentario;
+    
     @Temporal (TemporalType.DATE)
     private Calendar dataDevolucao;
 
     public Aluguel() {
     }
 
-    public Aluguel(SolicitacaoAluguel solicitacaoAluguel, Calendar dataDevolucao) {
+    public Aluguel(SolicitacaoAluguel solicitacaoAluguel, Calendar dataDevolucao, Comentario comentario) {
         this.solicitacaoAluguel = solicitacaoAluguel;
         this.dataDevolucao = dataDevolucao;
+        this.comentario = comentario;
     }
 
     public Long getCodigo() {
@@ -48,5 +53,13 @@ public class Aluguel {
 
     public void setSolicitacaoAluguel(SolicitacaoAluguel solicitacaoAluguel) {
         this.solicitacaoAluguel = solicitacaoAluguel;
+    }
+
+    public Comentario getComentario() {
+        return comentario;
+    }
+
+    public void setComentario(Comentario comentario) {
+        this.comentario = comentario;
     }
 }

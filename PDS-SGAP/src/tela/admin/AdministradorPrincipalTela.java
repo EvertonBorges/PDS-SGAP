@@ -154,7 +154,7 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
         CategoriaPesquisarTela categoriaPesquisarTela = new CategoriaPesquisarTela();
         categoriaPesquisarTela.setVisible(true);
     }//GEN-LAST:event_imCategoriaActionPerformed
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem imAlterarSenha;
     private javax.swing.JMenuItem imApartamento;

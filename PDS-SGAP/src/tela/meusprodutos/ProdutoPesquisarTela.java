@@ -144,6 +144,12 @@ public class ProdutoPesquisarTela extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tbResultados.setToolTipText("");
+        tbResultados.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                tbResultadosMouseMoved(evt);
+            }
+        });
         tbResultados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 tbResultadosMouseReleased(evt);
@@ -274,6 +280,10 @@ public class ProdutoPesquisarTela extends javax.swing.JFrame {
             carregarTabela();
         }
     }//GEN-LAST:event_tfNomeKeyPressed
+
+    private void tbResultadosMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbResultadosMouseMoved
+        carregarTollTipTextTabela(evt);
+    }//GEN-LAST:event_tbResultadosMouseMoved
     
     private void selecionarProduto(MouseEvent evt) {
         int linha = tbResultados.rowAtPoint(evt.getPoint());
@@ -316,6 +326,14 @@ public class ProdutoPesquisarTela extends javax.swing.JFrame {
         carregarProdutos();
         TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
         tbResultados.setModel(modelo);
+    }
+    
+    private void carregarTollTipTextTabela(MouseEvent evt){
+        int linha = tbResultados.rowAtPoint(evt.getPoint());
+        if (linha >= 0) {
+            Produto produtoLocal = produtos.get(linha);
+            tbResultados.setToolTipText(produtoLocal.getNome());
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

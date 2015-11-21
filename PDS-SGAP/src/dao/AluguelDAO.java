@@ -21,7 +21,7 @@ public class AluguelDAO {
         preencherLista();
     }
     
-     public void preencherLista(){
+    public void preencherLista(){
         this.alugueis.clear();
         EntityManager manager = JPAUtil.getEntityManager();
         Query query = manager.createQuery("SELECT a FROM Aluguel a");
@@ -29,7 +29,7 @@ public class AluguelDAO {
             this.alugueis = query.getResultList();
         } catch (NoResultException ex) {
             this.alugueis = null;
-            System.out.println("\nerro ao buscar produtos");
+            System.out.println("\nErro ao buscar produtos");
         }
     }
     
@@ -44,7 +44,6 @@ public class AluguelDAO {
     public void removeAluguel(Aluguel aluguelExclusao){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
-    //    manager.merge(aluguelExclusao);
         manager.remove(aluguelExclusao);
         manager.getTransaction().commit();
         manager.close();

@@ -3,6 +3,7 @@ package tela;
 import dao.CondominoDAO;
 import modelo.Condomino;
 import modelo.TipoUsuario;
+import modelo.painel.PainelModeloImagens;
 import tela.solicitacao.AluguelPesquisarTela;
 import tela.apartamento.ApartamentoPesquisarTela;
 import tela.categoria.CategoriaPesquisarTela;
@@ -26,6 +27,7 @@ public class Principal extends javax.swing.JFrame {
         this.condomino = condomino;
         menuCadastro.setVisible(false);
         menuRelatorios.setVisible(false);
+        carregarBackground();
         verificaUsuario();
     }
 
@@ -34,6 +36,13 @@ public class Principal extends javax.swing.JFrame {
             menuCadastro.setVisible(true);
             menuRelatorios.setVisible(true);
         }
+    }
+    
+    private void carregarBackground(){
+        painelBackground.removeAll();
+        PainelModeloImagens modelo = new PainelModeloImagens();
+        modelo.setBfImage("src/icon/principal.jpg");
+        painelBackground.add(modelo);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -45,6 +54,7 @@ public class Principal extends javax.swing.JFrame {
     private void initComponents() {
 
         jMenu1 = new javax.swing.JMenu();
+        painelBackground = new javax.swing.JPanel();
         mbMenu = new javax.swing.JMenuBar();
         menuAcesso = new javax.swing.JMenu();
         miSair = new javax.swing.JMenuItem();
@@ -76,6 +86,8 @@ public class Principal extends javax.swing.JFrame {
             public void windowLostFocus(java.awt.event.WindowEvent evt) {
             }
         });
+
+        painelBackground.setLayout(new java.awt.BorderLayout());
 
         menuAcesso.setText("Acesso");
 
@@ -203,11 +215,11 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(painelBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addComponent(painelBackground, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
         );
 
         pack();
@@ -303,5 +315,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenuItem miSolicitacoesProdutos;
     private javax.swing.JMenuItem miTodas;
+    private javax.swing.JPanel painelBackground;
     // End of variables declaration//GEN-END:variables
 }

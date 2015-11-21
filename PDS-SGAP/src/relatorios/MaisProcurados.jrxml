@@ -56,9 +56,7 @@
 FROM PRODUTO 
 INNER JOIN CONDOMINO AS LOCADOR ON LOCADOR.CODIGO = CONDOMINO_CODIGO
 INNER JOIN SOLICITACAOALUGUEL ON PRODUTO_CODIGO = PRODUTO.CODIGO
-INNER JOIN ALUGUEL ON SOLICITACAOALUGUEL.CODIGO = SOLICITACAOALUGUEL_CODIGO
-WHERE DATAINICIOALUGUEL >= $P{dataInicio}
-AND DATADEVOLUCAO <= $P{dataFim}
+WHERE DATASOLICITACAO BETWEEN $P{dataInicio} AND $P{dataFim}
 GROUP BY PRODUTO.CODIGO
 ORDER BY COUNT(*) DESC;]]>
 	</queryString>
@@ -69,13 +67,13 @@ ORDER BY COUNT(*) DESC;]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="103" splitType="Stretch">
+		<band height="105" splitType="Stretch">
 			<staticText>
-				<reportElement x="0" y="46" width="555" height="57" uuid="0059a938-c3a0-46dc-87a2-821374b9e625"/>
+				<reportElement x="0" y="47" width="555" height="58" uuid="0059a938-c3a0-46dc-87a2-821374b9e625"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="40" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Relatório Mais Alugados]]></text>
+				<text><![CDATA[Relatório Mais Procurados]]></text>
 			</staticText>
 		</band>
 	</title>
@@ -103,39 +101,39 @@ ORDER BY COUNT(*) DESC;]]>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="66" width="52" height="20" uuid="54650c62-93ee-46da-a989-af528a449f1e"/>
+				<reportElement x="0" y="65" width="52" height="20" uuid="54650c62-93ee-46da-a989-af528a449f1e"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Período:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="52" y="66" width="96" height="20" uuid="9c85fed1-01ee-438c-99a5-0f5062033a65"/>
+				<reportElement x="52" y="65" width="96" height="20" uuid="9c85fed1-01ee-438c-99a5-0f5062033a65"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dataInicio}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="148" y="66" width="25" height="20" uuid="cbb42d3a-9d41-430c-a620-39af5f98606d"/>
+				<reportElement x="148" y="65" width="25" height="20" uuid="cbb42d3a-9d41-430c-a620-39af5f98606d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[a]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="173" y="66" width="100" height="20" uuid="679d977e-ec4c-43c9-901d-76a991f81b49"/>
+				<reportElement x="173" y="65" width="100" height="20" uuid="679d977e-ec4c-43c9-901d-76a991f81b49"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{dataFim}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="32" width="397" height="20" uuid="b9cfd7b5-079f-454e-8be5-882b5fca3a86"/>
+				<reportElement x="0" y="32" width="397" height="20" uuid="36c901dc-60e5-48fd-8d6d-5f5d9d2bef61"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
-				<text><![CDATA[vezes alugado.]]></text>
+				<text><![CDATA[vezes solicitados.]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -152,34 +150,34 @@ ORDER BY COUNT(*) DESC;]]>
 				<text><![CDATA[Dono]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="204" y="0" width="238" height="20" uuid="654ffac5-05df-4c8f-8003-471aca6c1f70"/>
+				<reportElement x="204" y="0" width="231" height="20" uuid="654ffac5-05df-4c8f-8003-471aca6c1f70"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="203" y="0" width="239" height="20" uuid="070af7d1-89c7-4b9c-bdf1-3b3e2066f2f6"/>
+				<reportElement x="203" y="0" width="232" height="20" uuid="070af7d1-89c7-4b9c-bdf1-3b3e2066f2f6"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Produto]]></text>
 			</staticText>
 			<rectangle>
-				<reportElement x="442" y="0" width="113" height="20" uuid="127b232b-2f04-43de-92e5-706d53693b66"/>
+				<reportElement x="435" y="0" width="120" height="20" uuid="127b232b-2f04-43de-92e5-706d53693b66"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="441" y="0" width="114" height="20" uuid="2e787e5f-9735-4855-b102-7bacc1872fe0"/>
+				<reportElement x="435" y="0" width="120" height="20" uuid="2e787e5f-9735-4855-b102-7bacc1872fe0"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
 					<font fontName="Arial" size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Vezes Alugado]]></text>
+				<text><![CDATA[Vezes Solicitado]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
 			<rectangle>
-				<reportElement x="204" y="0" width="238" height="20" uuid="f57d7450-041a-490e-a94c-cb9d1116bbc7"/>
+				<reportElement x="204" y="0" width="231" height="20" uuid="f57d7450-041a-490e-a94c-cb9d1116bbc7"/>
 			</rectangle>
 			<textField>
-				<reportElement x="203" y="0" width="239" height="20" uuid="c89bbe13-d93d-4f32-af19-b2a7384e8888"/>
+				<reportElement x="203" y="0" width="232" height="20" uuid="c89bbe13-d93d-4f32-af19-b2a7384e8888"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
@@ -196,10 +194,10 @@ ORDER BY COUNT(*) DESC;]]>
 				<textFieldExpression><![CDATA[$F{DONO}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement x="442" y="0" width="113" height="20" uuid="bf216247-92d1-435d-9958-8f1f8ec484ce"/>
+				<reportElement x="435" y="0" width="120" height="20" uuid="bf216247-92d1-435d-9958-8f1f8ec484ce"/>
 			</rectangle>
 			<textField>
-				<reportElement x="442" y="0" width="113" height="20" uuid="5cafac70-b2c4-4bb5-a337-cd213597c028"/>
+				<reportElement x="435" y="0" width="120" height="20" uuid="5cafac70-b2c4-4bb5-a337-cd213597c028"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Arial" size="12"/>
 				</textElement>
