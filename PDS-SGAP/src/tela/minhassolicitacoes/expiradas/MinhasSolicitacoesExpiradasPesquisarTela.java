@@ -44,7 +44,7 @@ public class MinhasSolicitacoesExpiradasPesquisarTela extends javax.swing.JFrame
         jSeparator1 = new javax.swing.JSeparator();
         bSair = new javax.swing.JButton();
 
-        miDetalhesProduto.setText("jMenuItem1");
+        miDetalhesProduto.setText("Detalhes");
         miDetalhesProduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miDetalhesProdutoActionPerformed(evt);
@@ -222,7 +222,7 @@ public class MinhasSolicitacoesExpiradasPesquisarTela extends javax.swing.JFrame
     }//GEN-LAST:event_miDetalhesProdutoActionPerformed
 
     private void miRequerentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miRequerentesActionPerformed
-        // TODO add your handling code here:
+        verRequerentes();
     }//GEN-LAST:event_miRequerentesActionPerformed
 
     private void selecionarProduto(MouseEvent evt) {
@@ -249,15 +249,17 @@ public class MinhasSolicitacoesExpiradasPesquisarTela extends javax.swing.JFrame
         produtoDetalhesTela.setVisible(true);
     }
     
+    private void verRequerentes(){
+        SolicitacoesProdutoExpiradaTela produtoTela = new SolicitacoesProdutoExpiradaTela(this.produtoSelecionado, this.condomino);
+        produtoTela.setVisible(true);
+    }
+    
     private void preencherTabela(){
         SolicitacaoAluguelDAO solicitacaoAluguelDAO = new SolicitacaoAluguelDAO();
         Produto produto = new Produto();
         produto.setNome(tfProduto.getText());
         produto.setCondomino(condomino);
         this.produtos = solicitacaoAluguelDAO.findProdutoSolicitacaoExpiradas(condomino, produto);
-        for (Produto p : this.produtos){
-            
-        }
         TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
         tbResultados.setModel(modelo);
     }

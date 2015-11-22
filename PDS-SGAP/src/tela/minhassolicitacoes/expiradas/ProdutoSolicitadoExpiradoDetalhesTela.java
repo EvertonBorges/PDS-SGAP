@@ -321,7 +321,6 @@ public class ProdutoSolicitadoExpiradoDetalhesTela extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void bRequerentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRequerentesActionPerformed
-        
         telaSolicitacoes();
         dispose();
     }//GEN-LAST:event_bRequerentesActionPerformed

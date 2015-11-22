@@ -33,8 +33,13 @@ public class SolicitacaoAluguelDAO {
     
     public void removeSolicitacao(SolicitacaoAluguel solicitacao){
         EntityManager manager = JPAUtil.getEntityManager();
+        
+        SolicitacaoAluguel solicitacaoExcluir;
         manager.getTransaction().begin();      
-        manager.remove(solicitacao);
+        
+        solicitacaoExcluir = manager.find(SolicitacaoAluguel.class, solicitacao.getCodigo());        
+        manager.remove(solicitacaoExcluir);
+        
         manager.getTransaction().commit();
         manager.close();
     }
@@ -335,4 +340,21 @@ public class SolicitacaoAluguelDAO {
         return solicitacoesAlugueis;
     }
     
+    public List<SolicitacaoAluguel> findSolicitacaoEmAvaliacao(Condomino condomino, String nomeProduto){ // busca solicitacoes de um locatario que ainda não foram confirmadas
+        EntityManager manager = JPAUtil.getEntityManager();
+        List<SolicitacaoAluguel> solicitacoesRetorno;
+        
+        try{
+            String consulta = "CALL SP_SOLICITACOES_CONFIRMACAO(:codigo, :produto)";
+            Query query = manager.createNativeQuery(consulta, SolicitacaoAluguel.class);
+            query.setParameter("codigo", Integer.parseInt(String.valueOf(condomino.getCodigo())));
+            query.setParameter("produto", nomeProduto);
+            
+            solicitacoesRetorno = query.getResultList();
+        } catch (NoResultException ex) {
+            solicitacoesRetorno = null;
+        }
+        manager.close();
+        return solicitacoesRetorno;
+    }
 }

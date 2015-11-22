@@ -16,6 +16,10 @@ import tela.categoria.CategoriaPesquisarTela;
 import tela.condomino.CondominoPesquisarTela;
 import tela.meusprodutos.ProdutoPesquisarTela;
 import tela.aluguel.SolicitacaoPesquisarTela;
+import tela.locador.produtoalugado.ProdutoAlugadoPesquisarTela;
+import tela.locatario.aluguelconcluido.AluguelConcluidoPesquisarTela;
+import tela.locatario.aluguelemandamento.AluguelAndamentoPesquisarTela;
+import tela.locatario.solicitacaoaguardaconfirmacao.SolicitacaoAvaliacaoPesquisarTela;
 import tela.minhassolicitacoes.alugueisConfirmados.MinhasSolicitacoesConfirmadasPesquisarTela;
 import tela.minhassolicitacoes.emavaliacao.MinhasSolicitacoesEmAvaliacaoPesquisarTela;
 import tela.minhassolicitacoes.expiradas.MinhasSolicitacoesExpiradasPesquisarTela;
@@ -70,8 +74,12 @@ public class Principal extends javax.swing.JFrame {
         menuProdutos = new javax.swing.JMenu();
         miPesquisarProdutos = new javax.swing.JMenuItem();
         miSolicitacoesProdutos = new javax.swing.JMenuItem();
+        miAlugados = new javax.swing.JMenuItem();
         menuAluguel = new javax.swing.JMenu();
         miPesquisarAluguel = new javax.swing.JMenuItem();
+        miEmAndamento = new javax.swing.JMenuItem();
+        miAguardandoConfirmacao = new javax.swing.JMenuItem();
+        miConcluido = new javax.swing.JMenuItem();
         menuMinhasSolicitacoes = new javax.swing.JMenu();
         miTodas = new javax.swing.JMenuItem();
         miConfirmadas = new javax.swing.JMenuItem();
@@ -131,6 +139,14 @@ public class Principal extends javax.swing.JFrame {
         });
         menuProdutos.add(miSolicitacoesProdutos);
 
+        miAlugados.setText("Alugados");
+        miAlugados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAlugadosActionPerformed(evt);
+            }
+        });
+        menuProdutos.add(miAlugados);
+
         mbMenu.add(menuProdutos);
 
         menuAluguel.setText("Aluguel");
@@ -142,6 +158,30 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         menuAluguel.add(miPesquisarAluguel);
+
+        miEmAndamento.setText("Em Andamento");
+        miEmAndamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miEmAndamentoActionPerformed(evt);
+            }
+        });
+        menuAluguel.add(miEmAndamento);
+
+        miAguardandoConfirmacao.setText("Aguardando Confirmação");
+        miAguardandoConfirmacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAguardandoConfirmacaoActionPerformed(evt);
+            }
+        });
+        menuAluguel.add(miAguardandoConfirmacao);
+
+        miConcluido.setText("Concluído");
+        miConcluido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConcluidoActionPerformed(evt);
+            }
+        });
+        menuAluguel.add(miConcluido);
 
         menuMinhasSolicitacoes.setText("Aluguel");
 
@@ -263,7 +303,9 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void miSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSairActionPerformed
-        System.exit(0);
+        dispose();
+        Login login = new Login();
+        login.setVisible(true);
     }//GEN-LAST:event_miSairActionPerformed
 
     private void miPesquisarProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miPesquisarProdutosActionPerformed
@@ -340,6 +382,26 @@ public class Principal extends javax.swing.JFrame {
         inadimplentes.setVisible(true);
     }//GEN-LAST:event_miInadimplentesActionPerformed
 
+    private void miAlugadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlugadosActionPerformed
+        ProdutoAlugadoPesquisarTela produtosAlugados = new ProdutoAlugadoPesquisarTela(this.condomino);
+        produtosAlugados.setVisible(true);
+    }//GEN-LAST:event_miAlugadosActionPerformed
+
+    private void miEmAndamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEmAndamentoActionPerformed
+        AluguelAndamentoPesquisarTela emAndamento = new AluguelAndamentoPesquisarTela(this.condomino);
+        emAndamento.setVisible(true);
+    }//GEN-LAST:event_miEmAndamentoActionPerformed
+
+    private void miAguardandoConfirmacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAguardandoConfirmacaoActionPerformed
+        SolicitacaoAvaliacaoPesquisarTela aguardaAvaliacao = new SolicitacaoAvaliacaoPesquisarTela(this.condomino);
+        aguardaAvaliacao.setVisible(true);
+    }//GEN-LAST:event_miAguardandoConfirmacaoActionPerformed
+
+    private void miConcluidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miConcluidoActionPerformed
+        AluguelConcluidoPesquisarTela concluido = new AluguelConcluidoPesquisarTela(this.condomino);
+        concluido.setVisible(true);
+    }//GEN-LAST:event_miConcluidoActionPerformed
+
     private void miAlugueisAndamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlugueisAndamentoActionPerformed
         try{
             gerarRelatorio();
@@ -369,11 +431,15 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu menuMinhasSolicitacoes;
     private javax.swing.JMenu menuProdutos;
     private javax.swing.JMenu menuRelatorios;
+    private javax.swing.JMenuItem miAguardandoConfirmacao;
+    private javax.swing.JMenuItem miAlugados;
     private javax.swing.JMenuItem miAlugueisAndamento;
     private javax.swing.JMenuItem miApartamento;
     private javax.swing.JMenuItem miCategoria;
+    private javax.swing.JMenuItem miConcluido;
     private javax.swing.JMenuItem miCondomino;
     private javax.swing.JMenuItem miConfirmadas;
+    private javax.swing.JMenuItem miEmAndamento;
     private javax.swing.JMenuItem miEmAvaliacao;
     private javax.swing.JMenuItem miExpiradas;
     private javax.swing.JMenuItem miInadimplentes;

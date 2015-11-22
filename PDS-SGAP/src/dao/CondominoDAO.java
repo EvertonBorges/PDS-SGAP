@@ -129,4 +129,26 @@ public class CondominoDAO {
         
         return condominos;
     }
+    
+    public boolean verificaLoginExistente(String login){
+        EntityManager entitymanager = JPAUtil.getEntityManager();
+        List<Condomino> condominos = null;
+        boolean verifica = false;
+        try{
+            String consulta = "SELECT a FROM Condomino a WHERE a.login = :login ";
+            
+            TypedQuery<Condomino> query = entitymanager.createQuery(consulta, Condomino.class);
+            query.setParameter("login", login);
+            condominos = query.getResultList();
+            System.out.println(condominos);
+            if(condominos.isEmpty())
+                verifica = false;
+            else
+                verifica = true;
+        }
+        catch(Exception noresult){
+            noresult.getCause();
+        }
+        return verifica;
+    }
 }

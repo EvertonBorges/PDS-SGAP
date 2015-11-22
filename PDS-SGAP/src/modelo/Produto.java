@@ -24,11 +24,11 @@ public class Produto {
     private double taxa;
     private boolean status;
     
-    @OneToMany (mappedBy = "produto", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  
+    @OneToMany (mappedBy = "produto", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)  
     @Fetch(FetchMode.SUBSELECT)
     private List<SolicitacaoAluguel> solicitacoes;
         
-    @OneToMany (mappedBy = "produto", cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)  
+    @OneToMany (mappedBy = "produto", cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)  
     @Fetch(FetchMode.SUBSELECT)
     private List<ImagemProduto> imagensProduto;
     

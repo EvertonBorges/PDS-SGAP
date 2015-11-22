@@ -169,3 +169,32 @@ BEGIN
 	END IF;
 END#
 DELIMITER ;
+
+
+DELIMITER #
+    CREATE PROCEDURE SP_SOLICITACOES_CONFIRMACAO(P_LOCATARIO INT, P_PRODUTO VARCHAR(255))
+BEGIN    
+
+    SELECT * FROM SOLICITACAOALUGUEL
+    WHERE LOCATARIO_CODIGO = P_LOCATARIO
+    AND PRODUTO_CODIGO IN (SELECT CODIGO FROM PRODUTO
+                           WHERE NOME LIKE CONCAT('%',P_PRODUTO,'%'))
+    AND CODIGO NOT IN (SELECT SOLICITACAOALUGUEL_CODIGO FROM ALUGUEL);
+
+END#
+DELIMITER ;
+
+
+DELIMITER #
+    CREATE PROCEDURE SP_BUSCA_MEUSPRODUTOSALUGADOS(P_LOCATARIO INT, P_PRODUTO VARCHAR(255))
+BEGIN    
+    SELECT * FROM Aluguel
+    WHERE solicitacaoAluguel_codigo IN (SELECT codigo
+					FROM solicitacaoaluguel
+                                        WHERE produto_codigo IN (SELECT codigo
+								 FROM Produto
+                                                                 WHERE Condomino_codigo = P_LOCATARIO
+                                                                 AND nome LIKE CONCAT('%',P_PRODUTO,'%')))
+    AND dataDevolucao IS NULL;
+END#
+DELIMITER ;

@@ -1,14 +1,15 @@
 package modelo;
 
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Aluguel {
@@ -25,6 +26,10 @@ public class Aluguel {
     
     @Temporal (TemporalType.DATE)
     private Calendar dataDevolucao;
+
+    @Temporal(TemporalType.DATE)
+    @Transient
+    private Calendar dataVencimento;
 
     public Aluguel() {
     }
@@ -61,5 +66,14 @@ public class Aluguel {
 
     public void setComentario(Comentario comentario) {
         this.comentario = comentario;
+    }
+    
+    public Calendar getDataVencimento() {
+        this.dataVencimento = new GregorianCalendar(this.solicitacaoAluguel.getDataInicioAluguel().get(Calendar.YEAR), 
+                                                    this.solicitacaoAluguel.getDataInicioAluguel().get(Calendar.MONTH), 
+                                                    this.solicitacaoAluguel.getDataInicioAluguel().get(Calendar.DAY_OF_MONTH));
+        this.dataVencimento.add(Calendar.DAY_OF_MONTH, +this.solicitacaoAluguel.getDiasPretendidos()); // adicionan n dias a esta data
+        
+        return this.dataVencimento;
     }
 }
