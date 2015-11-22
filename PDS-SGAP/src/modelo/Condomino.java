@@ -50,6 +50,10 @@ public class Condomino {
         produtos= new ArrayList<>();
     }
 
+    public Condomino(String nome) {
+        this.nome = nome;
+    }
+
     public Condomino(String nome, String cpf, String login, String senha, TipoUsuario tipoUsuario, Calendar dataNascimento, List<SolicitacaoAluguel> solicitacoes, Apartamento apartamento, EstadoCivil estadoCivil, List<Produto> produtos, List<String> telefones) {
         this.nome = nome;
         this.cpf = cpf;

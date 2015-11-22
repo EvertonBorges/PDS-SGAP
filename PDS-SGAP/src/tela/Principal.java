@@ -14,7 +14,9 @@ import tela.minhassolicitacoes.alugueisConfirmados.MinhasSolicitacoesConfirmadas
 import tela.minhassolicitacoes.emavaliacao.MinhasSolicitacoesEmAvaliacaoPesquisarTela;
 import tela.minhassolicitacoes.expiradas.MinhasSolicitacoesExpiradasPesquisarTela;
 import tela.minhassolicitacoes.todas.MinhasSolicitacoesPesquisarTela;
+import tela.relatorios.Inadimplentes;
 import tela.relatorios.MaisAlugados;
+import tela.relatorios.MaisSolicitados;
 
 public class Principal extends javax.swing.JFrame {
     private Condomino condomino;
@@ -74,6 +76,8 @@ public class Principal extends javax.swing.JFrame {
         miCondomino = new javax.swing.JMenuItem();
         menuRelatorios = new javax.swing.JMenu();
         miProdutosMaisAlugados = new javax.swing.JMenuItem();
+        miProdutosMaisSolicitados = new javax.swing.JMenuItem();
+        miInadimplentes = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -207,6 +211,22 @@ public class Principal extends javax.swing.JFrame {
         });
         menuRelatorios.add(miProdutosMaisAlugados);
 
+        miProdutosMaisSolicitados.setText("Produtos mais solicitados");
+        miProdutosMaisSolicitados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miProdutosMaisSolicitadosActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(miProdutosMaisSolicitados);
+
+        miInadimplentes.setText("Condominos inadimplentes");
+        miInadimplentes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miInadimplentesActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(miInadimplentes);
+
         mbMenu.add(menuRelatorios);
 
         setJMenuBar(mbMenu);
@@ -294,6 +314,16 @@ public class Principal extends javax.swing.JFrame {
         maisAlugados.setVisible(true);
     }//GEN-LAST:event_miProdutosMaisAlugadosActionPerformed
 
+    private void miProdutosMaisSolicitadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miProdutosMaisSolicitadosActionPerformed
+        MaisSolicitados maisSolicitados = new MaisSolicitados();
+        maisSolicitados.setVisible(true);
+    }//GEN-LAST:event_miProdutosMaisSolicitadosActionPerformed
+
+    private void miInadimplentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miInadimplentesActionPerformed
+        Inadimplentes inadimplentes = new Inadimplentes();
+        inadimplentes.setVisible(true);
+    }//GEN-LAST:event_miInadimplentesActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar mbMenu;
@@ -309,9 +339,11 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miConfirmadas;
     private javax.swing.JMenuItem miEmAvaliacao;
     private javax.swing.JMenuItem miExpiradas;
+    private javax.swing.JMenuItem miInadimplentes;
     private javax.swing.JMenuItem miPesquisarAluguel;
     private javax.swing.JMenuItem miPesquisarProdutos;
     private javax.swing.JMenuItem miProdutosMaisAlugados;
+    private javax.swing.JMenuItem miProdutosMaisSolicitados;
     private javax.swing.JMenuItem miSair;
     private javax.swing.JMenuItem miSolicitacoesProdutos;
     private javax.swing.JMenuItem miTodas;

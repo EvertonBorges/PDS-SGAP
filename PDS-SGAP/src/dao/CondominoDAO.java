@@ -13,9 +13,6 @@ import modelo.Condomino;
 import util.JPAUtil;
 
 public class CondominoDAO {
-
-    public CondominoDAO() {
-    }
     
     public void addCondomino(Condomino condomino){
         EntityManager manager = JPAUtil.getEntityManager();
@@ -114,5 +111,20 @@ public class CondominoDAO {
         }
         
         return condominoResultado;
+    }
+    
+    public List<Condomino> findCondominos(Condomino condomino){
+        List<Condomino> condominos;
+        EntityManager manager = JPAUtil.getEntityManager();
+        TypedQuery<Condomino> query = manager.createQuery("SELECT c FROM Condomino c WHERE c.nome LIKE :nome", Condomino.class);
+        query.setParameter("nome", condomino.getNome() + "%");
+        
+        try {
+            condominos = query.getResultList();
+        } catch (NoResultException e) {
+            condominos = null;
+        }
+        
+        return condominos;
     }
 }

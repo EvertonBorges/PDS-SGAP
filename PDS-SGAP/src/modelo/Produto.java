@@ -43,6 +43,10 @@ public class Produto {
         categorias = new ArrayList<>();
     }
 
+    public Produto(String nome) {
+        this.nome = nome;
+    }
+
     public Produto(String nome, String descricao, double diaria, int taxa ,List<ImagemProduto> imagensProduto, List<SolicitacaoAluguel> solicitacoes, Condomino condomino, List<Categoria> categorias) {
         this.nome = nome;
         this.descricao = descricao;

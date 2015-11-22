@@ -13,12 +13,12 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
 import util.ControlaConexaoJasper;
 
-public class MaisProcurados extends javax.swing.JFrame {
+public class Inadimplentes extends javax.swing.JFrame {
 
     /**
      * Creates new form MaisAlugados
      */
-    public MaisProcurados() {
+    public Inadimplentes() {
         initComponents();
     }
 
@@ -39,7 +39,7 @@ public class MaisProcurados extends javax.swing.JFrame {
         bRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Relatório Mais Alugados");
+        setTitle("Inadimplentes");
 
         painelPeriodo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Período", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
 
@@ -166,7 +166,7 @@ public class MaisProcurados extends javax.swing.JFrame {
         parametros.put("dataFim", dataFim);
         
         try {
-            JasperPrint relatorio = JasperFillManager.fillReport("src/relatorios/MaisProcurados.jasper", parametros, ControlaConexaoJasper.getConexao());
+            JasperPrint relatorio = JasperFillManager.fillReport("src/relatorios/Inadimplentes.jasper", parametros, ControlaConexaoJasper.getConexao());
             JasperViewer visualizador = new JasperViewer(relatorio, false);
             visualizador.setVisible(true);
         } catch (JRException ex) {
@@ -190,13 +190,13 @@ public class MaisProcurados extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MaisProcurados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inadimplentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MaisProcurados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inadimplentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MaisProcurados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inadimplentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MaisProcurados.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inadimplentes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -204,7 +204,7 @@ public class MaisProcurados extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MaisProcurados().setVisible(true);
+                new Inadimplentes().setVisible(true);
             }
         });
     }

@@ -2,6 +2,7 @@ package dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.Apartamento;
@@ -115,5 +116,19 @@ public class ApartamentoDAO {
         manager.close();
         
         return ap;
+    }
+    
+    public List<Apartamento> findApartamentos(){
+        List<Apartamento> apartamentos;
+        EntityManager manager = JPAUtil.getEntityManager();
+        TypedQuery<Apartamento> query = manager.createQuery("SELECT a FROM Apartamento a", Apartamento.class);
+        
+        try {
+            apartamentos = query.getResultList();
+        } catch (NoResultException ex) {
+            apartamentos = null;
+        }
+        
+        return apartamentos;
     }
 }

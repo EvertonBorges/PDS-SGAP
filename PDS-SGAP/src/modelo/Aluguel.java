@@ -20,7 +20,7 @@ public class Aluguel {
     @JoinColumn (unique = true)
     private SolicitacaoAluguel solicitacaoAluguel;
     
-    @OneToOne
+    @OneToOne (mappedBy = "aluguel")
     private Comentario comentario;
     
     @Temporal (TemporalType.DATE)

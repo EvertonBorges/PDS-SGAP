@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.swing.JOptionPane;
 import modelo.Aluguel;
 import modelo.Categoria;
 import modelo.Condomino;
@@ -22,7 +21,7 @@ public class ProdutoDAO {
         preencherLista();
     }
     
-    public void preencherLista(){
+    private void preencherLista(){
         this.produtos.clear();
         EntityManager manager = JPAUtil.getEntityManager();
         Query query = manager.createQuery("SELECT p FROM Produto p ");
@@ -47,7 +46,6 @@ public class ProdutoDAO {
         }
         manager.getTransaction().commit();
         manager.close();
-        JOptionPane.showMessageDialog(null, "Produto inserido com sucesso", "Produto Inserido", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void alterProduto(Produto produto, List<ImagemProduto> imagensNovas){
@@ -78,7 +76,6 @@ public class ProdutoDAO {
         manager.remove(produtoRemover);
         manager.getTransaction().commit();
         manager.close();
-        JOptionPane.showMessageDialog(null, "Produto excluido com sucesso", "Produto Excluido", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public List<Produto> findProduto(Condomino condomino){
@@ -108,7 +105,11 @@ public class ProdutoDAO {
         List<Produto> produtosRetorno;
         Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.nome LIKE :nome");
         query.setParameter("nome", produto.getNome()+ "%");
-        produtosRetorno = query.getResultList();
+        try {
+            produtosRetorno = query.getResultList();
+        } catch (NoResultException e) {
+            produtosRetorno = null;
+        }
         return produtosRetorno;
     }
     

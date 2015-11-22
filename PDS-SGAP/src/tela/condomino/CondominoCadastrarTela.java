@@ -56,7 +56,7 @@ public class CondominoCadastrarTela extends javax.swing.JFrame {
 
         EstadoCivilDAO dao = new EstadoCivilDAO();
         
-        for (EstadoCivil e : dao.listaEstadoCivil()) {
+        for (EstadoCivil e : dao.findEstadoCivil(new EstadoCivil(""))) {
             comboEstadoCivil.addItem(e);
         }
     }

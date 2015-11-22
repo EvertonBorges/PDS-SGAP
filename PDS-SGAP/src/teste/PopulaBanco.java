@@ -1,5 +1,13 @@
 package teste;
 
+import dao.AluguelDAO;
+import dao.ApartamentoDAO;
+import dao.CategoriaDAO;
+import dao.ComentarioDAO;
+import dao.CondominoDAO;
+import dao.EstadoCivilDAO;
+import dao.ProdutoDAO;
+import dao.SolicitacaoAluguelDAO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -8,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.imageio.ImageIO;
-import javax.persistence.EntityManager;
 import modelo.Aluguel;
 import modelo.Apartamento;
 import modelo.Avaliacao;
@@ -20,35 +27,51 @@ import modelo.ImagemProduto;
 import modelo.Produto;
 import modelo.SolicitacaoAluguel;
 import modelo.TipoUsuario;
-import util.JPAUtil;
 
 public class PopulaBanco {
+    private List<Aluguel> alugueis = new ArrayList<>();
+    private List<SolicitacaoAluguel> solicitacoes;
+    private List<Apartamento> apartamentos;
+    private List<EstadoCivil> estadosCivis;
+    private List<Categoria> categorias;
+    private List<Condomino> condominos;
+    private List<Produto> produtos;
     
     public PopulaBanco() {
+        
+    }
+    
+    public void populaEstadosCivis(){
         EstadoCivil etc1 = new EstadoCivil("Solteiro");
         EstadoCivil etc2 = new EstadoCivil("Casado");
         EstadoCivil etc3 = new EstadoCivil("Divorciado");
         EstadoCivil etc4 = new EstadoCivil("Viúvo");
-
-        Apartamento a1 = new Apartamento();
-        a1.setBloco('A');
-        a1.setAndar(1);
-        a1.setNumApartamento("101");
-
-        Apartamento a2 = new Apartamento();
-        a2.setBloco('A');
-        a2.setAndar(2);
-        a2.setNumApartamento("201");
         
-        Apartamento a3 = new Apartamento();
-        a3.setBloco('A');
-        a3.setAndar(3);
-        a3.setNumApartamento("301");
+        EstadoCivilDAO estadoCivilDAO = new EstadoCivilDAO();
+        estadoCivilDAO.add(etc1);
+        estadoCivilDAO.add(etc2);
+        estadoCivilDAO.add(etc3);
+        estadoCivilDAO.add(etc4);
+    }
+    
+    public void populaApartamentos(){
+        Apartamento a1 = new Apartamento('A', 1, "101");
+        Apartamento a2 = new Apartamento('A', 2, "201");
+        Apartamento a3 = new Apartamento('A', 3, "301");
+        Apartamento a4 = new Apartamento('A', 4, "401");
         
-        Apartamento a4 = new Apartamento();
-        a4.setBloco('A');
-        a4.setAndar(4);
-        a4.setNumApartamento("401");
+        ApartamentoDAO apartamentoDAO = new ApartamentoDAO();
+        apartamentoDAO.inserir(a1);
+        apartamentoDAO.inserir(a2);
+        apartamentoDAO.inserir(a3);
+        apartamentoDAO.inserir(a4);
+    }
+    
+    public void populaCondominos(){
+        ApartamentoDAO apartamentoDAO = new ApartamentoDAO();
+        EstadoCivilDAO estadoCivilDAO = new EstadoCivilDAO();
+        this.apartamentos = apartamentoDAO.findApartamentos();
+        this.estadosCivis = estadoCivilDAO.findEstadoCivil(new EstadoCivil(""));
         
         Condomino adm1 = new Condomino();
         adm1.setNome("ADA");
@@ -58,8 +81,8 @@ public class PopulaBanco {
         adm1.setDataNascimento(Calendar.getInstance());
         adm1.getDataNascimento().set(1997, 11, 26);
         adm1.setCpf("111.111.111-11");
-        adm1.setApartamento(a1);
-        adm1.setEstadoCivil(etc1);
+        adm1.setApartamento(apartamentos.get(0));
+        adm1.setEstadoCivil(estadosCivis.get(0));
         
         Condomino adm2 = new Condomino();
         adm2.setNome("BRUNA");
@@ -69,8 +92,8 @@ public class PopulaBanco {
         adm2.setDataNascimento(Calendar.getInstance());
         adm2.getDataNascimento().set(1994, 00, 21);
         adm2.setCpf("222.222.222-22");
-        adm2.setApartamento(a2);
-        adm2.setEstadoCivil(etc2);
+        adm2.setApartamento(apartamentos.get(1));
+        adm2.setEstadoCivil(estadosCivis.get(1));
         
         Condomino adm3 = new Condomino();
         adm3.setNome("EVERTON");
@@ -80,8 +103,8 @@ public class PopulaBanco {
         adm3.setDataNascimento(Calendar.getInstance());
         adm3.getDataNascimento().set(1990, 07, 20);
         adm3.setCpf("333.333.333-33");
-        adm3.setApartamento(a3);
-        adm3.setEstadoCivil(etc3);
+        adm3.setApartamento(apartamentos.get(2));
+        adm3.setEstadoCivil(estadosCivis.get(2));
         
         Condomino adm4 = new Condomino();
         adm4.setNome("WILSON");
@@ -91,9 +114,65 @@ public class PopulaBanco {
         adm4.setDataNascimento(Calendar.getInstance());
         adm4.getDataNascimento().set(1988, 05, 03);
         adm4.setCpf("444.444.444-44");
-        adm4.setApartamento(a4);
-        adm4.setEstadoCivil(etc4);
+        adm4.setApartamento(apartamentos.get(3));
+        adm4.setEstadoCivil(estadosCivis.get(3));
         
+        Condomino cd1 = new Condomino();
+        cd1.setNome("ADA");
+        cd1.setLogin("lcada");
+        cd1.setSenha("scada");
+        cd1.setTipoUsuario(TipoUsuario.CONDOMINO);
+        cd1.setDataNascimento(Calendar.getInstance());
+        cd1.getDataNascimento().set(1997, 11, 26);
+        cd1.setCpf("555.555.555-55");
+        cd1.setApartamento(apartamentos.get(0));
+        cd1.setEstadoCivil(estadosCivis.get(0));
+        
+        Condomino cd2 = new Condomino();
+        cd2.setNome("BRUNA");
+        cd2.setLogin("lcbruna");
+        cd2.setSenha("scbruna");
+        cd2.setTipoUsuario(TipoUsuario.CONDOMINO);
+        cd2.setDataNascimento(Calendar.getInstance());
+        cd2.getDataNascimento().set(1994, 00, 21);
+        cd2.setCpf("666.666.666-66");
+        cd2.setApartamento(apartamentos.get(1));
+        cd2.setEstadoCivil(estadosCivis.get(1));
+        
+        Condomino cd3 = new Condomino();
+        cd3.setNome("WILSON");
+        cd3.setLogin("lcwilson");
+        cd3.setSenha("scwilson");
+        cd3.setTipoUsuario(TipoUsuario.CONDOMINO);
+        cd3.setDataNascimento(Calendar.getInstance());
+        cd3.getDataNascimento().set(1988, 05, 03);
+        cd3.setCpf("777.777.777-77");
+        cd3.setApartamento(apartamentos.get(2));
+        cd3.setEstadoCivil(estadosCivis.get(2));
+        
+        Condomino cd4 = new Condomino();
+        cd4.setNome("EVERTON");
+        cd4.setLogin("lceverton");
+        cd4.setSenha("sceverton");
+        cd4.setTipoUsuario(TipoUsuario.CONDOMINO);
+        cd4.setDataNascimento(Calendar.getInstance());
+        cd4.getDataNascimento().set(1990, 07, 20);
+        cd4.setCpf("888.888.888-88");
+        cd4.setApartamento(apartamentos.get(3));
+        cd4.setEstadoCivil(estadosCivis.get(3));
+        
+        CondominoDAO condominoDAO = new CondominoDAO();
+        condominoDAO.addCondomino(adm1);
+        condominoDAO.addCondomino(adm2);
+        condominoDAO.addCondomino(adm3);
+        condominoDAO.addCondomino(adm4);
+        condominoDAO.addCondomino(cd1);
+        condominoDAO.addCondomino(cd2);
+        condominoDAO.addCondomino(cd3);
+        condominoDAO.addCondomino(cd4);
+    }
+    
+    public void populaCategoria(){
         Categoria cat1 = new Categoria();
         cat1.setDescricao("Educação, Esporte e Lazer");
 
@@ -244,171 +323,149 @@ public class PopulaBanco {
         Categoria cat50 = new Categoria();
         cat50.setDescricao("Patinete");
         
-        Condomino cd1 = new Condomino();
-        cd1.setNome("ADA");
-        cd1.setLogin("lcada");
-        cd1.setSenha("scada");
-        cd1.setTipoUsuario(TipoUsuario.CONDOMINO);
-        cd1.setDataNascimento(Calendar.getInstance());
-        cd1.getDataNascimento().set(1997, 11, 26);
-        cd1.setCpf("555.555.555-55");
-        cd1.setApartamento(a1);
-        cd1.setEstadoCivil(etc1);
-        
-        Condomino cd2 = new Condomino();
-        cd2.setNome("BRUNA");
-        cd2.setLogin("lcbruna");
-        cd2.setSenha("scbruna");
-        cd2.setTipoUsuario(TipoUsuario.CONDOMINO);
-        cd2.setDataNascimento(Calendar.getInstance());
-        cd2.getDataNascimento().set(1994, 00, 21);
-        cd2.setCpf("666.666.666-66");
-        cd2.setApartamento(a2);
-        cd2.setEstadoCivil(etc2);
-        
-        Condomino cd3 = new Condomino();
-        cd3.setNome("WILSON");
-        cd3.setLogin("lcwilson");
-        cd3.setSenha("scwilson");
-        cd3.setTipoUsuario(TipoUsuario.CONDOMINO);
-        cd3.setDataNascimento(Calendar.getInstance());
-        cd3.getDataNascimento().set(1988, 05, 03);
-        cd3.setCpf("777.777.777-77");
-        cd3.setApartamento(a3);
-        cd3.setEstadoCivil(etc3);
-        
-        Condomino cd4 = new Condomino();
-        cd4.setNome("EVERTON");
-        cd4.setLogin("lceverton");
-        cd4.setSenha("sceverton");
-        cd4.setTipoUsuario(TipoUsuario.CONDOMINO);
-        cd4.setDataNascimento(Calendar.getInstance());
-        cd4.getDataNascimento().set(1990, 07, 20);
-        cd4.setCpf("888.888.888-88");
-        cd4.setApartamento(a4);
-        cd4.setEstadoCivil(etc4);
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        categoriaDAO.addCategoria(cat1);
+        categoriaDAO.addCategoria(cat2);
+        categoriaDAO.addCategoria(cat3);
+        categoriaDAO.addCategoria(cat4);
+        categoriaDAO.addCategoria(cat5);
+        categoriaDAO.addCategoria(cat6);
+        categoriaDAO.addCategoria(cat7);
+        categoriaDAO.addCategoria(cat8);
+        categoriaDAO.addCategoria(cat9);
+        categoriaDAO.addCategoria(cat10);
+        categoriaDAO.addCategoria(cat11);
+        categoriaDAO.addCategoria(cat12);
+        categoriaDAO.addCategoria(cat13);
+        categoriaDAO.addCategoria(cat14);
+        categoriaDAO.addCategoria(cat15);
+        categoriaDAO.addCategoria(cat16);
+        categoriaDAO.addCategoria(cat17);
+        categoriaDAO.addCategoria(cat18);
+        categoriaDAO.addCategoria(cat19);
+        categoriaDAO.addCategoria(cat20);
+        categoriaDAO.addCategoria(cat21);
+        categoriaDAO.addCategoria(cat22);
+        categoriaDAO.addCategoria(cat23);
+        categoriaDAO.addCategoria(cat24);
+        categoriaDAO.addCategoria(cat25);
+        categoriaDAO.addCategoria(cat26);
+        categoriaDAO.addCategoria(cat27);
+        categoriaDAO.addCategoria(cat28);
+        categoriaDAO.addCategoria(cat29);
+        categoriaDAO.addCategoria(cat30);
+        categoriaDAO.addCategoria(cat31);
+        categoriaDAO.addCategoria(cat32);
+        categoriaDAO.addCategoria(cat33);
+        categoriaDAO.addCategoria(cat34);
+        categoriaDAO.addCategoria(cat35);
+        categoriaDAO.addCategoria(cat36);
+        categoriaDAO.addCategoria(cat37);
+        categoriaDAO.addCategoria(cat38);
+        categoriaDAO.addCategoria(cat39);
+        categoriaDAO.addCategoria(cat40);
+        categoriaDAO.addCategoria(cat41);
+        categoriaDAO.addCategoria(cat42);
+        categoriaDAO.addCategoria(cat43);
+        categoriaDAO.addCategoria(cat44);
+        categoriaDAO.addCategoria(cat45);
+        categoriaDAO.addCategoria(cat46);
+        categoriaDAO.addCategoria(cat47);
+        categoriaDAO.addCategoria(cat48);
+        categoriaDAO.addCategoria(cat49);
+        categoriaDAO.addCategoria(cat50);
+    }
+    
+    public void populaProduto(){
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        categorias = categoriaDAO.findCategoria(new Categoria(""));
+        CondominoDAO condominoDAO = new CondominoDAO();
+        condominos = condominoDAO.findCondominos(new Condomino(""));
         
         Produto p1 = new Produto();
         p1.setDiaria(5);
         p1.setTaxa(1);
         p1.setNome("MOUSE");
         p1.setStatus(true);
-        p1.getCategorias().add(cat30);
-        p1.getCategorias().add(cat34);
+        p1.getCategorias().add(categorias.get(29));
+        p1.getCategorias().add(categorias.get(33));
 
         Produto p2 = new Produto();
         p2.setDiaria(6);
         p2.setTaxa(1);
         p2.setNome("TECLADO");
         p2.setStatus(true);
-        p2.getCategorias().add(cat30);
-        p2.getCategorias().add(cat33);
+        p2.getCategorias().add(categorias.get(29));
+        p2.getCategorias().add(categorias.get(32));
 
         Produto p3 = new Produto();
         p3.setDiaria(15);
         p3.setTaxa(3);
         p3.setNome("MONITOR");
         p3.setStatus(true);
-        p3.getCategorias().add(cat30);
-        p3.getCategorias().add(cat36);
+        p3.getCategorias().add(categorias.get(29));
+        p3.getCategorias().add(categorias.get(35));
         
         Produto p4 = new Produto();
         p4.setDiaria(3);
         p4.setTaxa(1);
         p4.setNome("CADERNO");
         p4.setStatus(true);
-        p4.getCategorias().add(cat1);
+        p4.getCategorias().add(categorias.get(0));
 
         Produto p5 = new Produto();
         p5.setDiaria(35);
         p5.setTaxa(5);
         p5.setNome("NOTEBOOK");
         p5.setStatus(true);
-        p5.getCategorias().add(cat30);
-        p5.getCategorias().add(cat32);
+        p5.getCategorias().add(categorias.get(29));
+        p5.getCategorias().add(categorias.get(31));
 
         Produto p6 = new Produto();
         p6.setDiaria(3);
         p6.setTaxa(0.5);
         p6.setNome("CANETA");
         p6.setStatus(true);
-        p6.getCategorias().add(cat1);
+        p6.getCategorias().add(categorias.get(0));
 
         Produto p7 = new Produto();
         p7.setDiaria(25);
         p7.setTaxa(4);
         p7.setNome("CELULAR");
         p7.setStatus(true);
-        p7.getCategorias().add(cat30);
+        p7.getCategorias().add(categorias.get(29));
 
         Produto p8 = new Produto();
         p1.setDiaria(10);
         p1.setTaxa(3);
         p8.setNome("FONE");
         p8.setStatus(true);
-        p8.getCategorias().add(cat30);
+        p8.getCategorias().add(categorias.get(29));
 
         Produto p9 = new Produto();
         p1.setDiaria(2);
         p1.setTaxa(0.25);
         p9.setNome("CABO USB");
         p9.setStatus(true);
-        p9.getCategorias().add(cat30);
+        p9.getCategorias().add(categorias.get(29));
 
         Produto p10 = new Produto();
         p1.setDiaria(5);
         p1.setTaxa(2);
         p10.setNome("CHAVE");
-        p10.getCategorias().add(cat24);
+        p10.getCategorias().add(categorias.get(23));
 
         Produto p11 = new Produto();
         p1.setDiaria(5);
         p1.setTaxa(2);
         p11.setNome("CHAVEIRO");
-        p11.getCategorias().add(cat27);
+        p11.getCategorias().add(categorias.get(26));
 
         Produto p12 = new Produto();
         p1.setDiaria(10);
         p1.setTaxa(5);
         p12.setNome("GARRAFA");
-        p12.getCategorias().add(cat47);
-      
-        cd1.getTelefones().add("1111111111");
-        cd2.getTelefones().add("2222222222");
-        cd3.getTelefones().add("3333333333");
-        cd4.getTelefones().add("4444444444");
-                
-        cd1.getProdutos().add(p1);
-        cd1.getProdutos().add(p2);
-        cd1.getProdutos().add(p3);
-        
-        cd2.getProdutos().add(p4);
-        cd2.getProdutos().add(p5);
-        cd2.getProdutos().add(p6);
-
-        cd3.getProdutos().add(p7);
-        cd3.getProdutos().add(p8);
-        cd3.getProdutos().add(p9);
-        
-        cd4.getProdutos().add(p10);
-        cd4.getProdutos().add(p11);
-        cd4.getProdutos().add(p12);
-        
-        p1.setCondomino(cd1);
-        p2.setCondomino(cd1);
-        p3.setCondomino(cd1);
-
-        p4.setCondomino(cd2);
-        p5.setCondomino(cd2);
-        p6.setCondomino(cd2);
-        
-        p7.setCondomino(cd3);
-        p8.setCondomino(cd3);
-        p9.setCondomino(cd3);
-
-        p10.setCondomino(cd4);
-        p11.setCondomino(cd4);
-        p12.setCondomino(cd4);
+        p12.getCategorias().add(categorias.get(46));
         
         p1.setDescricao("Produto de boa qualidade e resistente. Ano:2015. ");
         p2.setDescricao("Produto de boa qualidade e resistente. Ano:2015. ");
@@ -422,15 +479,6 @@ public class PopulaBanco {
         p10.setDescricao("Produto de boa qualidade e resistente. Ano:2015. ");
         p11.setDescricao("Produto de boa qualidade e resistente. Ano:2015. ");
         p12.setDescricao("Produto de boa qualidade e resistente. Ano:2015. ");
-        
-        a1.getCondominos().add(adm1);
-        a1.getCondominos().add(cd1);
-        a2.getCondominos().add(adm2);
-        a2.getCondominos().add(cd2);
-        a3.getCondominos().add(adm3);
-        a3.getCondominos().add(cd3);
-        a4.getCondominos().add(adm4);
-        a4.getCondominos().add(cd4);
 
         ImagemProduto img1;
         ImagemProduto img2;
@@ -468,133 +516,75 @@ public class PopulaBanco {
         img10.setProduto(p10);
         img11.setProduto(p11);
         
-        List<Produto> produtos = new ArrayList<>();
-        produtos.add(p1);
-        produtos.add(p2);
-        produtos.add(p3);
-        produtos.add(p4);
-        produtos.add(p5);
-        produtos.add(p6);
-        produtos.add(p7);
-        produtos.add(p8);
-        produtos.add(p9);
-        produtos.add(p10);
-        produtos.add(p11);
-        produtos.add(p12);
+        condominos.get(4).getTelefones().add("1111111111");
+        condominos.get(5).getTelefones().add("2222222222");
+        condominos.get(6).getTelefones().add("3333333333");
+        condominos.get(7).getTelefones().add("4444444444");
+                
+        condominos.get(4).getProdutos().add(p1);
+        condominos.get(4).getProdutos().add(p2);
+        condominos.get(4).getProdutos().add(p3);
         
-        List<Condomino> condominos = new ArrayList<>();
-        condominos.add(cd1);
-        condominos.add(cd2);
-        condominos.add(cd3);
-        condominos.add(cd4);
-        
-        //Começa a inserir dados no banco.
-        EntityManager manager = JPAUtil.getEntityManager();
-        manager.getTransaction().begin();
-        
-        manager.persist ( etc1 );
-        manager.persist ( etc2 );
-        manager.persist ( etc3 );
-        manager.persist ( etc4 );
-        
-        manager.persist ( a1 ); 
-        manager.persist ( a2 ); 
-        manager.persist ( a3 );
-        manager.persist ( a4 );
-        
-        //Persistindo Categorias
-        manager.persist ( cat1 );
-        manager.persist ( cat2 );
-        manager.persist ( cat3 );
-        manager.persist ( cat4 );
-        manager.persist ( cat5 );
-        manager.persist ( cat6 );
-        manager.persist ( cat7 );
-        manager.persist ( cat8 );
-        manager.persist ( cat9 );
-        manager.persist ( cat10 );
-        manager.persist ( cat11 );
-        manager.persist ( cat12 );
-        manager.persist ( cat13 );
-        manager.persist ( cat14 );
-        manager.persist ( cat15 );
-        manager.persist ( cat16 );
-        manager.persist ( cat17 );
-        manager.persist ( cat18 );
-        manager.persist ( cat19 );
-        manager.persist ( cat20 );
-        manager.persist ( cat21 );
-        manager.persist ( cat22 );
-        manager.persist ( cat23 );
-        manager.persist ( cat24 );
-        manager.persist ( cat25 );
-        manager.persist ( cat26 );
-        manager.persist ( cat27 );
-        manager.persist ( cat28 );
-        manager.persist ( cat29 );
-        manager.persist ( cat30 );
-        manager.persist ( cat31 );
-        manager.persist ( cat32 );
-        manager.persist ( cat33 );
-        manager.persist ( cat34 );
-        manager.persist ( cat35 );
-        manager.persist ( cat36 );
-        manager.persist ( cat37 );
-        manager.persist ( cat38 );
-        manager.persist ( cat39 );
-        manager.persist ( cat40 );
-        manager.persist ( cat41 );
-        manager.persist ( cat42 );
-        manager.persist ( cat43 );
-        manager.persist ( cat44 );
-        manager.persist ( cat45 );
-        manager.persist ( cat46 );
-        manager.persist ( cat47 );
-        manager.persist ( cat48 );
-        manager.persist ( cat49 );
-        manager.persist ( cat50 );
+        condominos.get(5).getProdutos().add(p4);
+        condominos.get(5).getProdutos().add(p5);
+        condominos.get(5).getProdutos().add(p6);
 
-        manager.persist ( adm1 ); 
-        manager.persist ( adm2 ); 
-        manager.persist ( adm3 );
-        manager.persist ( adm4 );
+        condominos.get(6).getProdutos().add(p7);
+        condominos.get(6).getProdutos().add(p8);
+        condominos.get(6).getProdutos().add(p9);
         
-        manager.persist ( cd1 ); 
-        manager.persist ( cd2 ); 
-        manager.persist ( cd3 );
-        manager.persist ( cd4 );
+        condominos.get(7).getProdutos().add(p10);
+        condominos.get(7).getProdutos().add(p11);
+        condominos.get(7).getProdutos().add(p12);
+        
+        p1.setCondomino(condominos.get(4));
+        p2.setCondomino(condominos.get(4));
+        p3.setCondomino(condominos.get(4));
 
-        manager.persist ( p1 ); 
-        manager.persist ( p2 ); 
-        manager.persist ( p3 );
-        manager.persist ( p4 );
-        manager.persist ( p5 ); 
-        manager.persist ( p6 ); 
-        manager.persist ( p7 );
-        manager.persist ( p8 );        
-        manager.persist ( p9 ); 
-        manager.persist ( p10); 
-        manager.persist ( p11);
-        manager.persist ( p12);
+        p4.setCondomino(condominos.get(5));
+        p5.setCondomino(condominos.get(5));
+        p6.setCondomino(condominos.get(5));
         
-        manager.persist ( img1 ); 
-        manager.persist ( img2 ); 
-        manager.persist ( img3 );
-        manager.persist ( img4 );
-        manager.persist ( img5 ); 
-        manager.persist ( img6 ); 
-        manager.persist ( img7 );
-        manager.persist ( img8 );        
-        manager.persist ( img9 ); 
-        manager.persist ( img10);
+        p7.setCondomino(condominos.get(6));
+        p8.setCondomino(condominos.get(6));
+        p9.setCondomino(condominos.get(6));
+
+        p10.setCondomino(condominos.get(7));
+        p11.setCondomino(condominos.get(7));
+        p12.setCondomino(condominos.get(7));
         
-        List<SolicitacaoAluguel> solicitacoes = new ArrayList<>();
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtoDAO.addProduto(p1);
+        produtoDAO.addProduto(p2);
+        produtoDAO.addProduto(p3);
+        produtoDAO.addProduto(p4);
+        produtoDAO.addProduto(p5);
+        produtoDAO.addProduto(p6);
+        produtoDAO.addProduto(p7);
+        produtoDAO.addProduto(p8);
+        produtoDAO.addProduto(p9);
+        produtoDAO.addProduto(p10);
+        produtoDAO.addProduto(p11);
+        produtoDAO.addProduto(p12);
+        
+        condominoDAO.alteraCondomino(condominos.get(4));
+        condominoDAO.alteraCondomino(condominos.get(5));
+        condominoDAO.alteraCondomino(condominos.get(6));
+        condominoDAO.alteraCondomino(condominos.get(7));
+    }
+    
+    public void populaSolicitacaoAluguel(){
+        CondominoDAO condominoDAO = new CondominoDAO();
+        condominos = condominoDAO.findCondominos(new Condomino(""));
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        produtos = produtoDAO.findProduto(new Produto(""));
+        
         for (int i = 5; i < 1605; i++) {
             int diaSolicitacao, diaInicioAluguel, quantidadeDias, sorteioProduto, sorteioCondomino;
             Calendar dataSolicitacao = Calendar.getInstance(), dataInicioAluguel = Calendar.getInstance();
             diaSolicitacao = i/5;
-            diaInicioAluguel = (int) (diaSolicitacao + (5 + Math.random() * 20));
-            quantidadeDias = (int) (3 + Math.random() * 12);
+            diaInicioAluguel = (int) (diaSolicitacao + (8 + Math.random() * 15));
+            quantidadeDias = (int) (5 + Math.random() * 12);
             dataSolicitacao.set(Calendar.DAY_OF_YEAR, diaSolicitacao);
             dataInicioAluguel.set(Calendar.DAY_OF_YEAR, diaInicioAluguel);
             sorteioProduto = (int) (Math.random() * 12);
@@ -606,37 +596,47 @@ public class PopulaBanco {
                 sorteioCondomino = (int) (Math.random() * 4);
             }
             SolicitacaoAluguel sa = new SolicitacaoAluguel(quantidadeDias, 1, produtos.get(sorteioProduto), condominos.get(sorteioCondomino), dataSolicitacao, dataInicioAluguel);
-            solicitacoes.add(sa);
-            manager.persist ( sa );
+            SolicitacaoAluguelDAO solicitacaoAluguelDAO = new SolicitacaoAluguelDAO();
+            solicitacaoAluguelDAO.addSolicitacao(sa);
         }
+    }
+    
+    public void populaAluguel(){
+        SolicitacaoAluguelDAO solicitacaoAluguelDAO = new SolicitacaoAluguelDAO();
+        Calendar dataInicio = Calendar.getInstance();
+        dataInicio.set(Calendar.DAY_OF_YEAR, 0);
+        solicitacoes = solicitacaoAluguelDAO.findSolicitacoes(dataInicio);
         
-        List<Aluguel> alugueis = new ArrayList<>();
         for (int i = 0; i<50; i++) {
-            int sorteioSolicitacao, sorteioDataDevolucao;
             Calendar dataDevolucao = Calendar.getInstance();
-            sorteioSolicitacao = (int) (Math.random() * 1600);
-            SolicitacaoAluguel solicitacao = solicitacoes.get(sorteioSolicitacao);
-            sorteioDataDevolucao = (int) (solicitacao.getDataInicioAluguel().get(Calendar.DAY_OF_YEAR) + (solicitacao.getDiasPretendidos() - 7 + Math.random() * 10));
-            dataDevolucao.set(Calendar.DAY_OF_YEAR, sorteioDataDevolucao);
+            SolicitacaoAluguel solicitacao = sorteiaAluguelSemRepeticao(alugueis, solicitacoes, dataDevolucao); // HARD
+            dataDevolucao.set(Calendar.DAY_OF_YEAR, (int) (solicitacao.getDataInicioAluguel().get(Calendar.DAY_OF_YEAR) + (solicitacao.getDiasPretendidos() - 4 + Math.random() * 8)));
             
-            solicitacao = sorteiaAluguelSemRepeticao(alugueis, solicitacoes, dataDevolucao);
-            Comentario comentario= new Comentario();
-            Aluguel aluguel = new Aluguel(solicitacao, dataDevolucao, comentario);
+            Aluguel aluguel = new Aluguel();
+            aluguel.setSolicitacaoAluguel(solicitacao);
+            aluguel.setDataDevolucao(dataDevolucao);
+            
+            AluguelDAO aluguelDAO = new AluguelDAO();
+            aluguelDAO.addAluguel(aluguel);
+        }
+    }
+    
+    public void populaComentario(){
+        AluguelDAO aluguelDAO = new AluguelDAO();
+        alugueis = aluguelDAO.findAlugueis();
+        
+        for (int i=0; i<50; i++) {
+            Comentario comentario = new Comentario();
             Calendar dataComentario = Calendar.getInstance();
-            dataComentario.set(Calendar.DAY_OF_YEAR, (int) (dataDevolucao.get(Calendar.DAY_OF_YEAR) + 2 + Math.random() * 8));
+            dataComentario.set(Calendar.DAY_OF_YEAR, (int) (alugueis.get(i).getDataDevolucao().get(Calendar.DAY_OF_YEAR) + 2 + Math.random() * 8));
             comentario.setComentario(sorteiaComentario());
             comentario.setAvaliacao(sorteiaAvaliacao());
             comentario.setDataComentario(dataComentario);
-            comentario.setAluguel(aluguel);
-            alugueis.add(aluguel);
-            manager.persist(aluguel);
-            manager.persist(comentario);
+            comentario.setAluguel(alugueis.get(i));
+            
+            ComentarioDAO comentarioDAO = new ComentarioDAO();
+            comentarioDAO.addComentario(comentario);
         }
-        
-        manager.getTransaction().commit();
-        manager.close();
-        
-        System.exit(0);
     }
     
     private ImagemProduto carregarBufferedImage(Produto produto, String path){
@@ -659,24 +659,36 @@ public class PopulaBanco {
     }
     
     private SolicitacaoAluguel sorteiaAluguelSemRepeticao(List<Aluguel> alugueis, List<SolicitacaoAluguel> solicitacoes, Calendar dataDevolucao){
-        SolicitacaoAluguel solicitacao = solicitacoes.get((int) (Math.random() * 1600));
+        int sorteioSolicitacao = (int) (Math.random() * 1600);
+        SolicitacaoAluguel solicitacao = solicitacoes.get(sorteioSolicitacao);
+        int sorteioDataDevolucao = (int) (solicitacao.getDataInicioAluguel().get(Calendar.DAY_OF_YEAR) + (solicitacao.getDiasPretendidos() - 4 + Math.random() * 8));
+        dataDevolucao.set(Calendar.DAY_OF_YEAR, sorteioDataDevolucao);
         
-        for (Aluguel aluguel: alugueis) {
-            boolean dataFimSolicitacaoIsBeforeAluguel = dataDevolucao.getTime().before(aluguel.getSolicitacaoAluguel().getDataInicioAluguel().getTime());
-            boolean dataInicioSolicitacaoIsAfterAluguelDevolucao = solicitacao.getDataInicioAluguel().getTime().after(aluguel.getDataDevolucao().getTime());
-            
-            while (aluguel.getSolicitacaoAluguel().equals(solicitacao) || !(dataFimSolicitacaoIsBeforeAluguel || dataInicioSolicitacaoIsAfterAluguelDevolucao)) {
-                dataFimSolicitacaoIsBeforeAluguel = dataDevolucao.getTime().before(aluguel.getSolicitacaoAluguel().getDataInicioAluguel().getTime());
-                dataInicioSolicitacaoIsAfterAluguelDevolucao = solicitacao.getDataInicioAluguel().getTime().after(aluguel.getDataDevolucao().getTime());
-                
-                int sorteioSolicitacao = (int) (Math.random() * 1600);
-                int sorteioDataDevolucao = (int) (solicitacao.getDataInicioAluguel().get(Calendar.DAY_OF_YEAR) + (solicitacao.getDiasPretendidos() - 7 + Math.random() * 10));
-                dataDevolucao = Calendar.getInstance();
-                dataDevolucao.set(Calendar.DAY_OF_YEAR, sorteioDataDevolucao);
-                solicitacao = solicitacoes.get(sorteioSolicitacao);
-            }
+        boolean merda = forAluguel(solicitacao, alugueis, dataDevolucao);
+        
+        if (merda){
+            return solicitacao;
+        } else {
+            sorteiaAluguelSemRepeticao(alugueis, solicitacoes, dataDevolucao);
         }
         return solicitacao;
+    }
+    
+    private boolean forAluguel(SolicitacaoAluguel solicitacao, List<Aluguel> alugueis, Calendar dataDevolucao){
+        for (Aluguel aluguel: alugueis){
+            if (solicitacao == aluguel.getSolicitacaoAluguel()){
+                System.out.println("Erro: " + solicitacao.getCodigo());
+                return false;
+            }
+        }
+        for (Aluguel aluguel: alugueis){
+            boolean dataFimSolicitacaoIsBeforeAluguel = dataDevolucao.getTime().before(aluguel.getSolicitacaoAluguel().getDataInicioAluguel().getTime());
+            boolean dataInicioSolicitacaoIsAfterAluguelDevolucao = solicitacao.getDataInicioAluguel().getTime().after(aluguel.getDataDevolucao().getTime());
+            if (!dataFimSolicitacaoIsBeforeAluguel && !dataInicioSolicitacaoIsAfterAluguelDevolucao){
+                return false;
+            }
+        }
+        return true;
     }
     
     private String sorteiaComentario(){
@@ -706,5 +718,14 @@ public class PopulaBanco {
     
     public static void main(String args[]){
         PopulaBanco populaBanco = new PopulaBanco();
+        populaBanco.populaEstadosCivis();
+        populaBanco.populaApartamentos();
+        populaBanco.populaCondominos();
+        populaBanco.populaCategoria();
+        populaBanco.populaProduto();
+        populaBanco.populaSolicitacaoAluguel();
+        populaBanco.populaAluguel();
+        populaBanco.populaComentario();
+        System.exit(0);
     }
 }

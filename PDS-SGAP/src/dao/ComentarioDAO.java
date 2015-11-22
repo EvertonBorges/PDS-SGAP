@@ -12,7 +12,11 @@ import util.JPAUtil;
 public class ComentarioDAO {
     
     public void addComentario(Comentario comentario){
-        
+        EntityManager manager = JPAUtil.getEntityManager();
+        manager.getTransaction().begin();
+        manager.persist(comentario);
+        manager.getTransaction().commit();
+        manager.close();
     }
     
     public List<Comentario> findComentarios(Produto produto){

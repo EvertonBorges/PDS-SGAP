@@ -22,7 +22,7 @@ public class Comentario {
     @Temporal(TemporalType.DATE)
     private Calendar dataComentario;
     
-    @OneToOne (mappedBy = "comentario")
+    @OneToOne
     private Aluguel aluguel;
     
     public Comentario() {

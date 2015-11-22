@@ -1,7 +1,6 @@
 package tela.condomino;
 
 import dao.CondominoDAO;
-import dao.EstadoCivilDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -23,7 +22,6 @@ public class CondominoPesquisarTela extends javax.swing.JFrame {
     public CondominoPesquisarTela() {
         initComponents();
         preencheTabela();
-        preencheEstadoCivil();
         carregarMenuFlutuante();
     }
     
@@ -36,11 +34,6 @@ public class CondominoPesquisarTela extends javax.swing.JFrame {
         CondominoDAO dao = new CondominoDAO();
         this.condominoPesquisar.setNome(tfNomePesquisa.getText());
         this.listaCondominos = dao.listaCondominos(this.condominoPesquisar);
-    }
-    
-    public void preencheEstadoCivil(){
-        EstadoCivilDAO dao = new EstadoCivilDAO();
-        dao.insereEstadoCivil();
     }
 
     private void carregarMenuFlutuante(){
