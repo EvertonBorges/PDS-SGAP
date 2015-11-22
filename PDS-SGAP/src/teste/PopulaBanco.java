@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 import modelo.Aluguel;
 import modelo.Apartamento;
@@ -516,42 +517,42 @@ public class PopulaBanco {
         img10.setProduto(p10);
         img11.setProduto(p11);
         
-        condominos.get(4).getTelefones().add("1111111111");
-        condominos.get(5).getTelefones().add("2222222222");
-        condominos.get(6).getTelefones().add("3333333333");
-        condominos.get(7).getTelefones().add("4444444444");
+        condominos.get(0).getTelefones().add("1111111111");
+        condominos.get(1).getTelefones().add("2222222222");
+        condominos.get(2).getTelefones().add("3333333333");
+        condominos.get(3).getTelefones().add("4444444444");
                 
-        condominos.get(4).getProdutos().add(p1);
-        condominos.get(4).getProdutos().add(p2);
-        condominos.get(4).getProdutos().add(p3);
+        condominos.get(0).getProdutos().add(p1);
+        condominos.get(0).getProdutos().add(p2);
+        condominos.get(0).getProdutos().add(p3);
         
-        condominos.get(5).getProdutos().add(p4);
-        condominos.get(5).getProdutos().add(p5);
-        condominos.get(5).getProdutos().add(p6);
+        condominos.get(1).getProdutos().add(p4);
+        condominos.get(1).getProdutos().add(p5);
+        condominos.get(1).getProdutos().add(p6);
 
-        condominos.get(6).getProdutos().add(p7);
-        condominos.get(6).getProdutos().add(p8);
-        condominos.get(6).getProdutos().add(p9);
+        condominos.get(2).getProdutos().add(p7);
+        condominos.get(2).getProdutos().add(p8);
+        condominos.get(2).getProdutos().add(p9);
         
-        condominos.get(7).getProdutos().add(p10);
-        condominos.get(7).getProdutos().add(p11);
-        condominos.get(7).getProdutos().add(p12);
+        condominos.get(3).getProdutos().add(p10);
+        condominos.get(3).getProdutos().add(p11);
+        condominos.get(3).getProdutos().add(p12);
         
-        p1.setCondomino(condominos.get(4));
-        p2.setCondomino(condominos.get(4));
-        p3.setCondomino(condominos.get(4));
+        p1.setCondomino(condominos.get(0));
+        p2.setCondomino(condominos.get(0));
+        p3.setCondomino(condominos.get(0));
 
-        p4.setCondomino(condominos.get(5));
-        p5.setCondomino(condominos.get(5));
-        p6.setCondomino(condominos.get(5));
+        p4.setCondomino(condominos.get(1));
+        p5.setCondomino(condominos.get(1));
+        p6.setCondomino(condominos.get(1));
         
-        p7.setCondomino(condominos.get(6));
-        p8.setCondomino(condominos.get(6));
-        p9.setCondomino(condominos.get(6));
+        p7.setCondomino(condominos.get(2));
+        p8.setCondomino(condominos.get(2));
+        p9.setCondomino(condominos.get(2));
 
-        p10.setCondomino(condominos.get(7));
-        p11.setCondomino(condominos.get(7));
-        p12.setCondomino(condominos.get(7));
+        p10.setCondomino(condominos.get(3));
+        p11.setCondomino(condominos.get(3));
+        p12.setCondomino(condominos.get(3));
         
         ProdutoDAO produtoDAO = new ProdutoDAO();
         produtoDAO.addProduto(p1);
@@ -567,10 +568,10 @@ public class PopulaBanco {
         produtoDAO.addProduto(p11);
         produtoDAO.addProduto(p12);
         
-        condominoDAO.alteraCondomino(condominos.get(4));
-        condominoDAO.alteraCondomino(condominos.get(5));
-        condominoDAO.alteraCondomino(condominos.get(6));
-        condominoDAO.alteraCondomino(condominos.get(7));
+        condominoDAO.alteraCondomino(condominos.get(0));
+        condominoDAO.alteraCondomino(condominos.get(1));
+        condominoDAO.alteraCondomino(condominos.get(2));
+        condominoDAO.alteraCondomino(condominos.get(3));
     }
     
     public void populaSolicitacaoAluguel(){
@@ -592,7 +593,7 @@ public class PopulaBanco {
             while (sorteioProduto == 12) {
                 sorteioProduto = (int) (Math.random() * 12);
             }
-            while (condominos.get(sorteioCondomino) == produtos.get(sorteioProduto).getCondomino()) {
+            while (Objects.equals(condominos.get(sorteioCondomino).getCodigo(), produtos.get(sorteioProduto).getCondomino().getCodigo())) {
                 sorteioCondomino = (int) (Math.random() * 4);
             }
             SolicitacaoAluguel sa = new SolicitacaoAluguel(quantidadeDias, 1, produtos.get(sorteioProduto), condominos.get(sorteioCondomino), dataSolicitacao, dataInicioAluguel);

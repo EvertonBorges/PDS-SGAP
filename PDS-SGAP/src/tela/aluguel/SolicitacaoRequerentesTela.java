@@ -10,7 +10,6 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JPanel;
 import javax.swing.ListSelectionModel;
-import modelo.Condomino;
 import modelo.Produto;
 import modelo.SolicitacaoAluguel;
 import modelo.tabela.TabelaModeloRenderer;
@@ -133,14 +132,14 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbProdutoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutoMouseReleased
-        selecionarProduto(evt);
+        selecionarSolicitacao(evt);
     }//GEN-LAST:event_tbProdutoMouseReleased
 
     private void bSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSairActionPerformed
         dispose();
     }//GEN-LAST:event_bSairActionPerformed
     
-    private void selecionarProduto(MouseEvent evt) {
+    private void selecionarSolicitacao(MouseEvent evt) {
         int linha = tbProduto.rowAtPoint(evt.getPoint());
         int coluna = tbProduto.columnAtPoint(evt.getPoint());
 
@@ -149,7 +148,7 @@ public class SolicitacaoRequerentesTela extends javax.swing.JFrame {
             tbProduto.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);  
             tbProduto.setCellSelectionEnabled(true);
             
-            int indice=((linha)*4)+coluna;
+            int indice = ((linha)*4) + coluna;
             
             if (indice<this.solicitacaoAluguels.size()){
                 this.solicitacaoAluguel = this.solicitacaoAluguels.get(indice);

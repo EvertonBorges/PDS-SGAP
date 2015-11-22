@@ -6,6 +6,7 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import modelo.Aluguel;
 import modelo.SolicitacaoAluguel;
+import util.ConversorData;
 
 public class SolicitacaoDetalhesTela extends javax.swing.JFrame {
     private final SolicitacaoAluguel solicitacaoAluguel;
@@ -331,7 +332,7 @@ public class SolicitacaoDetalhesTela extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
     
-    private String stringToCalendar(Calendar date){
+    private String calendarToString(Calendar date){
         SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
         return formatador.format(date.getTime());
     }
@@ -344,7 +345,7 @@ public class SolicitacaoDetalhesTela extends javax.swing.JFrame {
         taDescricao.setText(this.solicitacaoAluguel.getProduto().getDescricao());
         
         //Preenchendo painel Solicitão
-        tfDataInicio.setText(stringToCalendar(this.solicitacaoAluguel.getDataInicioAluguel()));
+        tfDataInicio.setText(ConversorData.convertToString(this.solicitacaoAluguel.getDataInicioAluguel().getTime()));
         tfDiasPretendidos.setText(this.solicitacaoAluguel.getDiasPretendidos() + " dias.");
         tfQtde.setText("" + this.solicitacaoAluguel.getQuantidade());
         

@@ -1,9 +1,15 @@
 package tela;
 
 import dao.CondominoDAO;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import modelo.Condomino;
 import modelo.TipoUsuario;
 import modelo.painel.PainelModeloImagens;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 import tela.solicitacao.AluguelPesquisarTela;
 import tela.apartamento.ApartamentoPesquisarTela;
 import tela.categoria.CategoriaPesquisarTela;
@@ -17,6 +23,7 @@ import tela.minhassolicitacoes.todas.MinhasSolicitacoesPesquisarTela;
 import tela.relatorios.Inadimplentes;
 import tela.relatorios.MaisAlugados;
 import tela.relatorios.MaisSolicitados;
+import util.ControlaConexaoJasper;
 
 public class Principal extends javax.swing.JFrame {
     private Condomino condomino;
@@ -78,6 +85,7 @@ public class Principal extends javax.swing.JFrame {
         miProdutosMaisAlugados = new javax.swing.JMenuItem();
         miProdutosMaisSolicitados = new javax.swing.JMenuItem();
         miInadimplentes = new javax.swing.JMenuItem();
+        miAlugueisAndamento = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -227,6 +235,14 @@ public class Principal extends javax.swing.JFrame {
         });
         menuRelatorios.add(miInadimplentes);
 
+        miAlugueisAndamento.setText("Alugueis em andamento");
+        miAlugueisAndamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAlugueisAndamentoActionPerformed(evt);
+            }
+        });
+        menuRelatorios.add(miAlugueisAndamento);
+
         mbMenu.add(menuRelatorios);
 
         setJMenuBar(mbMenu);
@@ -324,6 +340,26 @@ public class Principal extends javax.swing.JFrame {
         inadimplentes.setVisible(true);
     }//GEN-LAST:event_miInadimplentesActionPerformed
 
+    private void miAlugueisAndamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAlugueisAndamentoActionPerformed
+        try{
+            gerarRelatorio();
+        }
+        catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao gerar relatorio.", "Erro ", JOptionPane.INFORMATION_MESSAGE);
+        }   
+    }//GEN-LAST:event_miAlugueisAndamentoActionPerformed
+
+    private void gerarRelatorio() throws SQLException, ClassNotFoundException {
+      
+        try {
+            JasperPrint relatorio = JasperFillManager.fillReport("src/relatorios/AlugueisEmAndamento.jasper", null, ControlaConexaoJasper.getConexao());
+            JasperViewer visualizador = new JasperViewer(relatorio, false);
+            visualizador.setVisible(true);
+        } catch (JRException ex) {
+            System.out.println("Possível erro ao conectar ao banco, ou gerar JasperPrint:\n" + ex.getMessage());
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar mbMenu;
@@ -333,6 +369,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu menuMinhasSolicitacoes;
     private javax.swing.JMenu menuProdutos;
     private javax.swing.JMenu menuRelatorios;
+    private javax.swing.JMenuItem miAlugueisAndamento;
     private javax.swing.JMenuItem miApartamento;
     private javax.swing.JMenuItem miCategoria;
     private javax.swing.JMenuItem miCondomino;

@@ -26,4 +26,9 @@ public class ConversorData {
         calendar.setTime(convertToDate(data));
         return calendar;
     }
+    
+    public static String convertToString (Date date) {
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        return formatador.format(date);
+    }
 }

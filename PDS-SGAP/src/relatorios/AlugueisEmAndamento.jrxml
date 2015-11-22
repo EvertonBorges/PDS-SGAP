@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="AlugueisEmAndamento" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2fbe8793-59c4-4c40-8747-5e31eac6952a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<queryString>
+		<![CDATA[SELECT  CONDOMINO.NOME, PRODUTO.NOME as PRODUTO, SOLICITACAOALUGUEL.DATAINICIOALUGUEL,
+		SOLICITACAOALUGUEL.DIASPRETENDIDOS
+FROM CONDOMINO
+INNER JOIN SOLICITACAOALUGUEL ON SOLICITACAOALUGUEL.LOCATARIO_CODIGO=CONDOMINO.CODIGO
+INNER JOIN PRODUTO ON PRODUTO.CODIGO = SOLICITACAOALUGUEL.PRODUTO_CODIGO
+WHERE SOLICITACAOALUGUEL.CODIGO IN (SELECT ALUGUEL.SOLICITACAOALUGUEL_CODIGO
+							FROM ALUGUEL
+							WHERE ALUGUEL.DATADEVOLUCAO IS NULL)
+ORDER BY  CONDOMINO.NOME ASC;]]>
+	</queryString>
+	<field name="NOME" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="PRODUTO" class="java.lang.String"/>
+	<field name="DATAINICIOALUGUEL" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DIASPRETENDIDOS" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="114" splitType="Stretch">
+			<staticText>
+				<reportElement x="33" y="0" width="490" height="104" uuid="debe30ba-5e01-41a5-a96f-b2584b17da6a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="40" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ALUGUÉIS EM ANDAMENTO]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="397" height="20" uuid="179419ff-9613-4d04-a7e3-b34746703729"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Todos os alugueis atuais ordenados por nomes de locatários em]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="397" height="20" uuid="b0f212cc-ad3e-4b8a-ad39-7668d963cbc1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[ordem alfabética.]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="462" y="0" width="93" height="20" uuid="75db62d7-72b9-4a1c-9bb6-52b7fb4cd770"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="397" y="0" width="65" height="20" uuid="e07a3495-418f-48eb-9900-d49d5aeb61ec"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Data Atual:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="41" width="128" height="20" uuid="1d9cd196-3f5e-42be-9be4-64ef29b81ac8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="223" y="41" width="181" height="20" uuid="c0f47df4-cf27-4f9a-9f47-151c19d3a247"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="404" y="41" width="151" height="20" uuid="b9233e1a-50b8-4e86-95be-1d9a345a72e5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="41" width="128" height="20" uuid="44666645-1b67-446e-a3f3-239619e02b95"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Locatário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="407" y="41" width="148" height="20" uuid="f3734629-41b0-4f81-b2f9-adb1ff4f80cc"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Dias pretendidos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="41" width="181" height="20" uuid="04904784-fb0d-4935-b122-b511ef85a22e"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de início do Aluguel]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="128" y="41" width="95" height="20" uuid="c85a44b4-d97b-4cee-a67c-28364097af57"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="128" y="41" width="95" height="20" uuid="c3341784-4a40-422f-a9f5-881032420019"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Produto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="128" height="20" uuid="8c694feb-d463-41b9-b0c3-d36047d4c5a3"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="223" y="0" width="181" height="20" uuid="494d35ae-196f-46cc-abd6-c791deeb9029"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="404" y="0" width="151" height="20" uuid="d7151857-7d49-4c19-a42d-44c71268f3e1"/>
+			</rectangle>
+			<textField>
+				<reportElement x="223" y="0" width="174" height="20" uuid="166083f3-748c-464f-b0b6-9b0ca946cd79"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATAINICIOALUGUEL}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="397" y="0" width="158" height="20" uuid="573b56e9-6472-45d1-bad2-49cdf98e156f"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DIASPRETENDIDOS}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="128" height="20" uuid="08b15823-b368-40a6-88d7-5d17924317af"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement x="128" y="0" width="95" height="20" uuid="6b1a5e5e-371a-43c9-ade1-00dd321bf297"/>
+			</rectangle>
+			<textField>
+				<reportElement x="128" y="0" width="95" height="20" uuid="fbe1331b-cff2-4b78-8cf8-b86cf82fae78"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PRODUTO}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="432" y="0" width="80" height="20" uuid="39a4c766-bae1-44ee-b9b5-6b04b8031032"/>
+				<textElement textAlignment="Right">
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="512" y="0" width="40" height="20" uuid="0721b9e1-8dd2-4845-bdd1-1f5ad04de8d3"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

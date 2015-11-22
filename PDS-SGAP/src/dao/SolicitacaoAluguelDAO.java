@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.swing.JOptionPane;
 import modelo.Condomino;
 import modelo.Produto;
 import modelo.SolicitacaoAluguel;
@@ -30,7 +29,6 @@ public class SolicitacaoAluguelDAO {
         manager.merge(solicitacaoNova);
         manager.getTransaction().commit();
         manager.close();
-        JOptionPane.showMessageDialog(null, "Solicitacao alterada com sucesso", "Solicitacao Alterado", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public void removeSolicitacao(SolicitacaoAluguel solicitacao){
@@ -39,22 +37,18 @@ public class SolicitacaoAluguelDAO {
         manager.remove(solicitacao);
         manager.getTransaction().commit();
         manager.close();
-        JOptionPane.showMessageDialog(null, "Solicitacao cancelada com sucesso", "Solicitacao cancelada", JOptionPane.INFORMATION_MESSAGE);
     }
     
     public List<Produto> findProdutos(Produto produtoPesquisa){
-        Calendar dataAtualCalendar = Calendar.getInstance();
-        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
-        String dataAtualString = formatador.format(dataAtualCalendar.getTime());
-
         EntityManager manager = JPAUtil.getEntityManager();
         List<Produto> produtosRetorno;
-        Query query = manager.createNativeQuery("CALL SP_PRODUTOS_SOLICITADOS(:codigoDono, :nomeProduto, :dataAtual)", Produto.class);
+        Query query = manager.createNativeQuery("CALL SP_PRODUTOS_SOLICITADOS(:codigoDono, :nomeProduto)");
         query.setParameter("codigoDono", produtoPesquisa.getCondomino().getCodigo());
         query.setParameter("nomeProduto", produtoPesquisa.getNome() + "%");
-        query.setParameter("dataAtual", dataAtualString);
         try{
-            produtosRetorno = query.getResultList();
+            Object objeto = query.getSingleResult();
+            Query queryProduto = manager.createNativeQuery(objeto.toString(), Produto.class);
+            produtosRetorno = queryProduto.getResultList();
         } catch (NoResultException ex) {
             produtosRetorno = null;
         }
@@ -116,14 +110,10 @@ public class SolicitacaoAluguelDAO {
 
 
     public List<SolicitacaoAluguel> findSolicitacoes(Produto produtoPesquisa){
-        Calendar dataAtualCalendar = Calendar.getInstance();
-        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
-        String dataAtualString = formatador.format(dataAtualCalendar.getTime());
         EntityManager manager = JPAUtil.getEntityManager();
         List<SolicitacaoAluguel> solicitacoesRetorno;
-        Query query = manager.createNativeQuery("CALL SP_SOLICITACOES_PRODUTO(:codigoProduto, :dataAtual)", SolicitacaoAluguel.class);
+        Query query = manager.createNativeQuery("CALL SP_SOLICITACOES_PRODUTO(:codigoProduto)", SolicitacaoAluguel.class);
         query.setParameter("codigoProduto", produtoPesquisa.getCodigo());
-        query.setParameter("dataAtual", dataAtualString);
         try {
             solicitacoesRetorno = query.getResultList();
         } catch(NoResultException ex){
@@ -132,9 +122,6 @@ public class SolicitacaoAluguelDAO {
         manager.close();
         return solicitacoesRetorno;
     }
-
-    
-    
     
     public List<SolicitacaoAluguel>  findSolicitacaoProdutoEmAndamento(Condomino locatario, Produto produto){
         Calendar dataAtualCalendar = Calendar.getInstance();

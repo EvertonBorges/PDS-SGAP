@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import modelo.Condomino;
+import modelo.TipoUsuario;
 import util.JPAUtil;
 
 public class CondominoDAO {
@@ -116,8 +117,9 @@ public class CondominoDAO {
     public List<Condomino> findCondominos(Condomino condomino){
         List<Condomino> condominos;
         EntityManager manager = JPAUtil.getEntityManager();
-        TypedQuery<Condomino> query = manager.createQuery("SELECT c FROM Condomino c WHERE c.nome LIKE :nome", Condomino.class);
+        TypedQuery<Condomino> query = manager.createQuery("SELECT c FROM Condomino c WHERE c.nome LIKE :nome AND c.tipoUsuario = :tipoUsuario", Condomino.class);
         query.setParameter("nome", condomino.getNome() + "%");
+        query.setParameter("tipoUsuario", TipoUsuario.CONDOMINO);
         
         try {
             condominos = query.getResultList();
