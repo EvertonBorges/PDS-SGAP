@@ -6,6 +6,9 @@ import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.Aluguel;
+import modelo.Avaliacao;
+import modelo.Comentario;
+import modelo.Produto;
 import util.JPAUtil;
 
 public class AluguelDAO {
@@ -134,5 +137,36 @@ public class AluguelDAO {
         
         manager.close();
         return alugueisConcluido;
+    }
+    
+    public double calculaReputacao(Produto produto){
+        double reputacao;
+        List<Avaliacao> avaliacoes;
+        EntityManager manager = JPAUtil.getEntityManager();
+        Query query = manager.createQuery("SELECT a.comentario.avaliacao FROM Aluguel a WHERE a.solicitacaoAluguel IN (SELECT s FROM SolicitacaoAluguel s WHERE s.produto = :produto)", Avaliacao.class);
+        query.setParameter("produto", produto);
+        
+        try {
+            avaliacoes = query.getResultList();
+            int qtdePositivo = 0, qtdeNeutro = 0, qtdeNegativo = 0;
+            for (Avaliacao avaliacao: avaliacoes) {
+                switch (avaliacao){
+                    case NEGATIVA: qtdeNegativo++;
+                                   break;
+                    case NEUTRA: qtdeNeutro++;
+                                   break;
+                    case POSITIVA: qtdePositivo++;
+                                   break;
+                }
+            }
+            reputacao = (double)(((double)(1*qtdePositivo) + (double)(0.75*qtdeNeutro) - (double)(0.25*qtdeNegativo))/((double) avaliacoes.size()));
+            reputacao = reputacao * 100;
+        } catch (NoResultException ex) {
+            avaliacoes = null;
+            reputacao = -1;
+        }
+        
+        manager.close();
+        return reputacao;
     }
 }

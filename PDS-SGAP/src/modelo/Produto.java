@@ -1,5 +1,6 @@
 package modelo;
 
+import dao.AluguelDAO;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -37,6 +39,9 @@ public class Produto {
     
     @ManyToMany
     private List<Categoria> categorias;
+    
+    @Transient
+    private double reputacao;
         
     public Produto() {
         imagensProduto = new ArrayList<>();
@@ -125,7 +130,6 @@ public class Produto {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
     
     public List<SolicitacaoAluguel> getSolicitacoes() {
         return solicitacoes;
@@ -140,38 +144,9 @@ public class Produto {
         return nome;
     }
     
-    /*
-    public String getReputacao(){
-        calcularReputacao();
-        if (reputacao==200)
-            return "NOVO";
-        else{
-            String valor = ""+reputacao;
-            valor=(valor.substring(valor.length()-1));
-            if (valor.equals("0")){
-                return Math.round(reputacao)+"%";
-            }
-            return reputacao+"%";
-        }
+    public double getReputacao(){
+        AluguelDAO aluguelDAO = new AluguelDAO();
+        this.reputacao = aluguelDAO.calculaReputacao(this);
+        return reputacao;
     }
-    
-    private void calcularReputacao(){
-        
-        double positiva=0, regular=0;
-        if(comentarios.size()>0){
-            for (Comentario comentario : comentarios) {
-                if (comentario.getAvaliacao().getCodigo()==1) {
-                    positiva++;
-                }
-                if (comentario.getAvaliacao().getCodigo()==2) {
-                    regular++;
-                }
-            }
-            reputacao = Double.valueOf(String.format(Locale.US, "%.1f", ((positiva/comentarios.size()) + ((regular/2)/comentarios.size()))*100));
-        }
-        else{
-            reputacao=200;
-        }
-    }
-    */
 }
