@@ -21,21 +21,11 @@ import modelo.Categoria;
 import modelo.Condomino;
 
 public class AluguelPesquisarTela extends javax.swing.JFrame {
-
-    /**
-     * Creates new form PesquisarProduto
-     */
-    
     private List<Produto> produtos = new ArrayList<>();
-    
     private Categoria categoria= new Categoria();
-
     private List<Categoria> categorias = new ArrayList<>();
-
     private ProdutoDAO pDAO = new ProdutoDAO();
     private Produto produto = new Produto();
-    private EntityManager manager = JPAUtil.getEntityManager(); 
-
     private Condomino condomino;
     
     public AluguelPesquisarTela(Condomino condomino) {
@@ -187,23 +177,17 @@ public class AluguelPesquisarTela extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        // TODO add your handling code here:
         pesquisar();    
         preencherTabela();
-        
     }//GEN-LAST:event_formWindowGainedFocus
 
     private void bPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bPesquisarActionPerformed
-        // TODO add your handling code here:
         pesquisar();
         preencherTabela();
     }//GEN-LAST:event_bPesquisarActionPerformed
 
     private void tbProdutoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutoMouseReleased
-        // TODO add your handling code 
-        
         selecionarProduto(evt);
-    //    realizarAcao(evt);
     }//GEN-LAST:event_tbProdutoMouseReleased
 
     private void jlCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jlCategoriaMouseClicked
@@ -214,14 +198,15 @@ public class AluguelPesquisarTela extends javax.swing.JFrame {
         carregarTollTipTextLista(evt);
     }//GEN-LAST:event_jlCategoriaMouseMoved
    
-    private void preencherTabelaByCategoria(Categoria cateoria){
+    private void preencherTabelaByCategoria(Categoria categoria){
         this.produtos.clear();
-        for (Produto p: pDAO.findProduto(categoria, manager)){
+        for (Produto p: pDAO.findProduto(categoria)){
             if(p.isStatus()== true)    
                 this.produtos.add(p) ;
         }
         preencherTabela();
     }
+    
     private void preencherCategoria(){
         CategoriaDAO cDAO= new CategoriaDAO();
         this.categorias= cDAO.allCategorias();

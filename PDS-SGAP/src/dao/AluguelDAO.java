@@ -10,7 +10,6 @@ import modelo.Aluguel;
 import modelo.Avaliacao;
 import modelo.Condomino;
 import modelo.Produto;
-import util.ConversorData;
 import util.JPAUtil;
 
 public class AluguelDAO {
@@ -56,7 +55,7 @@ public class AluguelDAO {
     public List<Aluguel>  findProdutoAlugado(Long locatario, String produto){ // busca produtos de um locador que estão alugados no momento
         EntityManager manager = JPAUtil.getEntityManager();
         
-        List<Aluguel> produtoRetorno; // = new ArrayList<>();
+        List<Aluguel> produtoRetorno;
         
         try{
             String consulta = "CALL SP_BUSCA_MEUSPRODUTOSALUGADOS(:codigo, :produto)";

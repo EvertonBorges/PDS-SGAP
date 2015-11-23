@@ -14,28 +14,6 @@ import modelo.Produto;
 import util.JPAUtil;
 
 public class ProdutoDAO {
-     
-    private List<Produto> produtos =  new ArrayList<>();
-    
-    public ProdutoDAO() {
-        preencherLista();
-    }
-    
-    private void preencherLista(){
-        this.produtos.clear();
-        EntityManager manager = JPAUtil.getEntityManager();
-        Query query = manager.createQuery("SELECT p FROM Produto p ");
-        try{
-            this.produtos = query.getResultList();
-        } catch (NoResultException ex) {
-            this.produtos = null;
-            System.out.println("\nerro ao buscar produtos");
-        }
-    }
-    
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
     
     public void addProduto(Produto produto){
         EntityManager manager = JPAUtil.getEntityManager();
@@ -69,11 +47,8 @@ public class ProdutoDAO {
     public void removeProduto(Produto produto){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
-        Produto produtoRemover = manager.find(Produto.class, produto.getCodigo());
-        for (ImagemProduto imagemProduto: produtoRemover.getImagensProduto()) {
-            manager.remove(manager.getReference(ImagemProduto.class, imagemProduto.getCodigo()));
-        }
-        manager.remove(produtoRemover);
+        produto.setStatus(false);
+        manager.merge(produto);
         manager.getTransaction().commit();
         manager.close();
     }
@@ -126,19 +101,26 @@ public class ProdutoDAO {
         return produtoRetorno;
     }
     
-    public List<Produto> findProduto(Categoria categoria, EntityManager manager){
-        Categoria c;
-        String consulta="select c from Categoria c where c.codigo = :codigo";
-        TypedQuery<Categoria> query = manager.createQuery(consulta, Categoria.class);
+    public List<Produto> findProduto(Categoria categoria){
+        Categoria categoriaConsulta;
+        EntityManager manager = JPAUtil.getEntityManager();
+        TypedQuery<Categoria> query = manager.createQuery("SELECT c FROM Categoria c WHERE c.codigo = :codigo AND c.produtos.status = TRUE", Categoria.class);
         query.setParameter("codigo", categoria.getCodigo());
+        List<Produto> produtosRetorno;
         
         try{
-            c = (Categoria) query.getSingleResult();
+            categoriaConsulta = (Categoria) query.getSingleResult();
+            try {
+                produtosRetorno = categoriaConsulta.getProdutos();
+            } catch (NullPointerException ex) {
+                produtosRetorno = null;
+            }
         } catch (NoResultException ex) {
-            c = null;
+            produtosRetorno = null;
             System.out.println("Erro ao procurar produtos por categoria: " + ex.getMessage());
         }
-        List<Produto> produtosRetorno = c.getProdutos();
+        
+        manager.close();
         return produtosRetorno;
     }
     
@@ -199,5 +181,4 @@ public class ProdutoDAO {
         return  aluguelRetorno;
 
     }
-    
 }
