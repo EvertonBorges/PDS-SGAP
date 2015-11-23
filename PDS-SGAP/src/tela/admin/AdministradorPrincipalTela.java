@@ -1,9 +1,9 @@
 package tela.admin;
 
 import modelo.Condomino;
-import tela.apartamento.ApartamentoPesquisarTela;
-import tela.categoria.CategoriaPesquisarTela;
-import tela.condomino.CondominoPesquisarTela;
+import tela.admin.apartamento.ApartamentoPesquisarTela;
+import tela.admin.categoria.CategoriaPesquisarTela;
+import tela.admin.condomino.CondominoPesquisarTela;
 
 public class AdministradorPrincipalTela extends javax.swing.JFrame {
     private final Condomino condomino;

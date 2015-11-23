@@ -347,7 +347,7 @@ public class SolicitacaoAluguelDAO {
         try{
             String consulta = "CALL SP_SOLICITACOES_CONFIRMACAO(:codigo, :produto)";
             Query query = manager.createNativeQuery(consulta, SolicitacaoAluguel.class);
-            query.setParameter("codigo", Integer.parseInt(String.valueOf(condomino.getCodigo())));
+            query.setParameter("codigo", condomino.getCodigo());
             query.setParameter("produto", nomeProduto);
             
             solicitacoesRetorno = query.getResultList();

@@ -12,7 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +29,7 @@ import modelo.SolicitacaoAluguel;
 import modelo.TipoUsuario;
 
 public class PopulaBanco {
-    private List<Aluguel> alugueis = new ArrayList<>();
+    private List<Aluguel> alugueis;
     private List<SolicitacaoAluguel> solicitacoes;
     private List<Apartamento> apartamentos;
     private List<EstadoCivil> estadosCivis;
@@ -724,9 +723,9 @@ public class PopulaBanco {
         populaBanco.populaCondominos();
         populaBanco.populaCategoria();
         populaBanco.populaProduto();
-        populaBanco.populaSolicitacaoAluguel();
-        populaBanco.populaAluguel();
-        populaBanco.populaComentario();
+        //populaBanco.populaSolicitacaoAluguel();
+        //populaBanco.populaAluguel();
+        //populaBanco.populaComentario();
         System.exit(0);
     }
 }

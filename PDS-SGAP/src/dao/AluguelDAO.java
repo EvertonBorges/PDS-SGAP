@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -7,8 +8,9 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import modelo.Aluguel;
 import modelo.Avaliacao;
-import modelo.Comentario;
+import modelo.Condomino;
 import modelo.Produto;
+import util.ConversorData;
 import util.JPAUtil;
 
 public class AluguelDAO {
@@ -59,7 +61,7 @@ public class AluguelDAO {
         try{
             String consulta = "CALL SP_BUSCA_MEUSPRODUTOSALUGADOS(:codigo, :produto)";
             Query query = manager.createNativeQuery(consulta, Aluguel.class);
-            query.setParameter("codigo", Integer.parseInt(String.valueOf(locatario)));
+            query.setParameter("codigo", locatario);
             query.setParameter("produto", produto);
             
             produtoRetorno = query.getResultList();
@@ -73,7 +75,7 @@ public class AluguelDAO {
     
     public List<Aluguel> listaAluguelAndamento(Long codigo, String nome){ // para locatario
         EntityManager manager = JPAUtil.getEntityManager();
-        List<Aluguel> alugueisAndamento = null;
+        List<Aluguel> alugueisAndamento;
         
         try{
             
@@ -93,12 +95,14 @@ public class AluguelDAO {
             
                 TypedQuery<Aluguel> query = manager.createQuery(consulta, Aluguel.class);
                 query.setParameter("codigo", codigo);
-                query.setParameter("nomeProduto", "%"+nome+"%");
+                query.setParameter("nomeProduto", nome+"%");
                 alugueisAndamento = query.getResultList();
             }
-        }
-        catch(TypeNotPresentException ex){
+        } catch(TypeNotPresentException ex) {
             ex.getCause();
+            alugueisAndamento = null;
+        } catch(NoResultException ex) {
+            alugueisAndamento = null;
         }
         
         manager.close();
@@ -163,6 +167,58 @@ public class AluguelDAO {
             reputacao = reputacao * 100;
         } catch (NoResultException ex) {
             avaliacoes = null;
+            reputacao = -1;
+        }
+        
+        manager.close();
+        return reputacao;
+    }
+    
+    public double calculaReputacao(Condomino locatario){
+        double reputacao;
+        List<Aluguel> alugueis;
+        EntityManager manager = JPAUtil.getEntityManager();
+        Query query = manager.createQuery("SELECT a FROM Aluguel a WHERE a.solicitacaoAluguel IN (SELECT s FROM SolicitacaoAluguel s WHERE s.locatario = :locatario)", Aluguel.class);
+        query.setParameter("locatario", locatario);
+        
+        try {
+            alugueis = query.getResultList();
+            if (alugueis.size() > 3) {
+                int qtdeNoPrazo = 0, qtde5DiasAtrazo = 0, qtde10DiasAtrazo = 0, qtdeMtoAtrazo = 0, qtdeTotal=0;
+                for (Aluguel aluguel: alugueis) {
+                    try {
+                        if (aluguel.getDataDevolucao().before(aluguel.getDataVencimento()) || aluguel.getDataDevolucao().equals(aluguel.getDataVencimento())) {
+                            qtdeNoPrazo++;
+                        } else {
+                            int diasDevolucao = aluguel.getDataDevolucao().get(Calendar.DAY_OF_YEAR);
+                            int diasVencimento = aluguel.getDataVencimento().get(Calendar.DAY_OF_YEAR);
+                            int diferencaDias = diasDevolucao - diasVencimento;
+                            if (diferencaDias <= 5) {
+                                qtde5DiasAtrazo++;
+                            } else {
+                                if (diferencaDias <= 10) {
+                                    qtde10DiasAtrazo++;
+                                } else {
+                                    qtdeMtoAtrazo++;
+                                }
+                            }
+                        }
+                    } catch (NullPointerException ex) {
+                        qtdeTotal--;
+                    }
+                    qtdeTotal++;
+                }
+                if (qtdeTotal > 3) {
+                    reputacao = (double)(((double)(1*qtdeNoPrazo) + (double)(0.75*qtde5DiasAtrazo) + (double)(0.5*qtde10DiasAtrazo) + (double)(0.25*qtdeMtoAtrazo))/((double) qtdeTotal));
+                    reputacao = reputacao * 100;
+                } else {
+                    reputacao = -1;
+                }
+            } else {
+                reputacao = -1;
+            }
+        } catch (NoResultException ex) {
+            alugueis = null;
             reputacao = -1;
         }
         

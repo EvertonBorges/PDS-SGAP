@@ -72,33 +72,9 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miPesquisarAluguelActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miEmAndamento">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Em Andamento"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miEmAndamentoActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miAguardandoConfirmacao">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Aguardando Confirma&#xe7;&#xe3;o"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAguardandoConfirmacaoActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="miConcluido">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Conclu&#xed;do"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miConcluidoActionPerformed"/>
-              </Events>
-            </MenuItem>
             <Menu class="javax.swing.JMenu" name="menuMinhasSolicitacoes">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Aluguel"/>
+                <Property name="text" type="java.lang.String" value="Minhas Solicita&#xe7;&#xf5;es"/>
               </Properties>
               <SubComponents>
                 <MenuItem class="javax.swing.JMenuItem" name="miTodas">
@@ -131,6 +107,30 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miExpiradasActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="miConcluido">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Conclu&#xed;do"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miConcluidoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="miAguardandoConfirmacao">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Aguardando Confirma&#xe7;&#xe3;o"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miAguardandoConfirmacaoActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="miEmAndamento">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Em Andamento"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miEmAndamentoActionPerformed"/>
                   </Events>
                 </MenuItem>
               </SubComponents>

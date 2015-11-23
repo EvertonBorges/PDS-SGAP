@@ -10,23 +10,23 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.view.JasperViewer;
-import tela.solicitacao.AluguelPesquisarTela;
-import tela.apartamento.ApartamentoPesquisarTela;
-import tela.categoria.CategoriaPesquisarTela;
-import tela.condomino.CondominoPesquisarTela;
-import tela.meusprodutos.ProdutoPesquisarTela;
-import tela.aluguel.SolicitacaoPesquisarTela;
-import tela.locador.produtoalugado.ProdutoAlugadoPesquisarTela;
-import tela.locatario.aluguelconcluido.AluguelConcluidoPesquisarTela;
-import tela.locatario.aluguelemandamento.AluguelAndamentoPesquisarTela;
-import tela.locatario.solicitacaoaguardaconfirmacao.SolicitacaoAvaliacaoPesquisarTela;
-import tela.minhassolicitacoes.alugueisConfirmados.MinhasSolicitacoesConfirmadasPesquisarTela;
-import tela.minhassolicitacoes.emavaliacao.MinhasSolicitacoesEmAvaliacaoPesquisarTela;
-import tela.minhassolicitacoes.expiradas.MinhasSolicitacoesExpiradasPesquisarTela;
-import tela.minhassolicitacoes.todas.MinhasSolicitacoesPesquisarTela;
-import tela.relatorios.Inadimplentes;
-import tela.relatorios.MaisAlugados;
-import tela.relatorios.MaisSolicitados;
+import tela.locatario.vitrine.AluguelPesquisarTela;
+import tela.admin.apartamento.ApartamentoPesquisarTela;
+import tela.admin.categoria.CategoriaPesquisarTela;
+import tela.admin.condomino.CondominoPesquisarTela;
+import tela.locador.meusprodutos.ProdutoPesquisarTela;
+import tela.locador.aluguel.SolicitacaoPesquisarTela;
+import tela.locador.produtosalugados.ProdutoAlugadoPesquisarTela;
+import tela.locatario.minhassolicitacoes.aluguelconcluido.AluguelConcluidoPesquisarTela;
+import tela.locatario.minhassolicitacoes.aluguelemandamento.AluguelAndamentoPesquisarTela;
+import tela.locatario.minhassolicitacoes.solicitacaoaguardaconfirmacao.SolicitacaoAvaliacaoPesquisarTela;
+import tela.locatario.minhassolicitacoes.alugueisConfirmados.MinhasSolicitacoesConfirmadasPesquisarTela;
+import tela.locatario.minhassolicitacoes.emavaliacao.MinhasSolicitacoesEmAvaliacaoPesquisarTela;
+import tela.locatario.minhassolicitacoes.expiradas.MinhasSolicitacoesExpiradasPesquisarTela;
+import tela.locatario.minhassolicitacoes.todas.MinhasSolicitacoesPesquisarTela;
+import tela.admin.relatorios.Inadimplentes;
+import tela.admin.relatorios.MaisAlugados;
+import tela.admin.relatorios.MaisSolicitados;
 import util.ControlaConexaoJasper;
 
 public class Principal extends javax.swing.JFrame {
@@ -77,14 +77,14 @@ public class Principal extends javax.swing.JFrame {
         miAlugados = new javax.swing.JMenuItem();
         menuAluguel = new javax.swing.JMenu();
         miPesquisarAluguel = new javax.swing.JMenuItem();
-        miEmAndamento = new javax.swing.JMenuItem();
-        miAguardandoConfirmacao = new javax.swing.JMenuItem();
-        miConcluido = new javax.swing.JMenuItem();
         menuMinhasSolicitacoes = new javax.swing.JMenu();
         miTodas = new javax.swing.JMenuItem();
         miConfirmadas = new javax.swing.JMenuItem();
         miEmAvaliacao = new javax.swing.JMenuItem();
         miExpiradas = new javax.swing.JMenuItem();
+        miConcluido = new javax.swing.JMenuItem();
+        miAguardandoConfirmacao = new javax.swing.JMenuItem();
+        miEmAndamento = new javax.swing.JMenuItem();
         menuCadastro = new javax.swing.JMenu();
         miApartamento = new javax.swing.JMenuItem();
         miCategoria = new javax.swing.JMenuItem();
@@ -159,31 +159,7 @@ public class Principal extends javax.swing.JFrame {
         });
         menuAluguel.add(miPesquisarAluguel);
 
-        miEmAndamento.setText("Em Andamento");
-        miEmAndamento.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miEmAndamentoActionPerformed(evt);
-            }
-        });
-        menuAluguel.add(miEmAndamento);
-
-        miAguardandoConfirmacao.setText("Aguardando Confirmação");
-        miAguardandoConfirmacao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miAguardandoConfirmacaoActionPerformed(evt);
-            }
-        });
-        menuAluguel.add(miAguardandoConfirmacao);
-
-        miConcluido.setText("Concluído");
-        miConcluido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                miConcluidoActionPerformed(evt);
-            }
-        });
-        menuAluguel.add(miConcluido);
-
-        menuMinhasSolicitacoes.setText("Aluguel");
+        menuMinhasSolicitacoes.setText("Minhas Solicitações");
 
         miTodas.setText("Todas");
         miTodas.addActionListener(new java.awt.event.ActionListener() {
@@ -216,6 +192,30 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         menuMinhasSolicitacoes.add(miExpiradas);
+
+        miConcluido.setText("Concluído");
+        miConcluido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miConcluidoActionPerformed(evt);
+            }
+        });
+        menuMinhasSolicitacoes.add(miConcluido);
+
+        miAguardandoConfirmacao.setText("Aguardando Confirmação");
+        miAguardandoConfirmacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAguardandoConfirmacaoActionPerformed(evt);
+            }
+        });
+        menuMinhasSolicitacoes.add(miAguardandoConfirmacao);
+
+        miEmAndamento.setText("Em Andamento");
+        miEmAndamento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miEmAndamentoActionPerformed(evt);
+            }
+        });
+        menuMinhasSolicitacoes.add(miEmAndamento);
 
         menuAluguel.add(menuMinhasSolicitacoes);
 
@@ -344,13 +344,11 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_miSolicitacoesProdutosActionPerformed
 
     private void miEmAvaliacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEmAvaliacaoActionPerformed
-        // TODO add your handling code here:
         MinhasSolicitacoesEmAvaliacaoPesquisarTela emAvaliacaoPesquisarTela =  new MinhasSolicitacoesEmAvaliacaoPesquisarTela(condomino);
         emAvaliacaoPesquisarTela.setVisible(true);
     }//GEN-LAST:event_miEmAvaliacaoActionPerformed
 
     private void miTodasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miTodasActionPerformed
-        // TODO add your handling code here:
         MinhasSolicitacoesPesquisarTela minhasSolicitacoes =  new MinhasSolicitacoesPesquisarTela(this.condomino);
         minhasSolicitacoes.setVisible(true);
     }//GEN-LAST:event_miTodasActionPerformed
@@ -362,7 +360,6 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_miConfirmadasActionPerformed
 
     private void miExpiradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExpiradasActionPerformed
-        // TODO add your handling code here:
         MinhasSolicitacoesExpiradasPesquisarTela emAvaliacaoPesquisarTela =  new MinhasSolicitacoesExpiradasPesquisarTela(condomino);
         emAvaliacaoPesquisarTela.setVisible(true);
     }//GEN-LAST:event_miExpiradasActionPerformed
