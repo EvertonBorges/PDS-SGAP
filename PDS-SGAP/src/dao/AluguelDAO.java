@@ -66,10 +66,27 @@ public class AluguelDAO {
             produtoRetorno = query.getResultList();
         } catch (NoResultException ex) {
             produtoRetorno = null;
-}
+        }
         manager.close();
         
         return  produtoRetorno;
+    }
+    
+    public List<Aluguel>  findProdutoAlugadoEncerrados(Long locador){ // busca produtos de um locador que estão alugados no momento
+        EntityManager manager = JPAUtil.getEntityManager();
+        
+        List<Aluguel> alugueis;
+        Query query = manager.createQuery("SELECT a FROM Aluguel a WHERE a.solicitacaoAluguel.produto.condomino.codigo = :locador AND a.dataDevolucao IS NOT NULL", Aluguel.class);
+        query.setParameter("locador", locador);
+        
+        try{    
+            alugueis = query.getResultList();
+        } catch (NoResultException ex) {
+            alugueis = null;
+        }
+        manager.close();
+        
+        return  alugueis;
     }
     
     public List<Aluguel> listaAluguelAndamento(Long codigo, String nome){ // para locatario

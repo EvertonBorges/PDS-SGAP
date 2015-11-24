@@ -33,7 +33,7 @@ public class SolicitacaoAluguel {
     public SolicitacaoAluguel() {
         
     }
-
+    
     public SolicitacaoAluguel(int diasPretendidos, Produto produto, Condomino locatario, Calendar dataSolicitacao, Calendar dataInicioAluguel) {
         this.diasPretendidos = diasPretendidos;
         this.produto = produto;

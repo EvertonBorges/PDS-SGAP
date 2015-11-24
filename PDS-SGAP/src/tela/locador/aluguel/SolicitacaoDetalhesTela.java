@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 import modelo.Aluguel;
 import modelo.SolicitacaoAluguel;
 import util.ConversorData;
+import util.FormatadorTelefone;
 
 public class SolicitacaoDetalhesTela extends javax.swing.JFrame {
     private final SolicitacaoAluguel solicitacaoAluguel;
@@ -327,11 +328,12 @@ public class SolicitacaoDetalhesTela extends javax.swing.JFrame {
         tfDataInicio.setText(ConversorData.convertToString(this.solicitacaoAluguel.getDataInicioAluguel().getTime()));
         tfDiasPretendidos.setText(this.solicitacaoAluguel.getDiasPretendidos() + " dias.");
         //tfQtde.setText("" + this.solicitacaoAluguel.getQuantidade());
+        FormatadorTelefone.preencherTelefones(solicitacaoAluguel, tfContato);
         
         //Preenchendo painel Requerente.
         tfSolicitante.setText(this.solicitacaoAluguel.getLocatario().getNome());
         tfContato.setText(this.solicitacaoAluguel.getLocatario().getTelefones().get(0));
-        tfReputacao.setText("Calcular ainda...");
+        tfReputacao.setText("" + this.solicitacaoAluguel.getLocatario().getReputacao() + "%");
     }
     
     private void carregarProduto(){

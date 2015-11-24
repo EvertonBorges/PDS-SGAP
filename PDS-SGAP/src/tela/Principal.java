@@ -153,6 +153,11 @@ public class Principal extends javax.swing.JFrame {
         menuAlugados.add(miAlugados);
 
         miEncerrados.setText("Encerrados");
+        miEncerrados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miEncerradosActionPerformed(evt);
+            }
+        });
         menuAlugados.add(miEncerrados);
 
         menuProdutos.add(menuAlugados);
@@ -417,6 +422,11 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Erro ao gerar relatorio.", "Erro ", JOptionPane.INFORMATION_MESSAGE);
         }   
     }//GEN-LAST:event_miAlugueisAndamentoActionPerformed
+
+    private void miEncerradosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miEncerradosActionPerformed
+        tela.locador.produtosemencerrados.ProdutoAlugadoPesquisarTela produtosAlugados = new tela.locador.produtosemencerrados.ProdutoAlugadoPesquisarTela(this.condomino);
+        produtosAlugados.setVisible(true);
+    }//GEN-LAST:event_miEncerradosActionPerformed
 
     private void gerarRelatorio() throws SQLException, ClassNotFoundException {
       

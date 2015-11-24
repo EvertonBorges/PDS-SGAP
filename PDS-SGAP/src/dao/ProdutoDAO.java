@@ -137,7 +137,7 @@ public class ProdutoDAO {
                 EntityManager manager = JPAUtil.getEntityManager();
         
         List<Produto> produtoRetorno= new ArrayList<>();
-        TypedQuery<Produto> query =  manager.createQuery( "SELECT p FROM Produto p WHERE p.nome LIKE :produto AND p NOT IN "
+        TypedQuery<Produto> query =  manager.createQuery( "SELECT p FROM Produto p WHERE p.status IS TRUE AND p.nome LIKE :produto AND p NOT IN "
                 + "                                    (SELECT s.produto FROM SolicitacaoAluguel s WHERE  s IN "
                 + "                                    (SELECT a.solicitacaoAluguel FROM Aluguel a WHERE a.dataDevolucao IS NULL ) )", Produto.class);
        

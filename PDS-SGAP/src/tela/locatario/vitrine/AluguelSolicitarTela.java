@@ -380,7 +380,7 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
         
         SpinnerNumberModel spModelDias = new SpinnerNumberModel(5, 1, 31, 1);
         spDias.setModel(spModelDias);
-        tfReputacao.setText(String.format("%.2f", this.produto.getReputacao()) + "%");
+        tfReputacao.setText(getReputacao());
         img = img1;
         mudarCorPaineis();
     }
@@ -474,6 +474,16 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
         sDAO.addSolicitacao(this.solicitacaoAluguel);
         JOptionPane.showMessageDialog(null, "Solicitação realizada com sucesso", "Confirmacao ", JOptionPane.INFORMATION_MESSAGE);
         dispose();
+    }
+    
+    private String getReputacao(){
+        String reputacao;
+        if (produto.getReputacao() == -1) {
+            reputacao = "S/N";
+        } else {
+            reputacao = String.format("%.2f", produto.getReputacao()) + "%";
+        }
+        return reputacao;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
