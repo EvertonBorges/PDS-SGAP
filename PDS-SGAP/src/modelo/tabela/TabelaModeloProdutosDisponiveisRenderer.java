@@ -103,10 +103,16 @@ public class TabelaModeloProdutosDisponiveisRenderer  implements TableCellRender
     
     private TextAreaModelo getTextArea(Produto produto, int rowIndex, boolean isSelected){
         TextAreaModelo textArea = new TextAreaModelo();
+        String reputacao;
+        if (produto.getReputacao() == -1) {
+            reputacao = "S/N";
+        } else {
+            reputacao = String.format("%.2f", produto.getReputacao()) + "%";
+        }
         
         textArea.setText("  "+ produto.getNome() + 
                             "\n  "+produto.getCondomino().getNome() + 
-                            "\n  Reputação: " + String.format("%.2f", produto.getReputacao()) + "%");
+                            "\n  Reputação: " + reputacao);
         textArea.setBounds(156, 3, 144 , 50);
         textArea.setBackground(getCor( isSelected));
         textArea.setEditable(false);

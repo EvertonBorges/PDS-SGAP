@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,8 +22,8 @@ import modelo.painel.PainelModeloImagens;
 import util.ConversorData;
 
 public class AluguelSolicitarTela extends javax.swing.JFrame {
-    private Produto produto;
-    private Condomino condomino;
+    private final Produto produto;
+    private final Condomino condomino;
     private SolicitacaoAluguel solicitacaoAluguel;
     private SolicitacaoAluguelDAO sDAO;
     private JPanel img;
@@ -32,6 +33,7 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
         this.condomino = condomino;
         initComponents();
         carregarProduto();
+        checkaCondominoIsLocatario();
     }
 
     /**
@@ -357,6 +359,13 @@ public class AluguelSolicitarTela extends javax.swing.JFrame {
         img = null;
         mudarCorPaineis();
     }//GEN-LAST:event_painelImagensMouseReleased
+    
+    private void checkaCondominoIsLocatario(){
+        if (Objects.equals(produto.getCondomino().getCodigo(), condomino.getCodigo())) {
+            bAlugar.setEnabled(false);
+            bAlugar.setToolTipText("Locador = Locatário.");
+        }
+    }
     
     public void preencherCampos(){
         Calendar data = Calendar.getInstance();

@@ -1,5 +1,6 @@
 package tela.locador.meusprodutos;
 
+import dao.AluguelDAO;
 import dao.CondominoDAO;
 import modelo.tabela.TabelaModeloProduto;
 import dao.ProdutoDAO;
@@ -263,11 +264,18 @@ public class ProdutoPesquisarTela extends javax.swing.JFrame {
     }//GEN-LAST:event_miAtualizarActionPerformed
 
     private void miExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miExcluirActionPerformed
-        int resposta = JOptionPane.showConfirmDialog(null, "Deseja excluir o registro: " + produto.getNome() + "?", "Excluir Produto", JOptionPane.YES_NO_OPTION);
-        if(resposta == JOptionPane.YES_OPTION){
-            JOptionPane.showMessageDialog(null, "Produto excluido com sucesso", "Produto Excluido", JOptionPane.INFORMATION_MESSAGE);
-            ProdutoDAO produtoDAO = new ProdutoDAO();
-            produtoDAO.removeProduto(produto);
+        AluguelDAO aluguelDAO = new AluguelDAO();
+        boolean produtoAlugado = aluguelDAO.isAlugado(produto);
+        if (produtoAlugado) {
+            JOptionPane.showMessageDialog(null, "Produto não pode ser excluido, pois esta sendo alugado no momento", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            int resposta = JOptionPane.showConfirmDialog(null, "Deseja excluir o registro: " + produto.getNome() + "?", "Excluir Produto", JOptionPane.YES_NO_OPTION);
+            if(resposta == JOptionPane.YES_OPTION){
+                ProdutoDAO produtoDAO = new ProdutoDAO();
+                produtoDAO.removeProduto(produto);
+                JOptionPane.showMessageDialog(null, "Produto excluido com sucesso", "Produto Excluido", JOptionPane.INFORMATION_MESSAGE);
+                dispose();
+            }
         }
     }//GEN-LAST:event_miExcluirActionPerformed
 

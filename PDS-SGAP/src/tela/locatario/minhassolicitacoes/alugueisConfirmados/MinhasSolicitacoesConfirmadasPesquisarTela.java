@@ -8,7 +8,7 @@ import modelo.Produto;
 import modelo.tabela.TabelaModeloProduto;
 
 public class MinhasSolicitacoesConfirmadasPesquisarTela extends javax.swing.JFrame {
-    private Condomino condomino;
+    private final Condomino condomino;
     private List<Produto> produtos;
     private Produto produtoSelecionado;
     

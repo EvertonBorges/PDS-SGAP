@@ -68,7 +68,7 @@ public class ProdutoDAO {
     public List<Produto> findProduto(Condomino condomino, Produto produto){
         EntityManager manager = JPAUtil.getEntityManager();
         List<Produto> produtosRetorno;
-        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.condomino.codigo = :codigo AND p.nome LIKE :nome");
+        Query query = manager.createQuery("SELECT p FROM Produto p WHERE p.condomino.codigo = :codigo AND p.nome LIKE :nome AND p.status = TRUE");
         query.setParameter("codigo", condomino.getCodigo());
         query.setParameter("nome", produto.getNome()+ "%");
         produtosRetorno = query.getResultList();
@@ -106,22 +106,15 @@ public class ProdutoDAO {
         EntityManager manager = JPAUtil.getEntityManager();
         TypedQuery<Categoria> query = manager.createQuery("SELECT c FROM Categoria c WHERE c.codigo = :codigo AND c.produtos.status = TRUE", Categoria.class);
         query.setParameter("codigo", categoria.getCodigo());
-        List<Produto> produtosRetorno;
-        
         try{
             categoriaConsulta = (Categoria) query.getSingleResult();
-            try {
-                produtosRetorno = categoriaConsulta.getProdutos();
-            } catch (NullPointerException ex) {
-                produtosRetorno = null;
-            }
+            return categoriaConsulta.getProdutos();
         } catch (NoResultException ex) {
-            produtosRetorno = null;
             System.out.println("Erro ao procurar produtos por categoria: " + ex.getMessage());
         }
         
         manager.close();
-        return produtosRetorno;
+        return null;
     }
     
     public List<Produto> findProduto(boolean status, Produto produto){

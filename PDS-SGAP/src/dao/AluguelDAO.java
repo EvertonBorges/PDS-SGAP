@@ -142,6 +142,22 @@ public class AluguelDAO {
         return alugueisConcluido;
     }
     
+    public boolean isAlugado(Produto produto) {
+        Aluguel aluguel;
+        EntityManager manager = JPAUtil.getEntityManager();
+        Query query = manager.createQuery("SELECT a FROM Aluguel a WHERE a.dataDevolucao IS NULL AND a.solicitacaoAluguel.produto = :produto", Aluguel.class);
+        query.setParameter("produto", produto);
+        boolean alugado;
+        try {
+            aluguel = (Aluguel) query.getSingleResult();
+            alugado = true;
+        } catch (NoResultException e) {
+            alugado = false;
+        }
+        manager.close();
+        return alugado;
+    }
+    
     public double calculaReputacao(Produto produto){
         double reputacao;
         List<Avaliacao> avaliacoes;
@@ -151,21 +167,24 @@ public class AluguelDAO {
         
         try {
             avaliacoes = query.getResultList();
-            int qtdePositivo = 0, qtdeNeutro = 0, qtdeNegativo = 0;
-            for (Avaliacao avaliacao: avaliacoes) {
-                switch (avaliacao){
-                    case NEGATIVA: qtdeNegativo++;
-                                   break;
-                    case NEUTRA: qtdeNeutro++;
-                                   break;
-                    case POSITIVA: qtdePositivo++;
-                                   break;
+            if (avaliacoes.size() > 3) {
+                int qtdePositivo = 0, qtdeNeutro = 0, qtdeNegativo = 0;
+                for (Avaliacao avaliacao: avaliacoes) {
+                    switch (avaliacao){
+                        case NEGATIVA: qtdeNegativo++;
+                                       break;
+                        case NEUTRA: qtdeNeutro++;
+                                       break;
+                        case POSITIVA: qtdePositivo++;
+                                       break;
+                    }
                 }
+                reputacao = (double)(((double)(1*qtdePositivo) + (double)(0.75*qtdeNeutro) - (double)(0.25*qtdeNegativo))/((double) avaliacoes.size()));
+                reputacao = reputacao * 100;
+            } else {
+                reputacao = -1;
             }
-            reputacao = (double)(((double)(1*qtdePositivo) + (double)(0.75*qtdeNeutro) - (double)(0.25*qtdeNegativo))/((double) avaliacoes.size()));
-            reputacao = reputacao * 100;
         } catch (NoResultException ex) {
-            avaliacoes = null;
             reputacao = -1;
         }
         

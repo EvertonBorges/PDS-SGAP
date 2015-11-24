@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
@@ -29,7 +30,7 @@ import modelo.SolicitacaoAluguel;
 import modelo.TipoUsuario;
 
 public class PopulaBanco {
-    private List<Aluguel> alugueis;
+    private List<Aluguel> alugueis = new ArrayList<>();
     private List<SolicitacaoAluguel> solicitacoes;
     private List<Apartamento> apartamentos;
     private List<EstadoCivil> estadosCivis;
@@ -436,35 +437,38 @@ public class PopulaBanco {
         p7.getCategorias().add(categorias.get(29));
 
         Produto p8 = new Produto();
-        p1.setDiaria(10);
-        p1.setTaxa(3);
+        p8.setDiaria(10);
+        p8.setTaxa(3);
         p8.setNome("FONE");
         p8.setStatus(true);
         p8.getCategorias().add(categorias.get(29));
 
         Produto p9 = new Produto();
-        p1.setDiaria(2);
-        p1.setTaxa(0.25);
+        p9.setDiaria(2);
+        p9.setTaxa(0.25);
         p9.setNome("CABO USB");
         p9.setStatus(true);
         p9.getCategorias().add(categorias.get(29));
 
         Produto p10 = new Produto();
-        p1.setDiaria(5);
-        p1.setTaxa(2);
+        p10.setDiaria(5);
+        p10.setTaxa(2);
         p10.setNome("CHAVE");
+        p10.setStatus(true);
         p10.getCategorias().add(categorias.get(23));
 
         Produto p11 = new Produto();
-        p1.setDiaria(5);
-        p1.setTaxa(2);
+        p11.setDiaria(5);
+        p11.setTaxa(2);
         p11.setNome("CHAVEIRO");
+        p11.setStatus(true);
         p11.getCategorias().add(categorias.get(26));
 
         Produto p12 = new Produto();
-        p1.setDiaria(10);
-        p1.setTaxa(5);
+        p12.setDiaria(10);
+        p12.setTaxa(5);
         p12.setNome("GARRAFA");
+        p12.setStatus(true);
         p12.getCategorias().add(categorias.get(46));
         
         p1.setDescricao("Produto de boa qualidade e resistente. Ano:2015. ");
@@ -618,6 +622,7 @@ public class PopulaBanco {
             
             AluguelDAO aluguelDAO = new AluguelDAO();
             aluguelDAO.addAluguel(aluguel);
+            alugueis.add(aluguel);
         }
     }
     
@@ -723,9 +728,9 @@ public class PopulaBanco {
         populaBanco.populaCondominos();
         populaBanco.populaCategoria();
         populaBanco.populaProduto();
-        //populaBanco.populaSolicitacaoAluguel();
-        //populaBanco.populaAluguel();
-        //populaBanco.populaComentario();
+        populaBanco.populaSolicitacaoAluguel();
+        populaBanco.populaAluguel();
+        populaBanco.populaComentario();
         System.exit(0);
     }
 }

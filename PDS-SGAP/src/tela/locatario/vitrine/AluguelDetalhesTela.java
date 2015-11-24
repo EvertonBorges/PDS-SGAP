@@ -17,9 +17,9 @@ import modelo.Produto;
 import modelo.painel.PainelModeloImagens;
 
 public class AluguelDetalhesTela extends javax.swing.JFrame {
-    private Produto produto;
+    private final Produto produto;
     private List<Comentario> comentarios;
-    private Condomino condomino;
+    private final Condomino condomino;
     private JPanel img;
 
     public AluguelDetalhesTela(Produto produto, Condomino condomino) {
@@ -39,10 +39,8 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
     private void initComponents() {
 
         jInternalFrame1 = new javax.swing.JInternalFrame();
-        lNome4 = new javax.swing.JLabel();
         tfDono = new javax.swing.JLabel();
         lNome6 = new javax.swing.JLabel();
-        tfReputacao = new javax.swing.JLabel();
         bAlugar = new javax.swing.JToggleButton();
         jSeparator2 = new javax.swing.JSeparator();
         bCancelar = new javax.swing.JButton();
@@ -78,17 +76,11 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Consultar Produto");
 
-        lNome4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lNome4.setText("Reputação:");
-
         tfDono.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfDono.setText("DONO PRODUTO");
 
         lNome6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lNome6.setText("Dono:");
-
-        tfReputacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfReputacao.setText("calcular reptação");
 
         bAlugar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bAlugar.setText("Alugar");
@@ -247,24 +239,18 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                         .addGap(12, 12, 12))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lNome7)
+                            .addComponent(lNome6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfDono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(tfContato3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(lNome4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(tfReputacao, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfContato2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lNome7)
-                                    .addComponent(lNome6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfDono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tfContato3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(tfContato2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(tfContato1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(tfContato1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator2)
@@ -277,7 +263,7 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
@@ -294,10 +280,6 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
                         .addComponent(tfContato2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(tfContato3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lNome4)
-                            .addComponent(tfReputacao))
                         .addGap(14, 14, 14)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -418,7 +400,6 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
         tfProduto.setText(this.produto.getNome());
         tfDescricao.setText(this.produto.getDescricao());
         preencherTelefones();
-        tfReputacao.setText(String.format("%.2f", this.produto.getReputacao()) + "%");
         img = img1;
         mudarCorPaineis();
     }
@@ -501,7 +482,6 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JList jlComentarios;
-    private javax.swing.JLabel lNome4;
     private javax.swing.JLabel lNome6;
     private javax.swing.JLabel lNome7;
     private javax.swing.JPanel painelImagens;
@@ -511,6 +491,5 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
     private javax.swing.JLabel tfDescricao;
     private javax.swing.JLabel tfDono;
     private javax.swing.JLabel tfProduto;
-    private javax.swing.JLabel tfReputacao;
     // End of variables declaration//GEN-END:variables
 }

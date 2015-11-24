@@ -40,6 +40,7 @@ public class Principal extends javax.swing.JFrame {
         this.condomino = condomino;
         menuCadastro.setVisible(false);
         menuRelatorios.setVisible(false);
+        miAguardandoConfirmacao.setVisible(false);
         carregarBackground();
         verificaUsuario();
     }

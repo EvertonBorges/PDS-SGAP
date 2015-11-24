@@ -7,9 +7,7 @@ import modelo.tabela.TabelaModeloProdutosDisponiveis;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.EntityManager;
 import modelo.Produto;
-import util.JPAUtil;
 import dao.ProdutoDAO;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,12 +19,11 @@ import modelo.Categoria;
 import modelo.Condomino;
 
 public class AluguelPesquisarTela extends javax.swing.JFrame {
-    private List<Produto> produtos = new ArrayList<>();
-    private Categoria categoria= new Categoria();
-    private List<Categoria> categorias = new ArrayList<>();
-    private ProdutoDAO pDAO = new ProdutoDAO();
-    private Produto produto = new Produto();
-    private Condomino condomino;
+    private List<Produto> produtos;
+    private Categoria categoria;
+    private List<Categoria> categorias;
+    private Produto produto;
+    private final Condomino condomino;
     
     public AluguelPesquisarTela(Condomino condomino) {
         initComponents();
@@ -199,47 +196,37 @@ public class AluguelPesquisarTela extends javax.swing.JFrame {
     }//GEN-LAST:event_jlCategoriaMouseMoved
    
     private void preencherTabelaByCategoria(Categoria categoria){
-        this.produtos.clear();
-        for (Produto p: pDAO.findProduto(categoria)){
-            if(p.isStatus()== true)    
-                this.produtos.add(p) ;
-        }
+        ProdutoDAO produtoDAO = new ProdutoDAO();
+        this.produtos = produtoDAO.findProduto(categoria);
         preencherTabela();
     }
     
     private void preencherCategoria(){
-        CategoriaDAO cDAO= new CategoriaDAO();
-        this.categorias= cDAO.allCategorias();
-        jlCategoria.setModel(new ListaModeloCategorias(this.categorias, true)); 
-     
+        CategoriaDAO cDAO = new CategoriaDAO();
+        this.categorias = cDAO.allCategorias();
+        jlCategoria.setModel(new ListaModeloCategorias(this.categorias, true));
         jlCategoria.addMouseListener( new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e){
-                
-                int index= jlCategoria.locationToIndex(e.getPoint());   
+                int index = jlCategoria.locationToIndex(e.getPoint());
                 
                 if(jlCategoria.getModel().getElementAt(index).equals("TODOS")){
                     pesquisar();
                     preencherTabela();
                 }
                 else {
-                    categoria= (Categoria)jlCategoria.getModel().getElementAt(index);
+                    categoria = (Categoria)jlCategoria.getModel().getElementAt(index);
                     preencherTabelaByCategoria(categoria);
                 }
             }
-            
         });
-        
-
     }
            
     private void selecionarProduto(MouseEvent evt) {
-
         int linha = tbProduto.rowAtPoint(evt.getPoint());
         int coluna = tbProduto.columnAtPoint(evt.getPoint());
 
-        if (linha >= 0 ) { 
-            
+        if (linha >= 0 ) {
             tbProduto.getSelectionModel().setSelectionMode( ListSelectionModel.SINGLE_SELECTION);  
             tbProduto.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);  
             tbProduto.setCellSelectionEnabled(true);
@@ -251,9 +238,9 @@ public class AluguelPesquisarTela extends javax.swing.JFrame {
                 realizarAcao(evt);
             }
         }
-
     }
-        private void carregarMenuFlutuante(){
+    
+    private void carregarMenuFlutuante(){
         JMenuItem[] itens = {new JMenuItem("Detalhes do produto"), new JMenuItem("Solicitar aluguel")};
         
         itens[0].addActionListener(new ActionListener() {
@@ -276,45 +263,37 @@ public class AluguelPesquisarTela extends javax.swing.JFrame {
     }
         
     private void realizarAcao(MouseEvent evt) {
-
-        if (evt.getButton() == MouseEvent.BUTTON1) { 
-
+        if (evt.getButton() == MouseEvent.BUTTON1) {
             if (evt.getClickCount() > 1) { 
                 telaConsultar();
             }
-
         } else if (evt.getButton() == MouseEvent.BUTTON3) { 
             mPopup.show(evt.getComponent(), evt.getX(), evt.getY());
-
         }
-
     }
+    
     private void telaConsultar(){
         AluguelDetalhesTela telaConsultar= new AluguelDetalhesTela(this.produto, this.condomino);
         telaConsultar.setVisible(true);
     }
+    
     private void telaSolicitarAluguel(){
         AluguelSolicitarTela telaSolicitarAluguel= new AluguelSolicitarTela(this.produto, this.condomino);
         telaSolicitarAluguel.setVisible(true);
     }
         
     private void preencherTabela() {
-        
-        //tbProduto.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); 
-        
         tbProduto.setDefaultRenderer(JPanel.class, new TabelaModeloProdutosDisponiveisRenderer(this.produtos));
-        
         tbProduto.setModel(new TabelaModeloProdutosDisponiveis(this.produtos));
-
         tbProduto.setRowHeight(180); 
     }
     
     private void pesquisar() {
         try {
-            this.produtos.clear();
+            ProdutoDAO produtoDAO = new ProdutoDAO();
+            produto = new Produto();
             this.produto.setNome(tfNome.getText());
-            this.produtos = pDAO.findProdutosDisponiveis(this.produto);
-        
+            this.produtos = produtoDAO.findProdutosDisponiveis(this.produto);
         } catch (Exception ex) {
             System.out.println("Erro ao pesquisar:" + ex.getCause()+ "\n  "+ ex.getMessage());
         }
