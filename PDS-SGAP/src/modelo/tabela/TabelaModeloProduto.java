@@ -6,8 +6,8 @@ import modelo.Produto;
 
 public class TabelaModeloProduto extends AbstractTableModel{
     private final List<Produto> produtos;
-    private final String[] campos = {"Produto", "Quantidade"}; 
-
+    private final String[] campos = {"Produto", "Diária"};
+    
     public TabelaModeloProduto(List<Produto> produtos) {
         this.produtos = produtos;
     }
@@ -16,18 +16,18 @@ public class TabelaModeloProduto extends AbstractTableModel{
     public int getRowCount() {
         return produtos.size();
     }
-
+    
     @Override
     public int getColumnCount() {
         return campos.length;
     }
-
+    
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Produto produto = produtos.get(rowIndex);
         switch(columnIndex){
             case 0: return produto.getNome();
-            case 1: return produto.getQuantidade();
+            case 1: return "R$" + produto.getDiaria();
             default: return "";
         }
     }

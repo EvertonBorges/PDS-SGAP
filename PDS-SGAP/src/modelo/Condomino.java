@@ -1,5 +1,6 @@
 package modelo;
 
+import dao.AluguelDAO;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Condomino {
@@ -44,10 +46,17 @@ public class Condomino {
     
     @ElementCollection (fetch = FetchType.EAGER)
     private List<String> telefones;
+    
+    @Transient
+    private double reputacao;
 
     public Condomino() {
         telefones= new ArrayList<>();
         produtos= new ArrayList<>();
+    }
+
+    public Condomino(String nome) {
+        this.nome = nome;
     }
 
     public Condomino(String nome, String cpf, String login, String senha, TipoUsuario tipoUsuario, Calendar dataNascimento, List<SolicitacaoAluguel> solicitacoes, Apartamento apartamento, EstadoCivil estadoCivil, List<Produto> produtos, List<String> telefones) {
@@ -154,6 +163,12 @@ public class Condomino {
 
     public void setSolicitacoes(List<SolicitacaoAluguel> solicitacoes) {
         this.solicitacoes = solicitacoes;
+    }
+
+    public double getReputacao() {
+        AluguelDAO aluguelDAO = new AluguelDAO();
+        this.reputacao = aluguelDAO.calculaReputacao(this);
+        return reputacao;
     }
 
     @Override

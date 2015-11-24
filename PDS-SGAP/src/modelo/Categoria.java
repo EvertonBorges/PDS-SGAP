@@ -19,7 +19,10 @@ public class Categoria {
     
     public Categoria() {
         produtos= new ArrayList<>();
-        
+    }
+
+    public Categoria(String descricao) {
+        this.descricao = descricao;
     }
 
     public Categoria(String descricao, List<Produto> produtos) {

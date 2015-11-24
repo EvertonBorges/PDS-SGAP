@@ -2,44 +2,39 @@ package modelo;
 
 import java.util.Calendar;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Comentario {
-    
     @Id
     @GeneratedValue
     private Long codigo;
     private String comentario;
-    private Calendar data;
     
-    @ManyToOne
-    @JoinColumn (name= "produto_codigo")
-    private Produto produto;
-    
-    
-    @ManyToOne
-    @JoinColumn (name= "comentarista_codigo")
-    private Condomino comentarista;
-    
-    @ManyToOne
-    @JoinColumn (name= "avaliacao_codigo")
+    @Enumerated
     private Avaliacao avaliacao;
-
+    
+    @Temporal(TemporalType.DATE)
+    private Calendar dataComentario;
+    
+    @OneToOne
+    private Aluguel aluguel;
+    
     public Comentario() {
         
     }
     
-    public Comentario(Calendar data, Long codigo, String comentario, Produto produto, Condomino comentarista, Avaliacao avaliacao) {
+    public Comentario(Calendar dataComentario, Long codigo, String comentario, Avaliacao avaliacao, Aluguel aluguel) {
         this.codigo = codigo;
         this.comentario = comentario;
-        this.produto = produto;
-        this.comentarista=comentarista;
         this.avaliacao=avaliacao;
-        this.data=data;
+        this.dataComentario=dataComentario;
+        this.aluguel = aluguel;
     }
 
     public Avaliacao getAvaliacao() {
@@ -49,16 +44,6 @@ public class Comentario {
     public void setAvaliacao(Avaliacao avaliacao) {
         this.avaliacao = avaliacao;
     }
-    
-
-    public Condomino getComentarista() {
-        return comentarista;
-    }
-
-    public void setComentarista(Condomino comentarista) {
-        this.comentarista = comentarista;
-    }
-
   
     public Long getCodigo() {
         return codigo;
@@ -72,24 +57,24 @@ public class Comentario {
         this.comentario = comentario;
     }
 
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
     @Override
     public String toString() {
         return comentario;
     }
 
-    public Calendar getData() {
-        return data;
+    public Calendar getDataComentario() {
+        return dataComentario;
     }
 
-    public void setData(Calendar data) {
-        this.data = data;
+    public void setDataComentario(Calendar dataComentario) {
+        this.dataComentario = dataComentario;
+    }
+
+    public Aluguel getAluguel() {
+        return aluguel;
+    }
+
+    public void setAluguel(Aluguel aluguel) {
+        this.aluguel = aluguel;
     }
  }

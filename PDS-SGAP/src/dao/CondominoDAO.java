@@ -10,12 +10,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import modelo.Condomino;
+import modelo.TipoUsuario;
 import util.JPAUtil;
 
 public class CondominoDAO {
-
-    public CondominoDAO() {
-    }
     
     public void addCondomino(Condomino condomino){
         EntityManager manager = JPAUtil.getEntityManager();
@@ -114,5 +112,43 @@ public class CondominoDAO {
         }
         
         return condominoResultado;
+    }
+    
+    public List<Condomino> findCondominos(Condomino condomino){
+        List<Condomino> condominos;
+        EntityManager manager = JPAUtil.getEntityManager();
+        TypedQuery<Condomino> query = manager.createQuery("SELECT c FROM Condomino c WHERE c.nome LIKE :nome AND c.tipoUsuario = :tipoUsuario", Condomino.class);
+        query.setParameter("nome", condomino.getNome() + "%");
+        query.setParameter("tipoUsuario", TipoUsuario.CONDOMINO);
+        
+        try {
+            condominos = query.getResultList();
+        } catch (NoResultException e) {
+            condominos = null;
+        }
+        
+        return condominos;
+    }
+    
+    public boolean verificaLoginExistente(String login){
+        EntityManager entitymanager = JPAUtil.getEntityManager();
+        List<Condomino> condominos = null;
+        boolean verifica = false;
+        try{
+            String consulta = "SELECT a FROM Condomino a WHERE a.login = :login ";
+            
+            TypedQuery<Condomino> query = entitymanager.createQuery(consulta, Condomino.class);
+            query.setParameter("login", login);
+            condominos = query.getResultList();
+            System.out.println(condominos);
+            if(condominos.isEmpty())
+                verifica = false;
+            else
+                verifica = true;
+        }
+        catch(Exception noresult){
+            noresult.getCause();
+        }
+        return verifica;
     }
 }

@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class SolicitacaoAluguel {
@@ -14,7 +15,6 @@ public class SolicitacaoAluguel {
     @GeneratedValue
     private Long codigo;
     private int diasPretendidos;
-    private int quantidade;
     
     @ManyToOne
     private Produto produto;
@@ -26,13 +26,16 @@ public class SolicitacaoAluguel {
     private Calendar dataSolicitacao;
     @Temporal (TemporalType.DATE)
     private Calendar dataInicioAluguel;
-
+    
+    @Transient
+    private Calendar dataPrevista;
+    
     public SolicitacaoAluguel() {
+        
     }
-
-    public SolicitacaoAluguel(int diasPretendidos, int quantidade, Produto produto, Condomino locatario, Calendar dataSolicitacao, Calendar dataInicioAluguel) {
+    
+    public SolicitacaoAluguel(int diasPretendidos, Produto produto, Condomino locatario, Calendar dataSolicitacao, Calendar dataInicioAluguel) {
         this.diasPretendidos = diasPretendidos;
-        this.quantidade = quantidade;
         this.produto = produto;
         this.locatario = locatario;
         this.dataSolicitacao = dataSolicitacao;
@@ -83,16 +86,15 @@ public class SolicitacaoAluguel {
         this.diasPretendidos = diasPretendidos;
     }
 
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
+    public Calendar getDataPrevista() {
+        dataPrevista = Calendar.getInstance();
+        this.dataPrevista.set(Calendar.DAY_OF_YEAR, dataInicioAluguel.get(Calendar.DAY_OF_YEAR));
+        this.dataPrevista.add(Calendar.DAY_OF_YEAR, diasPretendidos);
+        return dataPrevista;
     }
 
     @Override
     public String toString() {
         return dataSolicitacao + "  " + produto + " " + locatario ;
-    }    
+    }
 }

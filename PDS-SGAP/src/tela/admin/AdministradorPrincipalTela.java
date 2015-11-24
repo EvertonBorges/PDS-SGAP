@@ -1,9 +1,9 @@
 package tela.admin;
 
 import modelo.Condomino;
-import tela.apartamento.ApartamentoPesquisarTela;
-import tela.categoria.CategoriaPesquisarTela;
-import tela.condomino.CondominoPesquisarTela;
+import tela.admin.apartamento.ApartamentoPesquisarTela;
+import tela.admin.categoria.CategoriaPesquisarTela;
+import tela.admin.condomino.CondominoPesquisarTela;
 
 public class AdministradorPrincipalTela extends javax.swing.JFrame {
     private final Condomino condomino;
@@ -154,7 +154,7 @@ public class AdministradorPrincipalTela extends javax.swing.JFrame {
         CategoriaPesquisarTela categoriaPesquisarTela = new CategoriaPesquisarTela();
         categoriaPesquisarTela.setVisible(true);
     }//GEN-LAST:event_imCategoriaActionPerformed
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem imAlterarSenha;
     private javax.swing.JMenuItem imApartamento;

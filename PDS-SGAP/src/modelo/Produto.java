@@ -1,13 +1,19 @@
 package modelo;
 
+import dao.AluguelDAO;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Transient;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Produto {
@@ -16,15 +22,16 @@ public class Produto {
     private Long codigo;
     private String nome;
     private String descricao;
-    private int quantidade;
     private double diaria;
-    private int taxa;
+    private double taxa;
     private boolean status;
     
-    @OneToMany (mappedBy = "produto")
+    @OneToMany (mappedBy = "produto", cascade = {CascadeType.REMOVE}, fetch = FetchType.EAGER)  
+    @Fetch(FetchMode.SUBSELECT)
     private List<SolicitacaoAluguel> solicitacoes;
         
-    @OneToMany (mappedBy = "produto")
+    @OneToMany (mappedBy = "produto", cascade = {CascadeType.MERGE, CascadeType.REFRESH, CascadeType.REMOVE}, fetch = FetchType.EAGER)  
+    @Fetch(FetchMode.SUBSELECT)
     private List<ImagemProduto> imagensProduto;
     
     @ManyToOne
@@ -33,34 +40,27 @@ public class Produto {
     @ManyToMany
     private List<Categoria> categorias;
     
-    @OneToMany (mappedBy= "produto")
-    private List<Comentario> comentarios;
-    
+    @Transient
+    private double reputacao;
+        
     public Produto() {
         imagensProduto = new ArrayList<>();
         categorias = new ArrayList<>();
-        comentarios = new ArrayList<>();
     }
 
-    public Produto(String nome, String descricao, int quantidade, double diaria, int taxa ,List<ImagemProduto> imagensProduto, List<SolicitacaoAluguel> solicitacoes, Condomino condomino, List<Categoria> categorias, List<Comentario> comentarios ) {
+    public Produto(String nome) {
+        this.nome = nome;
+    }
+
+    public Produto(String nome, String descricao, double diaria, int taxa ,List<ImagemProduto> imagensProduto, List<SolicitacaoAluguel> solicitacoes, Condomino condomino, List<Categoria> categorias) {
         this.nome = nome;
         this.descricao = descricao;
-        this.quantidade = quantidade;
         this.diaria = diaria;
         this.taxa = taxa;
         this.imagensProduto = imagensProduto;
         this.condomino = condomino;
         this.categorias = categorias;
-        this.comentarios=comentarios;
         this.solicitacoes=solicitacoes;
-    }
-
-    public List<Comentario> getComentarios() {
-        return comentarios;
-    }
-
-    public void setComentarios(List<Comentario> comentarios) {
-        this.comentarios = comentarios;
     }
 
     public Long getCodigo() {
@@ -81,14 +81,6 @@ public class Produto {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
     }
 
     public Condomino getCondomino() {
@@ -115,11 +107,11 @@ public class Produto {
         this.diaria = diaria;
     }
 
-    public int getTaxa() {
+    public double getTaxa() {
         return taxa;
     }
 
-    public void setTaxa(int taxa) {
+    public void setTaxa(double taxa) {
         this.taxa = taxa;
     }
 
@@ -138,7 +130,6 @@ public class Produto {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
     
     public List<SolicitacaoAluguel> getSolicitacoes() {
         return solicitacoes;
@@ -151,5 +142,11 @@ public class Produto {
     @Override
     public String toString() {
         return nome;
+    }
+    
+    public double getReputacao(){
+        AluguelDAO aluguelDAO = new AluguelDAO();
+        this.reputacao = aluguelDAO.calculaReputacao(this);
+        return reputacao;
     }
 }

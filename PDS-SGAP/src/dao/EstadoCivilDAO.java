@@ -1,62 +1,49 @@
 package dao;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import modelo.EstadoCivil;
 import util.JPAUtil;
 
 public class EstadoCivilDAO {
     
-    public void insereEstadoCivil(){
+    public void add(EstadoCivil estadoCivil){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
-        
-        CriteriaBuilder criteriaBuilder = manager.getCriteriaBuilder();
-        CriteriaQuery<String> criteriaQuery = criteriaBuilder.createQuery(String.class);
-        Root<EstadoCivil> estadoCivil = criteriaQuery.from(EstadoCivil.class);
-        
-        List<String> estadoCivis = new ArrayList<>();
-        estadoCivis.add("Solteiro");
-        estadoCivis.add("Casado");
-        estadoCivis.add("Divorciado");
-        estadoCivis.add("Viúvo");
-        
-        for(String s : estadoCivis){
-            criteriaQuery.select(estadoCivil.<String>get("descricao"));
-            Predicate predicate = criteriaBuilder.equal(estadoCivil.get("descricao"), s);
-            criteriaQuery.where(predicate);
-        
-            TypedQuery<String> query = manager.createQuery(criteriaQuery);
-            
-            try{
-               String resultado = query.getSingleResult();
-            }
-            catch(Exception noresult){
-                EstadoCivil ec = new EstadoCivil();
-                ec.setDescricao(s);
-                manager.persist(ec);
-            }
-        }
+        manager.persist(estadoCivil);
         manager.getTransaction().commit();
         manager.close();
     }
     
-    public List<EstadoCivil> listaEstadoCivil(){
+    public void alter(EstadoCivil estadoCivil){
         EntityManager manager = JPAUtil.getEntityManager();
         manager.getTransaction().begin();
-        
-        String consulta = "select ec from EstadoCivil ec";
-        TypedQuery<EstadoCivil> query = manager.createQuery(consulta, EstadoCivil.class);
-        List<EstadoCivil> estadosCivis = query.getResultList();
-        
+        manager.merge(estadoCivil);
         manager.getTransaction().commit();
         manager.close();
+    }
+    
+    public void remove(EstadoCivil estadoCivil){
+        EntityManager manager = JPAUtil.getEntityManager();
+        manager.getTransaction().begin();
+        manager.remove(estadoCivil);
+        manager.getTransaction().commit();
+        manager.close();
+    }
+    
+    public List<EstadoCivil> findEstadoCivil(EstadoCivil estadoCivil){
+        List<EstadoCivil> estadosCivis;
+        EntityManager manager = JPAUtil.getEntityManager();
+        TypedQuery<EstadoCivil> query = manager.createQuery("SELECT e FROM EstadoCivil e WHERE e.descricao LIKE :descricao", EstadoCivil.class);
+        query.setParameter("descricao", estadoCivil.getDescricao() + "%");
+        
+        try {
+            estadosCivis = query.getResultList();
+        } catch (NoResultException ex) {
+            estadosCivis = null;
+        }
         
         return estadosCivis;
     }

@@ -50,7 +50,13 @@ public class CategoriaDAO {
         EntityManager manager = JPAUtil.getEntityManager();
         Query query = manager.createQuery("SELECT c FROM Categoria c WHERE c.descricao LIKE :descricao ORDER BY c.codigo");
         query.setParameter("descricao", categoria.getDescricao() + "%");
-        categoriasRetorno = query.getResultList();
+        
+        try {
+            categoriasRetorno = query.getResultList();
+        } catch (NoResultException e) {
+            categoriasRetorno = null;
+        }
+        
         return categoriasRetorno;
     }
 }

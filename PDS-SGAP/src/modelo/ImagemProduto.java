@@ -1,6 +1,7 @@
 package modelo;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
@@ -11,10 +12,11 @@ public class ImagemProduto {
     @Id
     @GeneratedValue
     private Long codigo;
+    
     @Lob
     private byte[] imagem;
     
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     private Produto produto;
     
     public ImagemProduto() {

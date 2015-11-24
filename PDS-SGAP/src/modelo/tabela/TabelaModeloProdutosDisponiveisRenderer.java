@@ -24,21 +24,20 @@ public class TabelaModeloProdutosDisponiveisRenderer  implements TableCellRender
         this.produtos = produtos;
   	painel.setOpaque(true);
     }
-  
+    
    @Override
     public Component getTableCellRendererComponent(JTable tbProduto, Object value, boolean isSelected, 
                                                     boolean hasFocus, int rowIndex,  int columnIndex){
         
-         tbProduto.setRowSelectionAllowed(false);
-
-
+        tbProduto.setRowSelectionAllowed(false);
+         
         Produto p;
         int indice = (rowIndex*4)+columnIndex;
         if(produtos.size()<4){
             indice=((rowIndex*produtos.size())+columnIndex);
         }
-        tbProduto.getSelectionModel().setSelectionMode( ListSelectionModel.SINGLE_SELECTION);  
-        tbProduto.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);  
+        tbProduto.getSelectionModel().setSelectionMode( ListSelectionModel.SINGLE_SELECTION);
+        tbProduto.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         tbProduto.setCellSelectionEnabled(true);
         
         if (indice < produtos.size()){
@@ -46,82 +45,85 @@ public class TabelaModeloProdutosDisponiveisRenderer  implements TableCellRender
             p= produtos.get(indice);
             painel.setLayout(new FlowLayout(FlowLayout.CENTER,2,2));
 //            System.out.println("---"+p.getImagensProduto().get(0));
-            if (p.getImagensProduto().size()>0){
-                painel.add(getImagem(p));
-            }
-            else {
-                TextAreaModelo tA= new TextAreaModelo();
-                tA.setText("\n\n\nSEM IMAGEM"+"\n               ");
-                tA.setBounds(1, 1, 156 , 156);
-                tA.setBackground(getCor(isSelected));
-                painel.add(tA);
-            }
+            painel.add(getImagem(p));
+            
             painel.add(getTextArea(p, rowIndex, isSelected));
             painel.setBackground(getCor(isSelected));
             painel.setBorder(getBorder(isSelected));
             painel.setVisible(true);
             painel.repaint();
             
-            return painel;   
-        }
-        else {
+            return painel;
+        } else {
             JPanel panel= new JPanel();
             panel.setBackground(new Color(223, 223, 223));
-            return panel;   
+            return panel;
         }
-        	
     }
     
-    private Color getCor(boolean selecionada) {  
+    private Color getCor (boolean selecionada) {
             // linhas selecionadas são azuis  
-            if (selecionada) {  
-                
+            if (selecionada) {
                 return Color.LIGHT_GRAY;  
-            } 
-            else
-                return new Color(223, 223, 223);  
-
+            } else {
+                return new Color(223, 223, 223);
+            }
     }
     
-    private Border getBorder(boolean selecionada){
-        if (selecionada){
+    private Border getBorder (boolean selecionada) {
+        if (selecionada) {
             return new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 1, true);
-        }
-        else{
+        } else {
             return null;
         }
     }
-        
     
     private JLabel getImagem(Produto produto){
-        ImageIcon img = new ImageIcon(produto.getImagensProduto().get(0).getImagem());
-        JLabel lImagem = new JLabel(new ImageIcon(img.getImage().getScaledInstance(100, 
-                                          100, Image.SCALE_DEFAULT)));
-        lImagem.setBounds(1, 1, 150 , 150);
+        JLabel lImagem;
+        if (produto.getImagensProduto().size()>0){
+            ImageIcon img = new ImageIcon(produto.getImagensProduto().get(0).getImagem());
+            lImagem = new JLabel(new ImageIcon(img.getImage().getScaledInstance(100, 
+                                          97, Image.SCALE_DEFAULT)));
+        } else {
+                TextAreaModelo tA= new TextAreaModelo();
+                lImagem= new JLabel("<html><br><br><br><br><br>SEM IMAGEM</html>");
+                tA.setLineWrap(true);
+                tA.setWrapStyleWord (true);
+                tA.setEditable(false);
+                tA.setBounds(1, 1, 156 , 156);
+                //tA.setBackground(getCor(isSelected));
+                //painel.add(tA);
+        }
         
-       
-        lImagem.setVisible(true); 
-      
+        lImagem.setBounds(1, 1, 150 , 150);
+        lImagem.setVisible(true);
+        
         return lImagem ;
-  }
+    }
     
     private TextAreaModelo getTextArea(Produto produto, int rowIndex, boolean isSelected){
         TextAreaModelo textArea = new TextAreaModelo();
+        String reputacao;
+        if (produto.getReputacao() == -1) {
+            reputacao = "S/N";
+        } else {
+            reputacao = String.format("%.2f", produto.getReputacao()) + "%";
+        }
         
-        textArea.setText("      "+ produto.getNome()+
-                            "\n      "+produto.getCondomino().getNome()+
-                            "\n      Reputação:cal%");
+        textArea.setText("  "+ produto.getNome() + 
+                            "\n  "+produto.getCondomino().getNome() + 
+                            "\n  Reputação: " + reputacao);
         textArea.setBounds(156, 3, 144 , 50);
         textArea.setBackground(getCor( isSelected));
-        textArea.setEditable(false);  
+        textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setVisible(true);
         
         return textArea;
     }
-   
+    
     public void validate() {}
     public void revalidate() {}
     protected void firePropertyChange(String propertyName, Object oldValue, Object newValue) {}
-    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}  
+    public void firePropertyChange(String propertyName, boolean oldValue, boolean newValue) {}
 }

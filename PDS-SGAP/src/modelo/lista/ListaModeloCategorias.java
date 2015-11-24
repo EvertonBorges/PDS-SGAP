@@ -14,8 +14,9 @@ public class ListaModeloCategorias extends AbstractListModel{
     
     public ListaModeloCategorias(List<Categoria> categorias, boolean  todos) {
         this.categorias = categorias;
-        this.todos=todos;
+        this.todos = todos;
     }
+    
     @Override
     public int getSize() {
         if (todos)
