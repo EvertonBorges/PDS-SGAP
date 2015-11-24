@@ -241,6 +241,36 @@ public class SolicitacaoAluguelDAO {
     }
 
     
+    public List<Produto>  findProdutoSolicitacaoAvaliar(Condomino locador, Produto produto){
+        Calendar dataAtualCalendar = Calendar.getInstance();
+        SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");
+        String dataAtualString = formatador.format(dataAtualCalendar.getTime());
+        
+        EntityManager manager = JPAUtil.getEntityManager();
+        
+        List<Produto> produtoRetorno= new ArrayList<>();
+        
+       TypedQuery<Produto> query =  manager.createQuery( "SELECT p FROM Produto p WHERE p.condomino = :locador AND p.nome LIKE :produto AND p IN "
+                + "                                    (SELECT s.produto FROM SolicitacaoAluguel s WHERE s.dataInicioAluguel >= :dataAtual AND s NOT IN "
+                + "                                    (SELECT a.solicitacaoAluguel FROM Aluguel a WHERE a.dataDevolucao IS NULL )"
+                + "                                     ) ", Produto.class);
+ 
+       
+        query.setParameter("locador", locador);
+        query.setParameter("produto", produto.getNome()+"%");
+        query.setParameter("dataAtual", dataAtualCalendar);
+          
+        try {
+            produtoRetorno = query.getResultList();
+        } catch(NoResultException ex){
+            produtoRetorno = null;
+        }  
+       
+        manager.close();
+        
+        return  produtoRetorno;
+
+    }
     public List<SolicitacaoAluguel>  findSolicitacaoProdutoExpiradas(Condomino locatario, Produto produto){
         Calendar dataAtualCalendar = Calendar.getInstance();
         SimpleDateFormat formatador = new SimpleDateFormat("yyyy-MM-dd");

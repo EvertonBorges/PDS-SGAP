@@ -728,9 +728,9 @@ public class PopulaBanco {
         populaBanco.populaCondominos();
         populaBanco.populaCategoria();
         populaBanco.populaProduto();
-        populaBanco.populaSolicitacaoAluguel();
-        populaBanco.populaAluguel();
-        populaBanco.populaComentario();
+        //populaBanco.populaSolicitacaoAluguel();
+        //populaBanco.populaAluguel();
+        //populaBanco.populaComentario();
         System.exit(0);
     }
 }

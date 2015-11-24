@@ -261,8 +261,8 @@ public class SolicitacaoPesquisarTela extends javax.swing.JFrame {
         SolicitacaoAluguelDAO solicitacaoAluguelDAO = new SolicitacaoAluguelDAO();
         Produto produto = new Produto();
         produto.setNome(tfProduto.getText());
-        produto.setCondomino(condomino);
-        produtos = solicitacaoAluguelDAO.findProdutos(produto);
+        //produto.setCondomino(condomino);
+        produtos = solicitacaoAluguelDAO.findProdutoSolicitacaoAvaliar(this.condomino,produto);
         TabelaModeloProduto modelo = new TabelaModeloProduto(produtos);
         tbResultados.setModel(modelo);
     }
