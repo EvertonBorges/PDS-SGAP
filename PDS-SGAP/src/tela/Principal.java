@@ -75,7 +75,9 @@ public class Principal extends javax.swing.JFrame {
         menuProdutos = new javax.swing.JMenu();
         miPesquisarProdutos = new javax.swing.JMenuItem();
         miSolicitacoesProdutos = new javax.swing.JMenuItem();
+        menuAlugados = new javax.swing.JMenu();
         miAlugados = new javax.swing.JMenuItem();
+        miEncerrados = new javax.swing.JMenuItem();
         menuAluguel = new javax.swing.JMenu();
         miPesquisarAluguel = new javax.swing.JMenuItem();
         menuMinhasSolicitacoes = new javax.swing.JMenu();
@@ -140,13 +142,20 @@ public class Principal extends javax.swing.JFrame {
         });
         menuProdutos.add(miSolicitacoesProdutos);
 
-        miAlugados.setText("Alugados");
+        menuAlugados.setText("Alugados");
+
+        miAlugados.setText("Em andamento");
         miAlugados.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 miAlugadosActionPerformed(evt);
             }
         });
-        menuProdutos.add(miAlugados);
+        menuAlugados.add(miAlugados);
+
+        miEncerrados.setText("Encerrados");
+        menuAlugados.add(miEncerrados);
+
+        menuProdutos.add(menuAlugados);
 
         mbMenu.add(menuProdutos);
 
@@ -424,6 +433,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar mbMenu;
     private javax.swing.JMenu menuAcesso;
+    private javax.swing.JMenu menuAlugados;
     private javax.swing.JMenu menuAluguel;
     private javax.swing.JMenu menuCadastro;
     private javax.swing.JMenu menuMinhasSolicitacoes;
@@ -439,6 +449,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miConfirmadas;
     private javax.swing.JMenuItem miEmAndamento;
     private javax.swing.JMenuItem miEmAvaliacao;
+    private javax.swing.JMenuItem miEncerrados;
     private javax.swing.JMenuItem miExpiradas;
     private javax.swing.JMenuItem miInadimplentes;
     private javax.swing.JMenuItem miPesquisarAluguel;

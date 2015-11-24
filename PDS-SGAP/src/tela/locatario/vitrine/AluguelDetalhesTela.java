@@ -15,6 +15,7 @@ import modelo.Condomino;
 import modelo.ImagemProduto;
 import modelo.Produto;
 import modelo.painel.PainelModeloImagens;
+import util.FormatadorTelefone;
 
 public class AluguelDetalhesTela extends javax.swing.JFrame {
     private final Produto produto;
@@ -399,68 +400,9 @@ public class AluguelDetalhesTela extends javax.swing.JFrame {
         tfDono.setText(this.produto.getCondomino().getNome());
         tfProduto.setText(this.produto.getNome());
         tfDescricao.setText(this.produto.getDescricao());
-        preencherTelefones();
+        FormatadorTelefone.preencherTelefones(produto, tfContato1, tfContato2, tfContato3);
         img = img1;
         mudarCorPaineis();
-    }
-    
-    private void preencherTelefones(){
-        tfContato1.setText("S/ Telefone");
-        tfContato2.setText("");
-        tfContato3.setText("");
-        if (!produto.getCondomino().getTelefones().isEmpty()) {
-            int cont = 0;
-            for (String telefone: produto.getCondomino().getTelefones()) {
-                JLabel tfTelefone;
-                switch (cont) {
-                    case 0:  tfTelefone = tfContato1;
-                             break;
-                    case 1:  tfTelefone = tfContato2;
-                             break;
-                    default: tfTelefone = tfContato3;
-                             break;
-                }
-                
-                if (cont != (produto.getCondomino().getTelefones().size())) {
-                    if (telefone.length() < 10) {
-                        if (telefone.length() == 9) {
-                            String telefoneFormatado = telefone.substring(0,5) + "-" + telefone.substring(5,9);
-                            tfTelefone.setText(telefoneFormatado);
-                        } else {
-                            String telefoneFormatado = telefone.substring(0,4) + "-" + telefone.substring(4,8);
-                            tfTelefone.setText(telefoneFormatado);
-                        }
-                    } else {
-                        if (telefone.length() == 11) {
-                            String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,7) + "-" + telefone.substring(7,11);
-                            tfTelefone.setText(telefoneFormatado);
-                        } else {
-                            String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,6) + "-" + telefone.substring(6,10);
-                            tfTelefone.setText(telefoneFormatado);
-                        }
-                    }
-                } else {
-                    if (telefone.length() < 10) {
-                        if (telefone.length() == 9) {
-                            String telefoneFormatado = telefone.substring(0,5) + "-" + telefone.substring(5,9) + " /";
-                            tfTelefone.setText(telefoneFormatado);
-                        } else {
-                            String telefoneFormatado = telefone.substring(0,4) + "-" + telefone.substring(4,8) + " /";
-                            tfTelefone.setText(telefoneFormatado);
-                        }
-                    } else {
-                        if (telefone.length() == 12) {
-                            String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,7) + "-" + telefone.substring(7,11) + " /";
-                            tfTelefone.setText(telefoneFormatado);
-                        } else {
-                            String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,6) + "-" + telefone.substring(6,10) + " /";
-                            tfTelefone.setText(telefoneFormatado);
-                        }
-                    }
-                }
-                cont++;
-            }
-        }
     }
     
     public void preencherComentarios(){

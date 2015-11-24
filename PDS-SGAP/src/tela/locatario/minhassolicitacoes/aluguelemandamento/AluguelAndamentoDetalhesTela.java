@@ -1,9 +1,9 @@
 package tela.locatario.minhassolicitacoes.aluguelemandamento;
 
 import java.util.Calendar;
-import javax.swing.JLabel;
 import modelo.Aluguel;
 import util.ConversorData;
+import util.FormatadorTelefone;
 
 public class AluguelAndamentoDetalhesTela extends javax.swing.JFrame {
     private final Aluguel aluguel;
@@ -358,31 +358,7 @@ public class AluguelAndamentoDetalhesTela extends javax.swing.JFrame {
         labelDiasExcedidos.setText(diasExcedidos(this.aluguel.getDataVencimento())+"");
         labelValorAPagar.setText(calculaValor());
         labelLocador.setText(this.aluguel.getSolicitacaoAluguel().getProduto().getCondomino().getNome());
-        preencherTelefones();
-    }
-    
-    private void preencherTelefones(){
-        if (!aluguel.getSolicitacaoAluguel().getProduto().getCondomino().getTelefones().isEmpty()) {
-            JLabel tfTelefone = labelContato;
-            String telefone = aluguel.getSolicitacaoAluguel().getProduto().getCondomino().getTelefones().get(0);
-            if (telefone.length() < 10) {
-                if (telefone.length() == 9) {
-                    String telefoneFormatado = telefone.substring(0,5) + "-" + telefone.substring(5,9);
-                    tfTelefone.setText(telefoneFormatado);
-                } else {
-                    String telefoneFormatado = telefone.substring(0,4) + "-" + telefone.substring(4,8);
-                    tfTelefone.setText(telefoneFormatado);
-                }
-            } else {
-                if (telefone.length() == 11) {
-                    String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,7) + "-" + telefone.substring(7,11);
-                    tfTelefone.setText(telefoneFormatado);
-                } else {
-                    String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,6) + "-" + telefone.substring(6,10);
-                    tfTelefone.setText(telefoneFormatado);
-                }
-            }
-        }
+        FormatadorTelefone.preencherTelefones(aluguel, labelContato);
     }
     
     // calcular dias excedidos

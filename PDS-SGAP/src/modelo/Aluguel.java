@@ -26,7 +26,6 @@ public class Aluguel {
     
     @Temporal (TemporalType.DATE)
     private Calendar dataDevolucao;
-
     
     @Transient
     private Calendar dataVencimento;

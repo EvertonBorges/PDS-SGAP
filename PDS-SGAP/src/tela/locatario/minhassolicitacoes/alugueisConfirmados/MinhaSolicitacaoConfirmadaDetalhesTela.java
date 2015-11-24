@@ -7,6 +7,8 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import modelo.Aluguel;
 import modelo.SolicitacaoAluguel;
+import util.ConversorData;
+import util.FormatadorTelefone;
 
 public class MinhaSolicitacaoConfirmadaDetalhesTela extends javax.swing.JFrame {
     private final SolicitacaoAluguel solicitacaoAluguel;
@@ -45,18 +47,11 @@ public class MinhaSolicitacaoConfirmadaDetalhesTela extends javax.swing.JFrame {
         tfDataInicio = new javax.swing.JLabel();
         lDiasPretendidos = new javax.swing.JLabel();
         tfDiasPretendidos = new javax.swing.JLabel();
-        lQtde = new javax.swing.JLabel();
-        tfQtde = new javax.swing.JLabel();
+        lPrevisão = new javax.swing.JLabel();
+        tfPrevisao = new javax.swing.JLabel();
         lDescricao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taDescricao = new javax.swing.JTextArea();
-        painelRequerente = new javax.swing.JPanel();
-        lSolicitante = new javax.swing.JLabel();
-        tfSolicitante = new javax.swing.JLabel();
-        lContato = new javax.swing.JLabel();
-        tfContato = new javax.swing.JLabel();
-        lReputacao = new javax.swing.JLabel();
-        tfReputacao = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         bCancelar = new javax.swing.JButton();
 
@@ -103,34 +98,34 @@ public class MinhaSolicitacaoConfirmadaDetalhesTela extends javax.swing.JFrame {
         tfDiasPretendidos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         tfDiasPretendidos.setText("jLabel1");
 
-        lQtde.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lQtde.setForeground(new java.awt.Color(0, 0, 255));
-        lQtde.setText("Quantidade:");
+        lPrevisão.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lPrevisão.setForeground(new java.awt.Color(0, 0, 255));
+        lPrevisão.setText("Previsão:");
 
-        tfQtde.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfQtde.setForeground(new java.awt.Color(0, 0, 255));
-        tfQtde.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        tfQtde.setText("jLabel1");
+        tfPrevisao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        tfPrevisao.setForeground(new java.awt.Color(0, 0, 255));
+        tfPrevisao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        tfPrevisao.setText("jLabel1");
 
         javax.swing.GroupLayout painelSolicitacaoLayout = new javax.swing.GroupLayout(painelSolicitacao);
         painelSolicitacao.setLayout(painelSolicitacaoLayout);
         painelSolicitacaoLayout.setHorizontalGroup(
             painelSolicitacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelSolicitacaoLayout.createSequentialGroup()
+            .addGroup(painelSolicitacaoLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(painelSolicitacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(painelSolicitacaoLayout.createSequentialGroup()
-                        .addComponent(lQtde)
+                        .addComponent(lDiasPretendidos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfQtde))
-                    .addGroup(painelSolicitacaoLayout.createSequentialGroup()
-                        .addGroup(painelSolicitacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lDiasPretendidos)
-                            .addComponent(lDataInicio))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(painelSolicitacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfDiasPretendidos, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfDataInicio, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addComponent(tfDiasPretendidos))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelSolicitacaoLayout.createSequentialGroup()
+                        .addComponent(lDataInicio)
+                        .addGap(43, 43, 43)
+                        .addComponent(tfDataInicio))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelSolicitacaoLayout.createSequentialGroup()
+                        .addComponent(lPrevisão)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tfPrevisao)))
                 .addContainerGap())
         );
         painelSolicitacaoLayout.setVerticalGroup(
@@ -139,15 +134,15 @@ public class MinhaSolicitacaoConfirmadaDetalhesTela extends javax.swing.JFrame {
                 .addGroup(painelSolicitacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lDataInicio)
                     .addComponent(tfDataInicio))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelSolicitacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lDiasPretendidos)
                     .addComponent(tfDiasPretendidos))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelSolicitacaoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lQtde)
-                    .addComponent(tfQtde))
-                .addGap(0, 13, Short.MAX_VALUE))
+                    .addComponent(lPrevisão)
+                    .addComponent(tfPrevisao))
+                .addGap(0, 11, Short.MAX_VALUE))
         );
 
         lDescricao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -213,65 +208,6 @@ public class MinhaSolicitacaoConfirmadaDetalhesTela extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        painelRequerente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Detalhes do Requerente", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        lSolicitante.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lSolicitante.setText("Solicitante:");
-
-        tfSolicitante.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfSolicitante.setText("jLabel1");
-
-        lContato.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lContato.setText("Contato:");
-
-        tfContato.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfContato.setText("jLabel1");
-
-        lReputacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lReputacao.setForeground(new java.awt.Color(0, 0, 255));
-        lReputacao.setText("Reputação:");
-
-        tfReputacao.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfReputacao.setForeground(new java.awt.Color(0, 0, 255));
-        tfReputacao.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        tfReputacao.setText("jLabel1");
-
-        javax.swing.GroupLayout painelRequerenteLayout = new javax.swing.GroupLayout(painelRequerente);
-        painelRequerente.setLayout(painelRequerenteLayout);
-        painelRequerenteLayout.setHorizontalGroup(
-            painelRequerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelRequerenteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelRequerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelRequerenteLayout.createSequentialGroup()
-                        .addComponent(lSolicitante)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfSolicitante)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lReputacao))
-                    .addGroup(painelRequerenteLayout.createSequentialGroup()
-                        .addComponent(lContato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfContato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tfReputacao)))
-                .addContainerGap())
-        );
-        painelRequerenteLayout.setVerticalGroup(
-            painelRequerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelRequerenteLayout.createSequentialGroup()
-                .addGroup(painelRequerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lSolicitante)
-                    .addComponent(tfSolicitante)
-                    .addComponent(lReputacao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelRequerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lContato)
-                    .addComponent(tfContato)
-                    .addComponent(tfReputacao))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setText("Voltar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -289,10 +225,10 @@ public class MinhaSolicitacaoConfirmadaDetalhesTela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(painelProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelRequerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(bCancelar)))
+                        .addGap(199, 199, 199)
+                        .addComponent(bCancelar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -300,8 +236,6 @@ public class MinhaSolicitacaoConfirmadaDetalhesTela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelRequerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -332,12 +266,7 @@ public class MinhaSolicitacaoConfirmadaDetalhesTela extends javax.swing.JFrame {
         //Preenchendo painel Solicitão
         tfDataInicio.setText(stringToCalendar(this.solicitacaoAluguel.getDataInicioAluguel()));
         tfDiasPretendidos.setText(this.solicitacaoAluguel.getDiasPretendidos() + " dias.");
-        tfQtde.setText("" + this.solicitacaoAluguel.getQuantidade());
-        
-        //Preenchendo painel Requerente.
-        tfSolicitante.setText(this.solicitacaoAluguel.getLocatario().getNome());
-        tfContato.setText(this.solicitacaoAluguel.getLocatario().getTelefones().get(0));
-        tfReputacao.setText("Calcular ainda...");
+        tfPrevisao.setText(ConversorData.convertToString(solicitacaoAluguel.getDataPrevista().getTime()));
     }
     
     private void carregarProduto(){
@@ -360,28 +289,21 @@ public class MinhaSolicitacaoConfirmadaDetalhesTela extends javax.swing.JFrame {
     private javax.swing.JButton bCancelar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lContato;
     private javax.swing.JLabel lDataInicio;
     private javax.swing.JLabel lDescricao;
     private javax.swing.JLabel lDiaria;
     private javax.swing.JLabel lDiasPretendidos;
+    private javax.swing.JLabel lPrevisão;
     private javax.swing.JLabel lProduto;
-    private javax.swing.JLabel lQtde;
-    private javax.swing.JLabel lReputacao;
-    private javax.swing.JLabel lSolicitante;
     private javax.swing.JLabel lTaxa;
     private javax.swing.JPanel painelProduto;
-    private javax.swing.JPanel painelRequerente;
     private javax.swing.JPanel painelSolicitacao;
     private javax.swing.JTextArea taDescricao;
-    private javax.swing.JLabel tfContato;
     private javax.swing.JLabel tfDataInicio;
     private javax.swing.JLabel tfDiaria;
     private javax.swing.JLabel tfDiasPretendidos;
+    private javax.swing.JLabel tfPrevisao;
     private javax.swing.JLabel tfProduto;
-    private javax.swing.JLabel tfQtde;
-    private javax.swing.JLabel tfReputacao;
-    private javax.swing.JLabel tfSolicitante;
     private javax.swing.JLabel tfTaxa;
     // End of variables declaration//GEN-END:variables
 }

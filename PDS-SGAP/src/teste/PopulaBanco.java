@@ -599,7 +599,7 @@ public class PopulaBanco {
             while (Objects.equals(condominos.get(sorteioCondomino).getCodigo(), produtos.get(sorteioProduto).getCondomino().getCodigo())) {
                 sorteioCondomino = (int) (Math.random() * 4);
             }
-            SolicitacaoAluguel sa = new SolicitacaoAluguel(quantidadeDias, 1, produtos.get(sorteioProduto), condominos.get(sorteioCondomino), dataSolicitacao, dataInicioAluguel);
+            SolicitacaoAluguel sa = new SolicitacaoAluguel(quantidadeDias, produtos.get(sorteioProduto), condominos.get(sorteioCondomino), dataSolicitacao, dataInicioAluguel);
             SolicitacaoAluguelDAO solicitacaoAluguelDAO = new SolicitacaoAluguelDAO();
             solicitacaoAluguelDAO.addSolicitacao(sa);
         }

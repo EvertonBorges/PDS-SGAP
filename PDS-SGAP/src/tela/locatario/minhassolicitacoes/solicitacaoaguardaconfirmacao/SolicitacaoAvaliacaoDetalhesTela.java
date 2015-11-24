@@ -5,6 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import modelo.SolicitacaoAluguel;
 import util.ConversorData;
+import util.FormatadorTelefone;
 
 public class SolicitacaoAvaliacaoDetalhesTela extends javax.swing.JFrame {
     private final SolicitacaoAluguel solicitacao;
@@ -296,31 +297,7 @@ public class SolicitacaoAvaliacaoDetalhesTela extends javax.swing.JFrame {
         labelDataSolicitacao.setText(ConversorData.convertToString(this.solicitacao.getDataSolicitacao().getTime()));
         labelDiasPretendidos.setText(this.solicitacao.getDiasPretendidos()+" dias");
         labelLocador.setText(this.solicitacao.getProduto().getCondomino().getNome());
-        preencherTelefones();
-    }
-    
-    private void preencherTelefones(){
-        if (!solicitacao.getProduto().getCondomino().getTelefones().isEmpty()) {
-            JLabel tfTelefone = labelContato;
-            String telefone = solicitacao.getProduto().getCondomino().getTelefones().get(0);
-            if (telefone.length() < 10) {
-                if (telefone.length() == 9) {
-                    String telefoneFormatado = telefone.substring(0,5) + "-" + telefone.substring(5,9);
-                    tfTelefone.setText(telefoneFormatado);
-                } else {
-                    String telefoneFormatado = telefone.substring(0,4) + "-" + telefone.substring(4,8);
-                    tfTelefone.setText(telefoneFormatado);
-                }
-            } else {
-                if (telefone.length() == 11) {
-                    String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,7) + "-" + telefone.substring(7,11);
-                    tfTelefone.setText(telefoneFormatado);
-                } else {
-                    String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,6) + "-" + telefone.substring(6,10);
-                    tfTelefone.setText(telefoneFormatado);
-                }
-            }
-        }
+        FormatadorTelefone.preencherTelefones(solicitacao, labelContato);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
