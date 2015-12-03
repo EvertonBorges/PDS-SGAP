@@ -31,13 +31,10 @@ import util.ControlaConexaoJasper;
 
 public class Principal extends javax.swing.JFrame {
     private Condomino condomino;
-    /**
-     * Creates new form Principal
-     * @param condomino
-     */
+    
     public Principal(Condomino condomino) {
-        initComponents();
         this.condomino = condomino;
+        initComponents();
         menuCadastro.setVisible(false);
         menuRelatorios.setVisible(false);
         miAguardandoConfirmacao.setVisible(false);
@@ -58,6 +55,7 @@ public class Principal extends javax.swing.JFrame {
         modelo.setBfImage("src/icon/principal.jpg");
         painelBackground.add(modelo);
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

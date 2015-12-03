@@ -52,11 +52,6 @@ public class MinhaSolicitacaoExpiradaDetalhesTela extends javax.swing.JFrame {
         lDescricao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taDescricao = new javax.swing.JTextArea();
-        painelRequerente = new javax.swing.JPanel();
-        lSolicitante = new javax.swing.JLabel();
-        tfSolicitante = new javax.swing.JLabel();
-        lContato = new javax.swing.JLabel();
-        tfContato = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         bCancelar = new javax.swing.JButton();
 
@@ -213,50 +208,6 @@ public class MinhaSolicitacaoExpiradaDetalhesTela extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        painelRequerente.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Detalhes do Requerente", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 12), new java.awt.Color(255, 0, 0))); // NOI18N
-
-        lSolicitante.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lSolicitante.setText("Solicitante:");
-
-        tfSolicitante.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfSolicitante.setText("jLabel1");
-
-        lContato.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lContato.setText("Contato:");
-
-        tfContato.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfContato.setText("jLabel1");
-
-        javax.swing.GroupLayout painelRequerenteLayout = new javax.swing.GroupLayout(painelRequerente);
-        painelRequerente.setLayout(painelRequerenteLayout);
-        painelRequerenteLayout.setHorizontalGroup(
-            painelRequerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelRequerenteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(painelRequerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(painelRequerenteLayout.createSequentialGroup()
-                        .addComponent(lSolicitante)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfSolicitante))
-                    .addGroup(painelRequerenteLayout.createSequentialGroup()
-                        .addComponent(lContato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tfContato)))
-                .addContainerGap(351, Short.MAX_VALUE))
-        );
-        painelRequerenteLayout.setVerticalGroup(
-            painelRequerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelRequerenteLayout.createSequentialGroup()
-                .addGroup(painelRequerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lSolicitante)
-                    .addComponent(tfSolicitante))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(painelRequerenteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lContato)
-                    .addComponent(tfContato))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
         bCancelar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         bCancelar.setText("Voltar");
         bCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -274,7 +225,6 @@ public class MinhaSolicitacaoExpiradaDetalhesTela extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(painelProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelRequerente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(bCancelar)
@@ -286,8 +236,6 @@ public class MinhaSolicitacaoExpiradaDetalhesTela extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelRequerente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -356,26 +304,21 @@ public class MinhaSolicitacaoExpiradaDetalhesTela extends javax.swing.JFrame {
     private javax.swing.JButton bCancelar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JLabel lContato;
     private javax.swing.JLabel lDataInicio;
     private javax.swing.JLabel lDescricao;
     private javax.swing.JLabel lDiaria;
     private javax.swing.JLabel lDiasPretendidos;
     private javax.swing.JLabel lPrevisao;
     private javax.swing.JLabel lProduto;
-    private javax.swing.JLabel lSolicitante;
     private javax.swing.JLabel lTaxa;
     private javax.swing.JPanel painelProduto;
-    private javax.swing.JPanel painelRequerente;
     private javax.swing.JPanel painelSolicitacao;
     private javax.swing.JTextArea taDescricao;
-    private javax.swing.JLabel tfContato;
     private javax.swing.JLabel tfDataInicio;
     private javax.swing.JLabel tfDiaria;
     private javax.swing.JLabel tfDiasPretendidos;
     private javax.swing.JLabel tfPrevisao;
     private javax.swing.JLabel tfProduto;
-    private javax.swing.JLabel tfSolicitante;
     private javax.swing.JLabel tfTaxa;
     // End of variables declaration//GEN-END:variables
 }

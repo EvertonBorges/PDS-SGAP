@@ -21,6 +21,7 @@ public class LoginFX extends Application {
     private PasswordField tfSenha;
     private Button bEntrar, bSair;
     private static Stage stage;
+    private static String[] args;
     
     @Override
     public void start(Stage stage) {
@@ -58,6 +59,13 @@ public class LoginFX extends Application {
         });
         bSair = new Button("Sair");
         bSair.setPrefSize(100, bSair.getFont().getSize() + 5);
+        bSair.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+                botaoSair();
+            }
+        });
         
         tfLogin.setLayoutX((pane.getPrefWidth() - 1.5*bEntrar.getPrefWidth() - tfLogin.getPrefWidth())/2);
         tfSenha.setLayoutX((pane.getPrefWidth() - 1.5*bEntrar.getPrefWidth() - tfLogin.getPrefWidth())/2);
@@ -96,12 +104,17 @@ public class LoginFX extends Application {
             JOptionPane.showMessageDialog(null, "Login ou senha incorreta", "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }
+    
+    private void botaoSair(){
+        stage.close();
+    }
 
     public static Stage getStage() {
         return stage;
     }
     
     public static void main(String[] args) {
+        LoginFX.args = args;
         launch(args);
     }
 }

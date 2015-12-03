@@ -36,11 +36,9 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
     private void initComponents() {
 
         lNome = new javax.swing.JLabel();
-        lQuantidade = new javax.swing.JLabel();
         lDiária = new javax.swing.JLabel();
         lTaxaAtraso = new javax.swing.JLabel();
         tfNome = new javax.swing.JLabel();
-        tfQuantidade = new javax.swing.JLabel();
         tfTaxaAtraso = new javax.swing.JLabel();
         tfDiaria = new javax.swing.JLabel();
         painelCategorias = new javax.swing.JPanel();
@@ -71,9 +69,6 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
         lNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lNome.setText("Nome:");
 
-        lQuantidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lQuantidade.setText("Quantidade:");
-
         lDiária.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lDiária.setText("Diária:");
 
@@ -82,9 +77,6 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
 
         tfNome.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfNome.setText("jLabel6");
-
-        tfQuantidade.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        tfQuantidade.setText("jLabel7");
 
         tfTaxaAtraso.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         tfTaxaAtraso.setText("jLabel8");
@@ -229,10 +221,6 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(lQuantidade)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tfQuantidade))
-                                    .addGroup(layout.createSequentialGroup()
                                         .addComponent(lDiária)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(tfDiaria))
@@ -264,11 +252,7 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addComponent(painelImagens, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfQuantidade)
-                            .addComponent(lQuantidade))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lTaxaAtraso)
                             .addComponent(tfTaxaAtraso))
@@ -427,7 +411,6 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lDiária;
     private javax.swing.JLabel lNome;
-    private javax.swing.JLabel lQuantidade;
     private javax.swing.JLabel lTaxaAtraso;
     private javax.swing.JList listaCategorias;
     private javax.swing.JPanel painelCategorias;
@@ -436,7 +419,6 @@ public class ProdutoDetalhesTela extends javax.swing.JFrame {
     private javax.swing.JTextArea taDescricao;
     private javax.swing.JLabel tfDiaria;
     private javax.swing.JLabel tfNome;
-    private javax.swing.JLabel tfQuantidade;
     private javax.swing.JLabel tfTaxaAtraso;
     // End of variables declaration//GEN-END:variables
 }

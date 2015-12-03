@@ -327,13 +327,16 @@ public class SolicitacaoDetalhesTela extends javax.swing.JFrame {
         //Preenchendo painel Solicitão
         tfDataInicio.setText(ConversorData.convertToString(this.solicitacaoAluguel.getDataInicioAluguel().getTime()));
         tfDiasPretendidos.setText(this.solicitacaoAluguel.getDiasPretendidos() + " dias.");
-        //tfQtde.setText("" + this.solicitacaoAluguel.getQuantidade());
-        FormatadorTelefone.preencherTelefones(solicitacaoAluguel, tfContato);
         
         //Preenchendo painel Requerente.
         tfSolicitante.setText(this.solicitacaoAluguel.getLocatario().getNome());
-        tfContato.setText(this.solicitacaoAluguel.getLocatario().getTelefones().get(0));
-        tfReputacao.setText("" + this.solicitacaoAluguel.getLocatario().getReputacao() + "%");
+        FormatadorTelefone.preencherTelefones(solicitacaoAluguel, tfContato);
+        double reputacaoLocatario = solicitacaoAluguel.getLocatario().getReputacao();
+        if (reputacaoLocatario == -1) {
+            tfReputacao.setText("S/N");
+        } else {
+            tfReputacao.setText(String.format("%.2f", reputacaoLocatario) + "%");
+        }
     }
     
     private void carregarProduto(){

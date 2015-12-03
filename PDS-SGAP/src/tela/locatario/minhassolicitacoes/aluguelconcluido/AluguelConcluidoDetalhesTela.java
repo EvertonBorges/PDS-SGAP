@@ -5,7 +5,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import javafx.stage.Stage;
 import modelo.Aluguel;
+import util.FormatadorTelefone;
 public class AluguelConcluidoDetalhesTela extends javax.swing.JFrame {
     private final Aluguel aluguel;
 
@@ -34,16 +36,13 @@ public class AluguelConcluidoDetalhesTela extends javax.swing.JFrame {
         labelValorSemJuros.setText("");
         labelValorPago.setText("");
         labelLocador.setText(this.aluguel.getSolicitacaoAluguel().getProduto().getCondomino().getNome());
-        labelContato.setText(contato(this.aluguel.getSolicitacaoAluguel().getProduto().getCondomino().getTelefones()));
-        labelReputacao.setText("calcular");
-    }
-    
-    private String contato(List<String> telefones){
-        String mensagem = "";
-        for(String tel : telefones)
-            mensagem = mensagem + tel + " ";
-        
-        return mensagem;
+        FormatadorTelefone.preencherTelefones(aluguel, labelContato);
+        double reputacaoLocatario = aluguel.getSolicitacaoAluguel().getLocatario().getReputacao();
+        if (reputacaoLocatario == -1) {
+            labelReputacao.setText("S/N");
+        } else {
+            labelReputacao.setText(String.format("%.2f", reputacaoLocatario) + "%");
+        }
     }
     
     // transforma Calendar em String
@@ -462,7 +461,10 @@ public class AluguelConcluidoDetalhesTela extends javax.swing.JFrame {
 
     private void bAdicionarComentárioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAdicionarComentárioActionPerformed
         ComentarioAdicionarTela adicionarTela= new ComentarioAdicionarTela(aluguel);
-        adicionarTela.setVisible(true);        
+        adicionarTela.setVisible(true); 
+        
+        //ComentarioFX comentarioFX = new ComentarioFX(aluguel);
+        //comentarioFX.start(new Stage());
     }//GEN-LAST:event_bAdicionarComentárioActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed

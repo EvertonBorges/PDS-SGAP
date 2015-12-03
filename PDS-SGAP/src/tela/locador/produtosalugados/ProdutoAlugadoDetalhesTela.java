@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import javax.swing.JLabel;
 import modelo.Aluguel;
+import util.FormatadorTelefone;
 
 public class ProdutoAlugadoDetalhesTela extends javax.swing.JFrame {
     private final Aluguel aluguel;
@@ -414,21 +415,13 @@ public class ProdutoAlugadoDetalhesTela extends javax.swing.JFrame {
         labelSituacao.setText(situacao(this.aluguel.getDataVencimento()));
         labelValorAPagar.setText(calculaValor());
         labelLocatario.setText(this.aluguel.getSolicitacaoAluguel().getLocatario().getNome());
-        preencherTelefones();
+        FormatadorTelefone.preencherTelefones(aluguel, labelContato);
         double reputacaoLocatario = aluguel.getSolicitacaoAluguel().getLocatario().getReputacao();
         if (reputacaoLocatario == -1) {
             labelReputacao.setText("S/N");
         } else {
             labelReputacao.setText(String.format("%.2f", reputacaoLocatario) + "%");
         }
-    }
-    
-    private String contato(List<String> telefones){
-        String mensagem = "";
-        for(String tel : telefones)
-            mensagem = mensagem + tel + " ";
-        
-        return mensagem;
     }
     
     // transforma Calendar em String
@@ -530,30 +523,6 @@ public class ProdutoAlugadoDetalhesTela extends javax.swing.JFrame {
         }
  
         return mensagem;
-    }
-    
-    private void preencherTelefones(){
-        if (!aluguel.getSolicitacaoAluguel().getLocatario().getTelefones().isEmpty()) {
-            JLabel tfTelefone = labelContato;
-            String telefone = aluguel.getSolicitacaoAluguel().getLocatario().getTelefones().get(0);
-            if (telefone.length() < 10) {
-                if (telefone.length() == 9) {
-                    String telefoneFormatado = telefone.substring(0,5) + "-" + telefone.substring(5,9);
-                    tfTelefone.setText(telefoneFormatado);
-                } else {
-                    String telefoneFormatado = telefone.substring(0,4) + "-" + telefone.substring(4,8);
-                    tfTelefone.setText(telefoneFormatado);
-                }
-            } else {
-                if (telefone.length() == 11) {
-                    String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,7) + "-" + telefone.substring(7,11);
-                    tfTelefone.setText(telefoneFormatado);
-                } else {
-                    String telefoneFormatado = "(" + telefone.substring(0,2) + ") " + telefone.substring(2,6) + "-" + telefone.substring(6,10);
-                    tfTelefone.setText(telefoneFormatado);
-                }
-            }
-        }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
